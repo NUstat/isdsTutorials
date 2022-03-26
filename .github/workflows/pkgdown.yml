@@ -33,8 +33,7 @@ jobs:
           extra-packages: any::pkgdown, local::.
           needs: website
 
-   
-        - name: Set environment variable $GIT_BRANCH_NAME
+      - name: Set environment variable $GIT_BRANCH_NAME
         id: git-branch-name
         uses: EthanSK/git-branch-name-action@v1
 
