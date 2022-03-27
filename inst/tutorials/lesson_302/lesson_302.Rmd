@@ -56,7 +56,7 @@ submitr::login_controls()
 
 vfun <- make_basic_validator(cred, "302") #password for instructor account 
 #basket::check_valid
-storage_actions <- record_local("./my_submissions.csv")
+storage_actions <- record_local("my_submissions.csv")
   #record_gs4( key = "1ZFdsoowa8h4twu8tDzUyfgCehFt4uzzk4G-IWBLK3Z8",
   #  email = "statisticstutorials101@gmail.com",
   #  vfun  )
