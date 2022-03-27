@@ -9,18 +9,26 @@ tutorial:
 
 ```{r setup, include=FALSE}
 library(learnr)
-
-library(submitr)
-#library(basket)
-#library(etude)
-library(googlesheets4)
-#library(googledrive)
-
-library(gradethis)
-
 library(tidyverse)
 library(nycflights13)
-#library(janitor)
+
+
+#library(googlesheets4)
+p1 <- try(find.package("gradethis"), silent = TRUE)
+if(class(p1) == "try-error"){
+  remotes::install_github("rstudio/gradethis")
+}
+p2 <- try(find.package("submitr"), silent = TRUE)
+if(class(p2) == "try-error"){
+  devtools::install_github("dtkaplan/submitr")
+}
+p3 <- try(find.package("googlesheets4"), silent = TRUE)
+if(class(p3) == "try-error"){
+  remotes::install_github("tidyverse/googlesheets4")
+}
+library(gradethis)
+library(submitr)
+library(googlesheets4)
 
 gradethis_setup()
 knitr::opts_chunk$set(echo = FALSE)
