@@ -13,7 +13,11 @@ Depends:
 Imports:
     learnr (>= 0.10.1.9008),
     nycflights13,
-    tidyverse
+    ggplot2,
+    devtools,
+    remotes,
+    dplyr,
+    stringr
 Suggests:
     knitr,
     rmarkdown,
