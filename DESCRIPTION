@@ -13,7 +13,13 @@ Depends:
 Imports:
     learnr (>= 0.10.1.9008),
     nycflights13,
-    tidyverse
+    ggplot2,
+    devtools,
+    readr,
+    remotes,
+    tidyr,
+    dplyr,
+    stringr
 Suggests:
     knitr,
     rmarkdown,
@@ -24,7 +30,7 @@ Remotes:
     rstudio/learnr
 Config/Needs/connect: rsconnect
 Config/Needs/coverage: covr
-Config/Needs/website: pkgdown, tidyverse/tidytemplate
+Config/Needs/website: pkgdown
 Encoding: UTF-8
 Language: en-US
 LazyData: true
