@@ -11,44 +11,40 @@ tutorial:
 library(learnr)
 library(tidyverse)
 library(nycflights13)
+#library(etude)
 
-
-#library(googlesheets4)
 p1 <- try(find.package("gradethis"), silent = TRUE)
 if(class(p1) == "try-error"){
   remotes::install_github("rstudio/gradethis")
 }
-p2 <- try(find.package("submitr"), silent = TRUE)
-if(class(p2) == "try-error"){
-  devtools::install_github("dtkaplan/submitr")
-}
-p3 <- try(find.package("googlesheets4"), silent = TRUE)
-if(class(p3) == "try-error"){
-  remotes::install_github("tidyverse/googlesheets4")
-}
+#p2 <- try(find.package("submitr"), silent = TRUE)
+#if(class(p2) == "try-error"){
+#  devtools::install_github("dtkaplan/submitr")
+#}
+#p3 <- try(find.package("googlesheets4"), silent = TRUE)
+#if(class(p3) == "try-error"){
+#  remotes::install_github("tidyverse/googlesheets4")
+#}
+
+#library(submitr)
 library(gradethis)
-library(submitr)
-library(googlesheets4)
+#library(googlesheets4)
 
 gradethis_setup()
+
 knitr::opts_chunk$set(echo = FALSE)
 
-learnr::tutorial_options(
-  #exercise.timelimit = 60, 
-  exercise.checker = gradethis::grade_learnr)
-  #submitr::null_code_checker)
-
-cred <- "data/credentials.csv"
+#learnr::tutorial_options(
+#  exercise.checker = gradethis::grade_learnr)
+#cred <- "data/credentials.csv"
 
 ```
 
 
-<!--Begin submitr setup-->
-
+<!--Begin submitr setup
 ```{r}
 submitr::login_controls()
 ```
-
 
 ```{r context = "server", echo = FALSE}
 
@@ -56,8 +52,9 @@ submitr::login_controls()
 
 vfun <- make_basic_validator(cred, "302") #password for instructor account 
 #basket::check_valid
-storage_actions <- record_local("my_submissions.csv")
-  #record_gs4( key = "1ZFdsoowa8h4twu8tDzUyfgCehFt4uzzk4G-IWBLK3Z8",
+
+storage_actions <- record_local("./my_submissions.csv")
+  #record_gs4( key = #"1ZFdsoowa8h4twu8tDzUyfgCehFt4uzzk4G-IWBLK3Z8",
   #  email = "statisticstutorials101@gmail.com",
   #  vfun  )
 
@@ -65,8 +62,24 @@ storage_actions <- record_local("my_submissions.csv")
 submitr::shiny_logic(input, output, session, vfun,
                      storage_actions)
 ```
+End of submitr setup-->
 
-<!--End of submitr setup-->
+<!-- Print option-->
+```{js print2pdf1, context="server"}
+    // the following 2 chunks print the completed sections of the tutorial to PDF
+    // uses "css/print2pdf.css"
+    $(document).on('shiny:inputchanged', function(event) {
+      if (event.name === 'print2pdf') {
+        window.print();
+      }
+    });
+```
+    
+```{r print2pdf2}
+    # button can be placed anywhere in the tutorial
+    actionButton("print2pdf", "Print page", style="opacity: .7; color: #000;")
+```
+
 
 
 ## Set up
