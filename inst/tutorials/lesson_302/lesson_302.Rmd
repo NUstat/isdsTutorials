@@ -3,8 +3,7 @@ title: "Lesson 302"
 output: learnr::tutorial
 runtime: shiny_prerendered
 tutorial:
-  id: "302-assignment-1"
-  version: 0
+  id: "302-assignment"
 ---
 
 ```{r setup, include=FALSE}
@@ -41,46 +40,49 @@ knitr::opts_chunk$set(echo = FALSE)
 ```
 
 
-<!--Begin submitr setup
-```{r}
-submitr::login_controls()
-```
-
-```{r context = "server", echo = FALSE}
-
-#options(tutorial.storage = "none")
-
-vfun <- make_basic_validator(cred, "302") #password for instructor account 
-#basket::check_valid
-
-storage_actions <- record_local("./my_submissions.csv")
-  #record_gs4( key = #"1ZFdsoowa8h4twu8tDzUyfgCehFt4uzzk4G-IWBLK3Z8",
-  #  email = "statisticstutorials101@gmail.com",
-  #  vfun  )
-
-
-submitr::shiny_logic(input, output, session, vfun,
-                     storage_actions)
-```
-End of submitr setup-->
-
-<!-- Print option-->
-```{js print2pdf1, context="server"}
-    // the following 2 chunks print the completed sections of the tutorial to PDF
-    // uses "css/print2pdf.css"
-    $(document).on('shiny:inputchanged', function(event) {
-      if (event.name === 'print2pdf') {
-        window.print();
-      }
-    });
-```
-    
-```{r print2pdf2}
-    # button can be placed anywhere in the tutorial
-    actionButton("print2pdf", "Print page", style="opacity: .7; color: #000;")
+```{css echo=FALSE}
+@media print {
+  .topicsContainer,
+  .topicActions,
+  .exerciseActions .skip {
+    display: none;
+  }
+  .topics .tutorialTitle,
+  .topics .section.level2,
+  .topics .section.level3:not(.hide) {
+    display: block;
+  }
+  .topics {
+    width: 100%;
+  }
+  .tutorial-exercise, .tutorial-question {
+    page-break-inside: avoid;
+  }
+  .section.level3.done h3 {
+    padding-left: 0;
+    background-image: none;
+  }
+  .topics .showSkip .exerciseActions::before {
+    content: "Topic not yet completed...";
+    font-style: italic;
+  }
+}
 ```
 
 
+```{r quiz}
+question_text("Enter your name here:",
+  answer_fn(function(value){
+    if (length(value) >= 1 ) {
+      return(mark_as(TRUE))
+    }
+    return(mark_as(FALSE) )
+    }),
+  correct = "Completed",
+  allow_retry = TRUE,
+  try_again_button = "Edit Name"
+)
+```
 
 ## Set up
 
