@@ -1,6 +1,6 @@
 ---
 title: "Tutorial"
-output: ISDStutorials::ISDStutorials
+output: ISDStutorials::tutorial
 runtime: shiny_prerendered
 ---
 
