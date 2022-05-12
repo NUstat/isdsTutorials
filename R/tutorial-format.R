@@ -105,8 +105,8 @@ tutorial <- function(fig_width = 6.5,
   # tutorial-format.js file.
   extra_dependencies <- append(extra_dependencies, list(
     tutorial_html_dependency(),
-    tutorial_autocompletion_html_dependency(),
-    tutorial_diagnostics_html_dependency(),
+    #tutorial_autocompletion_html_dependency(),
+    #tutorial_diagnostics_html_dependency(),
     htmltools::htmlDependency(
       name = "tutorial-format",
       version = utils::packageVersion("ISDStutorials"),
