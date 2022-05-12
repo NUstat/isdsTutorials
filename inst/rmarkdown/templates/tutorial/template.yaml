@@ -1,4 +1,4 @@
-name: Interactive Tutorial
-description: > 
-  Interactive tutorial containing figures, videos, R exercises and quiz questions.
+name: ISDS Tutorial
+description: >
+  Interactive tutorial copied from learnr to add on a name and print option.
 create_dir: true
