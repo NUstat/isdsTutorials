@@ -19,6 +19,7 @@ knitr::opts_chunk$set(echo = FALSE)
 Write the R code required to add two plus two:
 
 ```{r two-plus-two, exercise=TRUE}
+
 ```
 
 ### Exercise with Code
