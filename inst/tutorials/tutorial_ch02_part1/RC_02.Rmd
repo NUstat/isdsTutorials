@@ -1,0 +1,192 @@
+---
+title: "Tutorial: Chapter 2.0-2.3"
+output:
+  learnr::tutorial:
+    progressive: true
+    allow_skip: true
+runtime: shiny_prerendered
+description: >
+  Learn how to create a scatterplot.
+---
+
+```{r setup, include=FALSE}
+#devtools::install_github("ropenscilabs/icon")
+#download_ionicons()
+#remotes::install_github("rstudio/gradethis")
+#remotes::install_github("dtkaplan/etude")
+library(learnr)
+library(tidyverse)
+library(nycflights13)
+library(janitor)
+#library(etude)
+library(shiny)
+library(gradethis)
+library(sjmisc)
+library(icons)
+
+#source("fun_dropdown.R")
+#source("fun_question.R")
+#source("fun_question_module.R")
+#source("../fun_blanks.R")
+
+gradethis_setup()
+knitr::opts_chunk$set(echo = FALSE)
+
+```
+
+### Goals
+
+-   Understand the essential components of the Grammar of Graphics.
+-   Create a scatterplot.
+-   Describe a scatterplot.
+-   Understand the different aesthetics.
+
+
+## Exercise
+
+Construct a scatterplot of `eruptions` by `waiting` using the `faithful` dataset by filling in the blanks (the data is already preloaded in R).
+
+```{r scatter, exercise=TRUE}
+ggplot(data = faithful, mapping = aes(x = ___, y = ___)) +
+  ____
+```
+
+```{r scatter-hint-1}
+Common language: y by x
+```
+
+```{r scatter-hint-2}
+Make sure you open and close parenthesis after geom_point
+```
+
+```{r scatter-solution, exercise.reveal_solution = FALSE}
+ggplot(data = faithful, mapping = aes(x = waiting, y = eruptions)) +
+  geom_point()
+```
+
+```{r scatter-code-check}
+grade_this_code()
+```
+
+```{r scatter-quiz-1}
+quiz(
+  caption = "",
+  question("Which of the following describes the relationship between eruptions and waiting? Check all that apply.",
+           answer("Positive association",
+                  correct = TRUE),
+           answer("Negative association",
+                  message = "Look at the trend going from left to right"),
+           answer("No association",
+                  message = "Are you sure?"),
+           answer("Linear",
+                  correct = TRUE),
+           answer("Non-linear",
+                  message = "Check the graph again."),
+           allow_retry = TRUE)
+)
+```
+
+
+## Quiz
+
+*The following questions check your understanding of the grammar of graphics and scatterplots.*
+
+```{r quiz}
+#reading check 2
+#all questions go inside this quiz function
+quiz(
+  caption = NULL,
+  
+  #Question 1
+  #fill in the blank text example with multiple correct options
+  question("What is the name of the theoretical framework for data
+           visualization that is the foundation of the ggplot2
+           package?",
+    type = "learnr_text",
+    answer("the grammar of graphics", correct = TRUE),
+    answer("grammar of graphics", correct = TRUE),
+    answer("layered grammar of graphics", correct = TRUE),
+    answer("the layered grammar of graphics", correct = TRUE),
+    allow_retry = TRUE
+  ),
+  
+  #Question 2
+  #multiple correct checkbox example
+  question("Which of the following are examples of aesthetic
+           attributes of geometric objects?",
+    answer("color", correct = TRUE),
+    answer("point"),
+    answer("line"),
+    answer("shape", correct = TRUE),
+    answer("position (e.g. x and/or y coordinates)", 
+           correct = TRUE),
+    answer("size", correct = TRUE),
+    allow_retry = TRUE
+  ),
+
+#Question 3
+#cannot enter question due to image
+#  question("Match the variables with the aesthetics they are mapped onto in Figure 2.1"),
+  
+ #Question 4
+ #cannot enter as dropdown; modify if simple to do so otherwise just skip
+  question("In a data frame, columns correspond to",
+           answer("variables", correct = TRUE),
+           answer("observations"),
+           answer("values"),
+           allow_retry = TRUE),
+  question("In a data frame, rows correspond to",
+           answer("variables"),
+           answer("observations", correct = TRUE),
+           answer("values"),
+           allow_retry = TRUE),
+  #Question 5
+  # ONE correct choice example
+  question("What does the term `argument` refer to in R?",
+           answer("output of a function"),
+           answer("input to a function", correct = TRUE),
+           answer("assigned name of an object"),
+           allow_retry = TRUE),
+  #Question 6 - I excluded because didn't like the question
+
+  #Question 7
+  #fill in the blank text example with one correct options
+  question("How many Alaska Airlines flights are in the flights 
+           data frame?", 
+           type = "learnr_text",
+           answer("42", correct = TRUE),
+           allow_retry = TRUE),
+
+  #Question 8
+  question("What type of relationship exists between departure
+           delays and arrival delays for Alaska Airlines flights
+           from NYC in 2013?",
+           answer("positive", correct = TRUE),
+           answer("negative"),
+           answer("no relationship"),
+           allow_retry = TRUE),
+  #Question 9
+  question("Select the statements that are TRUE about the + sign
+           when using ggplot()",
+           answer("Not using the + sign to add a geometric 
+                  object will result in an empty plot.", 
+                  correct = TRUE),
+           answer("The + sign adds a layer to the plot.", 
+                  correct = TRUE),
+           answer("The + sign should go at the beginning 
+                  of a new line."),
+           allow_retry = TRUE),
+  #Question 10
+  question("What is the name of the aesthetic argument that 
+           allows you to change the transparency of a geometric
+           object in ggplot()?",
+           answer("alpha", correct = TRUE),
+           answer("color"),
+           answer("jitter"),
+           answer("transparency"),
+           allow_retry = TRUE)
+  
+  
+)
+
+```
