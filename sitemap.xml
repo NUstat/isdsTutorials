@@ -13,6 +13,24 @@
     <loc>/index.html</loc>
   </url>
   <url>
+    <loc>/reference/format_quiz.html</loc>
+  </url>
+  <url>
     <loc>/reference/index.html</loc>
+  </url>
+  <url>
+    <loc>/reference/knit_print.html</loc>
+  </url>
+  <url>
+    <loc>/reference/question_blank.html</loc>
+  </url>
+  <url>
+    <loc>/reference/question_dropdown.html</loc>
+  </url>
+  <url>
+    <loc>/reference/tutorial.html</loc>
+  </url>
+  <url>
+    <loc>/reference/tutorial_html_dependency.html</loc>
   </url>
 </urlset>
