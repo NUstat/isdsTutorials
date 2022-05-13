@@ -11,18 +11,21 @@ License: MIT + file LICENSE
 Depends:
     R (>= 3.2.0)
 Imports:
+    devtools,
+    dplyr,
+    ggplot2,
+    htmltools (>= 0.3.5),
     learnr (>= 0.10.1.9008),
     nycflights13,
-    ggplot2,
-    devtools,
     readr,
     remotes,
+    rmarkdown (>= 1.12.0),
+    shiny (>= 1.0),
+    stringr,
     tidyr,
-    dplyr,
-    stringr
+    utils,
 Suggests:
     knitr,
-    rmarkdown,
     spelling
 VignetteBuilder: 
     knitr
