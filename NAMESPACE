@@ -2,5 +2,5 @@
 export(tutorial)
 export(tutorial_html_dependency)
 import(learnr)
-import(rmarkdown)
-import(shiny)
+#import(rmarkdown)
+#import(shiny)
