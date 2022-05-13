@@ -1,5 +1,6 @@
 
 #' Tutorial HTML dependency
+#' @description HTML dependency for core tutorial JS and CSS.
 #'
 #' @details HTML dependency for core tutorial JS and CSS. This should be included as a
 #' dependency for custom tutorial formats that wish to ensure that that

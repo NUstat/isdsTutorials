@@ -1,13 +1,12 @@
 ---
 title: "Tutorial"
-output: learnr::tutorial
+output: ISDStutorials::tutorial
 runtime: shiny_prerendered
 ---
 
 ```{r setup, include=FALSE}
 library(learnr)
 knitr::opts_chunk$set(echo = FALSE)
-ISDS_html_dependency()
 ```
 
 
@@ -73,4 +72,3 @@ quiz(
   )
 )
 ```
-
