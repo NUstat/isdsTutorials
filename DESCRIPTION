@@ -27,6 +27,7 @@ Imports:
     promises,
     readr,
     remotes,
+    rlang,
     rmarkdown (>= 1.12.0),
     rprojroot,
     shiny (>= 1.0),
