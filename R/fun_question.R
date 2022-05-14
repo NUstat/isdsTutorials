@@ -179,8 +179,6 @@ blank_question <- function(
 
 
 
-
-
 quiz_notes <- function(..., caption = rlang::missing_arg()) {
 
   # create table rows from questions

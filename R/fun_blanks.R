@@ -14,28 +14,13 @@
 #' [regular expressions][base::regex].
 #'
 #' @examples
-#' question_text(
-#'   "Please enter the word 'C0rrect' below:",
-#'   answer("correct", message = "Don't forget to capitalize"),
-#'   answer("c0rrect", message = "Don't forget to capitalize"),
-#'   answer("Correct", message = "Is it really an 'o'?"),
-#'   answer("C0rrect ", message = "Make sure you do not have a trailing space"),
-#'   answer("C0rrect", correct = TRUE),
-#'   allow_retry = TRUE,
-#'   trim = FALSE
+#' question_blank(
+#'   "Fill in the ___.",
+#'   answer("blank", correct = TRUE),
+#'   type = "learnr_blank",
+#'   allow_retry = TRUE
 #' )
 #'
-#' # This question uses an answer_fn() to give a hint when we think the
-#' # student is on the right track but hasn't found the value yet.
-#' question_text(
-#'   "What's the most popular programming interview question?",
-#'   answer("fizz buzz", correct = TRUE, "That's right!"),
-#'   answer_fn(function(value) {
-#'     if (grepl("(fi|bu)zz", value)) {
-#'       incorrect("You're on the right track!")
-#'     }
-#'   }, label = "fizz or buzz")
-#' )
 #'
 #' @param rows,cols Defines the size of the text input area in terms of the
 #'   number of rows or character columns visible to the user. If either `rows`
@@ -58,11 +43,6 @@
 #' @family Interactive Questions
 #' @export
 #'
-#text = "Type a here ___ and b here ___"
-#answers = list( learnr:::answer("a", correct = TRUE), learnr:::answer("b", correct = TRUE))
-#type = "learnr_blank"
-#allow_retry = TRUE
-
 
 question_blank <- function(
   text,
