@@ -391,7 +391,7 @@ mutate_tags.shiny.tag <- function(ele, selector, fn, ...) {
   # if there are children and remaining selectors, recurse through
   if (length(selector) > 0 && length(ele$children) > 0) {
     ele$children <- lapply(ele$children, function(x) {
-      mutate_tags(x, selector, fn, ...)
+      learnr:::mutate_tags(x, selector, fn, ...)
     })
   }
 
