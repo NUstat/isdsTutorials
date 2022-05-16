@@ -78,7 +78,7 @@ tutorial_i18n_html_dependency <- function(language = NULL) {
       type = "application/json",
       htmltools::HTML(
         jsonlite::toJSON(
-          i18n_process_language_options(language),
+          learnr:::i18n_process_language_options(language),
           auto_unbox = TRUE
         )
       )

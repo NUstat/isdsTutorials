@@ -108,8 +108,8 @@ notes_module_server_impl <- function(
   init_question <- function(restoreValue = NULL) {
     if (question$random_answer_order) {
       # Shuffle visible answer options (i.e. static, non-function answers)
-      is_visible_option <- !answer_type_is_function(question$answers)
-      question$answers[is_visible_option] <<- shuffle(question$answers[is_visible_option])
+      is_visible_option <- !learnr:::answer_type_is_function(question$answers)
+      question$answers[is_visible_option] <<- learnr:::shuffle(question$answers[is_visible_option])
     }
     submitted_answer(restoreValue)
   }

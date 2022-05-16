@@ -307,7 +307,7 @@ question_module_server_notes <- function(
   observeEvent(
     req(session$userData$learnr_state() == "restored"),
     once = TRUE,
-    question_module_server_impl(input, output, session, question, question_state)
+    learnr:::question_module_server_impl(input, output, session, question, question_state)
   )
 
   question_state
