@@ -1,4 +1,4 @@
-#' Text box question
+#' Text blank question
 #'
 #' @description
 #' Creates a tutorial question asking the student to enter text. The default

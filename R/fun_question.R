@@ -240,7 +240,6 @@ knit_print.notes_question <- function(x, ...) {
 #' @rdname knit_print
 knit_print.notes_quiz <- function(x, ...) {
   quiz <- x
-  caption_tag <- NULL
 
   caption_tag <- if (!is.null(quiz$caption)) {
     list(knitr::knit_print(
@@ -255,19 +254,14 @@ knit_print.notes_quiz <- function(x, ...) {
 }
 
 
-page_module_ui_notes <- function(id) {
-  bootstrapPage(
-    div(caption_tag
-    ),
-    div(
-    )
-  )
-  #)
-}
-
-
-
-
+#page_module_ui_notes <- function(id) {
+#  bootstrapPage(
+#    div(caption_tag
+#    ),
+#    div(
+#    )
+#  )
+#}
 
 
 
