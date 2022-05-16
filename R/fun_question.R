@@ -240,6 +240,8 @@ knit_print.notes_question <- function(x, ...) {
 #' @rdname knit_print
 knit_print.notes_quiz <- function(x, ...) {
   quiz <- x
+  caption_tag <- NULL
+
   caption_tag <- if (!is.null(quiz$caption)) {
     list(knitr::knit_print(
       tags$div(style="display:inline-block", class = "panel-default notes-quiz-title", quiz$caption)
