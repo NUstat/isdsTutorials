@@ -13,14 +13,6 @@
 #' function that evaluates the user's submission using
 #' [regular expressions][base::regex].
 #'
-#' @examples
-#' question_blank(
-#'   "Fill in the ___.",
-#'   answer("blank", correct = TRUE),
-#'   type = "learnr_blank",
-#'   allow_retry = TRUE
-#' )
-#'
 #'
 #' @param rows,cols Defines the size of the text input area in terms of the
 #'   number of rows or character columns visible to the user. If either `rows`

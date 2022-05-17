@@ -47,20 +47,7 @@ Returns a learnr question of type \code{"learnr_dropdown"}.
 }
 \description{
 Creates a dropdown button tutorial quiz question. The student can select only
-one dropdown before submitting their answer. Note: Multiple correct
-answers are allowed.
-}
-\examples{
-question_dropdown(
-  "Pick the letter B",
-  learnr:::answer("A"),
-  learnr:::answer("B", correct = TRUE),
-  learnr:::answer("C"),
-  learnr:::answer("D"),
-  allow_retry = TRUE,
-  random_answer_order = TRUE
-)
-
+one dropdown before submitting their answer.
 }
 \seealso{
 Other Interactive Questions: 

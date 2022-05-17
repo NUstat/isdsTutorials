@@ -80,16 +80,6 @@ that checks the student's submission. For example, you could provide a
 function that evaluates the user's submission using
 \link[base:regex]{regular expressions}.
 }
-\examples{
-question_blank(
-  "Fill in the ___.",
-  answer("blank", correct = TRUE),
-  type = "learnr_blank",
-  allow_retry = TRUE
-)
-
-
-}
 \seealso{
 Other Interactive Questions: 
 \code{\link{question_dropdown}()}

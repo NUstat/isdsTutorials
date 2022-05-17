@@ -1,19 +1,8 @@
 #' Dropdown question
 #'
 #' Creates a dropdown button tutorial quiz question. The student can select only
-#' one dropdown before submitting their answer. Note: Multiple correct
-#' answers are allowed.
+#' one dropdown before submitting their answer.
 #'
-#' @examples
-#' question_dropdown(
-#'   "Pick the letter B",
-#'   learnr:::answer("A"),
-#'   learnr:::answer("B", correct = TRUE),
-#'   learnr:::answer("C"),
-#'   learnr:::answer("D"),
-#'   allow_retry = TRUE,
-#'   random_answer_order = TRUE
-#' )
 #'
 #' @inheritParams learnr:::question
 #' @inheritParams drop_question
