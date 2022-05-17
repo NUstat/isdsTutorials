@@ -16,7 +16,7 @@
 #' @examples
 #' question_blank(
 #'   "Fill in the ___.",
-#'   learnr:::answer("blank", correct = TRUE),
+#'   answer("blank", correct = TRUE),
 #'   type = "learnr_blank",
 #'   allow_retry = TRUE
 #' )
@@ -33,7 +33,9 @@
 #'   order for text questions is automatically disabled to ensure that the
 #'   submission is checked against each answer in the order they were provided
 #'   by the author.
-#' @inheritParams question
+#' @inheritParams learnr::question
+#' @inheritParams blank_question
+#' @inheritParams learnr::answer
 #' @inheritParams shiny::textInput
 #' @param ... Answers created with [answer()] or [answer_fn()], or extra
 #'   parameters passed onto [question()]. Answers with custom function checking

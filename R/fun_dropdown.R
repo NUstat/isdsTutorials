@@ -15,7 +15,10 @@
 #'   random_answer_order = TRUE
 #' )
 #'
-#' @inheritParams question
+#' @inheritParams learnr::question
+#' @inheritParams drop_question
+#' @inheritParams learnr::answer
+#' @inheritParams shiny::selectInput
 #' @param ... Answers created with [answer()] or extra parameters passed onto
 #'   [question()]. Function answers are ignored for radio questions because the
 #'   user is required to select a single answer.
