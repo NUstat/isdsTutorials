@@ -5,9 +5,9 @@
 \alias{knit_print.notes_quiz}
 \title{Knitr quiz print methods}
 \usage{
-\method{knit_print}{tutorial_question}(x, ...)
+\method{knit_print}{notes_question}(x, ...)
 
-\method{knit_print}{tutorial_quiz}(x, ...)
+\method{knit_print}{notes_quiz}(x, ...)
 }
 \arguments{
 \item{x}{An R object to be printed}

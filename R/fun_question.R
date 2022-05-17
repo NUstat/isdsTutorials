@@ -213,7 +213,7 @@ quiz_notes <- function(..., caption = rlang::missing_arg()) {
 #' @inheritParams knitr::knit_print
 #' @export
 #' @importFrom knitr knit_print
-#' @method knit_print tutorial_question
+#' @method knit_print notes_question
 #' @rdname knit_print
 #'
 #'
@@ -234,7 +234,7 @@ knit_print.notes_question <- function(x, ...) {
   # regular knit print the UI
   knitr::knit_print(ui)
 }
-#' @method knit_print tutorial_quiz
+#' @method knit_print notes_quiz
 #' @export
 #' @rdname knit_print
 knit_print.notes_quiz <- function(x, ...) {
