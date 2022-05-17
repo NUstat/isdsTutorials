@@ -2,7 +2,6 @@
 drop_question <- function(
   text,
   ...,
-  #answer,
   type = c("learnr_dropdown"),
   correct = "Correct!",
   incorrect = "Incorrect",
