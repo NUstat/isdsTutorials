@@ -7,10 +7,10 @@
 #' @examples
 #' question_dropdown(
 #'   "Pick the letter B",
-#'   answer("A"),
-#'   answer("B", correct = TRUE),
-#'   answer("C"),
-#'   answer("D"),
+#'   learnr:::answer("A"),
+#'   learnr:::answer("B", correct = TRUE),
+#'   learnr:::answer("C"),
+#'   learnr:::answer("D"),
 #'   allow_retry = TRUE,
 #'   random_answer_order = TRUE
 #' )

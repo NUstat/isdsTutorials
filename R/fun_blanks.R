@@ -16,7 +16,7 @@
 #' @examples
 #' question_blank(
 #'   "Fill in the ___.",
-#'   answer("blank", correct = TRUE),
+#'   learnr:::answer("blank", correct = TRUE),
 #'   type = "learnr_blank",
 #'   allow_retry = TRUE
 #' )
