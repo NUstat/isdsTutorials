@@ -51,6 +51,7 @@ one dropdown before submitting their answer.
 }
 \seealso{
 Other Interactive Questions: 
+\code{\link{drop_question}()},
 \code{\link{question_blank}()}
 }
 \concept{Interactive Questions}

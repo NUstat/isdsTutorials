@@ -1,4 +1,36 @@
-
+#' Tutorial quiz questions
+#'
+#' Add interactive quiz questions to a tutorial.
+#' Each quiz question is executed within a shiny runtime to provide more flexibility in the types of questions offered.
+#' There are two new types of quiz questions:
+#' \describe{
+#'   \item{\code{learnr_blank}}
+#'   \item{\code{learnr_dropdown}}
+#'}
+#'
+#' @param type Type of quiz question.
+#' @param correct For \code{question}, text to print for a correct answer (defaults
+#'   to "Correct!"). For \code{answer}, a boolean indicating whether this answer is
+#'   correct.
+#' @param incorrect Text to print for an incorrect answer (defaults to "Incorrect")
+#'   when \code{allow_retry} is \code{FALSE}.
+#' @param try_again Text to print for an incorrect answer (defaults to "Incorrect")
+#'   when \code{allow_retry} is \code{TRUE}.
+#' @param message Additional message to display along with correct/incorrect feedback.
+#'   This message is always displayed after a question submission.
+#' @param post_message Additional message to display along with correct/incorrect feedback.
+#'   If \code{allow_retry} is \code{TRUE}, this message will only be displayed after the
+#'   correct submission.  If \code{allow_retry} is \code{FALSE}, it will produce a second
+#'   message alongside the \code{message} message value.
+#' @param loading Loading text to display as a placeholder while the question is loaded
+#' @param submit_button Label for the submit button. Defaults to \code{"Submit Answer"}
+#' @param try_again_button Label for the try again button. Defaults to \code{"Submit Answer"}
+#' @param allow_retry Allow retry for incorrect answers. Defaults to \code{FALSE}.
+#' @param random_answer_order Display answers in a random order.
+#' @param options Extra options to be stored in the question object.
+#' @rdname quiz
+#' @import shiny
+#' @export
 drop_question <- function(
   text,
   ...,
@@ -81,17 +113,17 @@ drop_question <- function(
     seed = learnr:::random_seed(),
     options = options
   )
-  #class(ret) <- c(type, "tutorial_question")
   class(ret) <- c(type, "notes_question")
   ret
 }
 
 
-
+#' @rdname quiz
+#' @import shiny
+#' @export
 blank_question <- function(
   text,
   ...,
-  #answers,
   type = c("learnr_blank"),
   correct = "Correct!",
   incorrect = "Incorrect",
@@ -175,9 +207,17 @@ blank_question <- function(
   ret
 }
 
-
-
-
+#' Tutorial notes format
+#'
+#' Add interactive notes to a tutorial.
+#' @param ... One or more questions or answers
+#' @param caption Optional quiz caption (defaults to "Quiz")
+#' @seealso [random_praise()], [random_encouragement()]
+#'
+#' @family Interactive Questions
+#' @name quiz
+#' @rdname quiz
+#' @export
 quiz_notes <- function(..., caption = rlang::missing_arg()) {
 
   # create table rows from questions
@@ -216,7 +256,6 @@ quiz_notes <- function(..., caption = rlang::missing_arg()) {
 #' @method knit_print notes_question
 #' @rdname knit_print
 #'
-#'
 knit_print.notes_question <- function(x, ...) {
   question <- x
   ui <- question_module_ui_notes(question$ids$question)
@@ -234,6 +273,7 @@ knit_print.notes_question <- function(x, ...) {
   # regular knit print the UI
   knitr::knit_print(ui)
 }
+
 #' @method knit_print notes_quiz
 #' @export
 #' @rdname knit_print

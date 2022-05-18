@@ -1,3 +1,4 @@
+
 notes_prerendered_chunk <- function(question, ..., session = getDefaultReactiveDomain()) {
   learnr:::store_question_cache(question)
 

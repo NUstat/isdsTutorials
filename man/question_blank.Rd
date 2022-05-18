@@ -82,6 +82,7 @@ function that evaluates the user's submission using
 }
 \seealso{
 Other Interactive Questions: 
+\code{\link{drop_question}()},
 \code{\link{question_dropdown}()}
 }
 \concept{Interactive Questions}
