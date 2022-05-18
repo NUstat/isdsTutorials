@@ -65,6 +65,8 @@ questions.</p>
   includes <span class="op">=</span> <span class="cn">NULL</span>,
   md_extensions <span class="op">=</span> <span class="cn">NULL</span>,
   pandoc_args <span class="op">=</span> <span class="cn">NULL</span>,
+  language <span class="op">=</span> <span class="st">"en"</span>,
+  lib_dir <span class="op">=</span> <span class="cn">NULL</span>,
   <span class="va">...</span>
 <span class="op">)</span></code></pre></div>
     </div>
@@ -144,6 +146,12 @@ default definition of R Markdown. See the <code><a href="https://pkgs.rstudio.co
 additional details.</p></dd>
 <dt>pandoc_args</dt>
 <dd><p>Additional command line options to pass to pandoc</p></dd>
+<dt>language</dt>
+<dd><p>Language or custom text of the UI elements. See
+<code><a href="https://pkgs.rstudio.com/learnr/articles/multilang.html" class="external-link">vignette("multilang", package = "learnr")</a></code> for more information about
+available options and formatting</p></dd>
+<dt>lib_dir</dt>
+<dd><p>Set to NULL</p></dd>
 <dt>...</dt>
 <dd><p>Forward parameters to html_document</p></dd>
 </dl></div>
