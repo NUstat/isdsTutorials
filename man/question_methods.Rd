@@ -10,19 +10,26 @@
 \alias{question_ui_completed.learnr_dropdown}
 \title{Custom question methods}
 \usage{
-question_ui_initialize.learnr_blank(question, value, ...)
+\method{question_ui_initialize}{learnr_blank}(question, value, ...)
 
-question_is_valid.learnr_blank(question, value, ...)
+\method{question_is_valid}{learnr_blank}(question, value, ...)
 
-question_is_correct.learnr_blank(question, value, ...)
+\method{question_is_correct}{learnr_blank}(question, value, ...)
 
-question_ui_completed.learnr_blank(question, value, ...)
+\method{question_ui_completed}{learnr_blank}(question, value, ...)
 
-question_ui_initialize.learnr_dropdown(question, value, ...)
+\method{question_ui_initialize}{learnr_dropdown}(question, value, ...)
 
-question_is_correct.learnr_dropdown(question, value, ...)
+\method{question_is_correct}{learnr_dropdown}(question, value, ...)
 
-question_ui_completed.learnr_dropdown(question, value, ...)
+\method{question_ui_completed}{learnr_dropdown}(question, value, ...)
+}
+\arguments{
+\item{question}{\link{question} object used}
+
+\item{value}{user input value}
+
+\item{...}{future parameter expansion and custom arguments to be used in dispatched s3 methods.}
 }
 \description{
 There are four methods used to define a custom question.  Each S3 method
@@ -45,4 +52,7 @@ should correspond to the \code{type = TYPE} supplied to the question.
 \item This function should return the output of \link{correct}, \link{incorrect}, or \link{mark_as}. Each method allows for custom messages in addition to the determination of an answer being correct.  See \link{correct}, \link{incorrect}, or \link{mark_as} for more details.
 }
 }
+}
+\seealso{
+For more information and question type extension examples, please view the \code{question_type} tutorial: \code{learnr::run_tutorial("question_type", "learnr")}.
 }

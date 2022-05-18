@@ -16,9 +16,31 @@ question_dropdown(
 )
 }
 \arguments{
+\item{text}{Question or option text}
+
 \item{...}{Answers created with \code{\link[=answer]{answer()}} or extra parameters passed onto
 \code{\link[=question]{question()}}. Function answers are ignored for radio questions because the
 user is required to select a single answer.}
+
+\item{type}{Type of quiz question. Typically this can be automatically determined
+based on the provided answers. Pass \code{"radio"} to indicate that even though
+multiple correct answers are specified that inputs which include only one correct
+answer are still correct. Pass \code{"checkbox"} to force the use of checkboxes
+(as opposed to radio buttons) even though only once correct answer was provided.}
+
+\item{correct}{For \code{question}, text to print for a correct answer (defaults
+to "Correct!"). For \code{answer}, a boolean indicating whether this answer is
+correct.}
+
+\item{incorrect}{Text to print for an incorrect answer (defaults to "Incorrect")
+when \code{allow_retry} is \code{FALSE}.}
+
+\item{try_again}{Text to print for an incorrect answer (defaults to "Incorrect")
+when \code{allow_retry} is \code{TRUE}.}
+
+\item{allow_retry}{Allow retry for incorrect answers. Defaults to \code{FALSE}.}
+
+\item{random_answer_order}{Display answers in a random order.}
 }
 \value{
 Returns a learnr question of type \code{"learnr_dropdown"}.

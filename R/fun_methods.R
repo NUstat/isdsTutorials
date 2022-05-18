@@ -19,7 +19,13 @@
 #' * `question_is_correct.TYPE(question, value, ...)`
 #'
 #'     - This function should return the output of [correct], [incorrect], or [mark_as]. Each method allows for custom messages in addition to the determination of an answer being correct.  See [correct], [incorrect], or [mark_as] for more details.
-
+#'
+#' @param question [question] object used
+#' @param value user input value
+#' @param ... future parameter expansion and custom arguments to be used in dispatched s3 methods.
+#'
+#' @seealso For more information and question type extension examples, please view the `question_type` tutorial: `learnr::run_tutorial("question_type", "learnr")`.
+#'
 #' @export
 #' @rdname question_methods
 question_ui_initialize.learnr_blank <- function(question, value, ...) {
