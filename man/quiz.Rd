@@ -87,8 +87,8 @@ Add interactive quiz questions to a tutorial.
 Each quiz question is executed within a shiny runtime to provide more flexibility in the types of questions offered.
 There are two new types of quiz questions:
 \describe{
-\item{\code{learnr_blank}}
-\item{\code{learnr_dropdown}}
+\item{\code{learnr_blank}}{learnr_blank}
+\item{\code{learnr_dropdown}}{learnr_dropdown}
 }
 
 Add interactive notes to a tutorial.

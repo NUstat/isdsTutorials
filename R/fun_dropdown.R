@@ -5,7 +5,6 @@
 #' one dropdown before submitting their answer.
 #'
 #'
-#'
 #' @param text  Question or option text
 #' @param type Type of quiz question. Typically this can be automatically determined
 #'   based on the provided answers. Pass \code{"radio"} to indicate that even though
