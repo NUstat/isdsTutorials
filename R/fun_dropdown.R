@@ -13,7 +13,6 @@
 #'
 #' @family Interactive Questions
 #' @export
-
 question_dropdown <- function(
   text,
   ...,
@@ -43,6 +42,7 @@ question_dropdown <- function(
 }
 
 #' @export
+#' @rdname question_methods
 question_ui_initialize.learnr_dropdown <- function(question, value, ...) {
 
   choice_names <- learnr:::answer_labels(question, exclude_answer_fn = TRUE)
@@ -60,6 +60,7 @@ question_ui_initialize.learnr_dropdown <- function(question, value, ...) {
 }
 
 #' @export
+#' @rdname question_methods
 question_is_correct.learnr_dropdown <- function(question, value, ...) {
   for (ans in question$answers) {
     if (as.character(ans$option) == value) {
@@ -74,6 +75,7 @@ question_is_correct.learnr_dropdown <- function(question, value, ...) {
 
 
 #' @export
+#' @rdname question_methods
 question_ui_completed.learnr_dropdown <- function(question, value, ...) {
   choice_values <- learnr:::answer_values(question)
 

@@ -33,8 +33,6 @@
 #'
 #' @family Interactive Questions
 #' @export
-#'
-
 question_blank <- function(
   text,
   ...,
@@ -87,6 +85,7 @@ question_blank <- function(
 
 
 #' @export
+#' @rdname question_methods
 question_ui_initialize.learnr_blank <- function(question, value, ...) {
   choice_names <- learnr:::answer_labels(question, exclude_answer_fn = TRUE)
   choice_values <- learnr:::answer_values(question, exclude_answer_fn = TRUE)
@@ -126,6 +125,7 @@ question_ui_initialize.learnr_blank <- function(question, value, ...) {
 }
 
 #' @export
+#' @rdname question_methods
 question_is_valid.learnr_blank <- function(question, value, ...) {
   if (is.null(value)) {
     return(FALSE)
@@ -138,6 +138,7 @@ question_is_valid.learnr_blank <- function(question, value, ...) {
 }
 
 #' @export
+#' @rdname question_methods
 question_is_correct.learnr_blank <- function(question, value, ...) {
   #how is value being taken in
   if (nchar(value) == 0) {
@@ -181,6 +182,8 @@ question_is_correct.learnr_blank <- function(question, value, ...) {
   mark_as(FALSE, NULL)
 }
 
+#' @export
+#' @rdname question_methods
 question_ui_completed.learnr_blank <- function(question, value, ...) {
   choice_names <- learnr:::answer_labels(question, exclude_answer_fn = TRUE)
   choice_values <- learnr:::answer_values(question, exclude_answer_fn = TRUE)
