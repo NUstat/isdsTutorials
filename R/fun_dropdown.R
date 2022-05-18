@@ -5,7 +5,6 @@
 #' one dropdown before submitting their answer.
 #'
 #'
-#' @inheritParams shiny::selectInput
 #'
 #' @param text  Question or option text
 #' @param type Type of quiz question. Typically this can be automatically determined

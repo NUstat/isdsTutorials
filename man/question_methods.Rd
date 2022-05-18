@@ -10,19 +10,19 @@
 \alias{question_ui_completed.learnr_dropdown}
 \title{Custom question methods}
 \usage{
-\method{question_ui_initialize}{learnr_blank}(question, value, ...)
+question_ui_initialize.learnr_blank(question, value, ...)
 
-\method{question_is_valid}{learnr_blank}(question, value, ...)
+question_is_valid.learnr_blank(question, value, ...)
 
-\method{question_is_correct}{learnr_blank}(question, value, ...)
+question_is_correct.learnr_blank(question, value, ...)
 
-\method{question_ui_completed}{learnr_blank}(question, value, ...)
+question_ui_completed.learnr_blank(question, value, ...)
 
-\method{question_ui_initialize}{learnr_dropdown}(question, value, ...)
+question_ui_initialize.learnr_dropdown(question, value, ...)
 
-\method{question_is_correct}{learnr_dropdown}(question, value, ...)
+question_is_correct.learnr_dropdown(question, value, ...)
 
-\method{question_ui_completed}{learnr_dropdown}(question, value, ...)
+question_ui_completed.learnr_dropdown(question, value, ...)
 }
 \arguments{
 \item{question}{\link{question} object used}
