@@ -23,7 +23,11 @@
 #' @param smart Produce typographically correct output, converting straight quotes to curly quotes,
 #'        \code{---} to em-dashes, \code{--} to en-dashes, and \code{...} to ellipses.
 #'        Deprecated in \pkg{rmarkdown} v2.2.0.
+#' @param language Language or custom text of the UI elements. See
+#'   `vignette("multilang", package = "learnr")` for more information about
+#'   available options and formatting
 #' @param ... Forward parameters to html_document
+#' @param lib_dir Set to NULL
 #'
 #' @export
 #' @importFrom utils getFromNamespace
@@ -45,6 +49,8 @@ tutorial <- function(fig_width = 6.5,
                      includes = NULL,
                      md_extensions = NULL,
                      pandoc_args = NULL,
+                     language = "en",
+                     lib_dir = NULL,
                      ...) {
 
   if ("anchor_sections" %in% names(list(...))) {
@@ -105,7 +111,7 @@ tutorial <- function(fig_width = 6.5,
   # tutorial-format.js file.
   extra_dependencies <- append(extra_dependencies, list(
     tutorial_html_dependency(),
-    tutorial_i18n_html_dependency(), #language
+    tutorial_i18n_html_dependency(language), #language
     #learnr:::tutorial_autocompletion_html_dependency(),
     #learnr:::tutorial_diagnostics_html_dependency(),
     htmltools::htmlDependency(

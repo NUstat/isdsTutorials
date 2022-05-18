@@ -23,6 +23,8 @@ tutorial(
   includes = NULL,
   md_extensions = NULL,
   pandoc_args = NULL,
+  language = "en",
+  lib_dir = NULL,
   ...
 )
 }
@@ -99,6 +101,12 @@ default definition of R Markdown. See the \code{\link[rmarkdown]{rmarkdown_forma
 additional details.}
 
 \item{pandoc_args}{Additional command line options to pass to pandoc}
+
+\item{language}{Language or custom text of the UI elements. See
+\code{vignette("multilang", package = "learnr")} for more information about
+available options and formatting}
+
+\item{lib_dir}{Set to NULL}
 
 \item{...}{Forward parameters to html_document}
 }
