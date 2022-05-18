@@ -67,21 +67,41 @@ should correspond to the <code>type = TYPE</code> supplied to the question.</p><
 </ul></div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">question_ui_initialize.learnr_blank</span><span class="op">(</span><span class="va">question</span>, <span class="va">value</span>, <span class="va">...</span><span class="op">)</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="co"># S3 method for learnr_blank</span>
+<span class="fu">question_ui_initialize</span><span class="op">(</span><span class="va">question</span>, <span class="va">value</span>, <span class="va">...</span><span class="op">)</span>
 
-<span class="fu">question_is_valid.learnr_blank</span><span class="op">(</span><span class="va">question</span>, <span class="va">value</span>, <span class="va">...</span><span class="op">)</span>
+<span class="co"># S3 method for learnr_blank</span>
+<span class="fu">question_is_valid</span><span class="op">(</span><span class="va">question</span>, <span class="va">value</span>, <span class="va">...</span><span class="op">)</span>
 
-<span class="fu">question_is_correct.learnr_blank</span><span class="op">(</span><span class="va">question</span>, <span class="va">value</span>, <span class="va">...</span><span class="op">)</span>
+<span class="co"># S3 method for learnr_blank</span>
+<span class="fu">question_is_correct</span><span class="op">(</span><span class="va">question</span>, <span class="va">value</span>, <span class="va">...</span><span class="op">)</span>
 
-<span class="fu">question_ui_completed.learnr_blank</span><span class="op">(</span><span class="va">question</span>, <span class="va">value</span>, <span class="va">...</span><span class="op">)</span>
+<span class="co"># S3 method for learnr_blank</span>
+<span class="fu">question_ui_completed</span><span class="op">(</span><span class="va">question</span>, <span class="va">value</span>, <span class="va">...</span><span class="op">)</span>
 
-<span class="fu">question_ui_initialize.learnr_dropdown</span><span class="op">(</span><span class="va">question</span>, <span class="va">value</span>, <span class="va">...</span><span class="op">)</span>
+<span class="co"># S3 method for learnr_dropdown</span>
+<span class="fu">question_ui_initialize</span><span class="op">(</span><span class="va">question</span>, <span class="va">value</span>, <span class="va">...</span><span class="op">)</span>
 
-<span class="fu">question_is_correct.learnr_dropdown</span><span class="op">(</span><span class="va">question</span>, <span class="va">value</span>, <span class="va">...</span><span class="op">)</span>
+<span class="co"># S3 method for learnr_dropdown</span>
+<span class="fu">question_is_correct</span><span class="op">(</span><span class="va">question</span>, <span class="va">value</span>, <span class="va">...</span><span class="op">)</span>
 
-<span class="fu">question_ui_completed.learnr_dropdown</span><span class="op">(</span><span class="va">question</span>, <span class="va">value</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+<span class="co"># S3 method for learnr_dropdown</span>
+<span class="fu">question_ui_completed</span><span class="op">(</span><span class="va">question</span>, <span class="va">value</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
     </div>
 
+    <div id="arguments">
+    <h2>Arguments</h2>
+    <dl><dt>question</dt>
+<dd><p>question object used</p></dd>
+<dt>value</dt>
+<dd><p>user input value</p></dd>
+<dt>...</dt>
+<dd><p>future parameter expansion and custom arguments to be used in dispatched s3 methods.</p></dd>
+</dl></div>
+    <div id="see-also">
+    <h2>See also</h2>
+    <div class="dont-index"><p>For more information and question type extension examples, please view the <code>question_type</code> tutorial: <code>learnr::run_tutorial("question_type", "learnr")</code>.</p></div>
+    </div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

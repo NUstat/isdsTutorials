@@ -81,9 +81,29 @@ function that evaluates the user's submission using
 
     <div id="arguments">
     <h2>Arguments</h2>
-    <dl><dt>...</dt>
+    <dl><dt>text</dt>
+<dd><p>Question or option text</p></dd>
+<dt>...</dt>
 <dd><p>Answers created with <code>answer()</code> or <code>answer_fn()</code>, or extra
 parameters passed onto <code>question()</code>. Answers with custom function checking</p></dd>
+<dt>type</dt>
+<dd><p>Type of quiz question. Typically this can be automatically determined
+based on the provided answers. Pass <code>"radio"</code> to indicate that even though
+multiple correct answers are specified that inputs which include only one correct
+answer are still correct. Pass <code>"checkbox"</code> to force the use of checkboxes
+(as opposed to radio buttons) even though only once correct answer was provided.</p></dd>
+<dt>correct</dt>
+<dd><p>For <code>question</code>, text to print for a correct answer (defaults
+to "Correct!"). For <code>answer</code>, a boolean indicating whether this answer is
+correct.</p></dd>
+<dt>incorrect</dt>
+<dd><p>Text to print for an incorrect answer (defaults to "Incorrect")
+when <code>allow_retry</code> is <code>FALSE</code>.</p></dd>
+<dt>try_again</dt>
+<dd><p>Text to print for an incorrect answer (defaults to "Incorrect")
+when <code>allow_retry</code> is <code>TRUE</code>.</p></dd>
+<dt>allow_retry</dt>
+<dd><p>Allow retry for incorrect answers. Defaults to <code>FALSE</code>.</p></dd>
 <dt>random_answer_order</dt>
 <dd><p><a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated" class="external-link"><img src="figures/lifecycle-deprecated.svg" alt="[Deprecated]"></a> Random answer
 order for text questions is automatically disabled to ensure that the
