@@ -246,6 +246,12 @@
   }
 }
 
+@media print {
+  .topicsContainer,
+  .topicActions,
+  .exerciseActions .skip {
+    display: none;
+  }
   .topics .tutorialTitle,
   .topics .section.level2,
   .topics .section.level3:not(.hide) {
