@@ -15,7 +15,7 @@ Imports:
     curl,
     devtools,
     dplyr,
-    ellipse,
+    ellipsis,
     evaluate,
     ggplot2,
     htmltools (>= 0.3.5),
