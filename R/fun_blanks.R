@@ -41,6 +41,7 @@
 #'   order for text questions is automatically disabled to ensure that the
 #'   submission is checked against each answer in the order they were provided
 #'   by the author.
+#' @param options Extra options to be stored in the question object.
 #' @inheritParams shiny::textInput
 #' @param ... Answers created with [answer()] or [answer_fn()], or extra
 #'   parameters passed onto [question()]. Answers with custom function checking

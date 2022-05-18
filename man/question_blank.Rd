@@ -61,6 +61,8 @@ number of rows or character columns visible to the user. If either \code{rows}
 or \code{cols} are provided, the quiz input will use \code{\link[shiny:textAreaInput]{shiny::textAreaInput()}}
 for the text input, otherwise the default input element is a single-line
 \code{\link[shiny:textInput]{shiny::textInput()}}.}
+
+\item{options}{Extra options to be stored in the question object.}
 }
 \value{
 Returns a learnr question of type \code{"learnr_blank"}.
