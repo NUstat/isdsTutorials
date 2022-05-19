@@ -101,7 +101,7 @@ tutorial <- function(fig_width = 6.5,
   # resolve theme (ammend base stylesheet for "rstudio" theme
   stylesheets <- "tutorial-format.css"
   if (identical(theme, "rstudio")) {
-    stylesheets <- c(stylesheets, "northwestern-theme.css")
+    stylesheets <- c(stylesheets, "rstudio-theme.css")
     theme <- "cerulean"
   }
 
