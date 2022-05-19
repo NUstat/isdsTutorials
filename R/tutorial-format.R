@@ -5,7 +5,7 @@
 #'
 #' @inheritParams rmarkdown::html_document
 #'
-#' @param theme Visual theme ("rstudio", default", "cerulean", "journal", "flatly",
+#' @param theme Visual theme ("northwestern", "rstudio", default", "cerulean", "journal", "flatly",
 #'  "readable", "spacelab", "united", "cosmo", "lumen", "paper", "sandstone",
 #'  "simplex", or "yeti").
 #'
@@ -40,7 +40,7 @@ tutorial <- function(fig_width = 6.5,
                      dev = "png",
                      df_print = "paged",
                      smart = TRUE,
-                     theme = "rstudio",
+                     theme = "northwestern",
                      highlight = "textmate",
                      ace_theme = "textmate",
                      mathjax = "default",
@@ -100,8 +100,8 @@ tutorial <- function(fig_width = 6.5,
 
   # resolve theme (ammend base stylesheet for "rstudio" theme
   stylesheets <- "tutorial-format.css"
-  if (identical(theme, "rstudio")) {
-    stylesheets <- c(stylesheets, "rstudio-theme.css")
+  if (identical(theme, "northwestern")) {
+    stylesheets <- c(stylesheets, "northwestern-theme.css")
     theme <- "cerulean"
   }
 
