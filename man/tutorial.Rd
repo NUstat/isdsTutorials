@@ -14,7 +14,7 @@ tutorial(
   dev = "png",
   df_print = "paged",
   smart = TRUE,
-  theme = "rstudio",
+  theme = "northwestern",
   highlight = "textmate",
   ace_theme = "textmate",
   mathjax = "default",
@@ -68,7 +68,7 @@ frame printing section} in bookdown book for examples.}
 \code{---} to em-dashes, \code{--} to en-dashes, and \code{...} to ellipses.
 Deprecated in \pkg{rmarkdown} v2.2.0.}
 
-\item{theme}{Visual theme ("rstudio", default", "cerulean", "journal", "flatly",
+\item{theme}{Visual theme ("northwestern", "rstudio", default", "cerulean", "journal", "flatly",
 "readable", "spacelab", "united", "cosmo", "lumen", "paper", "sandstone",
 "simplex", or "yeti").}
 
