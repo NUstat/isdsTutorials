@@ -13,7 +13,16 @@
     <loc>/index.html</loc>
   </url>
   <url>
+    <loc>/reference/grade_server.html</loc>
+  </url>
+  <url>
+    <loc>/reference/grade_ui.html</loc>
+  </url>
+  <url>
     <loc>/reference/index.html</loc>
+  </url>
+  <url>
+    <loc>/reference/isds_recorder.html</loc>
   </url>
   <url>
     <loc>/reference/knit_print.html</loc>
