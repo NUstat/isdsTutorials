@@ -26,6 +26,11 @@
 #'
 #' @seealso For more information and question type extension examples, please view the `question_type` tutorial: `learnr::run_tutorial("question_type", "learnr")`.
 #'
+#' @importFrom learnr question_ui_initialize
+#' @importFrom learnr question_is_valid
+#' @importFrom learnr question_is_correct
+#' @importFrom learnr question_ui_completed
+#'
 #' @export
 #' @rdname question_methods
 question_ui_initialize.learnr_blank <- function(question, value, ...) {
