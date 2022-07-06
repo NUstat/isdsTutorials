@@ -30,6 +30,7 @@ grade_ui <- function(id, label = "grade tutorial") {
 
 # Define the server logic for a module to compute grade
 #' Grade tutorial server
+#' @param id ID matching ui with server
 #' @param rubric_list A data frame containing a vector of question names and a vector of points_possible for each question
 #' @param num_try Number of tries allowed before grade deduction on that question. Default is 3.
 #' @param deduction The percent (as a decimal) to be deducted for each additional incorrect attempt. Default is 0.1.

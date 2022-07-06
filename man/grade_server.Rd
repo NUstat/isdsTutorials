@@ -7,6 +7,8 @@
 grade_server(id, rubric_list, num_try = 3, deduction = 0.1, display = "both")
 }
 \arguments{
+\item{id}{ID matching ui with server}
+
 \item{rubric_list}{A data frame containing a vector of question names and a vector of points_possible for each question}
 
 \item{num_try}{Number of tries allowed before grade deduction on that question. Default is 3.}
