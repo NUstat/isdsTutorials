@@ -66,7 +66,8 @@
 <h1 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h1>
 <p>Install the latest version of ISDStutorials from GitHub with the devtools package.</p>
-<pre class="{r}"><code><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"NUstat/ISDStutorials"</span>, dependencies <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre>
+<pre class="{r}"><code><span><span class="co"># install.packages("remotes")</span></span>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"NUstat/ISDStutorials"</span>, dependencies <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="section level1">
 <h1 id="contents-of-isdstutorials">Contents of ISDStutorials<a class="anchor" aria-label="anchor" href="#contents-of-isdstutorials"></a>
@@ -84,6 +85,18 @@
 <p>In Version 1.3 onwards there is a tutorial pane. Having executed</p>
 <p>library(ISDStutorials)</p>
 <p>A list of tutorials appears in this pane: ….</p>
+</div>
+<div class="section level1">
+<h1 id="additional-features">Additional features<a class="anchor" aria-label="anchor" href="#additional-features"></a>
+</h1>
+<ul>
+<li>Print option</li>
+<li>Grade option</li>
+<li>Question short answer</li>
+<li>Question drop down</li>
+</ul>
+<p>To use ISDStutorials custom functions in a learnr tutorial, start by loading ISDStutorials after learnr and gradethis in the setup chunk of your tutorial:</p>
+<p><code>{r setup} library(learnr) library(gradethis) library(ISDStutorials)</code></p>
 </div>
 
   </div>
