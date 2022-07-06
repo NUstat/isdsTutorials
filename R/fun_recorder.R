@@ -23,7 +23,6 @@ isds_recorder <- function(tutorial_id, tutorial_version,
     tmp <- paste0(tutorial_id,",", tutorial_version, ", ",
                   user_id, ", ", Sys.time() ,", ",
                   event, ", ", data$label, ", ",
-                  #data$answer, ", ",
                   as.numeric(data$correct),
                   as.numeric(data$feedback$correct), sep = "")
 
@@ -35,7 +34,8 @@ isds_recorder <- function(tutorial_id, tutorial_version,
   }
 }
 
-# @export
+
+
 recorder_module_server <- function(input, output, session, record) {
 
   question_state <- reactiveVal()
@@ -47,7 +47,7 @@ recorder_module_server <- function(input, output, session, record) {
   )
 }
 
-# @export
+
 recorder_module_server_impl <- function(
     input, output, session,
     record,

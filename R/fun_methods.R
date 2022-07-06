@@ -106,7 +106,7 @@ question_is_correct.learnr_blank <- function(question, value, ...) {
       answer_value <- str_trim(answer_value)
     }
     if (isTRUE(all.equal(answer_value, value))) {
-      learnr:::mark_as(answer$correct, answer$message)
+      learnr::mark_as(answer$correct, answer$message)
     }
   }
 

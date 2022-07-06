@@ -322,7 +322,7 @@ notes_messages <- function(question, messages, is_correct, is_done) {
 
 
 # internal function to print notes
-#' @export
+# @export
 notes_prerendered_chunk <- function(question, ..., session = getDefaultReactiveDomain()) {
   learnr:::store_question_cache(question)
 
