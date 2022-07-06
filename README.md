@@ -7,7 +7,8 @@ The ISDStutorials package contains a series of interactive tutorials that teach 
 Install the latest version of ISDStutorials from GitHub with the devtools package.
 
 ```{r}
-devtools::install_github("NUstat/ISDStutorials", dependencies = TRUE)
+# install.packages("remotes")
+remotes::install_github("NUstat/ISDStutorials", dependencies = TRUE)
 ```
 
 # Contents of ISDStutorials
@@ -32,3 +33,17 @@ library(ISDStutorials)
 
 A list of tutorials appears in this pane: ....
 
+# Additional features
+
+- Print option
+- Grade option
+- Question short answer
+- Question drop down
+
+To use ISDStutorials custom functions in a learnr tutorial, start by loading ISDStutorials after learnr and gradethis in the setup chunk of your tutorial:
+
+```{r setup}
+library(learnr)
+library(gradethis)
+library(ISDStutorials)
+```
