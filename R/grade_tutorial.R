@@ -12,6 +12,7 @@
 #'
 #' @param label Label to appear on the submit grade button
 #'
+#' @import gt
 #' @export
 grade_ui <- function(id, label = "grade tutorial") {
   ns <- NS(id)
@@ -75,7 +76,6 @@ grade_server <- function(id, rubric_list, num_try = 3, deduction = 0.1, display 
 
 
 #create a table of grades and calculate overall percent
-#' @export
 grade_tutorial <- function(submissions, rubric_list,
                            num_try = 3, deduction = 0.1){
 
