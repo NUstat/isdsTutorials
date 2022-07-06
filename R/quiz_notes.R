@@ -204,7 +204,7 @@ mutate_tags.shiny.tag <- function(ele, selector, fn, ...) {
     }
     # match on class values
     if (is_match && !is.null(cur_selector$classes)) {
-      is_match <- all(stringr::strsplit(ele$attribs$class %||% "", " ")[[1]] %in% cur_selector$classes)
+      is_match <- all(strsplit(ele$attribs$class %||% "", " ")[[1]] %in% cur_selector$classes)
     }
 
     # if it is a match, drop a selector
