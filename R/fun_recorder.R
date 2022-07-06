@@ -6,6 +6,12 @@
 #' developed a fantastic tool for courses that teach R and use the learnr
 #' package.
 #'
+#' @param tutorial_id Tutorial ID obtained from session
+#' @param tutorial_version Tutorial version obtained from session
+#' @param user_id User ID obtained from session
+#' @param event Record events of type question_submission or exercise_result
+#' @param data Data from question or exercise with label and whether submission was correct
+#'
 #' The following isds recorder uses the server functions to store
 #' historical user's submissions
 #' @export
@@ -29,7 +35,7 @@ isds_recorder <- function(tutorial_id, tutorial_version,
   }
 }
 
-#' @export
+# @export
 recorder_module_server <- function(input, output, session, record) {
 
   question_state <- reactiveVal()
@@ -41,7 +47,7 @@ recorder_module_server <- function(input, output, session, record) {
   )
 }
 
-#' @export
+# @export
 recorder_module_server_impl <- function(
     input, output, session,
     record,

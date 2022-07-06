@@ -10,6 +10,7 @@
 #' they interact with the underlying Shiny functionality. Conversely, the ui function,
 #' `grade_ui()`, must *not* be included in an R chunk with a `context`.
 #'
+#' @param id ID matching ui with server
 #' @param label Label to appear on the submit grade button
 #'
 #' @import gt
@@ -107,7 +108,7 @@ grade_tutorial <- function(submissions, rubric_list,
 
   # match student progress with all possible questions
   # rubric_list must be defined by creator
-  grade_summary <- left_join(rubric_list, correct_q) %>%
+  grade_summary <- dplyr::left_join(rubric_list, correct_q) %>%
     janitor::clean_names()
 
   # create placeholder column if x1 or x0 has not applied yet
