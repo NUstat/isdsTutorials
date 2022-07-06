@@ -80,11 +80,11 @@ grade_tutorial <- function(submissions, rubric_list,
                            num_try = 3, deduction = 0.1){
 
   table <- submissions %>%
-    data.table() %>%
-    transpose() %>%
-    separate_rows(V1, sep = "//") %>%
-    transpose() %>%
-    tstrsplit(split = ",", names = TRUE)
+    data.table::data.table() %>%
+    data.table::transpose() %>%
+    tidyr::separate_rows(V1, sep = "//") %>%
+    data.table::transpose() %>%
+    data.table::tstrsplit(split = ",", names = TRUE)
 
   # issue using dplyr with shiny object
   # so need to manually set as table
@@ -95,15 +95,15 @@ grade_tutorial <- function(submissions, rubric_list,
 
   # create data frame of student submission summary
   correct_q <- newdf %>%
-    filter(!is.na(question)) %>%
+    dplyr::filter(!is.na(question)) %>%
     # remove punctuation for merge
-    mutate(question = str_replace_all(question,
+    dplyr::mutate(question = str_replace_all(question,
                                       "[[:punct:]]", "")) %>%
     # Remove blank space for merge
-    mutate(question = gsub(" ", '', question)) %>%
+    dplyr::mutate(question = gsub(" ", '', question)) %>%
     # get counts of attempts
-    count(question, correct) %>%
-    pivot_wider(names_from = correct, values_from = n)
+    dplyr::count(question, correct) %>%
+    tidyr::pivot_wider(names_from = correct, values_from = n)
 
   # match student progress with all possible questions
   # rubric_list must be defined by creator
@@ -124,16 +124,16 @@ grade_tutorial <- function(submissions, rubric_list,
 
   # create summary columns for num_attempts and score
   grade_organized <- grade_summary %>%
-    mutate(num_attempts = rowSums(select(.,contains("x")),
+    dplyr::mutate(num_attempts = rowSums(select(.,contains("x")),
                                   na.rm = TRUE)) %>%
-    mutate(score = ifelse(num_attempts>num_try,
+    dplyr::mutate(score = ifelse(num_attempts>num_try,
                           points_possible*x1*(1-deduction*(num_attempts-num_try)),
                           points_possible*x1) ) %>%
-    select(-x1, -x0)
+    dplyr::select(-x1, -x0)
 
   grade_table <- grade_organized %>%
-    gt(rowname_col = "question") %>%
-    grand_summary_rows(
+    gt::gt(rowname_col = "question") %>%
+    gt::grand_summary_rows(
                   columns = c(points_possible, score),
                   fns = list(
                     total = ~sum(.)
