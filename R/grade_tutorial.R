@@ -75,6 +75,9 @@ grade_server <- function(id, rubric_list, num_try = 3, deduction = 0.1, display 
   )
 }
 
+#set global variables needed to prevent package warning
+utils::globalVariables(c("V1", "x1", "x0", "n", "num_try", ".",
+                         "deduction", "points_possible", "score"))
 
 #create a table of grades and calculate overall percent
 grade_tutorial <- function(submissions, rubric_list,
@@ -98,7 +101,7 @@ grade_tutorial <- function(submissions, rubric_list,
   correct_q <- newdf %>%
     dplyr::filter(!is.na(question)) %>%
     # remove punctuation for merge
-    dplyr::mutate(question = str_replace_all(question,
+    dplyr::mutate(question = stringr::str_replace_all(question,
                                       "[[:punct:]]", "")) %>%
     # Remove blank space for merge
     dplyr::mutate(question = gsub(" ", '', question)) %>%
@@ -125,7 +128,7 @@ grade_tutorial <- function(submissions, rubric_list,
 
   # create summary columns for num_attempts and score
   grade_organized <- grade_summary %>%
-    dplyr::mutate(num_attempts = rowSums(select(.,contains("x")),
+    dplyr::mutate(num_attempts = rowSums(dplyr::select(.,contains("x")),
                                   na.rm = TRUE)) %>%
     dplyr::mutate(score = ifelse(num_attempts>num_try,
                           points_possible*x1*(1-deduction*(num_attempts-num_try)),
