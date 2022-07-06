@@ -176,7 +176,7 @@ notes_button_label <- function(question, label_type = "submit", is_valid = TRUE)
       ),
       paste0("#", action_button_id),
       function(ele) {
-        ele$attribs$class <- str_remove(ele$attribs$class, "\\s+btn-default")
+        ele$attribs$class <- stringr::str_remove(ele$attribs$class, "\\s+btn-default")
         ele
       }
     )
@@ -204,7 +204,7 @@ mutate_tags.shiny.tag <- function(ele, selector, fn, ...) {
     }
     # match on class values
     if (is_match && !is.null(cur_selector$classes)) {
-      is_match <- all(strsplit(ele$attribs$class %||% "", " ")[[1]] %in% cur_selector$classes)
+      is_match <- all(stringr::strsplit(ele$attribs$class %||% "", " ")[[1]] %in% cur_selector$classes)
     }
 
     # if it is a match, drop a selector

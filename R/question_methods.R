@@ -47,7 +47,7 @@ question_ui_initialize.learnr_blank <- function(question, value, ...) {
     }
 
   #split question by blanks
-  split <- unlist(str_split(question$question, pattern = "___") )
+  split <- unlist(stringr::str_split(question$question, pattern = "___") )
   #pos <- NULL
   #for(i in 1:length(split)){
   #  if(i < length(split)){
@@ -78,7 +78,7 @@ question_is_valid.learnr_blank <- function(question, value, ...) {
     return(FALSE)
   }
   if (isTRUE(question$options$trim)) {
-    return(nchar(str_trim(value)) > 0)
+    return(nchar(stringr::str_trim(value)) > 0)
   } else{
     return(nchar(value) > 0)
   }
@@ -97,13 +97,13 @@ question_is_correct.learnr_blank <- function(question, value, ...) {
   }
 
   if (isTRUE(question$options$trim)) {
-    value <- str_trim(value)
+    value <- stringr::str_trim(value)
   }
 
   compare_answer <- function(answer) {
     answer_value <- answer$value
     if (isTRUE(question$options$trim)) {
-      answer_value <- str_trim(answer_value)
+      answer_value <- stringr::str_trim(answer_value)
     }
     if (isTRUE(all.equal(answer_value, value))) {
       learnr::mark_as(answer$correct, answer$message)
@@ -126,7 +126,7 @@ question_is_correct.learnr_blank <- function(question, value, ...) {
     }
   }
 
-  mark_as(FALSE, NULL)
+  learnr::mark_as(FALSE, NULL)
 }
 
 #' @export
@@ -145,13 +145,13 @@ question_ui_completed.learnr_blank <- function(question, value, ...) {
     }
 
 
-  split <- unlist(str_split(question$question, pattern = "___") )
+  split <- unlist(stringr::str_split(question$question, pattern = "___") )
 
   bootstrapPage(
     #tagList(
     div(style="display:inline-block",split[1]),
     div(style="display:inline-block",
-        finalize_question(
+        learnr::finalize_question(
           textInputFn(paste0(question$ids$answer),
                       label = NULL,
                       placeholder = question$options$placeholder,
@@ -188,13 +188,13 @@ question_ui_initialize.learnr_dropdown <- function(question, value, ...) {
 question_is_correct.learnr_dropdown <- function(question, value, ...) {
   for (ans in question$answers) {
     if (as.character(ans$option) == value) {
-      return(mark_as(
+      return(learnr::mark_as(
         ans$correct,
         ans$message
       ))
     }
   }
-  mark_as(FALSE, NULL)
+  learnr::mark_as(FALSE, NULL)
 }
 
 
@@ -213,7 +213,7 @@ question_ui_completed.learnr_dropdown <- function(question, value, ...) {
     tags$span(ans$label, class = tagClass)
   })
 
-  finalize_question(
+  learnr::finalize_question(
     selectInput(
       question$ids$answer,
       label = question$question,
