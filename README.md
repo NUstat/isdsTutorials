@@ -4,10 +4,11 @@ The ISDStutorials package contains a series of interactive tutorials that teach 
 
 # Installation
 
-Install the latest version of ISDStutorials from GitHub with the devtools package.
+Install the latest version of ISDStutorials from GitHub with the remotes package.
 
 ```{r}
 # install.packages("remotes")
+# remotes::install_github("rstudio/gradethis")
 remotes::install_github("NUstat/ISDStutorials", dependencies = TRUE)
 ```
 
