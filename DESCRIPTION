@@ -12,34 +12,23 @@ Depends:
     R (>= 3.2.0)
 Imports:
     checkmate,
-    curl,
     data.table,
-    devtools,
     dplyr,
     ellipsis,
     evaluate,
     ggplot2,
     gt,
-    htmltools (>= 0.3.5),
-    htmlwidgets,
     janitor,
-    jsonlite,
     knitr (>= 1.31),
     learnr (>= 0.10.1.9008),
-    lifecycle,
     markdown,
-    nycflights13,
-    promises,
-    readr,
-    remotes,
     rlang,
     rmarkdown (>= 1.12.0),
-    rprojroot,
     shiny (>= 1.0),
+    shinyjs,
     stringr,
     tidyr,
-    utils,
-    withr
+    utils
 Suggests:
     spelling
 VignetteBuilder: 
