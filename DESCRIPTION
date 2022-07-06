@@ -32,7 +32,7 @@ VignetteBuilder:
     knitr
 Remotes: 
     rstudio/learnr,
-    rstudio/gradethis
+    remote::rstudio/gradethis
 Config/Needs/connect: rsconnect
 Config/Needs/coverage: covr
 Config/Needs/website: pkgdown
