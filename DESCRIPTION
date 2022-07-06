@@ -13,11 +13,13 @@ Depends:
 Imports:
     checkmate,
     curl,
+    data.table,
     devtools,
     dplyr,
     ellipsis,
     evaluate,
     ggplot2,
+    gt,
     htmltools (>= 0.3.5),
     htmlwidgets,
     jsonlite,
