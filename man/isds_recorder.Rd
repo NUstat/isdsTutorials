@@ -6,12 +6,23 @@
 \usage{
 isds_recorder(tutorial_id, tutorial_version, user_id, event, data)
 }
+\arguments{
+\item{tutorial_id}{Tutorial ID obtained from session}
+
+\item{tutorial_version}{Tutorial version obtained from session}
+
+\item{user_id}{User ID obtained from session}
+
+\item{event}{Record events of type question_submission or exercise_result}
+
+\item{data}{Data from question or exercise with label and whether submission was correct
+
+The following isds recorder uses the server functions to store
+historical user's submissions}
+}
 \description{
 The following function was modified from the learnr package, available at
 https://github.com/rstudio/learnr. Many thanks to those who
 developed a fantastic tool for courses that teach R and use the learnr
 package.
-
-The following isds recorder uses the server functions to store
-historical user's submissions
 }

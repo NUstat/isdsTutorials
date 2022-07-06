@@ -7,6 +7,8 @@
 grade_ui(id, label = "grade tutorial")
 }
 \arguments{
+\item{id}{ID matching ui with server}
+
 \item{label}{Label to appear on the submit grade button}
 }
 \description{
