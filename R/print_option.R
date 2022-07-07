@@ -19,7 +19,8 @@ print_ui <- function(label = "print tutorial") {
   )
 
   #Print JS uses CSS formatting
-  jscode <- htmltools::HTML("$(document).on('shiny:inputchanged', function(event){ if (event.name === 'printButton') {window.print();}});")
+  #jscode <- htmltools::HTML("$(document).on('shiny:inputchanged', function(event){ if (event.name === 'printButton') {window.print();}});")
+  jscode <- "$(document).on('shiny:inputchanged', function(event){ if (event.name === 'printButton') {window.print();}});"
 
   shinyjs::useShinyjs()
   shinyjs::extendShinyjs(text = jscode,functions = c())
