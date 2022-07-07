@@ -9,7 +9,7 @@
 #print grade
 print_ui <- function(label = "print tutorial") {
   #Add css print formatting
-  includeCSS(system.file("www/print-format.css", package = "ISDStutorials"))
+  #includeCSS(system.file("www/print-format.css", package = "ISDStutorials"))
 
   #Print JS uses CSS formatting
   jscode <- HTML("$(document).on('shiny:inputchanged', function(event){ if (event.name === 'printButton') {window.print();}});")
