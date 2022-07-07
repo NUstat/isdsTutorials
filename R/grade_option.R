@@ -85,6 +85,11 @@ utils::globalVariables(c("V1", "x1", "x0", "n", "num_try", ".",
 grade_tutorial <- function(submissions, rubric_list,
                            num_try = 3, deduction = 0.1){
 
+  #to prevent error if clicking without any submissions
+  if(is.null(submissions)){
+    return(list(grade_table = NULL, grade_percent = 0))
+  }
+
   table <- submissions %>%
     data.table::data.table() %>%
     data.table::transpose() %>%
