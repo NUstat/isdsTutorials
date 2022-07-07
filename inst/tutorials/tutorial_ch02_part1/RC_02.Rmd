@@ -4,7 +4,7 @@ output:
   learnr::tutorial:
     progressive: true
     allow_skip: true
-    css: ["tutorials/css/nu-theme.css"]
+    css: ["www/nu-theme.css"]
 runtime: shiny_prerendered
 description: >
   Learn how to create a scatterplot.
@@ -18,23 +18,38 @@ description: >
 #remotes::install_github("dtkaplan/etude")
 library(learnr)
 library(tidyverse)
-library(nycflights13)
-library(janitor)
-#library(etude)
 library(shiny)
+library(ISDStutorials)
 library(gradethis)
-library(sjmisc)
-library(icons)
-
-#source("fun_dropdown.R")
-#source("fun_question.R")
-#source("fun_question_module.R")
-#source("../fun_blanks.R")
 
 gradethis_setup()
 knitr::opts_chunk$set(echo = FALSE)
 
 ```
+
+
+```{r, context = "server"}
+#must supply a data.frame consisting of question names and points_possible
+rubric_list <- data.frame(question = c("Ex1", "Ex1Q1", "Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7", "Q8", "Q9"),
+                          points_possible = rep(1, 11))
+
+num_try = 3
+deduction = 0.1
+display = "percent" #either "itemize", "percent", "both"
+
+gradeServer("grade_out", 
+            rubric_list = rubric_list, 
+            num_try, deduction, display)
+```
+
+
+```{r}
+# add print to top
+print_ui()
+# add grade output under print
+gradeUI("grade_out", label = "get grade")
+```
+
 
 ### Goals
 
