@@ -4,13 +4,14 @@ output:
   learnr::tutorial:
     progressive: true
     allow_skip: true
-    css: ["./css/rstudio-theme.css", "./css/print-format.css"]
+    css: ["tutorials/css/nu-theme.css"]
 runtime: shiny_prerendered
 description: >
   Learn how to create a scatterplot.
 ---
 
 ```{r setup, include=FALSE}
+#system.file("tutorials/css/nu-theme.css", package = "ISDStutorials") 
 #devtools::install_github("ropenscilabs/icon")
 #download_ionicons()
 #remotes::install_github("rstudio/gradethis")
