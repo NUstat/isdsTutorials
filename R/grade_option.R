@@ -53,26 +53,31 @@ grade_server <- function(id, rubric_list, num_try = 3, deduction = 0.1, display 
       update_grade(past_submission_answer)
 
       #to prevent error if clicking without any submissions
-      if(is.null( update_grade() )){
-      get_grades = list(grade_table = NULL, grade_percent = 0)
-      }
-      else{
-      get_grades <- grade_tutorial(submissions = update_grade() ,
-                                   rubric_list = rubric_list)
-      }
+      tryCatch({get_grades <- grade_tutorial(submissions = update_grade(),
+                                             rubric_list = rubric_list)},
+               error = function(e) {
+                 get_grades <- list(grade_table = 0, grade_percent = 0)
+                 return(NULL)})
 
+      #get_grades <- grade_tutorial(submissions = update_grade() ,
+      #               rubric_list = rubric_list)
 
       output$tableout <- render_gt({
-        if(display != "percent"){
-          get_grades$grade_table
+        if(display != "percent" ){
+          tryCatch({get_grades$grade_table},
+                   error = function(e){return(NULL)})
         }
 
       })
 
       output$pctout <- renderText({
         if(display != "itemize"){
-          paste0('<span style=\"font-size:30px; font-weight:normal; color:red\">',
-                 get_grades$grade_percent, "%")
+          tryCatch({paste0('<span style=\"font-size:30px; font-weight:normal; color:red\">',
+                           get_grades$grade_percent, "%")},
+                   error = function(e){
+                     return(paste0('<span style=\"font-size:30px; font-weight:normal; color:red\">',
+                                   "0%"))
+                   })
         }
 
       })

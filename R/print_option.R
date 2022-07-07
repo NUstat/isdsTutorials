@@ -12,7 +12,7 @@ print_ui <- function(label = "print tutorial") {
   #includeCSS(system.file("www/print-format.css", package = "ISDStutorials"))
 
   #Print JS uses CSS formatting
-  jscode <- HTML("$(document).on('shiny:inputchanged', function(event){ if (event.name === 'printButton') {window.print();}});")
+  jscode <- htmltools::HTML("$(document).on('shiny:inputchanged', function(event){ if (event.name === 'printButton') {window.print();}});")
 
   shinyjs::useShinyjs()
   shinyjs::extendShinyjs(text = jscode,functions = c())

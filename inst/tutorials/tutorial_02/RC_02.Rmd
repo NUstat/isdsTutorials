@@ -21,7 +21,7 @@ library(tidyverse)
 library(shiny)
 library(ISDStutorials)
 library(gradethis)
-
+source("print_option.R")
 gradethis_setup()
 knitr::opts_chunk$set(echo = FALSE)
 
@@ -46,6 +46,9 @@ grade_server("grade_out",
 ```{r}
 # add print to top
 print_ui()
+```
+
+```{r}
 # add grade output under print
 grade_ui("grade_out", label = "get grade")
 ```
