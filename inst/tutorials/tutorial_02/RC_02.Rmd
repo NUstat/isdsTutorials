@@ -21,7 +21,7 @@ library(tidyverse)
 library(shiny)
 library(ISDStutorials)
 library(gradethis)
-source("print_option.R")
+
 gradethis_setup()
 knitr::opts_chunk$set(echo = FALSE)
 
