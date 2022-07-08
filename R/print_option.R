@@ -10,17 +10,17 @@
 print_ui <- function(label = "print tutorial") {
   #Add css and js print formatting
   fluidPage(
-    # htmltools::attachDependencies(
-    #   "print",
-    #   htmltools::htmlDependency(
-    #     name = "print",
-    #     version = utils::packageVersion("ISDStutorials"),
-    #     src = system.file("www", package = "ISDStutorials"),
-    #     script = "print-format.js",
-    #     stylesheet = "print-format.css",
-    #     all_files = TRUE
-    #   )
-    # ),
+    htmltools::attachDependencies(
+      "print",
+      htmltools::htmlDependency(
+        name = "print",
+        version = utils::packageVersion("ISDStutorials"),
+        src = system.file("www", package = "ISDStutorials"),
+        script = "print-format.js",
+        stylesheet = "print-format.css",
+        all_files = TRUE
+      )
+    ),
     actionButton("printButton", label = label)
 
   )
