@@ -7,7 +7,8 @@
 #'
 #' @export
 #print grade
-print_ui <- function(label = "print tutorial") {
+print_ui <- function(id, label = "print tutorial") {
+  ns <- NS(id)
   #Add css and js print formatting
   fluidPage(
     htmltools::attachDependencies(

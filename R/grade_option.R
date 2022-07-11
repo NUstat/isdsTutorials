@@ -34,7 +34,7 @@ grade_ui <- function(id, label = "grade tutorial") {
 #' @param rubric_list A data frame containing a vector of question names and a vector of points_possible for each question
 #' @param num_try Number of tries allowed before grade deduction on that question. Default is 3.
 #' @param deduction The percent (as a decimal) to be deducted for each additional incorrect attempt. Default is 0.1.
-#' @param display One of c("both", "itemize", "percent")
+#' @param display vector of at least one c("percent", "itemize", "scaled")
 #'
 #' @export
 grade_server <- function(id, rubric_list, num_try = 3, deduction = 0.1, display = c("percent", "itemize", "scaled") ) {

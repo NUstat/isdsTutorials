@@ -4,7 +4,7 @@
 \alias{print_ui}
 \title{Tutorial print option}
 \usage{
-print_ui(label = "print tutorial")
+print_ui(id, label = "print tutorial")
 }
 \arguments{
 \item{label}{Label to appear on the print button}

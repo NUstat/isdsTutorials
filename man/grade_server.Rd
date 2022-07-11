@@ -4,7 +4,13 @@
 \alias{grade_server}
 \title{Grade tutorial server}
 \usage{
-grade_server(id, rubric_list, num_try = 3, deduction = 0.1, display = "both")
+grade_server(
+  id,
+  rubric_list,
+  num_try = 3,
+  deduction = 0.1,
+  display = c("percent", "itemize", "scaled")
+)
 }
 \arguments{
 \item{id}{ID matching ui with server}
@@ -15,7 +21,7 @@ grade_server(id, rubric_list, num_try = 3, deduction = 0.1, display = "both")
 
 \item{deduction}{The percent (as a decimal) to be deducted for each additional incorrect attempt. Default is 0.1.}
 
-\item{display}{One of c("both", "itemize", "percent")}
+\item{display}{vector of at least one c("percent", "itemize", "scaled")}
 }
 \description{
 Grade tutorial server
