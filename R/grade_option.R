@@ -37,7 +37,7 @@ grade_ui <- function(id, label = "grade tutorial") {
 #' @param display One of c("both", "itemize", "percent")
 #'
 #' @export
-grade_server <- function(id, rubric_list, num_try = 3, deduction = 0.1, display = "both") {
+grade_server <- function(id, rubric_list, num_try = 3, deduction = 0.1, display = c("percent", "itemize", "scaled") ) {
   moduleServer(
     id,
     function(input, output, session) {
@@ -63,7 +63,7 @@ grade_server <- function(id, rubric_list, num_try = 3, deduction = 0.1, display 
       #               rubric_list = rubric_list)
 
       output$tableout <- render_gt({
-        if(display != "percent" ){
+        if("itemize" %in% display ){
           tryCatch({get_grades$grade_table},
                    error = function(e){return(NULL)})
         }
@@ -71,12 +71,24 @@ grade_server <- function(id, rubric_list, num_try = 3, deduction = 0.1, display 
       })
 
       output$pctout <- renderText({
-        if(display != "itemize"){
+        if('percent' %in% display){
           tryCatch({paste0('<span style=\"font-size:30px; font-weight:normal; color:red\">',
                            get_grades$grade_percent, "%")},
                    error = function(e){
                      return(paste0('<span style=\"font-size:30px; font-weight:normal; color:red\">',
                                    "0%"))
+                   })
+        }
+
+      })
+
+      output$pctout <- renderText({
+        if('scaled' %in% display){
+          tryCatch({paste0('<span style=\"font-size:30px; font-weight:normal; color:red\">',
+                           get_grades$grade_percent/10, "/10")},
+                   error = function(e){
+                     return(paste0('<span style=\"font-size:30px; font-weight:normal; color:red\">',
+                                   "0/10"))
                    })
         }
 
