@@ -7,6 +7,8 @@
 print_ui(id, label = "pdf")
 }
 \arguments{
+\item{id}{ID to link to ui}
+
 \item{label}{Label to appear on the print button}
 }
 \description{

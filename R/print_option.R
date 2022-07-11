@@ -3,6 +3,7 @@
 #' @description
 #' Print the tutorial. Should load print-file.css into tutorial yaml
 #' for nice looking document.
+#' @param id ID to link to ui
 #' @param label Label to appear on the print button
 #'
 #' @export
