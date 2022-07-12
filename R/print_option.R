@@ -13,9 +13,9 @@ print_ui <- function(id, label = "pdf") {
   #Add css and js print formatting
   fluidPage(
     htmltools::attachDependencies(
-      "Print: ",
+      "Print",
       htmltools::htmlDependency(
-        name = "Print: ",
+        name = "Print",
         version = utils::packageVersion("ISDStutorials"),
         src = system.file("www", package = "ISDStutorials"),
         script = "print-format.js",
