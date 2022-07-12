@@ -13,10 +13,13 @@
     <loc>/index.html</loc>
   </url>
   <url>
-    <loc>/reference/grade_server.html</loc>
+    <loc>/reference/grade_button_ui.html</loc>
   </url>
   <url>
-    <loc>/reference/grade_ui.html</loc>
+    <loc>/reference/grade_output_ui.html</loc>
+  </url>
+  <url>
+    <loc>/reference/grade_server.html</loc>
   </url>
   <url>
     <loc>/reference/index.html</loc>
