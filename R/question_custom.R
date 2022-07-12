@@ -114,7 +114,8 @@ drop_question <- function(
     seed = learnr:::random_seed(),
     options = options
   )
-  class(ret) <- c(type, "notes_question")
+  #class(ret) <- c(type, "notes_question")
+  class(ret) <- c(type, "question")
   ret
 }
 

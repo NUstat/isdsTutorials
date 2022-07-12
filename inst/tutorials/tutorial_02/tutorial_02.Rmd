@@ -15,12 +15,9 @@ description: >
 ---
 
 ```{r setup, include=FALSE}
-#devtools::install_github("ropenscilabs/icon")
-#download_ionicons()
-#remotes::install_github("rstudio/gradethis")
+
 library(learnr)
 library(tidyverse)
-#library(shiny)
 library(ISDStutorials)
 library(gradethis)
 
@@ -70,12 +67,13 @@ grade_output_ui("grade_out")
 
 ## Instructions
 
-Complete this tutorial while reading Sections 2.0-2.3 of the textbook.
+Complete this tutorial while reading Sections 2.0-2.3 of the [textbook](https://nustat.github.io/intro-stat-ds/2-viz.html).
 
 Once you are finished:
- - Click the 'grade' button at the top to retrieve your score.
- - Click the 'print' button to save the document as a pdf, you must have the tutorial open in a browser window for this button to work.
- - Submit the completed pdf to Canvas.
+
+-   Click the 'grade' button at the top to retrieve your score.
+-   Click the 'pdf' button to save the document as a pdf, you must have the tutorial open in a browser window for this button to work.
+-   Submit the completed pdf to Canvas.
 
 
 ### Goals
@@ -90,29 +88,29 @@ Once you are finished:
 
 Construct a scatterplot of `eruptions` by `waiting` using the `faithful` dataset by filling in the blanks (the data is already preloaded in R).
 
-```{r scatter, exercise=TRUE}
+```{r Ex1, exercise=TRUE}
 ggplot(data = faithful, mapping = aes(x = ___, y = ___)) +
   ____
 ```
 
-```{r scatter-hint-1}
+```{r Ex1-hint-1}
 Common language: y by x
 ```
 
-```{r scatter-hint-2}
+```{r Ex1-hint-2}
 Make sure you open and close parenthesis after geom_point
 ```
 
-```{r scatter-solution, exercise.reveal_solution = FALSE}
+```{r Ex1-solution, exercise.reveal_solution = FALSE}
 ggplot(data = faithful, mapping = aes(x = waiting, y = eruptions)) +
   geom_point()
 ```
 
-```{r scatter-code-check}
+```{r Ex1-code-check}
 grade_this_code()
 ```
 
-```{r scatter-quiz-1}
+```{r Ex1-Q}
 quiz(
   caption = "",
   question("Which of the following describes the relationship between eruptions and waiting? Check all that apply.",
@@ -131,16 +129,14 @@ quiz(
 ```
 
 
-## Quiz
+## Reading Check
 
 *The following questions check your understanding of the grammar of graphics and scatterplots.*
 
 ```{r quiz}
 #reading check 2
-#all questions go inside this quiz function
 quiz(
   caption = NULL,
-  
   #Question 1
   #fill in the blank text example with multiple correct options
   question("What is the name of the theoretical framework for data
@@ -169,10 +165,47 @@ quiz(
   ),
 
 #Question 3
-#cannot enter question due to image
-#  question("Match the variables with the aesthetics they are mapped onto in Figure 2.1"),
+question(paste("What aesthetic is GDP per Capita mapped onto in Figure 2.1?", htmltools::img(src="images/Figure_02_1.png", height = 400, width = 700)),
+               answer("`y`"),
+               answer("doesn't get mapped"),
+               answer("`size`"),
+               answer("`color`"),
+               answer("`x`",correct=TRUE),
+               allow_retry = TRUE),
+#Question 4
+question("Refer to Figure 2.1 above. What aesthetic is Population mapped onto in the figure?",
+               answer("`y`"),
+               answer("doesn't get mapped"),
+               answer("`size`",correct=TRUE),
+               answer("`color`"),
+               answer("`x`"),
+               allow_retry = TRUE),
+#Question 5
+question("Refer to Figure 2.1 above. What aesthetic is Continent mapped onto in the figure?",
+               answer("`y`"),
+               answer("doesn't get mapped"),
+               answer("`size`"),
+               answer("`color`",correct=TRUE),
+               answer("`x`"),
+               allow_retry = TRUE),
+#Question 6
+question("Refer to Figure 2.1 above. What aesthetic is Country mapped onto in the figure?",
+               answer("`y`"),
+               answer("doesn't get mapped",correct=TRUE),
+               answer("`size`"),
+               answer("`color`"),
+               answer("`x`"),
+               allow_retry = TRUE),
+#Question 7
+question("Refer to Figure 2.1 above. What aesthetic is Life Expectancy mapped onto in the figure?",
+               answer("`y`",correct=TRUE),
+               answer("doesn't get mapped"),
+               answer("`size`"),
+               answer("`color`"),
+               answer("`x`"),
+               allow_retry = TRUE),
   
- #Question 4
+ #Question 8
  #cannot enter as dropdown; modify if simple to do so otherwise just skip
   question("In a data frame, columns correspond to",
            answer("variables", correct = TRUE),
@@ -184,7 +217,7 @@ quiz(
            answer("observations", correct = TRUE),
            answer("values"),
            allow_retry = TRUE),
-  #Question 5
+  #Question 9
   # ONE correct choice example
   question("What does the term `argument` refer to in R?",
            answer("output of a function"),
@@ -193,7 +226,7 @@ quiz(
            allow_retry = TRUE),
   #Question 6 - I excluded because didn't like the question
 
-  #Question 7
+  #Question 10
   #fill in the blank text example with one correct options
   question("How many Alaska Airlines flights are in the flights 
            data frame?", 
@@ -201,7 +234,7 @@ quiz(
            answer("42", correct = TRUE),
            allow_retry = TRUE),
 
-  #Question 8
+  #Question 11
   question("What type of relationship exists between departure
            delays and arrival delays for Alaska Airlines flights
            from NYC in 2013?",
@@ -209,7 +242,7 @@ quiz(
            answer("negative"),
            answer("no relationship"),
            allow_retry = TRUE),
-  #Question 9
+  #Question 12
   question("Select the statements that are TRUE about the + sign
            when using ggplot()",
            answer("Not using the + sign to add a geometric 
@@ -220,7 +253,7 @@ quiz(
            answer("The + sign should go at the beginning 
                   of a new line."),
            allow_retry = TRUE),
-  #Question 10
+  #Question 13
   question("What is the name of the aesthetic argument that 
            allows you to change the transparency of a geometric
            object in ggplot()?",
@@ -229,8 +262,6 @@ quiz(
            answer("jitter"),
            answer("transparency"),
            allow_retry = TRUE)
-  
-  
 )
 
 ```

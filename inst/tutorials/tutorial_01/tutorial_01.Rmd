@@ -1,0 +1,252 @@
+---
+title: "Tutorial: Preface & Chapter 1"
+tutorial:
+  id: "isds_01"
+  version: 0.1
+  
+output:
+  learnr::tutorial:
+    progressive: true
+    allow_skip: true
+    css: ["css/nu-theme.css"]
+runtime: shiny_prerendered
+description: >
+  Learn the basics of RMarkdown.
+---
+
+```{r setup, include=FALSE}
+
+library(learnr)
+library(tidyverse)
+library(ISDStutorials)
+library(gradethis)
+
+gradethis_setup()
+knitr::opts_chunk$set(echo = FALSE)
+
+options(tutorial.event_recorder = ISDStutorials::isds_recorder)
+
+```
+
+```{r, context = "server"}
+#must supply a data.frame consisting of "question" and "points_possible"
+#The question/exercise name is the code chunk name followed by a number, ignoring all spaces and/or "-" symbols.
+rubric_list <- data.frame(question = c("Ex1", "Ex1Q1", "Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7", "Q8", "Q9", "Q10", "Q11"),
+                          points_possible = rep(1, 13))
+
+num_try = 3
+deduction = 0.1
+display = c("percent", "itemize") #options "itemize", "percent", "scaled"
+
+grade_server("grade_out", 
+            rubric_list = rubric_list, 
+            num_try, deduction, display)
+```
+
+```{r isds-header}
+# student name
+question_blank("Name: ___",
+                            answer_fn(function(value){
+                              if (length(value) >= 1 ) {
+                                return(mark_as(TRUE))
+                                }
+                              return(mark_as(FALSE) )
+                              }), allow_retry = FALSE )
+# have name, grade button, and print button on same line
+bootstrapPage(
+     div(style="display:inline-block",
+         grade_button_ui("grade_out") ),
+     div(style="display:inline-block", print_ui("Print") )
+)
+
+# can have the grade output appear anywhere in your tutorial
+grade_output_ui("grade_out")
+```
+
+## Instructions
+
+Complete this tutorial while reading the Preface and Chapter 1 of the [textbook](https://nustat.github.io/intro-stat-ds/).
+
+Once you are finished:
+
+-   Click the 'grade' button at the top to retrieve your score.
+-   Click the 'pdf' button to save the document as a pdf, you must have the tutorial open in a browser window for this button to work.
+-   Submit the completed pdf to Canvas.
+
+
+### Goals
+
+-   Know what resources you have available for help.
+-   Understand the basics of R syntax and R output.
+-   Understand the functions of important packages.
+-   Understand how to find information from a dataframe.
+
+
+## Exercises
+
+Store the result of `20*40` into the variable `x`
+
+```{r Ex1, exercise=TRUE}
+x ___ 20*___
+```
+
+```{r Ex1-hint-1}
+The assignment operator is `<-`
+```
+
+```{r Ex1-solution, exercise.reveal_solution = FALSE}
+x <- 20*40
+```
+
+```{r Ex1-code-check}
+grade_this_code()
+```
+
+
+```{r}
+
+```
+
+
+```{r Ex2-Q}
+quiz(caption = NULL,
+  question("Which of the following are names of variables in the flights data frame?",
+           answer("air_time", correct = TRUE),
+           answer("tailnum", correct = TRUE),
+           answer("dplyr"),
+           answer("Origin"),
+           answer("dbl"),
+           answer("glimpse"),
+           answer("dep_delay", correct = TRUE),
+           allow_retry = TRUE), 
+  # Question 15
+  question("What's the scheduled departure time for the first observation in the flights dataframe?",
+           answer("600"),
+           answer("515", correct = TRUE),
+           answer("2013"),
+           answer("830"),
+           answer("517"),
+           answer("554"), 
+           allow_retry = TRUE) )
+```
+
+
+## Reading Quiz
+
+
+```{r Q}
+quiz(caption = NULL,
+     question("What is a section of code in an RMarkdown document called?",
+           answer("a tibble"),
+           answer("a sandwich"),
+           answer("a code letter",message = "Close, but not quite"),
+           answer("a code chunk",correct = TRUE),
+           allow_retry = TRUE),
+  #Question 1
+  question("What's the name of the online forum the authors mention with an extensive community of R users that you can consult for code troubleshooting?", 
+           type = "learnr_text",
+           answer("stackoverflow", correct = TRUE),
+           answer("stackoverflow.com", correct = TRUE),
+           allow_retry = TRUE),
+  #Question 2
+  question("Which of the following help ensure research is reproducible? Select all that apply.",
+           answer("Copying and pasting results into a word processor"),
+           answer("Using a workflow tool such as RMarkdown", correct = TRUE),
+           answer("Literate programming (i.e. code that is readable)", correct = TRUE),
+           answer("Well-documented data cleaning and analyses", correct = TRUE),
+           allow_retry = TRUE), 
+  # Question 3
+  question("RStudio is:",
+           answer("a programming language (like a car's engine)"),
+           answer("an integrated development environment (like a car dashboard)", correct = TRUE),
+           allow_retry = TRUE),
+  # Question 4
+  question("R is:",
+           answer("a programming language (like a car's engine)", correct = TRUE),
+           answer("an integrated development environment (like a car dashboard)"),
+           allow_retry = TRUE),
+  # Question 5
+  question("Which of the following applications do you need to install on your computer for this course?",
+           answer("R only"),
+           answer("Both R and RStudio"),
+           answer("RStudio only"),
+           answer("None. RStudio Cloud uses your web browser.", correct = TRUE),
+           allow_retry = TRUE),
+  # Question 6
+  question("Which of the following lines of code will store the value 30 in the object x? Select all that apply.",
+           answer("x <- 15 + 15", correct = TRUE),
+           answer("x = 30", correct = TRUE),
+           answer("x <- 6*5", correct = TRUE),
+           answer("x == 30"),
+           allow_retry = TRUE), 
+    # Question 7
+  question("Seeing red text in your console is not always bad. How should errors be interpreted?",
+           answer("something is wrong! (red traffic light)", correct = TRUE),
+           answer("everything is working fine (green traffic light)"),
+           answer("everything is working fine, but watch out/pay attention (yellow traffic light)"),
+           allow_retry = TRUE),
+  # Question 8
+  question("Seeing red text in your console is not always bad. How should warnings be interpreted?",
+           answer("something is wrong! (red traffic light)"),
+           answer("everything is working fine (green traffic light)"),
+           answer("everything is working fine, but watch out/pay attention (yellow traffic light)", correct = TRUE),
+           allow_retry = TRUE), 
+  # Question 9
+  question("Seeing red text in your console is not always bad. How should messages be interpreted?",
+           answer("something is wrong! (red traffic light)"),
+           answer("everything is working fine (green traffic light)", correct = TRUE),
+           answer("everything is working fine, but watch out/pay attention (yellow traffic light)"),
+           allow_retry = TRUE), 
+  # Question 10
+  question("Which of the following is a good analogy for R packages?",
+           answer("iOS software"),
+           answer("iPhone accessories"),
+           answer("apps you can download"),
+           answer("a new iPhone", correct = TRUE),
+           allow_retry = TRUE), 
+  # Question 11
+  question("What is the primary purpose of the moderndive package?",
+           answer("data wrangling"),
+           answer("accompanies this book", correct = TRUE),
+           answer("data visualization"),
+           allow_retry = TRUE), 
+  # Question 12
+  question("What is the primary purpose of the ggplot2 package?",
+           answer("data wrangling"),
+           answer("accompanies this book"),
+           answer("data visualization", correct = TRUE),
+           allow_retry = TRUE), 
+  # Question 13
+  question("What is the primary purpose of the dplyr package?",
+           answer("data wrangling", correct = TRUE),
+           answer("accompanies this book"),
+           answer("data visualization"),
+           allow_retry = TRUE) 
+)
+```
+
+
+```{r Qb}
+quiz(caption = NULL,
+  question_dropdown("Seeing red text in your console is not always bad. How should errors be interpreted?",
+           answer("something is wrong! (red traffic light)", correct = TRUE),
+           answer("everything is working fine (green traffic light)"),
+           answer("everything is working fine, but watch out/pay attention (yellow traffic light)"),
+           allow_retry = TRUE),
+  # Question 8
+  question_dropdown("Seeing red text in your console is not always bad. How should warnings be interpreted?",
+           answer("something is wrong! (red traffic light)"),
+           answer("everything is working fine (green traffic light)"),
+           answer("everything is working fine, but watch out/pay attention (yellow traffic light)", correct = TRUE),
+           allow_retry = TRUE), 
+  # Question 9
+  question_dropdown("Seeing red text in your console is not always bad. How should messages be interpreted?",
+           answer("something is wrong! (red traffic light)"),
+           answer("everything is working fine (green traffic light)", correct = TRUE),
+           answer("everything is working fine, but watch out/pay attention (yellow traffic light)"),
+           allow_retry = TRUE)
+)
+
+```
+
+
