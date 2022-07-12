@@ -227,7 +227,7 @@ quiz(caption = NULL,
 
 
 ```{r Qb}
-quiz(caption = NULL,
+quiz_notes(caption = NULL,
   question_dropdown("Seeing red text in your console is not always bad. How should errors be interpreted?",
            answer("something is wrong! (red traffic light)", correct = TRUE),
            answer("everything is working fine (green traffic light)"),

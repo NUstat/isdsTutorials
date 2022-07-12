@@ -115,7 +115,7 @@ drop_question <- function(
     options = options
   )
   #class(ret) <- c(type, "notes_question")
-  class(ret) <- c(type, "question")
+  class(ret) <- c(type, "tutorial_question")
   ret
 }
 
