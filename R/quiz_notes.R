@@ -165,7 +165,7 @@ notes_button_label <- function(question, label_type = "submit", is_valid = TRUE)
       class = default_class
     )
     if (!is_valid) {
-      button <- disable_all_tags(button)
+      button <- learnr::disable_all_tags(button)
     }
     button
   } else if (label_type == "try_again") {
@@ -505,7 +505,7 @@ notes_module_server_impl <- function(
 
     return(
       learnr:::withLearnrMathJax(
-        question_ui_try_again(question, submitted_answer())
+        learnr::question_ui_try_again(question, submitted_answer())
       )
     )
   })
