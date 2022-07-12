@@ -15,17 +15,30 @@
 #'
 #' @import gt
 #' @export
-grade_ui <- function(id, label = "grade tutorial") {
+grade_button_ui <- function(id, label = "grade tutorial") {
   ns <- NS(id)
   tagList(
+    actionButton( ns("button"), label = label)
+  )
+}
 
-    actionButton( ns("button"), label = label),
-    br(),
+#' Tutorial grade options
+#'
+#' @description
+#' Obtain grade on all question and exercise submissions for a user.
+#' @param id ID matching ui with server
+#' @export
+grade_output_ui <- function(id) {
+  ns <- NS(id)
+
+  tagList(
     htmlOutput(ns("pctout")),
     br(),
+    htmlOutput(ns("tenout")),
+    br(),
     gt_output(ns("tableout"))
-
   )
+
 }
 
 # Define the server logic for a module to compute grade
@@ -53,45 +66,32 @@ grade_server <- function(id, rubric_list, num_try = 3, deduction = 0.1, display 
       update_grade(past_submission_answer)
 
       #to prevent error if clicking without any submissions
-      tryCatch({get_grades <- grade_tutorial(submissions = update_grade(),
-                                             rubric_list = rubric_list)},
-               error = function(e) {
-                 get_grades <- list(grade_table = 0, grade_percent = 0)
-                 return(NULL)})
-
-      #get_grades <- grade_tutorial(submissions = update_grade() ,
-      #               rubric_list = rubric_list)
+      check <- try({grade_tutorial(submissions = update_grade(),
+                                   rubric_list = rubric_list) }, silent = TRUE)
+      if(class(check) == 'try-error'){
+        get_grades <- list(grade_table = NULL, grade_percent = 0)
+      }else if(class(check) != 'try-error'){
+        get_grades <- grade_tutorial(submissions = update_grade() ,
+                                     rubric_list = rubric_list)
+      }
 
       output$tableout <- render_gt({
-        if("itemize" %in% display ){
-          tryCatch({get_grades$grade_table},
-                   error = function(e){return(NULL)})
+        if('itemize' %in% display){
+          get_grades$grade_table
         }
 
       })
 
       output$pctout <- renderText({
         if('percent' %in% display){
-          tryCatch({paste0('<span style=\"font-size:30px; font-weight:normal; color:red\">',
-                           get_grades$grade_percent, "%")},
-                   error = function(e){
-                     return(paste0('<span style=\"font-size:30px; font-weight:normal; color:red\">',
-                                   "0%"))
-                   })
-        }
-
+          paste0('<span style=\"font-size:30px; font-weight:normal; color:red\">',
+                 get_grades$grade_percent, "%")}
       })
 
-      output$pctout <- renderText({
+      output$tenout <- renderText({
         if('scaled' %in% display){
-          tryCatch({paste0('<span style=\"font-size:30px; font-weight:normal; color:red\">',
-                           get_grades$grade_percent/10, "/10")},
-                   error = function(e){
-                     return(paste0('<span style=\"font-size:30px; font-weight:normal; color:red\">',
-                                   "0/10"))
-                   })
-        }
-
+          paste0('<span style=\"font-size:30px; font-weight:normal; color:red\">',
+                 get_grades$grade_percent/10, "/10")}
       })
 
       })
@@ -138,7 +138,7 @@ grade_tutorial <- function(submissions, rubric_list,
 
   # match student progress with all possible questions
   # rubric_list must be defined by creator
-  grade_summary <- dplyr::left_join(rubric_list, correct_q) %>%
+  grade_summary <- dplyr::left_join(rubric_list, correct_q, by = "question") %>%
     janitor::clean_names()
 
   # create placeholder column if x1 or x0 has not applied yet
