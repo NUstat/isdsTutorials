@@ -5,6 +5,9 @@
 #' @param ... One or more questions or answers
 #' @param caption Optional quiz caption (defaults to "Quiz")
 #' @family Interactive Questions
+#'
+#' @importFrom rlang "%||%"
+#'
 #' @name quiz
 #' @rdname quiz
 #' @export
@@ -55,7 +58,7 @@ knit_print.notes_question <- function(x, ...) {
   rmarkdown::shiny_prerendered_chunk(
     'server',
     sprintf(
-      'notes_prerendered_chunk(%s, session = session)', #format
+      'ISDStutorials:::notes_prerendered_chunk(%s, session = session)', #format
       learnr:::dput_to_string(question)
     )
   )
@@ -322,7 +325,6 @@ notes_messages <- function(question, messages, is_correct, is_done) {
 
 
 # internal function to print notes
-#' @export
 notes_prerendered_chunk <- function(question, ..., session = getDefaultReactiveDomain()) {
   learnr:::store_question_cache(question)
 

@@ -103,7 +103,7 @@ grade_server <- function(id, rubric_list, num_try = 3, deduction = 0.1, display 
 #set global variables needed to prevent package warning
 utils::globalVariables(c("V1", "x1", "x0", "n", "num_try", ".",
                          "deduction", "points_possible", "score",
-                         "num_attempts"))
+                         "num_attempts", "question", "correct"))
 
 #create a table of grades and calculate overall percent
 grade_tutorial <- function(submissions, rubric_list,
