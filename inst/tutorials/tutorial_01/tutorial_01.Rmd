@@ -6,7 +6,7 @@ tutorial:
   
 output:
   learnr::tutorial:
-    progressive: true
+    progressive: false
     allow_skip: true
     css: ["css/nu-theme.css"]
 runtime: shiny_prerendered
@@ -25,14 +25,13 @@ gradethis_setup()
 knitr::opts_chunk$set(echo = FALSE)
 
 options(tutorial.event_recorder = ISDStutorials::isds_recorder)
-
 ```
 
 ```{r, context = "server"}
 #must supply a data.frame consisting of "question" and "points_possible"
 #The question/exercise name is the code chunk name followed by a number, ignoring all spaces and/or "-" symbols.
-rubric_list <- data.frame(question = c("Ex1", "Ex1Q1", "Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7", "Q8", "Q9", "Q10", "Q11"),
-                          points_possible = rep(1, 13))
+rubric_list <- data.frame(question = c("Ex1", "Ex2Q1", "Ex2Q2", "Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7", "Q8", "Q9"),
+                          points_possible = rep(1, 12))
 
 num_try = 3
 deduction = 0.1
@@ -65,7 +64,7 @@ grade_output_ui("grade_out")
 
 ## Instructions
 
-Complete this tutorial while reading the Preface and Chapter 1 of the [textbook](https://nustat.github.io/intro-stat-ds/).
+Complete this tutorial while reading the Preface and Chapter 1 of the [textbook](https://nustat.github.io/intro-stat-ds/). Each question allows 3 'free' attempts. After the third attempt a 10% deduction occurs per attempt.
 
 Once you are finished:
 
@@ -83,6 +82,8 @@ Once you are finished:
 
 
 ## Exercises
+
+### Exercise 1
 
 Store the result of `20*40` into the variable `x`
 
@@ -102,31 +103,34 @@ x <- 20*40
 grade_this_code()
 ```
 
+### Exercise 2
 
-```{r}
-
+The `mpg` dataset is included in the `ggplot2` package. Print the dataset to answer the following questions by typing `mpg` in the codechunk and clicking `run`.
+```{r Ex2, exercise = TRUE, exercise.eval = FALSE}
+#print mpg dataset
 ```
 
 
 ```{r Ex2-Q}
 quiz(caption = NULL,
-  question("Which of the following are names of variables in the flights data frame?",
-           answer("air_time", correct = TRUE),
-           answer("tailnum", correct = TRUE),
+    # Ex2Q1
+  question("Which of the following are names of variables in the mpg data frame?",
+           answer("audi"),
+           answer("manufacturer", correct = TRUE),
            answer("dplyr"),
-           answer("Origin"),
-           answer("dbl"),
+           answer("year", correct = TRUE),
+           answer("drv", correct = TRUE),
            answer("glimpse"),
-           answer("dep_delay", correct = TRUE),
+           answer("chr"),
            allow_retry = TRUE), 
-  # Question 15
-  question("What's the scheduled departure time for the first observation in the flights dataframe?",
-           answer("600"),
-           answer("515", correct = TRUE),
-           answer("2013"),
-           answer("830"),
-           answer("517"),
-           answer("554"), 
+  # Ex2Q2
+  question("What's the city miles per gallon for the first observation in the mpg dataframe?",
+           answer("29"),
+           answer("18", correct = TRUE),
+           answer("21"),
+           answer("0"),
+           answer("NA"),
+           answer("4"), 
            allow_retry = TRUE) )
 ```
 
@@ -136,79 +140,62 @@ quiz(caption = NULL,
 
 ```{r Q}
 quiz(caption = NULL,
+  #Q1
      question("What is a section of code in an RMarkdown document called?",
            answer("a tibble"),
            answer("a sandwich"),
            answer("a code letter",message = "Close, but not quite"),
            answer("a code chunk",correct = TRUE),
            allow_retry = TRUE),
-  #Question 1
+  #Q2
   question("What's the name of the online forum the authors mention with an extensive community of R users that you can consult for code troubleshooting?", 
            type = "learnr_text",
            answer("stackoverflow", correct = TRUE),
            answer("stackoverflow.com", correct = TRUE),
            allow_retry = TRUE),
-  #Question 2
+  #Q3
   question("Which of the following help ensure research is reproducible? Select all that apply.",
            answer("Copying and pasting results into a word processor"),
            answer("Using a workflow tool such as RMarkdown", correct = TRUE),
            answer("Literate programming (i.e. code that is readable)", correct = TRUE),
            answer("Well-documented data cleaning and analyses", correct = TRUE),
            allow_retry = TRUE), 
-  # Question 3
-  question("RStudio is:",
-           answer("a programming language (like a car's engine)"),
-           answer("an integrated development environment (like a car dashboard)", correct = TRUE),
+  # Q4
+  question("___ is a programming language (like a car's engine); and ___ is an inintegrated development environment (like a car dashboard)",
+           answer("R; RStudio", correct = TRUE),
+           answer("RStudio; R"),
            allow_retry = TRUE),
-  # Question 4
-  question("R is:",
-           answer("a programming language (like a car's engine)", correct = TRUE),
-           answer("an integrated development environment (like a car dashboard)"),
-           allow_retry = TRUE),
-  # Question 5
+  # Q5
   question("Which of the following applications do you need to install on your computer for this course?",
            answer("R only"),
            answer("Both R and RStudio"),
            answer("RStudio only"),
            answer("None. RStudio Cloud uses your web browser.", correct = TRUE),
            allow_retry = TRUE),
-  # Question 6
+  # Q6
+  question("Which of the following is a good analogy for R packages?",
+           answer("iOS software"),
+           answer("iPhone accessories"),
+           answer("apps you can download"),
+           answer("a new iPhone", correct = TRUE),
+           allow_retry = TRUE),
+  # Q7
   question("Which of the following lines of code will store the value 30 in the object x? Select all that apply.",
            answer("x <- 15 + 15", correct = TRUE),
            answer("x = 30", correct = TRUE),
            answer("x <- 6*5", correct = TRUE),
            answer("x == 30"),
            allow_retry = TRUE), 
-    # Question 7
+    # Q8
     question_matching("Seeing red text in your console is not always bad. Order the three different types of feedback R gives (on right) to match how they should be interpreted.",
         choices = c("Error", "Warning", "Message"),
         answer(c("something is wrong! (red traffic light)","everything is working fine, but watch out/pay attention (yellow traffic light)", "everything is working fine (green traffic light)"), correct = TRUE), 
         allow_retry = TRUE ),
-  # Question 10
-  question("Which of the following is a good analogy for R packages?",
-           answer("iOS software"),
-           answer("iPhone accessories"),
-           answer("apps you can download"),
-           answer("a new iPhone", correct = TRUE),
-           allow_retry = TRUE), 
-  # Question 11
-  question("What is the primary purpose of the moderndive package?",
-           answer("data wrangling"),
-           answer("accompanies this book", correct = TRUE),
-           answer("data visualization"),
-           allow_retry = TRUE), 
-  # Question 12
-  question("What is the primary purpose of the ggplot2 package?",
-           answer("data wrangling"),
-           answer("accompanies this book"),
-           answer("data visualization", correct = TRUE),
-           allow_retry = TRUE), 
-  # Question 13
-  question("What is the primary purpose of the dplyr package?",
-           answer("data wrangling", correct = TRUE),
-           answer("accompanies this book"),
-           answer("data visualization"),
-           allow_retry = TRUE) 
+  # Q9
+    question_matching("Match the order of the following packages with their primary purpose",
+        choices = c("moderndive", "dplyr", "ggplot2"),
+        answer(c("accompanies this book","data wrangling",  "data visualization"), correct = TRUE), 
+        allow_retry = TRUE )
 )
 ```
 

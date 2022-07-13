@@ -172,7 +172,7 @@ question_ui_initialize.matching <- function(question, value, ...) {
   }
 
   sortable::bucket_list(
-    header = question$question,
+    header = tags$span(style = "font-weight: bold;", question$question ),
     sortable::add_rank_list(
       text = NULL,
       labels = question$choices,
