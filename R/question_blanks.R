@@ -3,8 +3,15 @@
 #' Add interactive fill in the blank tasks to your `learnr` tutorials.
 #'
 #'
+#' @param rows,cols Defines the size of the text input area in terms of the
+#'   number of rows or character columns visible to the user. If either `rows`
+#'   or `cols` are provided, the quiz input will use [shiny::textAreaInput()]
+#'   for the text input, otherwise the default input element is a single-line
+#'   [shiny::textInput()].
+#' @param trim Logical to determine if whitespace before and after the answer
+#'   should be removed.  Defaults to `TRUE`.
 #' @param ... parameters passed onto learnr answer.
-#' @inheritParams learnr::question_text
+#' @inheritParams learnr::question
 #'
 #' @return A custom `learnr` question, with `type = blank`.
 #'
