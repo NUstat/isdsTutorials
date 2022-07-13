@@ -40,7 +40,7 @@ question_matching <- function(
     try_again_button = "Try Again",
     allow_retry = FALSE,
     random_answer_order = TRUE,
-    options = sortable_options()
+    options = sortable::sortable_options()
 ) {
   matching_question(
     text = text,
@@ -175,13 +175,13 @@ question_ui_initialize.matching <- function(question, value, ...) {
     sortable::add_rank_list(
       text = NULL,
       labels = question$choices,
-      options = sortable_options(draggable = FALSE)
+      options = sortable::sortable_options(draggable = FALSE)
     ),
     sortable::add_rank_list(
       text = NULL,
       input_id = question$ids$answer,
       labels = labels,
-      options = sortable_options(swap = TRUE)
+      options = sortable::sortable_options(swap = TRUE)
     ),
     orientation = "horizontal"
   )
@@ -199,19 +199,19 @@ question_ui_initialize.matching <- function(question, value, ...) {
 question_ui_completed.matching <- function(question, value, ...) {
   # TODO display correct values with X or √ compared to best match
   # TODO DON'T display correct values (listen to an option?)
-  disable_all_tags(
+  learnr::disable_all_tags(
     sortable::bucket_list(
       header = question$question,
       sortable::add_rank_list(
         text = NULL,
         labels = question$choices,
-        options = sortable_options(draggable = FALSE)
+        options = sortable::sortable_options(draggable = FALSE)
       ),
       sortable::add_rank_list(
         text = NULL,
         input_id = question$ids$answer,
         labels = value,
-        options = sortable_options(disabled = TRUE)
+        options = sortable::sortable_options(disabled = TRUE)
       ),
       orientation = "horizontal"
     )
@@ -221,7 +221,7 @@ question_ui_completed.matching <- function(question, value, ...) {
     #   labels = value,
     #   options = modifyList(
     #     question$options,
-    #     sortable_options(disabled = TRUE)
+    #     sortable::sortable_options(disabled = TRUE)
     #   )
     # )
   )
@@ -230,19 +230,19 @@ question_ui_completed.matching <- function(question, value, ...) {
 #' @export
 #' @seealso question_matching
 question_ui_try_again.matching <- function(question, value, ...) {
-  disable_all_tags(
+  learnr::disable_all_tags(
     sortable::bucket_list(
       header = question$question,
       sortable::add_rank_list(
         text = NULL,
         labels = question$choices,
-        options = sortable_options(draggable = FALSE)
+        options = sortable::sortable_options(draggable = FALSE)
       ),
       sortable::add_rank_list(
         text = NULL,
         input_id = question$ids$answer,
         labels = value,
-        options = sortable_options(disabled = TRUE)
+        options = sortable::sortable_options(disabled = TRUE)
       ),
       orientation = "horizontal"
     )
@@ -258,9 +258,9 @@ question_is_correct.matching <- function(question, value, ...) {
   for (answer in question$answers) {
     if (identical(answer$option, value)) {
       # if it matches, return the correct-ness and its message
-      return(mark_as(answer$correct, answer$message))
+      return(learnr::mark_as(answer$correct, answer$message))
     }
   }
   # no match found. not correct
-  mark_as(FALSE, NULL)
+  learnr::mark_as(FALSE, NULL)
 }

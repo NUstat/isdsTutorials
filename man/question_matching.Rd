@@ -15,7 +15,7 @@ question_matching(
   try_again_button = "Try Again",
   allow_retry = FALSE,
   random_answer_order = TRUE,
-  options = sortable_options()
+  options = sortable::sortable_options()
 )
 }
 \arguments{
