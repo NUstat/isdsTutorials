@@ -4,7 +4,7 @@
 #'
 #'
 #' @param ... parameters passed onto learnr answer.
-#' @inheritParams learnr::question
+#' @inheritParams learnr::question_text
 #'
 #' @return A custom `learnr` question, with `type = blank`.
 #'

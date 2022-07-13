@@ -25,12 +25,6 @@ question_blank(
 
 \item{...}{parameters passed onto learnr answer.}
 
-\item{type}{Type of quiz question. Typically this can be automatically determined
-based on the provided answers. Pass \code{"radio"} to indicate that even though
-multiple correct answers are specified that inputs which include only one correct
-answer are still correct. Pass \code{"checkbox"} to force the use of checkboxes
-(as opposed to radio buttons) even though only once correct answer was provided.}
-
 \item{correct}{For \code{question}, text to print for a correct answer (defaults
 to "Correct!"). For \code{answer}, a boolean indicating whether this answer is
 correct.}
@@ -43,7 +37,29 @@ when \code{allow_retry} is \code{TRUE}.}
 
 \item{allow_retry}{Allow retry for incorrect answers. Defaults to \code{FALSE}.}
 
-\item{random_answer_order}{Display answers in a random order.}
+\item{random_answer_order}{\ifelse{{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}} Random answer
+order for text questions is automatically disabled to ensure that the
+submission is checked against each answer in the order they were provided
+by the author.}
+
+\item{placeholder}{A character string giving the user a hint as to what can
+be entered into the control. Internet Explorer 8 and 9 do not support this
+option.}
+
+\item{trim}{Logical to determine if whitespace before and after the answer
+should be removed.  Defaults to \code{TRUE}.}
+
+\item{rows}{Defines the size of the text input area in terms of the
+number of rows or character columns visible to the user. If either \code{rows}
+or \code{cols} are provided, the quiz input will use \code{\link[shiny:textAreaInput]{shiny::textAreaInput()}}
+for the text input, otherwise the default input element is a single-line
+\code{\link[shiny:textInput]{shiny::textInput()}}.}
+
+\item{cols}{Defines the size of the text input area in terms of the
+number of rows or character columns visible to the user. If either \code{rows}
+or \code{cols} are provided, the quiz input will use \code{\link[shiny:textAreaInput]{shiny::textAreaInput()}}
+for the text input, otherwise the default input element is a single-line
+\code{\link[shiny:textInput]{shiny::textInput()}}.}
 
 \item{options}{Extra options to be stored in the question object.}
 }
