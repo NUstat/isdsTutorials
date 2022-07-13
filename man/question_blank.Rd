@@ -45,6 +45,8 @@ when \code{allow_retry} is \code{TRUE}.}
 
 \item{random_answer_order}{Display answers in a random order.}
 
+\item{placeholder}{Sample text to appear in blank.}
+
 \item{trim}{Logical to determine if whitespace before and after the answer
 should be removed.  Defaults to \code{TRUE}.}
 

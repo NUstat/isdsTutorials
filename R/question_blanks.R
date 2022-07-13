@@ -2,7 +2,7 @@
 #'
 #' Add interactive fill in the blank tasks to your `learnr` tutorials.
 #'
-#'
+#' @param placeholder Sample text to appear in blank.
 #' @param rows,cols Defines the size of the text input area in terms of the
 #'   number of rows or character columns visible to the user. If either `rows`
 #'   or `cols` are provided, the quiz input will use [shiny::textAreaInput()]
@@ -58,6 +58,7 @@ question_blank <- function(
 
 }
 
+#' @rdname quiz
 #' @export
 blank_question <- function(
     text,

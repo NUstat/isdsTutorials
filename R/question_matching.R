@@ -59,6 +59,7 @@ question_matching <- function(
   )
 }
 
+#' @rdname quiz
 #' @export
 matching_question <- function(
     text,

@@ -38,6 +38,7 @@ question_dropdown <- function(
   question
 }
 
+#' @rdname quiz
 #' @export
 drop_question <- function(
     text,
