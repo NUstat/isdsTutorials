@@ -4,15 +4,12 @@
 #' Add interactive drop down tasks to your `learnr` tutorials.
 #'
 #'
-#' @param ... parameters passed onto \code{\link[learnr:quiz]{learnr::question()}}.
+#' @param ... parameters passed onto learnr answer.
 #' @inheritParams learnr::question
 #'
 #' @return A custom `learnr` question, with `type = dropdown`.
-#' See \code{\link[learnr:quiz]{learnr::question()}}.
 #'
-#' @export
-#'
-#' @return Returns a learnr question of type `"dropdown"`.
+# @return Returns a learnr question of type `"dropdown"`.
 #'
 #' @export
 question_dropdown <- function(

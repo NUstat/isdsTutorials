@@ -1,28 +1,14 @@
-#' @importFrom learnr question_ui_initialize
-#' @importFrom learnr question_ui_completed
-#' @importFrom learnr question_ui_try_again
-#' @importFrom learnr question_is_valid
-#' @importFrom learnr question_is_correct
-#' @importFrom learnr mark_as
-#' @importFrom learnr disable_all_tags
-#' @import sortable
-#' @import shiny
-#'
 #' Fill in the blank question for learnr tutorials.
-#'
 #'
 #' Add interactive fill in the blank tasks to your `learnr` tutorials.
 #'
 #'
-#' @param ... parameters passed onto \code{\link[learnr:quiz]{learnr::question()}}.
+#' @param ... parameters passed onto learnr answer.
 #' @inheritParams learnr::question
 #'
 #' @return A custom `learnr` question, with `type = blank`.
-#' See \code{\link[learnr:quiz]{learnr::question()}}.
 #'
-#' @export
-#'
-#' @return Returns a learnr question of type `"blank"`.
+# @return Returns a learnr question of type `"blank"`.
 #'
 #' @export
 question_blank <- function(

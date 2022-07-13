@@ -1,15 +1,3 @@
-#' @importFrom learnr question_ui_initialize
-#' @importFrom learnr question_ui_completed
-#' @importFrom learnr question_ui_try_again
-#' @importFrom learnr question_is_valid
-#' @importFrom learnr question_is_correct
-#' @importFrom learnr mark_as
-#' @importFrom learnr disable_all_tags
-#' @import sortable
-#' @import shiny
-NULL
-
-
 #' Ranking question for learnr tutorials.
 #'
 #' Thank you to the sortable package for creating functions that allow ranking.
@@ -23,11 +11,17 @@ NULL
 #'
 #' Note that, by default, the answer order is randomized.
 #'
-#' @param ... parameters passed onto \code{\link[learnr:quiz]{learnr::question()}}.
+#' @param ... parameters passed onto learnr answer.
 #' @inheritParams learnr::question
 #'
 #' @return A custom `learnr` question, with `type = matching`.
-#' See \code{\link[learnr:quiz]{learnr::question()}}.
+#'
+#' @importFrom learnr question_ui_initialize
+#' @importFrom learnr question_ui_completed
+#' @importFrom learnr question_ui_try_again
+#' @importFrom learnr question_is_valid
+#' @importFrom learnr question_is_correct
+#' @import shiny
 #'
 #' @export
 # @examples

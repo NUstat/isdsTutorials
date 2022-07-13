@@ -21,7 +21,7 @@ question_matching(
 \arguments{
 \item{text}{Question or option text}
 
-\item{...}{parameters passed onto \code{\link[learnr:quiz]{learnr::question()}}.}
+\item{...}{parameters passed onto learnr answer.}
 
 \item{correct}{For \code{question}, text to print for a correct answer (defaults
 to "Correct!"). For \code{answer}, a boolean indicating whether this answer is
@@ -44,7 +44,6 @@ when \code{allow_retry} is \code{FALSE}.}
 }
 \value{
 A custom \code{learnr} question, with \code{type = matching}.
-See \code{\link[learnr:quiz]{learnr::question()}}.
 }
 \description{
 Thank you to the sortable package for creating functions that allow ranking.
