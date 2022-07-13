@@ -23,7 +23,7 @@ question_dropdown <- function(
   random_answer_order = FALSE
 ) {
   question <-
-    drop_question(
+    ISDStutorials:::drop_question(
       text = text,
       ...,
       type = "dropdown",
@@ -38,8 +38,7 @@ question_dropdown <- function(
   question
 }
 
-#' @rdname quiz
-#' @export
+
 drop_question <- function(
     text,
     ...,

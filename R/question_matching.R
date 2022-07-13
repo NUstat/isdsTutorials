@@ -43,7 +43,7 @@ question_matching <- function(
     random_answer_order = TRUE,
     options = sortable::sortable_options()
 ) {
-  matching_question(
+  ISDStutorials:::matching_question(
     text = text,
     ...,
     choices = choices,
@@ -59,8 +59,7 @@ question_matching <- function(
   )
 }
 
-#' @rdname quiz
-#' @export
+
 matching_question <- function(
     text,
     ...,
