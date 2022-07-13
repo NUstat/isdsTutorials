@@ -11,6 +11,7 @@
 #'
 #' Note that, by default, the answer order is randomized.
 #'
+#' @param choices a vector of choices that will remain stationary that the answers are sorted with.
 #' @param ... parameters passed onto learnr answer.
 #' @inheritParams learnr::question
 #'

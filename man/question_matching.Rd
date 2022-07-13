@@ -23,6 +23,8 @@ question_matching(
 
 \item{...}{parameters passed onto learnr answer.}
 
+\item{choices}{a vector of choices that will remain stationary that the answers are sorted with.}
+
 \item{correct}{For \code{question}, text to print for a correct answer (defaults
 to "Correct!"). For \code{answer}, a boolean indicating whether this answer is
 correct.}
