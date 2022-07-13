@@ -1,38 +1,24 @@
-#' Dropdown question
-#'
-#' @description
-#' Creates a dropdown button tutorial quiz question. The student can select only
-#' one dropdown before submitting their answer.
+#' Dropdown question for learnr tutorials.
 #'
 #'
-#' @param text  Question or option text
-#' @param type Type of quiz question. Typically this can be automatically determined
-#'   based on the provided answers. Pass \code{"radio"} to indicate that even though
-#'   multiple correct answers are specified that inputs which include only one correct
-#'   answer are still correct. Pass \code{"checkbox"} to force the use of checkboxes
-#'   (as opposed to radio buttons) even though only once correct answer was provided.
-#' @param correct For \code{question}, text to print for a correct answer (defaults
-#'   to "Correct!"). For \code{answer}, a boolean indicating whether this answer is
-#'   correct.
-#' @param incorrect Text to print for an incorrect answer (defaults to "Incorrect")
-#'   when \code{allow_retry} is \code{FALSE}.
-#' @param try_again Text to print for an incorrect answer (defaults to "Incorrect")
-#'   when \code{allow_retry} is \code{TRUE}.
-#' @param allow_retry Allow retry for incorrect answers. Defaults to \code{FALSE}.
-#' @param random_answer_order Display answers in a random order.
+#' Add interactive drop down tasks to your `learnr` tutorials.
 #'
-#' @param ... Answers created with [answer()] or extra parameters passed onto
-#'   [question()]. Function answers are ignored for radio questions because the
-#'   user is required to select a single answer.
 #'
-#' @return Returns a learnr question of type `"learnr_dropdown"`.
+#' @param ... parameters passed onto \code{\link[learnr:quiz]{learnr::question()}}.
+#' @inheritParams learnr::question
 #'
-#' @family Interactive Questions
+#' @return A custom `learnr` question, with `type = dropdown`.
+#' See \code{\link[learnr:quiz]{learnr::question()}}.
+#'
+#' @export
+#'
+#' @return Returns a learnr question of type `"dropdown"`.
+#'
 #' @export
 question_dropdown <- function(
   text,
   ...,
-  type = "learnr_dropdown",
+  type = "dropdown",
   correct = "Correct!",
   incorrect = "Incorrect",
   try_again = incorrect,
@@ -43,8 +29,7 @@ question_dropdown <- function(
     drop_question(
       text = text,
       ...,
-      #answer = answer,
-      type = "learnr_dropdown",
+      type = "dropdown",
       correct = correct,
       incorrect = incorrect,
       allow_retry = allow_retry,
@@ -55,3 +40,154 @@ question_dropdown <- function(
 
   question
 }
+
+#' @export
+drop_question <- function(
+    text,
+    ...,
+    type = c("dropdown"),
+    correct = "Correct!",
+    incorrect = "Incorrect",
+    try_again = incorrect,
+    message = NULL,
+    post_message = NULL,
+    loading = c("**Loading:** ", format(text), "<br/><br/><br/>"),
+    submit_button = rlang::missing_arg(),
+    try_again_button = rlang::missing_arg(),
+    allow_retry = FALSE,
+    random_answer_order = FALSE,
+    options = list()
+) {
+
+  # one time tutor initialization
+  #initialize_tutorial()
+
+  # capture/validate answers
+  ellipsis::check_dots_unnamed() # validate all answers are not named and not a misspelling
+  answers <- list(...)
+  #answers <- list(answer)
+  #lapply(answers, function(answer) {
+  #  checkmate::assert_class(answer, "tutorial_question_answer")
+  #})
+
+  # verify chunk label if necessary
+  #verify_tutorial_chunk_label()
+
+  # count total correct answers to decide between radio/checkbox
+  #answers_split <- learnr:::answers_split_type(answers)
+  #total_correct <- sum(vapply(answers_split[["literal"]], `[[`, logical(1), "correct"))
+
+  # can not guarantee that `label` exists
+  label <- knitr::opts_current$get('label')
+  q_id <- label %||% learnr:::random_question_id()
+
+  # i18nize button labels if default values are used
+  submit_button <-
+    if (rlang::is_missing(submit_button)) {
+      learnr:::i18n_span("button.questionsubmit", "Submit Answer")
+    } else {
+      learnr:::quiz_text(submit_button)
+    }
+
+  try_again_button <-
+    if (rlang::is_missing(try_again_button)) {
+      learnr:::i18n_span("button.questiontryagain", "Try Again")
+    } else {
+      learnr:::quiz_text(try_again_button)
+    }
+
+
+  ret <- list(
+    type = type,
+    label = label,
+    question = learnr:::quiz_text(text),
+    answers = answers,
+    button_labels = list(
+      submit = submit_button,
+      try_again = try_again_button
+    ),
+    messages = list(
+      correct = learnr:::quiz_text(correct),
+      try_again = learnr:::quiz_text(try_again),
+      incorrect = learnr:::quiz_text(incorrect),
+      message = learnr:::quiz_text(message),
+      post_message = learnr:::quiz_text(post_message)
+    ),
+    ids = list(
+      answer = NS(q_id)("answer"),
+      question = q_id
+    ),
+    loading = learnr:::quiz_text(loading),
+    random_answer_order = random_answer_order,
+    allow_retry = allow_retry,
+    # Set a seed for local testing, even though it is overwritten for each shiny session
+    seed = learnr:::random_seed(),
+    options = options
+  )
+  #class(ret) <- c(type, "notes_question")
+  class(ret) <- c(type, "tutorial_question")
+  ret
+}
+
+
+#' @export
+#' @seealso question_dropdown
+question_ui_initialize.dropdown <- function(question, value, ...) {
+
+  choice_names <- learnr:::answer_labels(question, exclude_answer_fn = TRUE)
+  choice_values <- learnr:::answer_values(question, exclude_answer_fn = TRUE)
+
+  selectInput(
+    question$ids$answer,
+    label = question$question,
+    choices = choice_values,
+    #choiceNames = choice_names,
+    #choiceValues = choice_values,
+    selected = value %||% character(0), # avoid selecting the first item when value is NULL
+    width = "100%"
+  )
+}
+
+#' @export
+#' @seealso question_dropdown
+question_is_correct.dropdown <- function(question, value, ...) {
+  for (ans in question$answers) {
+    if (as.character(ans$option) == value) {
+      return(learnr::mark_as(
+        ans$correct,
+        ans$message
+      ))
+    }
+  }
+  learnr::mark_as(FALSE, NULL)
+}
+
+
+#' @export
+#' @seealso question_dropdown
+question_ui_completed.dropdown <- function(question, value, ...) {
+  choice_values <- learnr:::answer_values(question)
+
+  # update select answers to have X or √
+  choice_names_final <- lapply(question$answers, function(ans) {
+    if (ans$correct) {
+      tagClass <- "correct"
+    } else {
+      tagClass <- "incorrect"
+    }
+    tags$span(ans$label, class = tagClass)
+  })
+
+  learnr::finalize_question(
+    selectInput(
+      question$ids$answer,
+      label = question$question,
+      choices = choice_values,
+      #choiceValues = choice_values,
+      #choiceNames = choice_names_final,
+      selected = value,
+      width = "100%"
+    )
+  )
+}
+

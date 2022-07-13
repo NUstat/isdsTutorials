@@ -2,12 +2,12 @@
 % Please edit documentation in R/question_dropdown.R
 \name{question_dropdown}
 \alias{question_dropdown}
-\title{Dropdown question}
+\title{Dropdown question for learnr tutorials.}
 \usage{
 question_dropdown(
   text,
   ...,
-  type = "learnr_dropdown",
+  type = "dropdown",
   correct = "Correct!",
   incorrect = "Incorrect",
   try_again = incorrect,
@@ -18,9 +18,7 @@ question_dropdown(
 \arguments{
 \item{text}{Question or option text}
 
-\item{...}{Answers created with \code{\link[=answer]{answer()}} or extra parameters passed onto
-\code{\link[=question]{question()}}. Function answers are ignored for radio questions because the
-user is required to select a single answer.}
+\item{...}{parameters passed onto \code{\link[learnr:quiz]{learnr::question()}}.}
 
 \item{type}{Type of quiz question. Typically this can be automatically determined
 based on the provided answers. Pass \code{"radio"} to indicate that even though
@@ -43,15 +41,11 @@ when \code{allow_retry} is \code{TRUE}.}
 \item{random_answer_order}{Display answers in a random order.}
 }
 \value{
-Returns a learnr question of type \code{"learnr_dropdown"}.
+A custom \code{learnr} question, with \code{type = dropdown}.
+See \code{\link[learnr:quiz]{learnr::question()}}.
+
+Returns a learnr question of type \code{"dropdown"}.
 }
 \description{
-Creates a dropdown button tutorial quiz question. The student can select only
-one dropdown before submitting their answer.
+Add interactive drop down tasks to your \code{learnr} tutorials.
 }
-\seealso{
-Other Interactive Questions: 
-\code{\link{drop_question}()},
-\code{\link{question_blank}()}
-}
-\concept{Interactive Questions}

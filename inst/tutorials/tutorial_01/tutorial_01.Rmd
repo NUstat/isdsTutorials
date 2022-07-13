@@ -180,23 +180,10 @@ quiz(caption = NULL,
            answer("x == 30"),
            allow_retry = TRUE), 
     # Question 7
-  question("Seeing red text in your console is not always bad. How should errors be interpreted?",
-           answer("something is wrong! (red traffic light)", correct = TRUE),
-           answer("everything is working fine (green traffic light)"),
-           answer("everything is working fine, but watch out/pay attention (yellow traffic light)"),
-           allow_retry = TRUE),
-  # Question 8
-  question("Seeing red text in your console is not always bad. How should warnings be interpreted?",
-           answer("something is wrong! (red traffic light)"),
-           answer("everything is working fine (green traffic light)"),
-           answer("everything is working fine, but watch out/pay attention (yellow traffic light)", correct = TRUE),
-           allow_retry = TRUE), 
-  # Question 9
-  question("Seeing red text in your console is not always bad. How should messages be interpreted?",
-           answer("something is wrong! (red traffic light)"),
-           answer("everything is working fine (green traffic light)", correct = TRUE),
-           answer("everything is working fine, but watch out/pay attention (yellow traffic light)"),
-           allow_retry = TRUE), 
+    question_matching("Seeing red text in your console is not always bad. Order the three different types of feedback R gives (on right) to match how they should be interpreted.",
+        choices = c("Error", "Warning", "Message"),
+        answer(c("something is wrong! (red traffic light)","everything is working fine, but watch out/pay attention (yellow traffic light)", "everything is working fine (green traffic light)"), correct = TRUE), 
+        allow_retry = TRUE ),
   # Question 10
   question("Which of the following is a good analogy for R packages?",
            answer("iOS software"),
@@ -223,30 +210,6 @@ quiz(caption = NULL,
            answer("data visualization"),
            allow_retry = TRUE) 
 )
-```
-
-
-```{r Qb}
-quiz_notes(caption = NULL,
-  question_dropdown("Seeing red text in your console is not always bad. How should errors be interpreted?",
-           answer("something is wrong! (red traffic light)", correct = TRUE),
-           answer("everything is working fine (green traffic light)"),
-           answer("everything is working fine, but watch out/pay attention (yellow traffic light)"),
-           allow_retry = TRUE),
-  # Question 8
-  question_dropdown("Seeing red text in your console is not always bad. How should warnings be interpreted?",
-           answer("something is wrong! (red traffic light)"),
-           answer("everything is working fine (green traffic light)"),
-           answer("everything is working fine, but watch out/pay attention (yellow traffic light)", correct = TRUE),
-           allow_retry = TRUE), 
-  # Question 9
-  question_dropdown("Seeing red text in your console is not always bad. How should messages be interpreted?",
-           answer("something is wrong! (red traffic light)"),
-           answer("everything is working fine (green traffic light)", correct = TRUE),
-           answer("everything is working fine, but watch out/pay attention (yellow traffic light)"),
-           allow_retry = TRUE)
-)
-
 ```
 
 
