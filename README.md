@@ -16,21 +16,21 @@ remotes::install_github("NUstat/ISDStutorials", dependencies = TRUE)
 
 The tutorials are named sequentially and correspond to the recommended material covered in a single class. The relevant sections of the Introduction to Statistics and Data Science [textbook](https://nustat.github.io/intro-stat-ds/) are listed alongside each tutorial.
 
-**tutorial_01:** Preface & Chapter 1
+**01_intro:** Preface & Chapter 1
 
-**tutorial_02:** Chapter 2.0 - 2.3
+**02_ggplot1:** Chapter 2.0 - 2.3
 
-**tutorial_03:** Chapter 2.4 - 2.6
+**03_ggplot2:** Chapter 2.4 - 2.6
 
-**tutorial_04:** Chapter 2.7 - 2.9
-
-**tutorial_05:** Chapter 3.0 - 3.3
+**04_ggplot3:** Chapter 2.7 - 2.9
+**05_wrangling1:** Chapter 3.0 - 3.3
+**06_wrangling2:** Chapter 3.0 - 3.3
 
 # Running tutorials
 
 There are two ways to run the tutorials. The recommended way to run a tutorial is to type the following line in the R console:
 
-learnr::run_tutorial("00-intro", package = "ISDStutorials")
+learnr::run_tutorial("01_intro", package = "ISDStutorials")
 
 This should bring up a tutorial in your default web browser. You can see the full list of tutorials by running:
 
