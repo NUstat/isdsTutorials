@@ -29,6 +29,7 @@
 #' @importFrom learnr question_ui_try_again
 #' @importFrom learnr question_is_valid
 #' @importFrom learnr question_is_correct
+#' @importFrom learnr answer
 #' @import learnr
 #' @import shiny
 #'
