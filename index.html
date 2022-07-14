@@ -125,7 +125,7 @@
 <h1 id="isds-setup">ISDS setup<a class="anchor" aria-label="anchor" href="#isds-setup"></a>
 </h1>
 <p>To use ISDStutorials custom grade and print functions in one of your own learnr tutorials, start by loading ISDStutorials after learnr and gradethis in the setup chunk of your tutorial and adding the <code>isds_recorder</code> to the options:</p>
-<p><code>{r setup} `</code>{r setup}` library(learnr) library(gradethis) library(ISDStutorials)</p>
+<p>```{r setup} ````{r setup} library(learnr) library(gradethis) library(ISDStutorials)</p>
 <p>gradethis_setup()</p>
 <p>options(tutorial.event_recorder = ISDStutorials::isds_recorder)</p>
 <pre><code>
