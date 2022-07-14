@@ -213,7 +213,7 @@ question_ui_completed.matching <- function(question, value, ...) {
   # TODO DON'T display correct values (listen to an option?)
   learnr::disable_all_tags(
     sortable::bucket_list(
-      header = question$question,
+      header = HTML(paste0("<b>",question$question,"</b>") ),
       sortable::add_rank_list(
         text = NULL,
         labels = question$choices,
@@ -244,7 +244,7 @@ question_ui_completed.matching <- function(question, value, ...) {
 question_ui_try_again.matching <- function(question, value, ...) {
   learnr::disable_all_tags(
     sortable::bucket_list(
-      header = question$question,
+      header = HTML(paste0("<b>",question$question,"</b>") ),
       sortable::add_rank_list(
         text = NULL,
         labels = question$choices,
