@@ -100,9 +100,9 @@
 <h1 id="running-tutorials">Running tutorials<a class="anchor" aria-label="anchor" href="#running-tutorials"></a>
 </h1>
 <p>There are two ways to run the tutorials. The recommended way to run a tutorial is to type the following line in the R console:</p>
-<p>learnr::run_tutorial(“01_intro”, package = “ISDStutorials”)</p>
+<p><code>learnr::run_tutorial("01_intro", package = "ISDStutorials")</code></p>
 <p>This should bring up a tutorial in your default web browser. You can see the full list of tutorials by running:</p>
-<p>learnr::run_tutorial(package = “ISDStutorials”)</p>
+<p><code>learnr::run_tutorial(package = "ISDStutorials")</code></p>
 <p>Alternatively, in Version 1.3 onwards after having executed <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library(ISDStutorials)</a></code>, a list of tutorials appears in a tutorial tab (by default it will be in the upper-right pane). However, the print option is not executable if the tutorial is run through the tutorial tab.</p>
 </div>
 <div class="section level1">
@@ -114,24 +114,26 @@
 <h1 id="additional-features-of-isdstutorials">Additional features of ISDStutorials<a class="anchor" aria-label="anchor" href="#additional-features-of-isdstutorials"></a>
 </h1>
 <ul>
-<li>Print option</li>
-<li>Grade option</li>
-<li>Question short answer</li>
-<li>Question drop down</li>
-<li>Question multiple choice</li>
+<li>Print option: <code>print_ui</code>
+</li>
+<li>Grade option: <code>grade_server</code>, <code>grade_button_ui</code>, <code>grade_output_ui</code>
+</li>
+<li>Question drop down: <code>question_dropdown</code>
+</li>
+<li>Question multiple choice: <code>question_matching</code>
+</li>
 </ul>
 </div>
 <div class="section level1">
 <h1 id="isds-setup">ISDS setup<a class="anchor" aria-label="anchor" href="#isds-setup"></a>
 </h1>
 <p>To use ISDStutorials custom grade and print functions in one of your own learnr tutorials, start by loading ISDStutorials after learnr and gradethis in the setup chunk of your tutorial and adding the <code>isds_recorder</code> to the options:</p>
-<p><code>```{r setup}</code> ```{r setup} library(learnr) library(gradethis) library(ISDStutorials)</p>
+<p>```{r setup} library(learnr) library(gradethis) library(ISDStutorials)</p>
 <p>gradethis_setup()</p>
 <p>options(tutorial.event_recorder = ISDStutorials::isds_recorder)</p>
-<pre><code>` ``` `
-
+<pre><code>
 Next, add the `grade_server` function to a code chunk of type `context = "server"`
-` ```{r, context = "server"} `
+
 ```{r, context = "server"}
 # must supply a data.frame consisting of "question" and "points_possible" to rubric_list.
 # the question/exercise name is the code chunk name followed by a number, ignoring all spaces and/or "-" symbols
