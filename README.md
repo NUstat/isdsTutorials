@@ -1,6 +1,6 @@
 # ISDStutorials
 
-The ISDStutorials package contains a series of interactive tutorials that teach alongside chapters of the Introduction to Statistics and Data Science webbook. The tutorials are written using a package called learnr. Once a tutorial is running it's a bit like reading a book but with places where you can practice the R code that you have just been taught. The ISDStutorials package is free (as are all things -related) and offered to support teachers and students using the textbook who want to learn R.
+The ISDStutorials package contains a series of interactive tutorials that teach alongside chapters of the free Introduction to Statistics and Data Science [textbook](https://nustat.github.io/intro-stat-ds/). The tutorials are written using a package called learnr. Once a tutorial is running it's a bit like reading a book but with places where you can practice the R code that you have just been taught along with multiple choice comprehension check questions. The ISDStutorials package is free and offered to support teachers and students using the textbook who want to learn R.
 
 # Installation
 
@@ -42,7 +42,7 @@ Alternatively, in Version 1.3 onwards after having executed `library(ISDStutoria
 
 After completing each tutorial, students can obtain their grade and download the full tutorial to a pdf. Students can then upload these PDFs to a learning management system like Canvas or Gradescope.
 
-# Additional features
+# Additional features of ISDStutorials
 
 - Print option
 - Grade option
@@ -52,7 +52,7 @@ After completing each tutorial, students can obtain their grade and download the
 
 # ISDS setup
 
-To use ISDStutorials custom functions in one of your own learnr tutorials, start by loading ISDStutorials after learnr and gradethis in the setup chunk of your tutorial and adding the `isds_recorder` to the options:
+To use ISDStutorials custom grade and print functions in one of your own learnr tutorials, start by loading ISDStutorials after learnr and gradethis in the setup chunk of your tutorial and adding the `isds_recorder` to the options:
 
 ```{r setup}
 library(learnr)
