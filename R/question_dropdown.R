@@ -148,10 +148,10 @@ question_ui_initialize.dropdown <- function(question, value, ...) {
   selectInput(
     question$ids$answer,
     label = question$question,
-    choices = choice_values,
+    choices = c(" ", choice_values),
     #choiceNames = choice_names,
     #choiceValues = choice_values,
-    selected = value %||% character(0), # avoid selecting the first item when value is NULL
+    selected = " ", # have blank selected
     width = "100%"
   )
 }
