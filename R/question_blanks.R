@@ -1,6 +1,7 @@
 #' Fill in the blank question for learnr tutorials.
 #'
 #' Add interactive fill in the blank tasks to your `learnr` tutorials.
+#' Note: you must include a single blank line ___ in the question text.
 #'
 #' @param placeholder Sample text to appear in blank.
 #' @param rows,cols Defines the size of the text input area in terms of the

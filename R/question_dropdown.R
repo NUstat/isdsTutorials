@@ -1,7 +1,9 @@
-#' Dropdown question for learnr tutorials.
+#' Drop-down question for learnr tutorials.
 #'
 #'
-#' Add interactive drop down tasks to your `learnr` tutorials.
+#' Add interactive drop-down tasks to your `learnr` tutorials.
+#' An alternative option to `question_radio` when you have a lot of options
+#' and want to save space.
 #'
 #'
 #' @param ... parameters passed onto learnr answer.
@@ -9,7 +11,16 @@
 #'
 #' @return A custom `learnr` question, with `type = dropdown`.
 #'
-# @return Returns a learnr question of type `"dropdown"`.
+#' @examples
+#' question_dropdown(
+#'   "Pick the letter B",
+#'   answer("A"),
+#'   answer("B", correct = TRUE),
+#'   answer("C"),
+#'   answer("D"),
+#'   allow_retry = TRUE,
+#'   random_answer_order = TRUE
+#' )
 #'
 #' @export
 question_dropdown <- function(

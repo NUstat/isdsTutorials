@@ -63,4 +63,5 @@ A custom \code{learnr} question, with \code{type = blank}.
 }
 \description{
 Add interactive fill in the blank tasks to your \code{learnr} tutorials.
+Note: you must include a single blank line ___ in the question text.
 }

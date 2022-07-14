@@ -2,7 +2,7 @@
 % Please edit documentation in R/question_dropdown.R
 \name{question_dropdown}
 \alias{question_dropdown}
-\title{Dropdown question for learnr tutorials.}
+\title{Drop-down question for learnr tutorials.}
 \usage{
 question_dropdown(
   text,
@@ -44,5 +44,19 @@ when \code{allow_retry} is \code{TRUE}.}
 A custom \code{learnr} question, with \code{type = dropdown}.
 }
 \description{
-Add interactive drop down tasks to your \code{learnr} tutorials.
+Add interactive drop-down tasks to your \code{learnr} tutorials.
+An alternative option to \code{question_radio} when you have a lot of options
+and want to save space.
+}
+\examples{
+question_dropdown(
+  "Pick the letter B",
+  answer("A"),
+  answer("B", correct = TRUE),
+  answer("C"),
+  answer("D"),
+  allow_retry = TRUE,
+  random_answer_order = TRUE
+)
+
 }
