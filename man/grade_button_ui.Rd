@@ -2,7 +2,7 @@
 % Please edit documentation in R/grade_option.R
 \name{grade_button_ui}
 \alias{grade_button_ui}
-\title{Tutorial grade options}
+\title{Tutorial grade button}
 \usage{
 grade_button_ui(id, label = "grade tutorial")
 }

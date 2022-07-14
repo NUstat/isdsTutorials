@@ -1,4 +1,4 @@
-#' Tutorial grade options
+#' @title Tutorial grade button
 #'
 #' @description
 #' Obtain grade on all question and exercise submissions for a user.
@@ -22,7 +22,7 @@ grade_button_ui <- function(id, label = "grade tutorial") {
   )
 }
 
-#' Tutorial grade options
+#' @title Tutorial grade output
 #'
 #' @description
 #' Obtain grade on all question and exercise submissions for a user.
@@ -42,15 +42,15 @@ grade_output_ui <- function(id) {
 }
 
 # Define the server logic for a module to compute grade
-#' Grade tutorial server
+#' @title Tutorial grade server
 #' @param id ID matching ui with server
 #' @param rubric_list A data frame containing a vector of question names and a vector of points_possible for each question
 #' @param num_try Number of tries allowed before grade deduction on that question. Default is 3.
-#' @param deduction The percent (as a decimal) to be deducted for each additional incorrect attempt. Default is 0.1.
-#' @param display vector of at least one c("percent", "itemize", "scaled")
+#' @param deduction The percent (as a decimal) to be deducted for each additional incorrect attempt after num_try. Default is 0.1.
+#' @param display vector of at least one c("percent", "itemize", "scaled"). Default is c("itemize", "scaled").
 #'
 #' @export
-grade_server <- function(id, rubric_list, num_try = 3, deduction = 0.1, display = c("percent", "itemize", "scaled") ) {
+grade_server <- function(id, rubric_list, num_try = 3, deduction = 0.1, display = c("itemize", "scaled") ) {
   moduleServer(
     id,
     function(input, output, session) {

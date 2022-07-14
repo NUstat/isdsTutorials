@@ -2,7 +2,7 @@
 % Please edit documentation in R/grade_option.R
 \name{grade_output_ui}
 \alias{grade_output_ui}
-\title{Tutorial grade options}
+\title{Tutorial grade output}
 \usage{
 grade_output_ui(id)
 }

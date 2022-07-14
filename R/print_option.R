@@ -1,4 +1,4 @@
-#' Tutorial print option
+#' @title Tutorial print option
 #'
 #' @description
 #' Print the tutorial. Should load print-file.css into tutorial yaml

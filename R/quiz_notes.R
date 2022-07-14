@@ -1,6 +1,11 @@
 #' Tutorial notes format
 #'
-#' Add interactive notes to a tutorial.
+#' Add interactive notes to a tutorial. This is an alternative format to
+#' display fill in the blank lines with smaller submit buttons for a
+#' more fluid document then the boxed questions. This was adapted from
+#' the learnr package quiz function. Many thanks to the learnr author
+#' who developed a great and adaptable teaching tool.
+#'
 #'
 #' @param ... One or more questions or answers
 #' @param caption Optional quiz caption (defaults to "Quiz")
@@ -8,8 +13,7 @@
 #'
 #' @importFrom rlang "%||%"
 #'
-#' @name quiz
-#' @rdname quiz
+#' @seealso quiz
 #' @export
 quiz_notes <- function(..., caption = rlang::missing_arg()) {
 
@@ -84,17 +88,6 @@ knit_print.notes_quiz <- function(x, ...) {
     lapply(quiz$questions, knitr::knit_print)
   )
 }
-
-
-#page_module_ui_notes <- function(id) {
-#  bootstrapPage(
-#    div(caption_tag
-#    ),
-#    div(
-#    )
-#  )
-#}
-
 
 
 question_module_ui_notes <- function(id) {

@@ -2,14 +2,14 @@
 % Please edit documentation in R/grade_option.R
 \name{grade_server}
 \alias{grade_server}
-\title{Grade tutorial server}
+\title{Tutorial grade server}
 \usage{
 grade_server(
   id,
   rubric_list,
   num_try = 3,
   deduction = 0.1,
-  display = c("percent", "itemize", "scaled")
+  display = c("itemize", "scaled")
 )
 }
 \arguments{
@@ -19,10 +19,10 @@ grade_server(
 
 \item{num_try}{Number of tries allowed before grade deduction on that question. Default is 3.}
 
-\item{deduction}{The percent (as a decimal) to be deducted for each additional incorrect attempt. Default is 0.1.}
+\item{deduction}{The percent (as a decimal) to be deducted for each additional incorrect attempt after num_try. Default is 0.1.}
 
-\item{display}{vector of at least one c("percent", "itemize", "scaled")}
+\item{display}{vector of at least one c("percent", "itemize", "scaled"). Default is c("itemize", "scaled").}
 }
 \description{
-Grade tutorial server
+Tutorial grade server
 }
