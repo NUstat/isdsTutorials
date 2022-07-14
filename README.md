@@ -32,11 +32,11 @@ The tutorials are named sequentially and correspond to the recommended material 
 
 There are two ways to run the tutorials. The recommended way to run a tutorial is to type the following line in the R console:
 
-learnr::run_tutorial("01_intro", package = "ISDStutorials")
+`learnr::run_tutorial("01_intro", package = "ISDStutorials")`
 
 This should bring up a tutorial in your default web browser. You can see the full list of tutorials by running:
 
-learnr::run_tutorial(package = "ISDStutorials")
+`learnr::run_tutorial(package = "ISDStutorials")`
 
 Alternatively, in Version 1.3 onwards after having executed `library(ISDStutorials)`, a list of tutorials appears in a tutorial tab (by default it will be in the upper-right pane). However, the print option is not executable if the tutorial is run through the tutorial tab.
 
@@ -46,17 +46,15 @@ After completing each tutorial, students can obtain their grade and download the
 
 # Additional features of ISDStutorials
 
-- Print option
-- Grade option
-- Question short answer
-- Question drop down
-- Question multiple choice
+- Print option: `print_ui`
+- Grade option: `grade_server`, `grade_button_ui`, `grade_output_ui`
+- Question drop down: `question_dropdown`
+- Question multiple choice: `question_matching`
 
 # ISDS setup
 
 To use ISDStutorials custom grade and print functions in one of your own learnr tutorials, start by loading ISDStutorials after learnr and gradethis in the setup chunk of your tutorial and adding the `isds_recorder` to the options:
 
-` ```{r setup} `
 ```{r setup}
 library(learnr)
 library(gradethis)
@@ -66,10 +64,9 @@ gradethis_setup()
 
 options(tutorial.event_recorder = ISDStutorials::isds_recorder)
 ```
-` ``` `
 
 Next, add the `grade_server` function to a code chunk of type `context = "server"`
-` ```{r, context = "server"} `
+
 ```{r, context = "server"}
 # must supply a data.frame consisting of "question" and "points_possible" to rubric_list.
 # the question/exercise name is the code chunk name followed by a number, ignoring all spaces and/or "-" symbols
