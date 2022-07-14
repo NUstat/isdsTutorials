@@ -139,10 +139,22 @@ the choices option. The display order will be automatically shuffled for the use
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">question_matching</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="st">"Rearrange the numbers to match the corresponding letter's position in the alphabet."</span>,</span></span>
 <span class="r-in"><span>  choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"D"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  <span class="fu">answer</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"3"</span>, <span class="st">"4"</span><span class="op">)</span>, correct <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="fu">learnr</span><span class="fu">::</span><span class="fu"><a href="https://pkgs.rstudio.com/learnr/reference/answer.html" class="external-link">answer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"3"</span>, <span class="st">"4"</span><span class="op">)</span>, correct <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  allow_retry <span class="op">=</span> <span class="cn">TRUE</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in answer(c("1", "2", "3", "4"), correct = TRUE):</span> could not find function "answer"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Question: "Rearrange the numbers to match the corresponding letter&amp;#39;s position in the alphabet."</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   type: "matching"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   allow_retry: TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   random_answer_order: TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   answers:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     ✔: "1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   messages:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     correct: "Correct!"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     incorrect: "Incorrect"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     try_again: "Incorrect" </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
