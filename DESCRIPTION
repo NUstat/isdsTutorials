@@ -4,9 +4,10 @@ Title: Tutorial Lessons for Introduction to Statistics and Data Science
 Version: 0.0.0.9000
 Authors@R: 
     person("Danielle", "Sass", , "danielle.sass@northwestern.edu", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: Pairing with the 'learnr' R package, 'gradethis' provides
-    multiple methods to grade 'learnr' exercises.
+           comment = c(ORCID = "0000-0001-9755-738X"))
+Description: A series of 'learnr' tutorials based on "Introduction to Statistics 
+    and Data Science" by Elizabeth Tipton, Arend M. Kuyper, Danielle Sass, and 
+    Kaitlyn G. Fitzgerald - Adapted from ModernDive by Chester Ismay and Albert Y. Kim.
 License: MIT + file LICENSE
 Depends:
     R (>= 3.2.0)
