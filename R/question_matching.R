@@ -29,7 +29,6 @@
 #' @importFrom learnr question_ui_try_again
 #' @importFrom learnr question_is_valid
 #' @importFrom learnr question_is_correct
-#' @importFrom learnr answer
 #' @import learnr
 #' @import shiny
 #'
@@ -37,7 +36,7 @@
 #' question_matching(
 #'   "Rearrange the numbers to match the corresponding letter's position in the alphabet.",
 #'   choices = c("A", "B", "C", "D"),
-#'   answer(c("1", "2", "3", "4"), correct = TRUE),
+#'   learnr::answer(c("1", "2", "3", "4"), correct = TRUE),
 #'   allow_retry = TRUE
 #' )
 #'
