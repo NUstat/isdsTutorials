@@ -34,7 +34,7 @@
 #'
 #' @examples
 #' question_matching(
-#'   "Rearrange the numbers to match the corresponding letters place in the alphabet.",
+#'   "Rearrange the numbers to match the corresponding letter's position in the alphabet.",
 #'   choices = c("A", "B", "C", "D"),
 #'   answer(c("1", "2", "3", "4"), correct = TRUE),
 #'   allow_retry = TRUE
@@ -183,7 +183,7 @@ question_ui_initialize.matching <- function(question, value, ...) {
   }
 
   sortable::bucket_list(
-    header = tags$span(style = "font-weight: bold;", question$question ),
+    header = HTML(paste0("<b>",question$question,"</b>") ),
     sortable::add_rank_list(
       text = NULL,
       labels = question$choices,

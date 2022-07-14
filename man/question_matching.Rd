@@ -68,7 +68,7 @@ the choices option. The display order will be automatically shuffled for the use
 }
 \examples{
 question_matching(
-  "Rearrange the numbers to match the corresponding letters place in the alphabet.",
+  "Rearrange the numbers to match the corresponding letter's position in the alphabet.",
   choices = c("A", "B", "C", "D"),
   answer(c("1", "2", "3", "4"), correct = TRUE),
   allow_retry = TRUE
