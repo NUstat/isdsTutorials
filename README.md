@@ -12,19 +12,21 @@ Install the latest version of ISDStutorials from GitHub with the remotes package
 remotes::install_github("NUstat/ISDStutorials", dependencies = TRUE)
 ```
 
-# Contents of ISDStutorials
+# List of tutorials
 
 The tutorials are named sequentially and correspond to the recommended material covered in a single class. The relevant sections of the Introduction to Statistics and Data Science [textbook](https://nustat.github.io/intro-stat-ds/) are listed alongside each tutorial.
 
-**01_intro:** Preface & Chapter 1
-
-**02_ggplot1:** Chapter 2.0 - 2.3
-
-**03_ggplot2:** Chapter 2.4 - 2.6
-
-**04_ggplot3:** Chapter 2.7 - 2.9
-**05_wrangling1:** Chapter 3.0 - 3.3
-**06_wrangling2:** Chapter 3.0 - 3.3
+- **01_intro:** Preface & Chapter 1
+- **02_ggplot1:** Chapter 2.0 - 2.3
+- **03_ggplot2:** Chapter 2.4 - 2.6
+- **04_ggplot3:** Chapter 2.7 - 2.9
+- **05_wrangling1:** Chapter 3.0 - 3.3
+- **06_wrangling2:** Chapter 3.4 - 3.6
+- **07_tidy:** Chapter 4
+- **08_regression1:**
+- **09_regression2:**
+- **10_regression3:**
+- **11_regression4:**
 
 # Running tutorials
 
