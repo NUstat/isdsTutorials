@@ -158,6 +158,22 @@ question_ui_initialize.dropdown <- function(question, value, ...) {
 
 #' @export
 #' @seealso question_dropdown
+question_ui_try_again.dropdown <- function(question, value, ...) {
+
+  choice_values <- learnr:::answer_values(question, exclude_answer_fn = TRUE)
+
+  selectInput(
+    question$ids$answer,
+    label = question$question,
+    choices = choice_values,
+    selected = value, # have previous answer selected
+    width = "100%"
+  )
+
+}
+
+#' @export
+#' @seealso question_dropdown
 question_is_correct.dropdown <- function(question, value, ...) {
   for (ans in question$answers) {
     if (as.character(ans$option) == value) {
@@ -191,8 +207,6 @@ question_ui_completed.dropdown <- function(question, value, ...) {
       question$ids$answer,
       label = question$question,
       choices = choice_values,
-      #choiceValues = choice_values,
-      #choiceNames = choice_names_final,
       selected = value,
       width = "100%"
     )
