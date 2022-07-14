@@ -11,7 +11,7 @@ output:
     css: ["css/nu-theme.css"]
 runtime: shiny_prerendered
 description: >
-  Learn how to create a scatterplot.
+  Learn about the grammar of graphics and how to create a scatterplot.
 ---
 
 ```{r setup, include=FALSE}
@@ -57,7 +57,7 @@ grade_output_ui("grade_out")
 
 ## Instructions
 
-Complete this tutorial while reading Sections 2.0-2.3 of the [textbook](https://nustat.github.io/intro-stat-ds/2-viz.html).
+Complete this tutorial while reading Sections 2.0-2.3 of the [textbook](https://nustat.github.io/intro-stat-ds/2-viz.html). Each question allows 3 'free' attempts. After the third attempt a 10% deduction occurs per attempt.
 
 Once you are finished:
 
