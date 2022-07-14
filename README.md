@@ -96,3 +96,7 @@ bootstrapPage(
 # can have the grade output appear anywhere in your tutorial
 grade_output_ui("grade_out")
 ```
+
+# Acknowledgments
+
+This work was made possible through funding from the Alumnae of Northwestern University grant and the Open Educational Resources (OER) grant.
