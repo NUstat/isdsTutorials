@@ -15,17 +15,14 @@ description: >
 ---
 
 ```{r setup, include=FALSE}
-
 library(learnr)
 library(tidyverse)
 library(ISDStutorials)
 library(gradethis)
 
-gradethis_setup()
 knitr::opts_chunk$set(echo = FALSE)
-
+gradethis_setup()
 options(tutorial.event_recorder = ISDStutorials::isds_recorder)
-
 ```
 
 
@@ -35,13 +32,9 @@ options(tutorial.event_recorder = ISDStutorials::isds_recorder)
 rubric_list <- data.frame(question = c("Ex1", "Ex1Q1", "Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7", "Q8", "Q9"),
                           points_possible = rep(1, 11))
 
-num_try = 3
-deduction = 0.1
-display = "percent" #options "itemize", "percent", "scaled"
-
 grade_server("grade_out", 
             rubric_list = rubric_list, 
-            num_try, deduction, display)
+            display = c("scaled", "itemize"))
 ```
 
 
@@ -71,7 +64,7 @@ Complete this tutorial while reading Sections 2.0-2.3 of the [textbook](https://
 
 Once you are finished:
 
--   Click the 'grade' button at the top to retrieve your score.
+-   Click the 'grade tutorial' button at the top to retrieve your score.
 -   Click the 'pdf' button to save the document as a pdf, you must have the tutorial open in a browser window for this button to work.
 -   Submit the completed pdf to Canvas.
 
@@ -129,19 +122,14 @@ quiz(
 ```
 
 
-## Reading Check
+## Reading Quiz
 
-*The following questions check your understanding of the grammar of graphics and scatterplots.*
-
-```{r quiz}
+```{r Q}
 #reading check 2
 quiz(
   caption = NULL,
-  #Question 1
-  #fill in the blank text example with multiple correct options
-  question("What is the name of the theoretical framework for data
-           visualization that is the foundation of the ggplot2
-           package?",
+  #Q1
+  question("What is the name of the theoretical framework for data visualization that is the foundation of the ggplot2 package?",
     type = "learnr_text",
     answer("the grammar of graphics", correct = TRUE),
     answer("grammar of graphics", correct = TRUE),
@@ -149,9 +137,7 @@ quiz(
     answer("the layered grammar of graphics", correct = TRUE),
     allow_retry = TRUE
   ),
-  
-  #Question 2
-  #multiple correct checkbox example
+  #Q2
   question("Which of the following are examples of aesthetic
            attributes of geometric objects?",
     answer("color", correct = TRUE),
@@ -163,78 +149,31 @@ quiz(
     answer("size", correct = TRUE),
     allow_retry = TRUE
   ),
-
-#Question 3
-question(paste("What aesthetic is GDP per Capita mapped onto in Figure 2.1?", htmltools::img(src="images/Figure_02_1.png", height = 400, width = 700)),
-               answer("`y`"),
-               answer("doesn't get mapped"),
-               answer("`size`"),
-               answer("`color`"),
-               answer("`x`",correct=TRUE),
-               allow_retry = TRUE),
-#Question 4
-question("Refer to Figure 2.1 above. What aesthetic is Population mapped onto in the figure?",
-               answer("`y`"),
-               answer("doesn't get mapped"),
-               answer("`size`",correct=TRUE),
-               answer("`color`"),
-               answer("`x`"),
-               allow_retry = TRUE),
-#Question 5
-question("Refer to Figure 2.1 above. What aesthetic is Continent mapped onto in the figure?",
-               answer("`y`"),
-               answer("doesn't get mapped"),
-               answer("`size`"),
-               answer("`color`",correct=TRUE),
-               answer("`x`"),
-               allow_retry = TRUE),
-#Question 6
-question("Refer to Figure 2.1 above. What aesthetic is Country mapped onto in the figure?",
-               answer("`y`"),
-               answer("doesn't get mapped",correct=TRUE),
-               answer("`size`"),
-               answer("`color`"),
-               answer("`x`"),
-               allow_retry = TRUE),
-#Question 7
-question("Refer to Figure 2.1 above. What aesthetic is Life Expectancy mapped onto in the figure?",
-               answer("`y`",correct=TRUE),
-               answer("doesn't get mapped"),
-               answer("`size`"),
-               answer("`color`"),
-               answer("`x`"),
-               allow_retry = TRUE),
-  
- #Question 8
- #cannot enter as dropdown; modify if simple to do so otherwise just skip
-  question("In a data frame, columns correspond to",
-           answer("variables", correct = TRUE),
-           answer("observations"),
-           answer("values"),
+  # Q3
+  question_matching(paste("Match the variables with the aesthetics they are mapped onto in Figure 2.1", htmltools::img(src="images/Figure_02_1.png", height = 400, width = 700) ),
+          choices = c("GDP per Capita", "Population", "Continent", "Country", "Life Expectancy"),
+          answer(c("x","size",  "color", "doesn't get mapped", "y"), correct = TRUE), 
+        allow_retry = TRUE ),
+  # Q4
+  question("In a dataframe: Rows corresponds to ____ and columns correspond to ___.",
+           answer("variables; observations"),
+           answer("observations; variables", correct = TRUE),
+           answer("values", "variables"),
+           answer("observations", "values"),
            allow_retry = TRUE),
-  question("In a data frame, rows correspond to",
-           answer("variables"),
-           answer("observations", correct = TRUE),
-           answer("values"),
-           allow_retry = TRUE),
-  #Question 9
-  # ONE correct choice example
+  # Q5
   question("What does the term `argument` refer to in R?",
            answer("output of a function"),
            answer("input to a function", correct = TRUE),
            answer("assigned name of an object"),
            allow_retry = TRUE),
-  #Question 6 - I excluded because didn't like the question
-
-  #Question 10
-  #fill in the blank text example with one correct options
+  # Q6
   question("How many Alaska Airlines flights are in the flights 
            data frame?", 
            type = "learnr_text",
            answer("42", correct = TRUE),
            allow_retry = TRUE),
-
-  #Question 11
+  # Q7
   question("What type of relationship exists between departure
            delays and arrival delays for Alaska Airlines flights
            from NYC in 2013?",
@@ -242,7 +181,7 @@ question("Refer to Figure 2.1 above. What aesthetic is Life Expectancy mapped on
            answer("negative"),
            answer("no relationship"),
            allow_retry = TRUE),
-  #Question 12
+  # Q8
   question("Select the statements that are TRUE about the + sign
            when using ggplot()",
            answer("Not using the + sign to add a geometric 
@@ -253,7 +192,7 @@ question("Refer to Figure 2.1 above. What aesthetic is Life Expectancy mapped on
            answer("The + sign should go at the beginning 
                   of a new line."),
            allow_retry = TRUE),
-  #Question 13
+  #Q9
   question("What is the name of the aesthetic argument that 
            allows you to change the transparency of a geometric
            object in ggplot()?",
