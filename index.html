@@ -60,7 +60,7 @@
 <div class="section level1">
 <div class="page-header"><h1 id="isdstutorials">ISDStutorials<a class="anchor" aria-label="anchor" href="#isdstutorials"></a>
 </h1></div>
-<p>The ISDStutorials package contains a series of interactive tutorials that teach alongside chapters of the Introduction to Statistics and Data Science webbook. The tutorials are written using a package called learnr. Once a tutorial is running it’s a bit like reading a book but with places where you can practice the R code that you have just been taught. The ISDStutorials package is free (as are all things -related) and offered to support teachers and students using the textbook who want to learn R.</p>
+<p>The ISDStutorials package contains a series of interactive tutorials that teach alongside chapters of the free Introduction to Statistics and Data Science <a href="https://nustat.github.io/intro-stat-ds/" class="external-link">textbook</a>. The tutorials are written using a package called learnr. Once a tutorial is running it’s a bit like reading a book but with places where you can practice the R code that you have just been taught along with multiple choice comprehension check questions. The ISDStutorials package is free and offered to support teachers and students using the textbook who want to learn R.</p>
 </div>
 <div class="section level1">
 <h1 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
@@ -95,7 +95,7 @@
 <p>After completing each tutorial, students can obtain their grade and download the full tutorial to a pdf. Students can then upload these PDFs to a learning management system like Canvas or Gradescope.</p>
 </div>
 <div class="section level1">
-<h1 id="additional-features">Additional features<a class="anchor" aria-label="anchor" href="#additional-features"></a>
+<h1 id="additional-features-of-isdstutorials">Additional features of ISDStutorials<a class="anchor" aria-label="anchor" href="#additional-features-of-isdstutorials"></a>
 </h1>
 <ul>
 <li>Print option</li>
@@ -108,7 +108,7 @@
 <div class="section level1">
 <h1 id="isds-setup">ISDS setup<a class="anchor" aria-label="anchor" href="#isds-setup"></a>
 </h1>
-<p>To use ISDStutorials custom functions in one of your own learnr tutorials, start by loading ISDStutorials after learnr and gradethis in the setup chunk of your tutorial and adding the <code>isds_recorder</code> to the options:</p>
+<p>To use ISDStutorials custom grade and print functions in one of your own learnr tutorials, start by loading ISDStutorials after learnr and gradethis in the setup chunk of your tutorial and adding the <code>isds_recorder</code> to the options:</p>
 <p>```{r setup} library(learnr) library(gradethis) library(ISDStutorials)</p>
 <p>gradethis_setup()</p>
 <p>options(tutorial.event_recorder = ISDStutorials::isds_recorder)</p>
