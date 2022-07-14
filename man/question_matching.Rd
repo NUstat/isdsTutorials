@@ -2,7 +2,7 @@
 % Please edit documentation in R/question_matching.R
 \name{question_matching}
 \alias{question_matching}
-\title{Ranking question for learnr tutorials.}
+\title{Matching order question for learnr tutorials.}
 \usage{
 question_matching(
   text,
@@ -23,7 +23,7 @@ question_matching(
 
 \item{...}{parameters passed onto learnr answer.}
 
-\item{choices}{a vector of choices that will remain stationary that the answers are sorted with.}
+\item{choices}{a vector of choices that will remain stationary in the left column.}
 
 \item{correct}{For \code{question}, text to print for a correct answer (defaults
 to "Correct!"). For \code{answer}, a boolean indicating whether this answer is
@@ -48,15 +48,30 @@ when \code{allow_retry} is \code{FALSE}.}
 A custom \code{learnr} question, with \code{type = matching}.
 }
 \description{
-Thank you to the sortable package for creating functions that allow ranking.
-This is copied from the function question_rank to allow for matching options.
+The following function was modified from the sortable package, available at
+https://github.com/rstudio/sortable. Many thanks to the sortable author
+who developed tools to drag and drop objects in rank order. This extends
+the "question_rank" option so that you can match the options in the right
+column with the choices on the left.
 }
 \details{
-Add interactive ranking tasks to your \code{learnr} tutorials.  The student can
-drag-and-drop the answer options into the desired order.
+Add interactive matching tasks to your \code{learnr} tutorials.  The student can
+drag-and-drop the answer options in the right column to match the corresponding
+options in the left column.
 
-Each set of answer options must contain the same set of answer options. When
-the question is completed, the first correct answer will be displayed.
+The choices options should be a set of static options that will appear in the
+left column. It should be of equal length to the answer options.
 
-Note that, by default, the answer order is randomized.
+The answer options should contain the set of options that need to be rearranged
+in the right column. The answer set should correspond with the correct order for
+the choices option. The display order will be automatically shuffled for the user.
+}
+\examples{
+question_matching(
+  "Rearrange the numbers to match the corresponding letters place in the alphabet.",
+  choices = c("A", "B", "C", "D"),
+  answer(c("1", "2", "3", "4"), correct = TRUE),
+  allow_retry = TRUE
+)
+
 }
