@@ -113,14 +113,26 @@ when <code>allow_retry</code> is <code>TRUE</code>.</p></dd>
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">question_dropdown</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="st">"Pick the letter B"</span>,</span></span>
-<span class="r-in"><span>  <span class="fu">answer</span><span class="op">(</span><span class="st">"A"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  <span class="fu">answer</span><span class="op">(</span><span class="st">"B"</span>, correct <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  <span class="fu">answer</span><span class="op">(</span><span class="st">"C"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  <span class="fu">answer</span><span class="op">(</span><span class="st">"D"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="fu">learnr</span><span class="fu">::</span><span class="fu"><a href="https://pkgs.rstudio.com/learnr/reference/answer.html" class="external-link">answer</a></span><span class="op">(</span><span class="st">"A"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="fu">learnr</span><span class="fu">::</span><span class="fu"><a href="https://pkgs.rstudio.com/learnr/reference/answer.html" class="external-link">answer</a></span><span class="op">(</span><span class="st">"B"</span>, correct <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="fu">learnr</span><span class="fu">::</span><span class="fu"><a href="https://pkgs.rstudio.com/learnr/reference/answer.html" class="external-link">answer</a></span><span class="op">(</span><span class="st">"C"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="fu">learnr</span><span class="fu">::</span><span class="fu"><a href="https://pkgs.rstudio.com/learnr/reference/answer.html" class="external-link">answer</a></span><span class="op">(</span><span class="st">"D"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  allow_retry <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
 <span class="r-in"><span>  random_answer_order <span class="op">=</span> <span class="cn">TRUE</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in answer("A"):</span> could not find function "answer"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Question: "Pick the letter B"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   type: "dropdown"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   allow_retry: TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   random_answer_order: TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   answers:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     X: "A"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     ✔: "B"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     X: "C"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     X: "D"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   messages:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     correct: "Correct!"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     incorrect: "Incorrect"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     try_again: "Incorrect" </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
