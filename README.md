@@ -56,7 +56,7 @@ After completing each tutorial, students can obtain their grade and download the
 
 To use ISDStutorials custom grade and print functions in one of your own learnr tutorials, start by loading ISDStutorials after learnr and gradethis in the setup chunk of your tutorial and adding the `isds_recorder` to the options:
 
-```{r setup}
+` ```{r setup} `
 ```{r setup}
 library(learnr)
 library(gradethis)
@@ -65,11 +65,11 @@ library(ISDStutorials)
 gradethis_setup()
 
 options(tutorial.event_recorder = ISDStutorials::isds_recorder)
-````
 ```
+` ``` `
 
 Next, add the `grade_server` function to a code chunk of type `context = "server"`
-```{r, context = "server"}
+` ```{r, context = "server"} `
 ```{r, context = "server"}
 # must supply a data.frame consisting of "question" and "points_possible" to rubric_list.
 # the question/exercise name is the code chunk name followed by a number, ignoring all spaces and/or "-" symbols
