@@ -23,10 +23,10 @@ The tutorials are named sequentially and correspond to the recommended material 
 - **05_wrangling1:** Chapter 3.0 - 3.3
 - **06_wrangling2:** Chapter 3.4 - 3.6
 - **07_tidy:** Chapter 4
-- **08_regression1:**
-- **09_regression2:**
-- **10_regression3:**
-- **11_regression4:**
+- **08_regression1:** Chapter 5.0 - 5.1
+- **09_regression2:** Chapter 5.2 - 5.4
+- **10_regression3:** Chapter 6.0 - 6.1
+- **11_regression4:** Chapter 6.2 - 6.4
 
 # Running tutorials
 
