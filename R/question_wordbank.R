@@ -172,27 +172,29 @@ question_ui_initialize.wordbank <- function(question, value, ...) {
   } else {
     ans <- rep(NULL, num)
   }
-     # need to add randomization to question init
-     # or it will randomize everytime
-     #question$wordbank <- sample(question$wordbank, length(question$wordbank))
-     #order <- sample(1:num)
-     #question$choices <- question$choices[order]
-     # }
+  # need to add randomization to question init
+  # or it will randomize everytime
+  #question$wordbank <- sample(question$wordbank, length(question$wordbank))
+  #order <- sample(1:num)
+  #question$choices <- question$choices[order]
+  # }
 
   #if the question is to be displayed in random order, shuffle the options
   if (isTRUE(question$random_answer_order) ) {
-      labels <- sample(question$wordbank, length(question$wordbank))
+    labels <- sample(question$wordbank, length(question$wordbank))
   }else{labels <- question$wordbank}
 
-
-
+  # pretty close to unique id
+  rand = paste0(sample.int(100,1), sample.int(100,1) )
   # set input and bucket ids
-  input_ids = lapply(seq(1,num), function(x) paste0("select", question$ids$question, x) )
-  css_ids = lapply(seq(1,num), function(x) paste0("drag_to", question$ids$question, x) )
-  set_bucket <- sortable::sortable_js_capture_bucket_input(input_id = question$ids$answer,
-                                                 input_ids = input_ids,
-                                                 css_ids = css_ids)
+  input_ids = lapply(seq(1,num), function(x) paste0("select", rand, x) )
+  css_ids = lapply(seq(1,num), function(x) paste0("drag_to", rand, x) )
+  other_ids = lapply(seq(1,num), function(x) paste0("drag_from", rand, x) )
+  group_ids = paste0("group", rand)
 
+  set_bucket <- sortable::sortable_js_capture_bucket_input(input_id = question$ids$answer,
+                                                           input_ids = input_ids,
+                                                           css_ids = css_ids)
 
 
 
@@ -212,60 +214,58 @@ question_ui_initialize.wordbank <- function(question, value, ...) {
               div(
                 class = "panel-body",
                 style="display:inline-block",
-                id = paste0("drag_from", x),
+                id = other_ids[x],
                 icons(c(labels[x]))
               )),
             div(
               class = "panel-body",
               style="display:inline-block",
-              id = "sortable_bin",
+              id = paste0("bin", rand),
               icon("trash")
             )
           )
         )
       )
     ),
-    div( id = "bucket",
-    lapply(seq(1,num), function(x)
-      fixedRow(
-        column(
-          width = 3,
-          #div(
-            div(
-              class = "panel panel-default",
-              div(
-                class = "panel-body",
-                id = css_ids[x], #paste0("drag_to",x)
-                icons(ans[x])
-              )
-            )
-          #)
-        ),
-        column(
-          width = 9,
-          p(paste0(question$choices[x]) ) )
-      ) #ends fixed row
-    ) #ends lapply
+    div( id = paste0("bucket", rand),
+         lapply(seq(1,num), function(x)
+           fixedRow(
+             column(
+               width = 3,
+               div(
+                 class = "panel panel-default",
+                 div(
+                   class = "panel-body",
+                   id = css_ids[x], #paste0("drag_to",x)
+                   icons(ans[x])
+                 )
+               )
+             ),
+             column(
+               width = 9,
+               p(paste0(question$choices[x]) ) )
+           ) #ends fixed row
+         ) #ends lapply
     ), #ends bucket div group
 
     # separate columns for each drag
     lapply(seq(1,num), function(x)
       sortable::sortable_js(
-        paste0("drag_from", x),
+        other_ids[x],
         options = sortable::sortable_options(
           group = list(
             pull = "clone",
-            name = "group1",
+            name = group_ids,
             put = FALSE
           )
         )
       ) ),
     lapply(seq(1,num), function(x)
       sortable::sortable_js(
-        paste0("drag_to",x),
+        css_ids[x],
         options = sortable::sortable_options(
           group = list(
-            group = "group1",
+            group = group_ids,
             put = htmlwidgets::JS("function (to) { return to.el.children.length < 1; }"),
             pull = TRUE
           ),
@@ -274,10 +274,10 @@ question_ui_initialize.wordbank <- function(question, value, ...) {
         ) )
     ),
     sortable::sortable_js(
-      "sortable_bin",
+      paste0("bin", rand),
       options = sortable::sortable_options(
         group = list(
-          group = "sortGroup1",
+          group = paste0("sort", rand),
           put = TRUE,
           pull = FALSE
         ),
@@ -295,12 +295,12 @@ question_is_correct.wordbank <- function(question, value, ...) {
 
   for (ans in question$answers) {
 
-      if (identical(as.character(ans$option), as.character(value) ) ) {
+    if (identical(as.character(ans$option), as.character(value) ) ) {
       return(mark_as(
         ans$correct,
         ans$message
       ))
-      }
+    }
 
   }
   mark_as(FALSE, NULL)
@@ -317,109 +317,112 @@ question_ui_completed.wordbank <- function(question, value, ...) {
 
   ns <- NS(question$ids$question)
 
+  num <- length(question$choices)
+
   labels <- question$wordbank
 
   ans <- unlist(value)
 
-  num <- length(question$choices)
-  input_ids = lapply(seq(1,num), function(x) paste0("select",question$ids$question, x) )
-  css_ids = lapply(seq(1,num), function(x) paste0("drag_to",question$ids$question, x) )
+  rand = paste0(sample.int(100,1), sample.int(100,1) )
+  input_ids = lapply(seq(1,num), function(x) paste0("select", rand, x) )
+  css_ids = lapply(seq(1,num), function(x) paste0("drag_to", rand, x) )
+  other_ids = lapply(seq(1,num), function(x) paste0("drag_from", rand, x) )
+  group_ids = paste0("group", rand)
+
   set_bucket <- sortable::sortable_js_capture_bucket_input(input_id = question$ids$answer,
-                                                 input_ids = input_ids,
-                                                 css_ids = css_ids)
+                                                           input_ids = input_ids,
+                                                           css_ids = css_ids)
 
   icons <- function(x) {lapply(x,function(x){tags$div(tags$strong(x))})}
 
-  #learnr::disable_all_tags(
+  learnr::disable_all_tags(
 
-  fluidPage(
-    div(class = "panel-heading",
-        strong(question$question)  ),
+    fluidPage(
+      div(class = "panel-heading",
+          strong(question$question)  ),
 
-    fixedRow(
-      column(
-        width = 12,
-        div(
+      fixedRow(
+        column(
+          width = 12,
           div(
-            class = "panel panel-default",
-            lapply(seq(1,num), function(x)
+            div(
+              class = "panel panel-default",
+              lapply(seq(1,num), function(x)
+                div(
+                  class = "panel-body",
+                  style="display:inline-block",
+                  id = other_ids[x],
+                  icons(c(labels[x]))
+                )),
               div(
                 class = "panel-body",
                 style="display:inline-block",
-                id = paste0("drag_from", x),
-                icons(c(labels[x]))
-              )),
-            div(
-              class = "panel-body",
-              style="display:inline-block",
-              id = "sortable_bin",
-              icon("trash")
+                id = paste0("bin", rand),
+                icon("trash")
+              )
             )
           )
         )
-      )
-    ),
-    div( id = "bucket",
-         lapply(seq(1,num), function(x)
-           fixedRow(
-             column(
-               width = 3,
-               #div(
-               div(
-                 class = "panel panel-default",
+      ),
+      div( id = paste0("bucket", rand),
+           lapply(seq(1,num), function(x)
+             fixedRow(
+               column(
+                 width = 3,
                  div(
-                   class = "panel-body",
-                   id = css_ids[x], #paste0("drag_to",x)
-                   icons(ans[x])
+                   class = "panel panel-default",
+                   div(
+                     class = "panel-body",
+                     id = css_ids[x], #paste0("drag_to",x)
+                     icons(ans[x])
+                   )
                  )
-               )
-               #)
-             ),
-             column(
-               width = 9,
-               p(paste0(question$choices[x]) ) )
-           ) #ends fixed row
-         ) #ends lapply
-    ), #ends bucket div group
+               ),
+               column(
+                 width = 9,
+                 p(paste0(question$choices[x]) ) )
+             ) #ends fixed row
+           ) #ends lapply
+      ), #ends bucket div group
 
-    # separate columns for each drag
-    lapply(seq(1,num), function(x)
-      sortable::sortable_js(
-        paste0("drag_from", x),
-        options = sortable::sortable_options(
-          group = list(
-            pull = "clone",
-            name = "group1",
-            put = FALSE
+      # separate columns for each drag
+      lapply(seq(1,num), function(x)
+        sortable::sortable_js(
+          other_ids[x],
+          options = sortable::sortable_options(
+            group = list(
+              pull = "clone",
+              name = group_ids,
+              put = FALSE
+            )
           )
-        )
-      ) ),
-    lapply(seq(1,num), function(x)
+        ) ),
+      lapply(seq(1,num), function(x)
+        sortable::sortable_js(
+          css_ids[x],
+          options = sortable::sortable_options(
+            group = list(
+              group = group_ids,
+              put = htmlwidgets::JS("function (to) { return to.el.children.length < 1; }"),
+              pull = FALSE
+            ),
+            onSort = sortable::chain_js_events(set_bucket, sortable::sortable_js_capture_input(input_id = input_ids[x] )), #paste0("select",x)
+            onLoad = sortable::chain_js_events(set_bucket, sortable::sortable_js_capture_input(input_id = input_ids[x] )) # << solution by stefan on Jun 01, 2022
+          ) )
+      ),
       sortable::sortable_js(
-        paste0("drag_to",x),
+        paste0("bin", rand),
         options = sortable::sortable_options(
           group = list(
-            group = "group1",
-            put = htmlwidgets::JS("function (to) { return to.el.children.length < 1; }"),
+            group = paste0("sort", rand),
+            put = TRUE,
             pull = FALSE
           ),
-          onSort = sortable::chain_js_events(set_bucket, sortable::sortable_js_capture_input(input_id = input_ids[x] )), #paste0("select",x)
-          onLoad = sortable::chain_js_events(set_bucket, sortable::sortable_js_capture_input(input_id = input_ids[x] )) # << solution by stefan on Jun 01, 2022
-        ) )
-    ),
-    sortable::sortable_js(
-      "sortable_bin",
-      options = sortable::sortable_options(
-        group = list(
-          group = "sortGroup1",
-          put = TRUE,
-          pull = FALSE
-        ),
-        onAdd = htmlwidgets::JS("function (evt) { this.el.removeChild(evt.item); }")
+          onAdd = htmlwidgets::JS("function (evt) { this.el.removeChild(evt.item); }")
+        )
       )
     )
   )
-  #)
 
 }
 
