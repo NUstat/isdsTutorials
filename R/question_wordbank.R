@@ -208,7 +208,6 @@ question_ui_initialize.wordbank <- function(question, value, ...) {
         div(
           div(
             class = "panel panel-default",
-            div(class = "panel-heading"),
             lapply(seq(1,num), function(x)
               div(
                 class = "panel-body",
@@ -343,7 +342,6 @@ question_ui_completed.wordbank <- function(question, value, ...) {
         div(
           div(
             class = "panel panel-default",
-            div(class = "panel-heading"),
             lapply(seq(1,num), function(x)
               div(
                 class = "panel-body",
@@ -403,7 +401,7 @@ question_ui_completed.wordbank <- function(question, value, ...) {
           group = list(
             group = "group1",
             put = htmlwidgets::JS("function (to) { return to.el.children.length < 1; }"),
-            pull = TRUE
+            pull = FALSE
           ),
           onSort = sortable::chain_js_events(set_bucket, sortable::sortable_js_capture_input(input_id = input_ids[x] )), #paste0("select",x)
           onLoad = sortable::chain_js_events(set_bucket, sortable::sortable_js_capture_input(input_id = input_ids[x] )) # << solution by stefan on Jun 01, 2022
