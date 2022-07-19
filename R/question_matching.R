@@ -197,6 +197,8 @@ question_ui_initialize.matching <- function(question, value, ...) {
     ),
     orientation = "horizontal"
   )
+
+
   # return the rank_list htmlwidget
   # rank_list(
   #   text = question$question,
