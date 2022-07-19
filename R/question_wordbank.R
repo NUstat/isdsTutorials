@@ -189,7 +189,7 @@ question_ui_initialize.wordbank <- function(question, value, ...) {
   # set input and bucket ids
   input_ids = lapply(seq(1,num), function(x) paste0("select", x) )
   css_ids = lapply(seq(1,num), function(x) paste0("drag_to", x) )
-  set_bucket <- sortable_js_capture_bucket_input(input_id = question$ids$answer,
+  set_bucket <- sortable::sortable_js_capture_bucket_input(input_id = question$ids$answer,
                                                  input_ids = input_ids,
                                                  css_ids = css_ids)
 
@@ -251,9 +251,9 @@ question_ui_initialize.wordbank <- function(question, value, ...) {
 
     # separate columns for each drag
     lapply(seq(1,num), function(x)
-      sortable_js(
+      sortable::sortable_js(
         paste0("drag_from", x),
-        options = sortable_options(
+        options = sortable::sortable_options(
           group = list(
             pull = "clone",
             name = "group1",
@@ -262,21 +262,21 @@ question_ui_initialize.wordbank <- function(question, value, ...) {
         )
       ) ),
     lapply(seq(1,num), function(x)
-      sortable_js(
+      sortable::sortable_js(
         paste0("drag_to",x),
-        options = sortable_options(
+        options = sortable::sortable_options(
           group = list(
             group = "group1",
             put = htmlwidgets::JS("function (to) { return to.el.children.length < 1; }"),
             pull = TRUE
           ),
-          onSort = chain_js_events(set_bucket, sortable_js_capture_input(input_id = input_ids[x] )), #paste0("select",x)
-          onLoad = chain_js_events(set_bucket, sortable_js_capture_input(input_id = input_ids[x] )) # << solution by stefan on Jun 01, 2022
+          onSort = sortable::chain_js_events(set_bucket, sortable::sortable_js_capture_input(input_id = input_ids[x] )), #paste0("select",x)
+          onLoad = sortable::chain_js_events(set_bucket, sortable::sortable_js_capture_input(input_id = input_ids[x] )) # << solution by stefan on Jun 01, 2022
         ) )
     ),
-    sortable_js(
+    sortable::sortable_js(
       "sortable_bin",
-      options = sortable_options(
+      options = sortable::sortable_options(
         group = list(
           group = "sortGroup1",
           put = TRUE,
@@ -325,7 +325,7 @@ question_ui_completed.wordbank <- function(question, value, ...) {
   num <- length(question$choices)
   input_ids = lapply(seq(1,num), function(x) paste0("select", x) )
   css_ids = lapply(seq(1,num), function(x) paste0("drag_to", x) )
-  set_bucket <- sortable_js_capture_bucket_input(input_id = question$ids$answer,
+  set_bucket <- sortable::sortable_js_capture_bucket_input(input_id = question$ids$answer,
                                                  input_ids = input_ids,
                                                  css_ids = css_ids)
 
@@ -386,9 +386,9 @@ question_ui_completed.wordbank <- function(question, value, ...) {
 
     # separate columns for each drag
     lapply(seq(1,num), function(x)
-      sortable_js(
+      sortable::sortable_js(
         paste0("drag_from", x),
-        options = sortable_options(
+        options = sortable::sortable_options(
           group = list(
             pull = "clone",
             name = "group1",
@@ -397,21 +397,21 @@ question_ui_completed.wordbank <- function(question, value, ...) {
         )
       ) ),
     lapply(seq(1,num), function(x)
-      sortable_js(
+      sortable::sortable_js(
         paste0("drag_to",x),
-        options = sortable_options(
+        options = sortable::sortable_options(
           group = list(
             group = "group1",
             put = htmlwidgets::JS("function (to) { return to.el.children.length < 1; }"),
             pull = TRUE
           ),
-          onSort = chain_js_events(set_bucket, sortable_js_capture_input(input_id = input_ids[x] )), #paste0("select",x)
-          onLoad = chain_js_events(set_bucket, sortable_js_capture_input(input_id = input_ids[x] )) # << solution by stefan on Jun 01, 2022
+          onSort = sortable::chain_js_events(set_bucket, sortable::sortable_js_capture_input(input_id = input_ids[x] )), #paste0("select",x)
+          onLoad = sortable::chain_js_events(set_bucket, sortable::sortable_js_capture_input(input_id = input_ids[x] )) # << solution by stefan on Jun 01, 2022
         ) )
     ),
-    sortable_js(
+    sortable::sortable_js(
       "sortable_bin",
-      options = sortable_options(
+      options = sortable::sortable_options(
         group = list(
           group = "sortGroup1",
           put = TRUE,
