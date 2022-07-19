@@ -187,8 +187,8 @@ question_ui_initialize.wordbank <- function(question, value, ...) {
 
 
   # set input and bucket ids
-  input_ids = lapply(seq(1,num), function(x) paste0("select", x) )
-  css_ids = lapply(seq(1,num), function(x) paste0("drag_to", x) )
+  input_ids = lapply(seq(1,num), function(x) paste0("select", question$ids$question, x) )
+  css_ids = lapply(seq(1,num), function(x) paste0("drag_to", question$ids$question, x) )
   set_bucket <- sortable::sortable_js_capture_bucket_input(input_id = question$ids$answer,
                                                  input_ids = input_ids,
                                                  css_ids = css_ids)
@@ -322,8 +322,8 @@ question_ui_completed.wordbank <- function(question, value, ...) {
   ans <- unlist(value)
 
   num <- length(question$choices)
-  input_ids = lapply(seq(1,num), function(x) paste0("select", x) )
-  css_ids = lapply(seq(1,num), function(x) paste0("drag_to", x) )
+  input_ids = lapply(seq(1,num), function(x) paste0("select",question$ids$question, x) )
+  css_ids = lapply(seq(1,num), function(x) paste0("drag_to",question$ids$question, x) )
   set_bucket <- sortable::sortable_js_capture_bucket_input(input_id = question$ids$answer,
                                                  input_ids = input_ids,
                                                  css_ids = css_ids)
