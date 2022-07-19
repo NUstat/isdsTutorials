@@ -208,7 +208,7 @@ question_ui_initialize.wordbank <- function(question, value, ...) {
         div(
           div(
             class = "panel panel-default",
-            div(class = "panel-heading", "Drag and drop"),
+            div(class = "panel-heading"),
             lapply(seq(1,num), function(x)
               div(
                 class = "panel-body",
@@ -343,7 +343,7 @@ question_ui_completed.wordbank <- function(question, value, ...) {
         div(
           div(
             class = "panel panel-default",
-            div(class = "panel-heading", "Word Bank"),
+            div(class = "panel-heading"),
             lapply(seq(1,num), function(x)
               div(
                 class = "panel-body",
