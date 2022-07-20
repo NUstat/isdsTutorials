@@ -1,0 +1,220 @@
+---
+title: "Tutorial: Chapter 6.0 - 6.1"
+tutorial:
+  id: "isds_10"
+  version: 0.1
+  
+output:
+  learnr::tutorial:
+    progressive: true
+    allow_skip: true
+    css: ["css/nu-theme.css"]
+runtime: shiny_prerendered
+description: >
+  Learn how to perform multiple regression.
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(tidyverse)
+library(ISDStutorials)
+library(gradethis)
+
+knitr::opts_chunk$set(echo = FALSE)
+gradethis_setup()
+options(tutorial.event_recorder = ISDStutorials::isds_recorder)
+
+#for exercises
+library(ISLR)
+
+credit_ch6 <- Credit %>%
+  as_tibble() %>%
+  select(debt = Balance, 
+         credit_limit = Limit,
+         income = Income, 
+         credit_rating = Rating,
+         age = Age)
+
+```
+
+
+```{r, context = "server"}
+rubric_list <- data.frame(question = c("Ex1", "Ex2", "Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7", "Q8"),
+                          points_possible = rep(1, 10))
+
+grade_server("grade_out", 
+            rubric_list = rubric_list)
+```
+
+
+```{r isds-header}
+# student name
+question_blank("Name: ___",
+                            answer_fn(function(value){
+                              if (length(value) >= 1 ) {
+                                return(mark_as(TRUE))
+                                }
+                              return(mark_as(FALSE) )
+                              }), allow_retry = FALSE )
+# have name, grade button, and print button on same line
+bootstrapPage(
+     div(style="display:inline-block",
+         grade_button_ui("grade_out") ),
+     div(style="display:inline-block", print_ui("Print") )
+)
+
+# can have the grade output appear anywhere in your tutorial
+grade_output_ui("grade_out")
+```
+
+## Instructions
+
+Complete this tutorial while reading Sections 6.0 - 6.1 of the [textbook](https://nustat.github.io/intro-stat-ds/6-multiple-regression.html).
+
+Once you are finished:
+
+-   Click the 'grade tutorial' button at the top to retrieve your score.
+-   Click the 'pdf' button to save the document as a pdf, you must have the tutorial open in a browser window for this button to work.
+-   Submit the completed pdf to Canvas.
+
+
+### Goals
+
+-   Be able to perform multiple regression for two numerical explanatory variables.
+-   Understand and interpret fitted values and residuals for multiple regression.
+-   Understand the implications of grouping in data.
+
+
+## Exercises
+
+**Exercise 1:**
+
+When creating the data frame credit_ch6, we renamed several variables as we selected them. First, fill in the blanks of the code that accomplished this. 
+
+
+```{r Ex1, exercise=TRUE}
+library(___)
+
+credit_ch6 ___ Credit ___ 
+  as_tibble() %>%
+  select(debt = Balance, 
+         ___ = Limit,
+         ___ = Income, 
+         credit_rating = ___ ,
+         age = Age)
+```
+
+
+```{r Ex1-solution, exercise.reveal_solution = FALSE}
+library(ISLR)
+
+credit_ch6 <- Credit %>%
+  as_tibble() %>%
+  select(debt = Balance, 
+         credit_limit = Limit,
+         income = Income, 
+         credit_rating = Rating,
+         age = Age)
+```
+
+```{r Ex1-code-check}
+grade_this_code()
+```
+
+
+**Exercise 2:**
+
+Fill in the blanks for the code that creates the following plot.
+
+```{r}
+htmltools::img(src="images/Figure_06_1.png", height = 470, width = 410)
+```
+
+
+```{r Ex2, exercise=TRUE}
+ggplot(credit_ch6, aes(x = ___, y = ___)) +
+  geom____() +
+  ___(x = ___, y = ___, ___ = "Debt and income") + 
+  ___(method = ___, se = FALSE)
+
+```
+
+```{r Ex2-hint-1}
+Part 2 Hint: Remember to include labels for the axes
+```
+
+```{r Ex2-solution, exercise.reveal_solution = FALSE}
+ggplot(credit_ch6, aes(x = income, y = debt)) +
+  geom_point() +
+  labs(x = "Income (in $1000)", y = "Credit card debt (in $)",
+  title = "Debt and income") + 
+  geom_smooth(method = "lm", se = FALSE)
+```
+
+```{r Ex2-code-check}
+grade_this_code()
+```
+
+
+## Reading Quiz
+
+```{r Q}
+quiz(
+  caption = NULL,
+  # Q1
+  question("Q1) What is the value for the largest amount of debt in the credit_ch6 data set?", 
+           type = "learnr_text",
+           answer("1999", correct = TRUE),
+           allow_retry = TRUE),
+  # Q2
+  question("Q2) Consider the following model:\n
+    debt_model <- lm(debt ~ credit_limit + income, data = credit_ch6)\n
+  How many quantities does this model estimate? That is, how many values will there be in the Estimate column of the regression table for this model? ", 
+           type = "learnr_text",
+           answer("3", correct = TRUE),
+           allow_retry = TRUE),
+  # Q3
+  question("Q3) Consider the following model:\n
+    debt_model <- lm(debt ~ credit_limit + income, data = credit_ch6)\n
+  What is the estimated slope of credit_limit that results from this model? Round to 3 decimal places.", 
+           type = "learnr_text",
+           answer("0.264", correct = TRUE),
+           allow_retry = TRUE),
+  # Q4
+  question("Q4) What is the name of the phenomenon where relationships that exist in aggregate disappear or reverse when the data are broken into groups?", 
+           type = "learnr_text",
+           answer("simpson's paradox", correct = TRUE),
+           answer("simpson paradox", correct = TRUE),
+           answer("simpsons paradox", correct = TRUE),
+           allow_retry = TRUE),
+  # Q5
+  question("Q5) What is the name of the function that provides you with the fitted values for a model?", 
+           type = "learnr_text",
+           answer("fitted", correct = TRUE),
+           answer("fitted()", correct = TRUE),
+           answer("fitted( )", correct = TRUE),
+           answer("fitted(model)", correct = TRUE),
+           answer("fitted(debt_model)", correct = TRUE),
+           allow_retry = TRUE),
+  question("Q6) What is the name of the function that provides you with the residuals for a model?", 
+           type = "learnr_text",
+           answer("residuals", correct = TRUE),
+           answer("residuals()", correct = TRUE),
+           answer("residuals( )", correct = TRUE),
+           answer("residuals(model)", correct = TRUE),
+           answer("residuals(debt_model)", correct = TRUE),
+           allow_retry = TRUE),
+  # Q7
+  question("Q7) How many columns are in debt_model_data?", 
+           type = "learnr_text",
+           answer("6", correct = TRUE),
+           allow_retry = TRUE),
+  # Q8
+  question("Q8) How many rows are in debt_model_data?", 
+           type = "learnr_text",
+           answer("400", correct = TRUE),
+           allow_retry = TRUE)
+)
+
+```
+

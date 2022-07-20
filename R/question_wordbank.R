@@ -201,6 +201,7 @@ question_ui_initialize.wordbank <- function(question, value, ...) {
   icons <- function(x) {lapply(x,function(x){tags$div(tags$strong(x))})}
 
   fluidPage(
+    withMathJax(),
     div(class = "panel-heading",
         strong(question$question)  ),
 
@@ -338,6 +339,7 @@ question_ui_completed.wordbank <- function(question, value, ...) {
   learnr::disable_all_tags(
 
     fluidPage(
+      withMathJax(),
       div(class = "panel-heading",
           strong(question$question)  ),
 

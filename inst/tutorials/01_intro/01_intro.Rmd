@@ -76,7 +76,7 @@ Once you are finished:
 
 ## Exercises
 
-### Exercise 1
+**Exercise 1:**
 
 Store the result of `20*40` into the variable `x`
 
@@ -96,7 +96,7 @@ x <- 20*40
 grade_this_code()
 ```
 
-### Exercise 2
+**Exercise 2:**
 
 The `mpg` dataset is included in the `ggplot2` package. Print the dataset to answer the following questions by typing `mpg` in the codechunk and clicking `run`.
 ```{r Ex2, exercise = TRUE, exercise.eval = FALSE}
@@ -131,7 +131,6 @@ quiz(caption = NULL,
 
 
 ## Reading Quiz
-
 
 ```{r Q}
 quiz(caption = NULL,

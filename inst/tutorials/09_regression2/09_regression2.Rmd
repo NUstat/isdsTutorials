@@ -1,5 +1,5 @@
 ---
-title: "Tutorial: Chapter 5.2-5.4"
+title: "Tutorial: Chapter 5.2 - 5.4"
 tutorial:
   id: "isds_09"
   version: 0.1
@@ -27,8 +27,8 @@ options(tutorial.event_recorder = ISDStutorials::isds_recorder)
 
 
 ```{r, context = "server"}
-rubric_list <- data.frame(question = c("Ex1", "Ex1Q1", "Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7", "Q8", "Q9"),
-                          points_possible = rep(1, 11))
+rubric_list <- data.frame(question = c("Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7", "Q8", "Q9"),
+                          points_possible = rep(1, 9))
 
 grade_server("grade_out", 
             rubric_list = rubric_list)
@@ -57,7 +57,7 @@ grade_output_ui("grade_out")
 
 ## Instructions
 
-Complete this tutorial while reading Sections 5.2-5.4 of the [textbook](https://nustat.github.io/intro-stat-ds/5-regression.html#model2).
+Complete this tutorial while reading Sections 5.2 - 5.4 of the [textbook](https://nustat.github.io/intro-stat-ds/5-regression.html#model2).
 
 Once you are finished:
 
@@ -79,42 +79,42 @@ Once you are finished:
 ```{r Q}
 quiz(caption = NULL,
   # Question 1
-    question("How many European countries are included in the gapminder 2007 dataset?", 
+    question("Q1) How many European countries are included in the gapminder 2007 dataset?", 
            type = "learnr_text",
            answer("30", correct = TRUE),
            allow_retry = TRUE),
     # Question 2
-    question("What percent of countries in the gapminder2007 dataset have a life expectancy of less than 71.94?", 
+    question("Q2) What percent of countries in the gapminder2007 dataset have a life expectancy of less than 71.94?", 
            type = "learnr_text",
            answer("50", correct = TRUE),
            allow_retry = TRUE), 
       # Question 3
-    question("How many years higher is the average life expectancy in Europe as compared to Africa? Round to 1 decimal place.", 
+    question("Q3) How many years higher is the average life expectancy in Europe as compared to Africa? Round to 1 decimal place.", 
            type = "learnr_text",
            answer("22.8", correct = TRUE),
            allow_retry = TRUE),
        # Question 4
-    question("What is the name of the explanatory variable in the lifeExp_model?", 
+    question("Q4) What is the name of the explanatory variable in the lifeExp_model?", 
            type = "learnr_text",
            answer("continent", correct = TRUE),
            allow_retry = TRUE),
          # Question 5
-    question("When x refers to the country Germany, what is the value of the indicator function $1_{Amer}(x)$?", 
+    question("Q5) When x refers to the country Germany, what is the value of the indicator function $1_{Amer}(x)$?", 
            type = "learnr_text",
            answer("0", correct = TRUE),
            allow_retry = TRUE),
     # Question 6
-    question("After fitting lifeExp_model to the gapminder2007 dataset, what is the value of $y - \\hat{y}$ for the country Angola? Round to 3 decimal places.", 
+    question("Q6) After fitting lifeExp_model to the gapminder2007 dataset, what is the value of $y - \\hat{y}$ for the country Angola? Round to 3 decimal places.", 
            type = "learnr_text",
            answer("-12.075", correct = TRUE),
            allow_retry = TRUE),
      # Question 7
-    question("According to the lifeExp_model fit to the gapminder2007 dataset, what is the estimated life expectancy for the country Bangladesh? Round to 1 decimal place.", 
+    question("Q7) According to the lifeExp_model fit to the gapminder2007 dataset, what is the estimated life expectancy for the country Bangladesh? Round to 1 decimal place.", 
            type = "learnr_text",
            answer("70.7", correct = TRUE),
            allow_retry = TRUE),  
     # Question 8
-    question("What is the potential confounding variable in the 'sleeping with shoes on' and 'waking up with a headache' example?", 
+    question("Q8) What is the potential confounding variable in the 'sleeping with shoes on' and 'waking up with a headache' example?", 
            type = "learnr_text",
            answer("alcohol", correct = TRUE),
            answer("drinking", correct = TRUE),
@@ -122,7 +122,7 @@ quiz(caption = NULL,
            answer("intoxication", correct = TRUE),
            allow_retry = TRUE),  
      # Question 9
-    question("If all the data points fall perfectly on the regression line, what would be the value of $\\sum_{i=1}^{n} (y_i - \\hat{y}_i)^2$?", 
+    question("Q9) If all the data points fall perfectly on the regression line, what would be the value of $\\sum_{i=1}^{n} (y_i - \\hat{y}_i)^2$?", 
            type = "learnr_text",
            answer("0", correct = TRUE),
            allow_retry = TRUE))
