@@ -32,7 +32,7 @@ evals_ch6 <- evals %>%
 
 
 ```{r, context = "server"}
-rubric_list <- data.frame(question = c("Ex1", "Ex1Q1", "Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7", "Q8", "Q9"),
+rubric_list <- data.frame(question = c("Ex1", "Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7", "Q8", "Q9", "Q10"),
                           points_possible = rep(1, 11))
 
 grade_server("grade_out", 
@@ -158,32 +158,29 @@ How many quantities does this model estimate? That is, how many values will ther
            type = "learnr_text",
            answer("4", correct = TRUE),
            allow_retry = TRUE),
-
-
    # Q7
-   question_wordbank("Q7) Match each model code with the appropriate mathematical representation.",
-          choices = c("lm(debt ~ credit_limit + income)",
-                      "lm(score ~ age + gender + age*gender)"),
-          wordbank = c("\\(\\hat{y} = b_1*x_1 + b_2*x_2 \\)", "\\(\\hat{y} = b_1*x_1 + b_2*x_2 + b_3*x_1*x_2 \\)", 
-                       "\\(\\hat{y} = b_0 + b_1*x_1 + b_2*x_2 + b_3*x_1*x_2 \\)", "\\(\\hat{y} = b_0 + b_1*x_1 + b_2*x_2 \\)"),
-           answer(c("\\(\\hat{y} = b_0 + b_1*x_1 + b_2*x_2 \\)",
-                    "\\(\\hat{y} = b_0 + b_1*x_1 + b_2*x_2 + b_3*x_1*x_2 \\)"), correct = TRUE),
+question("Q7) Match the model with the appropriate mathematical representation:\n
+          lm(debt ~ credit_limit + income)",
+           answer("$\\hat{y} = b_1*x_1 + b_2*x_2$"),
+           answer("$\\hat{y} = b_1*x_1 + b_2*x_2 + b_3*x_1*x_2$"),
+           answer("$\\hat{y} = b_0 + b_1*x_1 + b_2*x_2 + b_3*x_1*x_2$"),
+           answer("$\\hat{y} = b_0 + b_1*x_1 + b_2*x_2$", correct = TRUE),
            allow_retry = TRUE),
    # Question 17
-   question("Match the model with the appropriate mathematical representation:\n
-          ",
+   question("Q8) Match the model with the appropriate mathematical representation:\n
+          lm(score ~ age + gender + age*gender)",
            answer("$\\hat{y} = b_1*x_1 + b_2*x_2$"),
            answer("$\\hat{y} = b_1*x_1 + b_2*x_2 + b_3*x_1*x_2$"),
            answer("$\\hat{y} = b_0 + b_1*x_1 + b_2*x_2 + b_3*x_1*x_2$", correct = TRUE),
            answer("$\\hat{y} = b_0 + b_1*x_1 + b_2*x_2$"),
            allow_retry = TRUE),
-  # Question 18
-  question("After fitting score_model_interaction to the evals_ch6 dataset, what is the value of  $y - \\hat{y}$ for the 4th instructor? Round to 3 decimal places.", 
+  # Q9
+  question("Q9) After fitting score_model_interaction to the evals_ch6 dataset, what is the value of  $y - \\hat{y}$ for the 4th instructor? Round to 3 decimal places.", 
            type = "learnr_text",
            answer("0.548", correct = TRUE),
            allow_retry = TRUE),
-  # Question 19
-  question("Suppose you ran the following lines of code:\n
+  # Q10
+  question("Q10) Suppose you ran the following lines of code:\n
 
     credit_ch6 <- credit_ch6 %>%
       mutate(income_5 = income * 5)
