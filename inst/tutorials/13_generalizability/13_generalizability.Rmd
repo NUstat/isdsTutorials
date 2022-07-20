@@ -1,0 +1,156 @@
+---
+title: "Tutorial: Chapter 8"
+tutorial:
+  id: "isds_13"
+  version: 0.1
+  
+output:
+  learnr::tutorial:
+    progressive: true
+    allow_skip: true
+    css: ["css/nu-theme.css"]
+runtime: shiny_prerendered
+description: >
+  Learn how to make inferences about the population from a sample.
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(tidyverse)
+library(ISDStutorials)
+library(gradethis)
+
+knitr::opts_chunk$set(echo = FALSE)
+gradethis_setup()
+options(tutorial.event_recorder = ISDStutorials::isds_recorder)
+
+```
+
+
+```{r, context = "server"}
+rubric_list <- data.frame(question = c("Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7", "Q8"),
+                          points_possible = rep(1, 8))
+
+grade_server("grade_out", 
+            rubric_list = rubric_list)
+```
+
+
+```{r isds-header}
+# student name
+question_blank("Name: ___",
+                            answer_fn(function(value){
+                              if (length(value) >= 1 ) {
+                                return(mark_as(TRUE))
+                                }
+                              return(mark_as(FALSE) )
+                              }), allow_retry = FALSE )
+# have name, grade button, and print button on same line
+bootstrapPage(
+     div(style="display:inline-block",
+         grade_button_ui("grade_out") ),
+     div(style="display:inline-block", print_ui("Print") )
+)
+
+# can have the grade output appear anywhere in your tutorial
+grade_output_ui("grade_out")
+```
+
+## Instructions
+
+Complete this tutorial while reading Chapter 8 of the [textbook](https://nustat.github.io/intro-stat-ds/8-populations.html).
+
+Once you are finished:
+
+-   Click the 'grade tutorial' button at the top to retrieve your score.
+-   Click the 'pdf' button to save the document as a pdf, you must have the tutorial open in a browser window for this button to work.
+-   Submit the completed pdf to Canvas.
+
+
+### Goals
+
+-   Understand the difference between population parameters and sample estimators.
+-   Be able to identify the different types of sampling.
+-   Describe the difference between random sampling and random assignment, and know the appropriate conclusions that can be drawn from each.
+-   Be able to determine the extent to which a study's results can be generalized.
+
+
+
+## Reading Quiz
+
+```{r Q}
+quiz(caption = NULL,
+  # Q1
+    question_wordbank("Q1) Match each statistic with its corresponding population parameter.", 
+           choices = c("\\(\\pi\\)", "\\(\\sigma\\)",
+                       "\\(\\beta_1\\)", "\\(\\mu\\)", 
+                        "\\(\\rho\\)", "\\(\\beta_0\\)"),
+           wordbank = c("proportion", "standard deviation",
+                        "regression slope", "mean",
+                        "correlation", "regression intercept"),
+           answer(c("proportion", "standard deviation",
+                    "regression slope", "mean", 
+                    "correlation", "regression intercept"), correct = TRUE),
+           allow_retry = TRUE), 
+    # Q2
+  question_wordbank("Q2) Match each statistic with its corresponding sample estimator.", 
+           choices = c("\\(r\\)", "\\(b_0\\)",
+           "\\(\\hat{\\pi}\\)", "\\(\\bar{x}\\)",
+           "\\(b_1\\)", "\\(s\\)"),
+           wordbank = c("proportion", "standard deviation", "regression slope", "mean", "correlation", "regression intercept"),
+           answer(c("correlation", "regression intercept",
+                    "proportion", "mean", "regression slope",
+                    "standard deviation"), correct = TRUE),
+           allow_retry = TRUE), 
+     # Q3
+  question_wordbank("Q3) Match each of the following terms with whether they correspond to a sample or a population.", 
+           choices = c("point estimate", "Roman letters", "census", "parameter", "hat notation", "Greek letters"),
+           wordbank = c("sample", "population"),
+           answer(c("sample", "sample", "population", "population", "sample", "population"), correct = TRUE),
+           allow_retry = TRUE), 
+          # Q4
+  question_wordbank("Q4) Match each of the following steps in the sampling process with the appropriate order they should be conducted.", 
+           choices = c("1st step", "2nd step", "3rd step", "4th step", "5th step"),
+           wordbank = c("Define your population of interest", "Develop a population frame", "Develop a sampling plan", "Obtain your sample", "Collect data on your sample"),
+           answer(c("Define your population of interest", "Develop a population frame", "Develop a sampling plan", "Obtain your sample", "Collect data on your sample"), correct = TRUE),
+           allow_retry = TRUE), 
+  #Q5
+    question("Q5) Which of the following are TRUE about $\\bar{x}$? Select all that apply.",
+           answer("It is an estimator for 
+$\\sigma$"),
+           answer("It is a measure of 'spread'"),
+           answer("It is a point estimate", correct = TRUE),
+           answer("It is a measure of 'center'", correct = TRUE),
+           answer("It is a population parameter"),
+           allow_retry = TRUE,
+           random_answer_order = TRUE),  
+    # Q6
+ question_wordbank("Q6) Imagine you are conducting a survey among the Northwestern student body. You decide to sample 200 students. Match each of the following scenarios with the corresponding sampling procedures. ", 
+           choices = c("50 students are randomly selected from each of the four classes (i.e. freshman, sophomores, juniors, seniors)", "200 students are randomly selected from a list of all NetIDs", "20 courses are randomly selected, and then 10 students are randomly selected from each course"),
+           wordbank = c("stratified sampling", 
+                        "simple random sampling", 
+                        "cluster sampling"),
+           answer(c("stratified sampling", 
+                        "simple random sampling", 
+                        "cluster sampling"), correct = TRUE),
+           allow_retry = TRUE), 
+    # Q7
+    question("Q7) Which of the following statements are TRUE about random sampling? Select all that apply.",
+           answer("Every unit in the population must have an equal probability of being selected"),
+           answer("Every unit in the population must have a non-zero probability of being selected", correct = TRUE),
+           answer("Individuals or units must be selected via a random process", correct = TRUE),
+           answer("It enables us to generalize to the population we sampled from", correct = TRUE),
+           answer("It requires a population frame to be developed or obtained in advance", correct = TRUE),
+           allow_retry = TRUE,
+           random_answer_order = TRUE),   
+    # Q8
+question_wordbank("Q8) Match each of the following study types with the appropriate conclusions that can be drawn from them.", 
+           choices = c("Random assignment", "Neither random sampling nor random assignment", "Random sampling", "Random sampling + random assignment"),
+           wordbank = c("Causal claim within your sample only", 
+                        "Associational claim within your sample only", "Associational claim, generalized to the whole population", "Causal claim, generalized to the whole population"),
+           answer(c("Causal claim within your sample only", 
+                        "Associational claim within your sample only", "Associational claim, generalized to the whole population", "Causal claim, generalized to the whole population"), correct = TRUE),
+           allow_retry = TRUE)
+)
+
+```

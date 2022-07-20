@@ -1,0 +1,145 @@
+---
+title: "Tutorial: Chapter 7"
+tutorial:
+  id: "isds_12"
+  version: 0.1
+  
+output:
+  learnr::tutorial:
+    progressive: true
+    allow_skip: true
+    css: ["css/nu-theme.css"]
+runtime: shiny_prerendered
+description: >
+  Learn how to make inferences through causality and randomization.
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(tidyverse)
+library(ISDStutorials)
+library(gradethis)
+
+knitr::opts_chunk$set(echo = FALSE)
+gradethis_setup()
+options(tutorial.event_recorder = ISDStutorials::isds_recorder)
+
+```
+
+
+```{r, context = "server"}
+rubric_list <- data.frame(question = c("Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7", "Q8", "Q9"),
+                          points_possible = rep(1, 9))
+
+grade_server("grade_out", 
+            rubric_list = rubric_list)
+```
+
+
+```{r isds-header}
+# student name
+question_blank("Name: ___",
+                            answer_fn(function(value){
+                              if (length(value) >= 1 ) {
+                                return(mark_as(TRUE))
+                                }
+                              return(mark_as(FALSE) )
+                              }), allow_retry = FALSE )
+# have name, grade button, and print button on same line
+bootstrapPage(
+     div(style="display:inline-block",
+         grade_button_ui("grade_out") ),
+     div(style="display:inline-block", print_ui("Print") )
+)
+
+# can have the grade output appear anywhere in your tutorial
+grade_output_ui("grade_out")
+```
+
+## Instructions
+
+Complete this tutorial while reading Chapter 7 of the [textbook](https://nustat.github.io/intro-stat-ds/7-causality.html).
+
+Once you are finished:
+
+-   Click the 'grade tutorial' button at the top to retrieve your score.
+-   Click the 'pdf' button to save the document as a pdf, you must have the tutorial open in a browser window for this button to work.
+-   Submit the completed pdf to Canvas.
+
+
+### Goals
+
+-   Understand when a question is causal.
+-   Understand how randomized experiments are formulated.
+-   Be able to distinguish the extent to which we are able to make inferences in a given situation with or without randomization.  
+-   Understand what confounding variables are.
+
+
+
+## Reading Quiz
+
+```{r Q}
+quiz(caption = NULL,
+  # Question 1
+    question("Q1) What is the gold standard method for understanding causality?", 
+           type = "learnr_text",
+           answer("randomized experiment", correct = TRUE),
+           answer("randomized trial", correct = TRUE),
+           answer("randomized control trial", correct = TRUE),
+           answer("random assignment", correct = TRUE),
+           allow_retry = TRUE), 
+    # Question 2
+    question_wordbank("Q2) What is the purpose of the rbernoulli() function?",
+           choices = c("fits a linear regression model", "selects columns of a data frame", "randomly selects rows from a data set", "generates results of random coin flips", "selects rows of a data frame"),
+           wordbank = c("rbernoulli()", "sample_n()", "lm()",
+                        "select()", "filter()"),
+           answer(c("lm()", "select()","sample_n()",
+                    "rbernoulli()", "filter()"), 
+                  correct = TRUE),
+           allow_retry = TRUE), 
+      # Q3
+    question("Q3) In the simulated coin_flips data, what percentage of the coins 'landed on heads'?", 
+           type = "learnr_text",
+           answer("30", correct = TRUE),
+           answer("30%", correct = TRUE),
+           allow_retry = TRUE),  
+    # Q4
+    question_matching("Q4) The following simple linear regression model is used to estimate the 'average treatment effect.' In $\\hat{y} = b_0 + b_1T$ where $b_1 = \\bar{y}_T-\\bar{y}_C$, Match each term with its interpretation.",
+           choices = c("\\(b_1\\)", "\\(\\bar{y}_T\\)", "\\(\\bar{y}_C\\)", "T", "\\(\\hat{y}\\)"),
+           answer(c("estimated treatment effect", "average outcome in the treatment group", "average outcome in the control group", "indicator variable for whether an individual is in the treatment group", "estimated outcome for an individual"), correct = TRUE),
+           allow_retry = TRUE),  
+           # Q5
+    question("Q5) Which of the following statements are TRUE about the following line of code? rbernouilli(n = 50, p = 0.4)",
+           answer("It will result in 30 TRUE values and 20 FALSE values"),
+           answer("I cannot determine in advance how many TRUE values will result", correct = TRUE),
+           answer("It mimics 50 random 'coin flips', with each coin flip having a 0.4% chance of resulting in 'heads'"),
+           answer("It will result in 20 TRUE values and 30 FALSE values"),
+           allow_retry = TRUE,
+           random_answer_order = TRUE),    
+    # Q6
+    question_wordbank("Q6) Match each phrase with the variable name (letter) it is typically associated with in a model.",
+           choices = c("explanatory variable", "outcome variable", "dependent variable", "omitted variable", "predictor variable", "confounding variable"),
+           wordbank = c("X", "Y", "Z"), 
+           answer(c("X", "Y", "Y", "Z", "X", "Z"), correct = TRUE),
+           allow_retry = TRUE),    
+          # Q7
+    question("Q7) Which of the following statements are TRUE? Select all that apply.",
+           answer("In observational data, the relationship between T and Y, adjusting for Z, will be similar to the relationship between T and Y alone"),
+           answer("Randomization ensures that on average, treatment and control groups are equivalent on all observed AND unobserved pre-treatment characteristics", correct = TRUE),
+           answer("Adding omitted variables to a model substantially changes the estimated treatment effect in a randomized experiment"),
+           answer("You do not have to worry about confounding in a randomized experiment", correct = TRUE),
+           allow_retry = TRUE,
+           random_answer_order = TRUE),    
+          # Q8
+    question("Q8) In the ed_data randomized experiment example (i.e. in the scenario where treatment status was randomly assigned), what percentage of students in the control group were minority students? Round to 1 decimal place.", 
+           type = "learnr_text",
+           answer("32.7", correct = TRUE),
+           allow_retry = TRUE), 
+    # Q9
+    question("Q9) How many students did we randomly assign to the treatment group in the ed_data example?", 
+           type = "learnr_text",
+           answer("167", correct = TRUE),
+           allow_retry = TRUE))
+
+
+```
