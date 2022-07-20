@@ -140,7 +140,7 @@ quiz(
            answer("arrange()", correct = TRUE),
            allow_retry = TRUE),
   # Q5
-    question_matching("Q5) Match the general description to the appropriate piece of code in the following code chunk: \n
+    question_wordbank("Q5) Match the general description to the appropriate piece of code in the following code chunk: \n
       summary_temp <- weather %>% 
         summarize(mean = mean(temp), std_dev = sd(temp)) ",
         choices = c("name of the new summary data frame", 
@@ -148,6 +148,8 @@ quiz(
                     "pipe operator",
                     "name of a new summary variable",
                     "name of data frame to be summarized"),
+        wordbank = c("summary_temp", "<-", "%>%",
+                 "std_dev", "weather"),
         answer(c("summary_temp", "<-", "%>%",
                  "std_dev", "weather"), correct = TRUE), 
         allow_retry = TRUE ),
@@ -160,12 +162,14 @@ quiz(
            allow_retry = TRUE,
            random_answer_order = TRUE),
   #Q7
-    question_matching("Q7) Match each task with the dplyr verb that will accomplish it.",
+    question_wordbank("Q7) Match each dplyr verb with the task it accomplishes.",
             choices = c("only keep desired columns", 
                         "only keep rows that meet a criteria",
                         "create a new variable",
                         "compute the mean of a variable",
                         "sort by a variable"),
+            wordbank = c("select()", "filter()", "mutate()",
+                     "summarize()","arrange()"),
             answer(c("select()", "filter()", "mutate()",
                      "summarize()","arrange()"), 
                    correct = TRUE), 

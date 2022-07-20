@@ -1,5 +1,5 @@
 ---
-title: "Tutorial: Chapter 2.7-2.9"
+title: "Tutorial: Chapter 2.7 - 2.9"
 tutorial:
   id: "isds_04"
   version: 0.1
@@ -57,7 +57,7 @@ grade_output_ui("grade_out")
 
 ## Instructions
 
-Complete this tutorial while reading Sections 2.7-2.9 of the [textbook](https://nustat.github.io/intro-stat-ds/2-viz.html#boxplots). Each question allows 3 'free' attempts. After the third attempt a 10% deduction occurs per attempt.
+Complete this tutorial while reading Sections 2.7 - 2.9 of the [textbook](https://nustat.github.io/intro-stat-ds/2-viz.html#boxplots). Each question allows 3 'free' attempts. After the third attempt a 10% deduction occurs per attempt.
 
 Once you are finished:
 
@@ -125,12 +125,13 @@ quiz(caption = NULL,
            allow_retry = TRUE,
            random_answer_order = TRUE), 
   # Q2
-    question_matching("Q2) Match the features of a boxplot with the information they display about the data by reordering the information in the right column.",
-        choices = c("whiskers", "length", "dots", "box"),
-        answer(c("lines extending from the box to points less than the 25th percentile or greater than the 75th percentile",
+    question_wordbank("Q2) Drag and drop the features of a boxplot with the information they display about the data.",
+        choices = c("lines extending from the box to points less than the 25th percentile or greater than the 75th percentile",
                  "interquartile range (i.e. a measure of the spread of the data)",
                  "outliers",
-                 "1st quartile, median, 3rd quartile (i.e. the middle 50% of the data)"), 
+                 "1st quartile, median, 3rd quartile (i.e. the middle 50% of the data)"),
+        wordbank = c("whiskers", "length", "dots", "box"),
+        answer(c("whiskers", "length", "dots", "box"), 
         correct = TRUE), 
         allow_retry = TRUE ),
         # Q3

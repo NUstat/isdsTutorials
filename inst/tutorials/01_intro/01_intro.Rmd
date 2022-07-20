@@ -189,14 +189,17 @@ quiz(caption = NULL,
            allow_retry = TRUE,
            random_answer_order = TRUE), 
     # Q8
-    question_matching("Q8) Seeing red text in your console is not always bad. Order the three different types of feedback R gives (on right) to match how they should be interpreted.",
-        choices = c("Error", "Warning", "Message"),
-        answer(c("something is wrong! (red traffic light)","everything is working fine, but watch out/pay attention (yellow traffic light)", "everything is working fine (green traffic light)"), correct = TRUE), 
+     question_wordbank("Q8) Seeing red text in your console is not always bad. Drag and drop the three different types of feedback R givew with how they should be interpreted.",
+        choices = c("something is wrong! (red traffic light)","everything is working fine, but watch out/pay attention (yellow traffic light)", "everything is working fine (green traffic light)"),
+        wordbank = c("Error", "Warning", "Message"),
+        answer(c("Error", "Warning", "Message"), 
+               correct = TRUE), 
         allow_retry = TRUE ),
   # Q9
-    question_matching("Q9) Match the order of the following packages with their primary purpose",
-        choices = c("moderndive", "dplyr", "ggplot2"),
-        answer(c("accompanies this book","data wrangling",  "data visualization"), correct = TRUE), 
+    question_wordbank("Q9) Drag and drop the packages to match their primary purpose",
+        choices = c("accompanies this book","data wrangling",  "data visualization"),
+        wordbank = c("moderndive", "dplyr", "ggplot2"),
+        answer(c("moderndive", "dplyr", "ggplot2"), correct = TRUE), 
         allow_retry = TRUE )
 )
 ```

@@ -210,7 +210,7 @@ question_ui_initialize.wordbank <- function(question, value, ...) {
         div(
           div(
             class = "panel panel-default",
-            lapply(seq(1,num), function(x)
+            lapply(seq(1,length(labels)), function(x)
               div(
                 class = "panel-body",
                 style="display:inline-block",

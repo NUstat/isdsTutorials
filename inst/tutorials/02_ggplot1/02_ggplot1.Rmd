@@ -150,9 +150,10 @@ quiz(
     random_answer_order = TRUE
   ),
   # Q3
-  question_matching(paste("Q3) Match the variables with the aesthetics they are mapped onto in Figure 2.1", htmltools::img(src="images/Figure_02_1.png", height = 400, width = 700) ),
-          choices = c("GDP per Capita", "Population", "Continent", "Country", "Life Expectancy"),
-          answer(c("x","size",  "color", "doesn't get mapped", "y"), correct = TRUE), 
+  question_wordbank(paste("Q3) Drag and drop the variables to match the aesthetics they are mapped onto in Figure 2.1", htmltools::img(src="images/Figure_02_1.png", height = 400, width = 700) ),
+          choices = c("x","size",  "color", "doesn't get mapped", "y"),
+          wordbank = c("GDP per Capita", "Population", "Continent", "Country", "Life Expectancy"),
+          answer(c("GDP per Capita", "Population", "Continent", "Country", "Life Expectancy"), correct = TRUE), 
         allow_retry = TRUE,
         random_answer_order = TRUE ),
   # Q4
