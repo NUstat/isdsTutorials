@@ -184,12 +184,14 @@ question_ui_initialize.wordbank <- function(question, value, ...) {
     labels <- sample(question$wordbank, length(question$wordbank))
   }else{labels <- question$wordbank}
 
+  num_bank = length(labels)
+
   # pretty close to unique id
   rand = paste0(sample.int(100,1), sample.int(100,1) )
   # set input and bucket ids
   input_ids = lapply(seq(1,num), function(x) paste0("select", rand, x) )
   css_ids = lapply(seq(1,num), function(x) paste0("drag_to", rand, x) )
-  other_ids = lapply(seq(1,num), function(x) paste0("drag_from", rand, x) )
+  other_ids = lapply(seq(1,num_bank), function(x) paste0("drag_from", rand, x) )
   group_ids = paste0("group", rand)
 
   set_bucket <- sortable::sortable_js_capture_bucket_input(input_id = question$ids$answer,
@@ -211,7 +213,7 @@ question_ui_initialize.wordbank <- function(question, value, ...) {
         div(
           div(
             class = "panel panel-default",
-            lapply(seq(1,length(labels)), function(x)
+            lapply(seq(1,num_bank), function(x)
               div(
                 class = "panel-body",
                 style="display:inline-block",
@@ -250,7 +252,7 @@ question_ui_initialize.wordbank <- function(question, value, ...) {
     ), #ends bucket div group
 
     # separate columns for each drag
-    lapply(seq(1,num), function(x)
+    lapply(seq(1,num_bank), function(x)
       sortable::sortable_js(
         other_ids[x],
         options = sortable::sortable_options(
@@ -322,6 +324,8 @@ question_ui_completed.wordbank <- function(question, value, ...) {
 
   labels <- question$wordbank
 
+  num_bank = length(labels)
+
   ans <- unlist(value)
 
   rand = paste0(sample.int(100,1), sample.int(100,1) )
@@ -349,7 +353,7 @@ question_ui_completed.wordbank <- function(question, value, ...) {
           div(
             div(
               class = "panel panel-default",
-              lapply(seq(1,num), function(x)
+              lapply(seq(1,num_bank), function(x)
                 div(
                   class = "panel-body",
                   style="display:inline-block",
@@ -388,7 +392,7 @@ question_ui_completed.wordbank <- function(question, value, ...) {
       ), #ends bucket div group
 
       # separate columns for each drag
-      lapply(seq(1,num), function(x)
+      lapply(seq(1,num_bank), function(x)
         sortable::sortable_js(
           other_ids[x],
           options = sortable::sortable_options(

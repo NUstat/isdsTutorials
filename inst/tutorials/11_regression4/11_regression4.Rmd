@@ -1,0 +1,198 @@
+---
+title: "Tutorial: Chapter 6.2 - 6.4"
+tutorial:
+  id: "isds_11"
+  version: 0.1
+  
+output:
+  learnr::tutorial:
+    progressive: true
+    allow_skip: true
+    css: ["css/nu-theme.css"]
+runtime: shiny_prerendered
+description: >
+  Learn how to perform multiple regression for one numerical & one categorical explanatory variable.
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(tidyverse)
+library(ISDStutorials)
+library(gradethis)
+
+knitr::opts_chunk$set(echo = FALSE)
+gradethis_setup()
+options(tutorial.event_recorder = ISDStutorials::isds_recorder)
+
+#for exercise
+library(moderndive)
+evals_ch6 <- evals %>%
+  select(ID, score, age, gender)
+```
+
+
+```{r, context = "server"}
+rubric_list <- data.frame(question = c("Ex1", "Ex1Q1", "Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7", "Q8", "Q9"),
+                          points_possible = rep(1, 11))
+
+grade_server("grade_out", 
+            rubric_list = rubric_list)
+```
+
+
+```{r isds-header}
+# student name
+question_blank("Name: ___",
+                            answer_fn(function(value){
+                              if (length(value) >= 1 ) {
+                                return(mark_as(TRUE))
+                                }
+                              return(mark_as(FALSE) )
+                              }), allow_retry = FALSE )
+# have name, grade button, and print button on same line
+bootstrapPage(
+     div(style="display:inline-block",
+         grade_button_ui("grade_out") ),
+     div(style="display:inline-block", print_ui("Print") )
+)
+
+# can have the grade output appear anywhere in your tutorial
+grade_output_ui("grade_out")
+```
+
+## Instructions
+
+Complete this tutorial while reading Sections 6.2 - 6.4 of the [textbook](https://nustat.github.io/intro-stat-ds/6-multiple-regression.html#model4).
+
+Once you are finished:
+
+-   Click the 'grade tutorial' button at the top to retrieve your score.
+-   Click the 'pdf' button to save the document as a pdf, you must have the tutorial open in a browser window for this button to work.
+-   Submit the completed pdf to Canvas.
+
+
+### Goals
+
+-   Learn how to perform multiple regression for one numerical & one categorical explanatory variable.
+-   Understand the difference between interaction models and parallel slopes models, and know when to use each model.
+-   Understand Simpson's Paradox.
+
+
+## Exercise
+
+Fill in the blank for the code that produces the following plot:
+
+```{r}
+htmltools::img(src="images/Figure_06_3.png", height = 400, width = 700)
+```
+
+```{r Ex1, exercise=TRUE}
+ggplot(evals_ch6, aes(x = ___, y = ___, color = ___)) +
+  ____ +
+  labs(x = ___, y = ___, color = ___) +
+  ___(method = "lm", se = FALSE)
+```
+
+```{r Ex1-hint-1}
+Remember to include the parentheses for filling in the blank on line 2.
+```
+
+
+```{r Ex1-solution, exercise.reveal_solution = FALSE}
+ggplot(evals_ch6, aes(x = age, y = score, color = gender)) +
+  geom_point() +
+  labs(x = "Age", y = "Teaching Score", color = "Gender") +
+  geom_smooth(method = "lm", se = FALSE)
+```
+
+```{r Ex1-code-check}
+grade_this_code()
+```
+
+
+## Reading Quiz
+
+```{r Q}
+quiz(
+  caption = NULL,
+  withMathJax(),
+  # Q1
+  question("Q1) What is the age of the youngest professor in the evals data set?", 
+           type = "learnr_text",
+           answer("29", correct = TRUE),
+           allow_retry = TRUE),
+  # Q2
+  question("Q2) What is the value of $b_2$ for the regression model score_model_interaction?  Round to 3 decimal places.", 
+           type = "learnr_text",
+           answer("-0.446", correct = TRUE),
+           allow_retry = TRUE),
+  # Q3
+  question_wordbank("Q3) Consider the following model where age and gender are the explanatory/predictor variables, and female is the reference group for gender.\n
+$\\hat{y} = b_0 + b_1*age + b_2*gender + b_3*age*gender$",
+           choices = c("\\( b_{0} \\)", 
+                        "\\( b_{1} \\)", 
+                        "\\( b_{2} \\)", 
+                        "\\( b_{3} \\)", 
+                        "\\( b_{0}+b_{2} \\)", 
+                        "\\( b_{1}+b_{3} \\)"),
+           wordbank = c("intercept for females", "intercept for males", "offset in intercept for males", "offset in slope of age for males", "slope of age for females", "slope of age for males"),
+           answer(c("intercept for females", "slope of age for females", "offset in intercept for males", "offset in slope of age for males", "intercept for males", "slope of age for males"), correct = TRUE),
+           allow_retry = TRUE),
+  # Q4
+  question("Q4) What is the value of $1_{is male}(x)$ for the 109th instructor in the evals data set? $", 
+           type = "learnr_text",
+           answer("0", correct = TRUE),
+           allow_retry = TRUE),
+#Q5
+    question_wordbank("Q5) Match each model with the appropriate description.",
+          choices = c("lm(score ~ age + gender, data = evals_ch6)", "lm(credit_limit + income ~ debt, data = credit_ch6)", "lm(score ~ age + gender + age*gender, data = evals_ch6)", "lm(debt ~ credit_limit + income, data = credit_ch6)" ),
+          wordbank = c("linear regression model with two numeric explanatory variables", "linear regression interaction model", "linear regression parallel slopes model", "not an appropriate use of a linear regression model"),
+           answer(c("linear regression parallel slopes model",
+                    "not an appropriate use of a linear regression model", "linear regression interaction model", "linear regression model with two numeric explanatory variables"), correct = TRUE),
+           allow_retry = TRUE),
+  # Q6
+   question("Q6) Consider a model of the form:\n
+    y ~ x1 + x2 + x1*x2
+    
+How many quantities does this model estimate? That is, how many values will there be in the Estimate column of a regression table for this model? ", 
+           type = "learnr_text",
+           answer("4", correct = TRUE),
+           allow_retry = TRUE),
+
+
+   # Q7
+   question_wordbank("Q7) Match each model code with the appropriate mathematical representation.",
+          choices = c("lm(debt ~ credit_limit + income)",
+                      "lm(score ~ age + gender + age*gender)"),
+          wordbank = c("\\(\\hat{y} = b_1*x_1 + b_2*x_2 \\)", "\\(\\hat{y} = b_1*x_1 + b_2*x_2 + b_3*x_1*x_2 \\)", 
+                       "\\(\\hat{y} = b_0 + b_1*x_1 + b_2*x_2 + b_3*x_1*x_2 \\)", "\\(\\hat{y} = b_0 + b_1*x_1 + b_2*x_2 \\)"),
+           answer(c("\\(\\hat{y} = b_0 + b_1*x_1 + b_2*x_2 \\)",
+                    "\\(\\hat{y} = b_0 + b_1*x_1 + b_2*x_2 + b_3*x_1*x_2 \\)"), correct = TRUE),
+           allow_retry = TRUE),
+   # Question 17
+   question("Match the model with the appropriate mathematical representation:\n
+          ",
+           answer("$\\hat{y} = b_1*x_1 + b_2*x_2$"),
+           answer("$\\hat{y} = b_1*x_1 + b_2*x_2 + b_3*x_1*x_2$"),
+           answer("$\\hat{y} = b_0 + b_1*x_1 + b_2*x_2 + b_3*x_1*x_2$", correct = TRUE),
+           answer("$\\hat{y} = b_0 + b_1*x_1 + b_2*x_2$"),
+           allow_retry = TRUE),
+  # Question 18
+  question("After fitting score_model_interaction to the evals_ch6 dataset, what is the value of  $y - \\hat{y}$ for the 4th instructor? Round to 3 decimal places.", 
+           type = "learnr_text",
+           answer("0.548", correct = TRUE),
+           allow_retry = TRUE),
+  # Question 19
+  question("Suppose you ran the following lines of code:\n
+
+    credit_ch6 <- credit_ch6 %>%
+      mutate(income_5 = income * 5)
+
+What would the correlation between debt and income_5 in credit_ch6 be? Round to 3 decimal places.", 
+           type = "learnr_text",
+           answer("0.464", correct = TRUE),
+           allow_retry = TRUE)
+
+)
+
+```
