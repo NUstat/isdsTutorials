@@ -16,17 +16,19 @@ remotes::install_github("NUstat/ISDStutorials", dependencies = TRUE)
 
 The tutorials are named sequentially and correspond to the recommended material covered in a single class. The relevant sections of the Introduction to Statistics and Data Science [textbook](https://nustat.github.io/intro-stat-ds/) are listed alongside each tutorial.
 
-- **01_intro:** Preface & Chapter 1
-- **02_ggplot1:** Chapter 2.0 - 2.3
-- **03_ggplot2:** Chapter 2.4 - 2.6
-- **04_ggplot3:** Chapter 2.7 - 2.9
-- **05_wrangling1:** Chapter 3.0 - 3.3
-- **06_wrangling2:** Chapter 3.4 - 3.6
-- **07_tidy:** Chapter 4
-- **08_regression1:** Chapter 5.0 - 5.1
-- **09_regression2:** Chapter 5.2 - 5.4
-- **10_regression3:** Chapter 6.0 - 6.1
-- **11_regression4:** Chapter 6.2 - 6.4
+| name     | content |     | name     | content |
+| ---      | ---       | ---   | ---      | ---       |
+| **01_intro** | Preface & Chapter 1 |     |**11_regression4** | Chapter 6.2 - 6.4 |
+| **02_ggplot1** | Chapter 2.0 - 2.3 |     |**12_randomization** | Chapter 7 |
+| **03_ggplot2** | Chapter 2.4 - 2.6 |     |**13_generalizability** | Chapter 8 |
+| **04_ggplot3** | Chapter 2.7 - 2.9 |     |**14_sampling1** | Chapter 9.0 - 9.1 |
+| **05_wrangling1** | Chapter 3.0 - 3.3 |     |**15_sampling2** | Chapter 9.2 - 9.3 |
+| **06_wrangling2** | Chapter 3.4 - 3.6 |     |**16_sampling3** | Chapter 9.4 - 9.6 |
+| **07_tidy** | Chapter 4 |     |**17_ci** | Chapter 10 |
+| **08_regression1** | Chapter 5.0 - 5.1 |     |**18_pvalues** | Chapter 11 |
+| **09_regression2** | Chapter 5.2 - 5.4 |     |**19_hypothesis** | Chapter 12 |
+| **10_regression3** | Chapter 6.2 - 6.4 |     |**20_conclusion** | Chapter 13 |
+
 
 # Running tutorials
 
