@@ -246,7 +246,8 @@ question_ui_initialize.wordbank <- function(question, value, ...) {
              ),
              column(
                width = 9,
-               p(paste0(question$choices[x]) ) )
+               HTML(question$choices[x])
+               #p(paste0(question$choices[x]) ) )
            ) #ends fixed row
          ) #ends lapply
     ), #ends bucket div group
