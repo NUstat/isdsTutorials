@@ -51,6 +51,7 @@ After completing each tutorial, students can obtain their grade and download the
 - Print option: `print_ui`
 - Grade option: `grade_server`, `grade_button_ui`, `grade_output_ui`
 - Question drop down: `question_dropdown`
+- Question wordbank: `question_wordbank`
 - Question multiple choice: `question_matching`
 
 # ISDS setup
