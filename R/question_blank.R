@@ -171,6 +171,25 @@ question_ui_initialize.blank <- function(question, value, ...) {
      pos <- c(pos, split[i])
    }
   }
+  pos <- as.list(pos)
+  #now separate out the line breaks
+  for(i in 1:length(pos)){
+    if(stringr::str_detect(pos[i], "<br/>")){
+      tmp <- unlist(stringr::str_split(pos[i], pattern = "<br/>") )
+      new <- NULL
+      for(j in 1:length(tmp)){
+        if(j < length(tmp)){
+          new <- c(new, tmp[j], "<br/>")
+        }else{
+          new <- c(new, tmp[j])
+        }
+      }
+      pos[[i]] <- new
+    }
+  }
+
+  pos <- unlist(pos)
+
   num_blank = length(split)-1
   num_pos = length(pos)
 
@@ -190,97 +209,126 @@ question_ui_initialize.blank <- function(question, value, ...) {
   other_ids = lapply(seq(1,num_pos), function(x) paste0("other", rand, x) )
   group_ids = paste0("group", rand)
 
+  i = 1
   bootstrapPage(
-    div(id = question$ids$answer,
-        class = "bucketList",
+    tags$style(
+      ".container {
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: row;
+      padding: 3px;
+    }"),
+    tags$style(
+      ".break {
+      flex-basis: 100%;
+      height: 0;
+      }"),
+    tags$style(
+      ".item {
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: row;
+      padding: 3px;
+    }"),
 
-      lapply(seq(1,num_pos), function(x)
-        # cannot figure out how to make Shiny.setInputValue a function of numBlanks
-        # so setting it as a condition with max blanks of 5
-        if(num_blank == 1 && pos[x] == "___"){
-          tags$div(
-            class = "panel-body",
-            style="display:inline-block",
-            id = css_ids[x/2],
-            tags$input(type = "text",
-                       id = paste0(input_ids[x/2]),
-                       class = "textClass",
-                       value = ans[x/2],
-                       onkeyup = "Shiny.setInputValue(document.getElementsByClassName('bucketList')[0].id,
-                       [document.getElementsByClassName('textClass')[0].value] )" )
-          )
-        }else if(num_blank == 2 && pos[x] == "___"){
-          tags$div(
-            class = "panel-body",
-            style="display:inline-block",
-            id = css_ids[x/2],
-            tags$input(type = "text",
-                       id = paste0(input_ids[x/2]),
-                       class = "textClass",
-                       value = ans[x/2],
-                       onkeyup = "Shiny.setInputValue(document.getElementsByClassName('bucketList')[0].id,
+    div(id = question$ids$answer,
+        #class = "bucketList",
+        class = "container",
+
+        lapply(seq(1,num_pos), function(x)
+          # cannot figure out how to make Shiny.setInputValue a function of numBlanks
+          # so setting it as a condition with max blanks of 5
+          if(num_blank == 1 && pos[x] == "___"){
+            tags$div(
+              class = "item",
+              style="display:inline-block",
+              id = css_ids[i],
+              tags$input(type = "text",
+                         id = paste0(input_ids[i]),
+                         class = "textClass",
+                         value = ans[i],
+                         onkeyup = "Shiny.setInputValue(document.getElementsByClassName('container')[0].id,
+                       [document.getElementsByClassName('textClass')[0].value] )" ),
+              i = i+1
+            )
+          }else if(num_blank == 2 && pos[x] == "___"){
+            tags$div(
+              class = "item",
+              style="display:inline-block",
+              id = css_ids[i],
+              tags$input(type = "text",
+                         id = paste0(input_ids[i]),
+                         class = "textClass",
+                         value = ans[i],
+                         onkeyup = "Shiny.setInputValue(document.getElementsByClassName('container')[0].id,
                        [document.getElementsByClassName('textClass')[0].value,
-                   document.getElementsByClassName('textClass')[1].value] )" )
-          )
-        }else if(num_blank == 3 && pos[x] == "___"){
-          tags$div(
-            class = "panel-body",
-            style="display:inline-block",
-            id = css_ids[x/2],
-            tags$input(type = "text",
-                       id = paste0(input_ids[x/2]),
-                       class = "textClass",
-                       value = ans[x/2],
-                       onkeyup = "Shiny.setInputValue(document.getElementsByClassName('bucketList')[0].id,
+                   document.getElementsByClassName('textClass')[1].value] )" ),
+              i = i+1
+            )
+          }else if(num_blank == 3 && pos[x] == "___"){
+            tags$div(
+              class = "item",
+              #style="display:inline-block",
+              id = css_ids[i],
+              tags$input(type = "text",
+                         id = paste0(input_ids[i]),
+                         class = "textClass",
+                         value = ans[i],
+                         onkeyup = "Shiny.setInputValue(document.getElementsByClassName('container')[0].id,
                        [document.getElementsByClassName('textClass')[0].value,
                    document.getElementsByClassName('textClass')[1].value,
-                   document.getElementsByClassName('textClass')[2].value] )" )
-          )
-        }else if(num_blank == 4 && pos[x] == "___"){
-          tags$div(
-            class = "panel-body",
-            style="display:inline-block",
-            id = css_ids[x/2],
-            tags$input(type = "text",
-                       id = paste0(input_ids[x/2]),
-                       class = "textClass",
-                       value = ans[x/2],
-                       onkeyup = "Shiny.setInputValue(document.getElementsByClassName('bucketList')[0].id,
+                   document.getElementsByClassName('textClass')[2].value] )" ),
+              i = i+1
+            )
+          }else if(num_blank == 4 && pos[x] == "___"){
+            tags$div(
+              class = "item",
+              style="display:inline-block",
+              id = css_ids[x/2],
+              tags$input(type = "text",
+                         id = paste0(input_ids[x/2]),
+                         class = "textClass",
+                         value = ans[x/2],
+                         onkeyup = "Shiny.setInputValue(document.getElementsByClassName('container')[0].id,
                        [document.getElementsByClassName('textClass')[0].value,
                    document.getElementsByClassName('textClass')[1].value,
                    document.getElementsByClassName('textClass')[2].value,
-                   document.getElementsByClassName('textClass')[3].value] )" )
-          )
-        }else if(num_blank == 5 && pos[x] == "___"){
-          tags$div(
-            class = "panel-body",
-            style="display:inline-block",
-            id = css_ids[x/2],
-            tags$input(type = "text",
-                       id = paste0(input_ids[x/2]),
-                       class = "textClass",
-                       value = ans[x/2],
-                       onkeyup = "Shiny.setInputValue(document.getElementsByClassName('bucketList')[0].id,
+                   document.getElementsByClassName('textClass')[3].value] )" ),
+              i = i+1
+            )
+          }else if(num_blank == 5 && pos[x] == "___"){
+            tags$div(
+              class = "item",
+              id = css_ids[i],
+              tags$input(type = "text",
+                         id = paste0(input_ids[i]),
+                         class = "textClass",
+                         value = ans[i],
+                         onkeyup = "Shiny.setInputValue(document.getElementsByClassName('container')[0].id,
                        [document.getElementsByClassName('textClass')[0].value,
                    document.getElementsByClassName('textClass')[1].value,
                    document.getElementsByClassName('textClass')[2].value,
                    document.getElementsByClassName('textClass')[3].value,
-                   document.getElementsByClassName('textClass')[4].value] )" )
-          )
-        }else{
-          div(
-            class = "panel-body",
-            style="display:inline-block",
-            id = other_ids[x],
-            HTML( pos[x] )
-          )
-        }
+                   document.getElementsByClassName('textClass')[4].value] )" ),
+              i = i+1
+            )
+          }else if(pos[x] == "<br/>"){
+            div(
+              class = "break",
+              id = other_ids[x]
+            )
+          }else{
+            div(
+              class = "item",
+              id = other_ids[x],
+              HTML(pos[x] )
+            )
+          }
+
         ) #end lapply
-     ) #ends bucket div group
+    ) #ends bucket div group
 
   ) #end bootstrap page
-
-
 
 }
 
@@ -395,6 +443,26 @@ question_ui_completed.blank <- function(question, value, ...) {
       pos <- c(pos, split[i])
     }
   }
+  pos <- as.list(pos)
+  #now separate out the line breaks
+  for(i in 1:length(pos)){
+    if(stringr::str_detect(pos[i], "<br/>")){
+      tmp <- unlist(stringr::str_split(pos[i], pattern = "<br/>") )
+      #tmp[tmp==""] <- "<br/>"
+      new <- NULL
+      for(j in 1:length(tmp)){
+        if(j < length(tmp)){
+          new <- c(new, tmp[j], "<br/>")
+        }else{
+          new <- c(new, tmp[j])
+        }
+      }
+      pos[[i]] <- new
+    }
+  }
+
+  pos <- unlist(pos)
+
   num_blank = length(split)-1
   num_pos = length(pos)
 
@@ -414,96 +482,129 @@ question_ui_completed.blank <- function(question, value, ...) {
   other_ids = lapply(seq(1,num_pos), function(x) paste0("other", rand, x) )
   group_ids = paste0("group", rand)
 
-  learnr::disable_all_tags(
-  bootstrapPage(
-    div(id = question$ids$answer,
-        class = "bucketList",
+  i = 1
 
-        lapply(seq(1,num_pos), function(x)
-          # cannot figure out how to make Shiny.setInputValue a function of numBlanks
-          # so setting it as a condition with max blanks of 5
-          if(num_blank == 1 && pos[x] == "___"){
-            tags$div(
-              class = "panel-body",
-              style="display:inline-block",
-              id = css_ids[x/2],
-              tags$input(type = "text",
-                         id = paste0(input_ids[x/2]),
-                         class = "textClass",
-                         value = ans[x/2],
-                         onkeyup = "Shiny.setInputValue(document.getElementsByClassName('bucketList')[0].id,
-                       [document.getElementsByClassName('textClass')[0].value] )" )
-            )
-          }else if(num_blank == 2 && pos[x] == "___"){
-            tags$div(
-              class = "panel-body",
-              style="display:inline-block",
-              id = css_ids[x/2],
-              tags$input(type = "text",
-                         id = paste0(input_ids[x/2]),
-                         class = "textClass",
-                         value = ans[x/2],
-                         onkeyup = "Shiny.setInputValue(document.getElementsByClassName('bucketList')[0].id,
+  learnr::disable_all_tags(
+
+    bootstrapPage(
+      tags$style(
+        ".container {
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: row;
+      padding: 3px;
+    }"),
+      tags$style(
+        ".break {
+      flex-basis: 100%;
+      height: 0;
+      }"),
+      tags$style(
+        ".item {
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: row;
+      padding: 3px;
+    }"),
+
+      div(id = question$ids$answer,
+          #class = "bucketList",
+          class = "container",
+
+          lapply(seq(1,num_pos), function(x)
+            # cannot figure out how to make Shiny.setInputValue a function of numBlanks
+            # so setting it as a condition with max blanks of 5
+            if(num_blank == 1 && pos[x] == "___"){
+              tags$div(
+                class = "item",
+                style="display:inline-block",
+                id = css_ids[i],
+                tags$input(type = "text",
+                           id = paste0(input_ids[i]),
+                           class = "textClass",
+                           value = ans[i],
+                           onkeyup = "Shiny.setInputValue(document.getElementsByClassName('container')[0].id,
+                       [document.getElementsByClassName('textClass')[0].value] )" ),
+                i = i+1
+              )
+            }else if(num_blank == 2 && pos[x] == "___"){
+              tags$div(
+                class = "item",
+                style="display:inline-block",
+                id = css_ids[i],
+                tags$input(type = "text",
+                           id = paste0(input_ids[i]),
+                           class = "textClass",
+                           value = ans[i],
+                           onkeyup = "Shiny.setInputValue(document.getElementsByClassName('container')[0].id,
                        [document.getElementsByClassName('textClass')[0].value,
-                   document.getElementsByClassName('textClass')[1].value] )" )
-            )
-          }else if(num_blank == 3 && pos[x] == "___"){
-            tags$div(
-              class = "panel-body",
-              style="display:inline-block",
-              id = css_ids[x/2],
-              tags$input(type = "text",
-                         id = paste0(input_ids[x/2]),
-                         class = "textClass",
-                         value = ans[x/2],
-                         onkeyup = "Shiny.setInputValue(document.getElementsByClassName('bucketList')[0].id,
+                   document.getElementsByClassName('textClass')[1].value] )" ),
+                i = i+1
+              )
+            }else if(num_blank == 3 && pos[x] == "___"){
+              tags$div(
+                class = "item",
+                #style="display:inline-block",
+                id = css_ids[i],
+                tags$input(type = "text",
+                           id = paste0(input_ids[i]),
+                           class = "textClass",
+                           value = ans[i],
+                           onkeyup = "Shiny.setInputValue(document.getElementsByClassName('container')[0].id,
                        [document.getElementsByClassName('textClass')[0].value,
                    document.getElementsByClassName('textClass')[1].value,
-                   document.getElementsByClassName('textClass')[2].value] )" )
-            )
-          }else if(num_blank == 4 && pos[x] == "___"){
-            tags$div(
-              class = "panel-body",
-              style="display:inline-block",
-              id = css_ids[x/2],
-              tags$input(type = "text",
-                         id = paste0(input_ids[x/2]),
-                         class = "textClass",
-                         value = ans[x/2],
-                         onkeyup = "Shiny.setInputValue(document.getElementsByClassName('bucketList')[0].id,
+                   document.getElementsByClassName('textClass')[2].value] )" ),
+                i = i+1
+              )
+            }else if(num_blank == 4 && pos[x] == "___"){
+              tags$div(
+                class = "item",
+                style="display:inline-block",
+                id = css_ids[x/2],
+                tags$input(type = "text",
+                           id = paste0(input_ids[x/2]),
+                           class = "textClass",
+                           value = ans[x/2],
+                           onkeyup = "Shiny.setInputValue(document.getElementsByClassName('container')[0].id,
                        [document.getElementsByClassName('textClass')[0].value,
                    document.getElementsByClassName('textClass')[1].value,
                    document.getElementsByClassName('textClass')[2].value,
-                   document.getElementsByClassName('textClass')[3].value] )" )
-            )
-          }else if(num_blank == 5 && pos[x] == "___"){
-            tags$div(
-              class = "panel-body",
-              style="display:inline-block",
-              id = css_ids[x/2],
-              tags$input(type = "text",
-                         id = paste0(input_ids[x/2]),
-                         class = "textClass",
-                         value = ans[x/2],
-                         onkeyup = "Shiny.setInputValue(document.getElementsByClassName('bucketList')[0].id,
+                   document.getElementsByClassName('textClass')[3].value] )" ),
+                i = i+1
+              )
+            }else if(num_blank == 5 && pos[x] == "___"){
+              tags$div(
+                class = "item",
+                id = css_ids[i],
+                tags$input(type = "text",
+                           id = paste0(input_ids[i]),
+                           class = "textClass",
+                           value = ans[i],
+                           onkeyup = "Shiny.setInputValue(document.getElementsByClassName('container')[0].id,
                        [document.getElementsByClassName('textClass')[0].value,
                    document.getElementsByClassName('textClass')[1].value,
                    document.getElementsByClassName('textClass')[2].value,
                    document.getElementsByClassName('textClass')[3].value,
-                   document.getElementsByClassName('textClass')[4].value] )" )
-            )
-          }else{
-            div(
-              class = "panel-body",
-              style="display:inline-block",
-              id = other_ids[x],
-              HTML(pos[x])
-            )
-          }
-        ) #end lapply
-    ) #ends bucket div group
+                   document.getElementsByClassName('textClass')[4].value] )" ),
+                i = i+1
+              )
+            }else if(pos[x] == "<br/>"){
+              div(
+                class = "break",
+                id = other_ids[x]
+              )
+            }else{
+              div(
+                class = "item",
+                id = other_ids[x],
+                HTML(pos[x] )
+              )
+            }
 
-  ) #end bootstrap page
+          ) #end lapply
+      ) #ends bucket div group
+
+    ) #end bootstrap page
 
   ) #end disable all tags
 
