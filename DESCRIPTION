@@ -10,7 +10,7 @@ Description: A series of 'learnr' tutorials based on "Introduction to Statistics
     Kaitlyn G. Fitzgerald - Adapted from ModernDive by Chester Ismay and Albert Y. Kim.
 License: MIT + file LICENSE
 Depends:
-    R (>= 4.3.0)
+    R (>= 3.2.0)
 Imports:
     checkmate,
     data.table,
