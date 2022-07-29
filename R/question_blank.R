@@ -193,8 +193,6 @@ question_ui_initialize.blank <- function(question, value, ...) {
   other_ids = lapply(seq(1,num_pos), function(x) paste0("other", rand, x) )
   group_ids = paste0("group", rand)
 
-  icons <- function(x) {lapply(x,function(x){tags$div(tags$strong(x))})}
-
   bootstrapPage(
     div(id = question$ids$answer,
         class = "bucketList",
@@ -278,7 +276,7 @@ question_ui_initialize.blank <- function(question, value, ...) {
             class = "panel-body",
             style="display:inline-block",
             id = other_ids[x],
-            HTML(icons( pos[x] ) )
+            HTML( pos[x] )
           )
         }
         ) #end lapply
@@ -419,8 +417,6 @@ question_ui_completed.blank <- function(question, value, ...) {
   css_ids = lapply(seq(1,num_blank), function(x) paste0("text", rand, x) )
   other_ids = lapply(seq(1,num_pos), function(x) paste0("other", rand, x) )
   group_ids = paste0("group", rand)
-
-  icons <- function(x) {lapply(x,function(x){tags$div(tags$strong(x))})}
 
   learnr::disable_all_tags(
   bootstrapPage(
