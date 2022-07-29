@@ -44,7 +44,9 @@ question_blank("Name: ___",
                                 return(mark_as(TRUE))
                                 }
                               return(mark_as(FALSE) )
-                              }), allow_retry = FALSE )
+                              }),
+               style = "notes_question",
+               allow_retry = FALSE )
 # have name, grade button, and print button on same line
 bootstrapPage(
      div(style="display:inline-block",

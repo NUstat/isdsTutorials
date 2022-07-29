@@ -91,7 +91,7 @@ grade_server <- function(id, rubric_list, num_try = 3, deduction = 0.1, display 
       output$tenout <- renderText({
         if('scaled' %in% display){
           paste0('<span style=\"font-size:30px; font-weight:normal; color:red\">',
-                 get_grades$grade_percent/10, "/10")}
+                 round(get_grades$grade_percent/10, 2), "/10")}
       })
 
       })

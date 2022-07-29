@@ -1,0 +1,161 @@
+---
+title: "Tutorial: Chapter 9.0 - 9.1"
+tutorial:
+  id: "isds_14"
+  version: 0.1
+  
+output:
+  learnr::tutorial:
+    progressive: true
+    allow_skip: true
+    css: ["css/nu-theme.css"]
+runtime: shiny_prerendered
+description: >
+  Learn how to use common distributions.
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(tidyverse)
+library(ISDStutorials)
+library(gradethis)
+
+knitr::opts_chunk$set(echo = FALSE)
+gradethis_setup()
+options(tutorial.event_recorder = ISDStutorials::isds_recorder)
+
+```
+
+
+```{r, context = "server"}
+rubric_list <- data.frame(question = c("Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7", "Q8", "Q9"),
+                          points_possible = rep(1, 9))
+
+grade_server("grade_out", 
+            rubric_list = rubric_list)
+```
+
+
+```{r isds-header}
+# student name
+question_blank("Name: ___",
+                            answer_fn(function(value){
+                              if (length(value) >= 1 ) {
+                                return(mark_as(TRUE))
+                                }
+                              return(mark_as(FALSE) )
+                              }),
+               style = "notes_question",
+               allow_retry = FALSE )
+# have name, grade button, and print button on same line
+bootstrapPage(
+     div(style="display:inline-block",
+         grade_button_ui("grade_out") ),
+     div(style="display:inline-block", print_ui("Print") )
+)
+
+# can have the grade output appear anywhere in your tutorial
+grade_output_ui("grade_out")
+```
+
+## Instructions
+
+Complete this tutorial while reading Sections 9.0 - 9.1 of the [textbook](https://nustat.github.io/intro-stat-ds/9-sampling.html).
+
+Once you are finished:
+
+-   Click the 'grade tutorial' button at the top to retrieve your score.
+-   Click the 'pdf' button to save the document as a pdf, you must have the tutorial open in a browser window for this button to work.
+-   Submit the completed pdf to Canvas.
+
+
+### Goals
+
+-   Understand the Normal distribution, T-distribution and Chi-squared distribution, and when to employ each.
+-   Describe modality and skewness of a distribution.
+-   Understand and know when to apply the Empirical Rule.
+
+## Reading Quiz
+
+```{r Q}
+quiz(
+  caption = NULL,
+  #Question 1
+  question("Q1) Which of the following are TRUE about the Normal distribution? Select all that apply.",
+           answer("It is symmetric", correct = TRUE),
+           answer("It is unimodal", correct = TRUE),
+           answer("It will always be centered at 0"),
+           answer("It is characterized by two parameters:  $\\mu$ and $\\sigma$", correct = TRUE),
+           answer("The shape depends on the degrees of freedom"),
+           allow_retry = TRUE,
+           random_answer_order = TRUE),
+  # Question 2
+  question_blank(paste0("<strong> Q2) Consider the plot of two Normal distributions.</strong> <br/>",  htmltools::img(src="images/norm_dist_dashed.png", height = 500, width = 650), " <br/>
+  a) What is the value of ($\\mu$) for the solid line curve? ___  <br/>
+  b) What is the value of ($\\mu$) for the dashed line curve? ___  <br/>
+  c) Which curve has the larger standard deviation ($\\sigma$)? (Specify either solid or dashed) ___" ),
+           answer("100", correct = TRUE),
+           answer("100", correct = TRUE),
+           answer("dashed", correct = TRUE),
+           allow_retry = TRUE),
+ # Question 3
+  question_blank(paste0("<strong> Q3) The distribution of number of hours spent studying a week is normally distributed with a mean of 5 hours and a standard deviation of 1 hour. Based on the empirical rule...</strong> <br/>
+
+a) 68% of students spend between ___ and ___ hours studying. 
+<br/>
+b) ___ % of students spend between 3 and 7 hours studying. 
+<br/>
+c) 99.7% of students spend between ___ and ___ hours studying"),
+           answer("4", correct = TRUE),
+           answer("6", correct = TRUE),
+           answer("95", correct = TRUE),
+           answer("2", correct = TRUE),
+           answer("8", correct = TRUE),
+           allow_retry = TRUE),
+#Q4
+  question_wordbank("Q4) True or False?: Determine if the following QQ plots indicate that the data is normally distributed.",
+           choices = c(paste0(htmltools::img(src="images/qqplot_2.png", height = 200, width = 350) ), paste0(htmltools::img(src="images/qqplot_1.png", height = 200, width = 350) ), paste0(htmltools::img(src="images/qqplot_3.png", height = 200, width = 350) ) ),
+           wordbank = c("True", "False"),
+           answer(c("False", "True", "False"),correct=TRUE),
+           allow_retry = TRUE),
+  # Q5
+  question("Q5) The annual salaries of students after graduation follow a normal distribution with a mean of $50,000 and a standard deviation of $10,000.
+
+Compute the STAT of the value x = $35,000.", 
+           type = "learnr_text",
+           answer("-1.5", correct = TRUE),
+           allow_retry = TRUE),
+  # Q6
+  question_wordbank("Q6) Consider a standardized statistic that follows a standard normal distribution. Match each of the following values with where you would expect them to fall on the standard N(0,1) distribution.",
+        choices = c("0.73", "2.6", "0", "-1.3", "-3.4"),
+        wordbank = c("somewhat to the right of center","far right tail", "center", "somewhat to the left of center", "far left tail"),
+        answer(c("somewhat to the right of center","far right tail", "center", "somewhat to the left of center", "far left tail"), correct = TRUE), 
+        allow_retry = TRUE ),
+  # Q7
+  question("Q7) The annual salaries of students after graduation follow a normal distribution with a mean of $50,000 and a standard deviation of $10,000.
+
+Which of the following will calculate the probability that a person makes *less than* $55,000 after graduating? Select all that apply.  ",
+           answer("qnorm(p=55000, mu=50000, sd=10000)"),
+           answer("pnorm(q=0.5, mu=0, sd=1)", correct = TRUE),
+           answer("pnorm(q=0.5, mu=50000, sd=10000)"),
+           answer("pnorm(q=55000, mu=50000, sd=10000, lower.tail=FALSE)"),
+           answer("pnorm(q=55000, mu=50000, sd=10000)", correct = TRUE),
+           allow_retry = TRUE,
+           random_answer_order = TRUE),
+  # Q8
+  question("Q8) What does the parameter 'df' stand for? ", 
+           type = "learnr_text",
+           answer("degrees of freedom", correct = TRUE),
+           allow_retry = TRUE),
+  # Q9
+  question("Q9) Which of the following are TRUE about the t-distribution? Select all that apply.  ",
+           answer("It has heavier tails than the Normal distribution", correct = TRUE),
+           answer("It is symmetric", correct = TRUE),
+           answer("It is characterized by two parameters: $\\mu$ and $\\sigma$"),
+           answer("It is bimodal"),
+           answer("The thickness (or 'heaviness') of the tails depends on the sample size", correct = TRUE),
+           allow_retry = TRUE,
+           random_answer_order = TRUE)
+
+)
+```

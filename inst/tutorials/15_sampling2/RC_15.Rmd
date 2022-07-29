@@ -1,0 +1,227 @@
+---
+title: "Tutorial: Chapter 9.2 - 9.4"
+output:
+  learnr::tutorial:
+    progressive: true
+    allow_skip: true
+runtime: shiny_prerendered
+description: >
+  Learn about the sampling distribution. 
+---
+
+<!-- Do not change anything here -->
+```{r setup, include=FALSE}
+#devtools::install_github("ropenscilabs/icon")
+#download_ionicons()
+#remotes::install_github("rstudio/gradethis")
+#remotes::install_github("dtkaplan/etude")
+library(learnr)
+library(tidyverse)
+library(nycflights13)
+library(janitor)
+#library(etude)
+library(shiny)
+library(gradethis)
+library(sjmisc)
+library(icons)
+
+#source("fun_dropdown.R")
+#source("fun_question.R")
+#source("fun_question_module.R")
+#source("../fun_blanks.R")
+
+gradethis_setup()
+knitr::opts_chunk$set(echo = FALSE)
+
+```
+
+### Goals
+
+-   Understand the theory of repeated sampling.
+-   Describe the properties of a sampling distribution.
+-   Understand the difference between a distribution and a sampling distribution.
+
+
+
+## Quiz
+
+```{r quiz}
+#INSTRUCTIONS
+#all questions go inside this quiz function
+#determine if question is 
+  #1)single multiple choice (Question 1 below) 
+  #2)multiple correct multiple choice (Question 2 below), 
+  #3)text response, (Question 3 below)
+  #4)other - if other you will need to skip but make a comment that the       question was skipped so that I can add later
+#refer to Ch_2.0_2.2.Rmd for more examples
+#remember to indicate the correct answer(s) by setting correct = TRUE
+quiz(
+  caption = NULL,
+  #Question 1
+  question("Which of the following are TRUE about the theory of repeated samples? Select all that apply.  ",
+           answer("It is a purely theoretical construct - you will not observe repeated samples in real life", correct = TRUE),
+           answer("It allows us to calculate the true value of a population parameter exactly"),
+           answer("It provides the theory for how we can use a sample to infer to a population", correct = TRUE),
+           answer("It relies on the process of randomization (e.g. random sampling)", correct = TRUE),
+           allow_retry = TRUE),
+  # Question 2
+  question("What is the maximum value of `replicate` in the `tactile_prop_red` dataset? ", 
+           type = "learnr_text",
+           answer("33", correct = TRUE),
+           allow_retry = TRUE),
+  # Question 3
+  question("What does the value `TRUE` evaluate to in R? ", 
+           type = "learnr_text",
+           answer("1", correct = TRUE),
+           allow_retry = TRUE),
+  # Question 4
+  question("What does the value `FALSE` evaluate to in R? ", 
+           type = "learnr_text",
+           answer("0", correct = TRUE),
+           allow_retry = TRUE),
+  # Question 5
+  # Graphic needed
+  question(paste("Consider the tibble `coin_flips_RQ` shown below and the lines of code that follow.\n
+           coin_flips_RQ %>%  
+                summarize(
+                  sum = sum(result),
+                  mean = mean(result)
+                  )
+    
+
+
+",htmltools::img(src="images/coin_flips_RQ.png", height = 400, width = 200),"
+
+What is the resulting value for `sum`?"), 
+           type = "learnr_text",
+           answer("3", correct = TRUE),
+           allow_retry = TRUE),
+  # Question 5
+  # Graphic needed
+  question("Consider the tibble `coin_flips_RQ` shown in the prior question and the lines of code that follow.\n
+           coin_flips_RQ %>%  
+                summarize(
+                  sum = sum(result),
+                  mean = mean(result)
+                  )
+
+What is the resulting value for `mean`? ", 
+           type = "learnr_text",
+           answer("0.3", correct = TRUE),
+           answer(".3", correct = TRUE),
+           allow_retry = TRUE),
+  # Question 6
+  question("Consider the data frame `virtual_samples_RQ` that results from the following lines of code:\n
+           virtual_samples_RQ <- bowl %>%  
+                rep_sample_n(size = 50, reps = 5000)
+
+How many rows will `virtual_samples_RQ` have?  ", 
+           type = "learnr_text",
+           answer("250000", correct = TRUE),
+           allow_retry = TRUE),
+  # Question 7
+  question("Consider the data frame `virtual_samples_RQ` that results from the following lines of code:\n
+           virtual_samples_RQ <- bowl %>%  
+                rep_sample_n(size = 50, reps = 5000)
+
+What will be the maximum value of the `replicate` column?  ", 
+           type = "learnr_text",
+           answer("5000", correct = TRUE),
+           allow_retry = TRUE),
+  # Question 8
+  question("Consider the data frame `virtual_samples_RQ` that results from the following lines of code:\n
+           virtual_samples_RQ <- bowl %>%  
+                rep_sample_n(size = 50, reps = 5000)
+
+What will the value of `replicate` be for the 73rd row?  ", 
+           type = "learnr_text",
+           answer("2", correct = TRUE),
+           allow_retry = TRUE),
+  # Question 9
+  question("Consider the data frame `virtual_samples_RQ` that results from the following lines of code:\n
+           virtual_samples_RQ <- bowl %>%  
+                rep_sample_n(size = 50, reps = 5000)
+
+How many rows will have `replicate == 437`?  ", 
+           type = "learnr_text",
+           answer("50", correct = TRUE),
+           allow_retry = TRUE),
+  # Question 10 
+  question("Consider the bowl of red and white balls in Figure 9.10 and its virtual analog in the data frame bowls.\n
+           
+How many balls total are in the bowl?", 
+           type = "learnr_text",
+           answer("2400", correct = TRUE),
+           allow_retry = TRUE),
+  # Question 11
+  question("Consider the bowl of red and white balls in Figure 9.10 and its virtual analog in the data frame bowls.\n
+
+What is the true proportion of red balls in the bowl? ", 
+           type = "learnr_text",
+           answer("0.375", correct = TRUE),
+           allow_retry = TRUE),
+  # Question 12
+  question("Consider the bowl of red and white balls in Figure 9.10 and its virtual analog in the data frame bowls.\n
+  
+How many red balls are in the bowl?", 
+           type = "learnr_text",
+           answer("900", correct = TRUE),
+           allow_retry = TRUE),
+  # Question 13
+  question("What phrase do we use to refer to the standard deviation of a sampling distribution? ", 
+           type = "learnr_text",
+           answer("standard error", correct = TRUE),
+           allow_retry = TRUE),
+  # Question 14
+  question("Match the following description with the appropriate term: \n
+
+A measure of spread of an estimator across repeated samples.", 
+           answer("Variance"),
+           answer("Degrees of freedom"),
+           answer("Bias"),
+           answer("Standard error", correct = TRUE),
+           answer("The distribution of possible values of estimates across repeated samples"),
+           allow_retry = TRUE),
+  # Question 15
+  question("Match the following description with the appropriate term: \n
+
+Standard deviation squared; a measure of spread in the data.", 
+           answer("Variance", correct = TRUE),
+           answer("Degrees of freedom"),
+           answer("Bias"),
+           answer("Standard error"),
+           answer("The distribution of possible values of estimates across repeated samples"),
+           allow_retry = TRUE),
+  # Question 16
+  question("Match the following description with the appropriate term: \n
+
+A parameter of the t-distribution that depends on sample size.", 
+           answer("Variance"),
+           answer("Degrees of freedom", correct = TRUE),
+           answer("Bias"),
+           answer("Standard error"),
+           answer("The distribution of possible values of estimates across repeated samples"),
+           allow_retry = TRUE),
+  # Question 17
+  question("Match the following description with the appropriate term: \n
+
+The difference between the average value of a sampling distribution and the true population parameter.", 
+           answer("Variance"),
+           answer("Degrees of freedom"),
+           answer("Bias", correct = TRUE),
+           answer("Standard error"),
+           answer("The distribution of possible values of estimates across repeated samples"),
+           allow_retry = TRUE),
+  # Question 18
+  question("Match the following description with the appropriate term:\n
+
+The distribution of possible values of estimates across repeated samples.", 
+           answer("Variance"),
+           answer("Degrees of freedom"),
+           answer("Bias"),
+           answer("Standard error"),
+           answer("The distribution of possible values of estimates across repeated samples", correct = TRUE),
+           allow_retry = TRUE)
+)
+
+```
