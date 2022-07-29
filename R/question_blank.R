@@ -34,6 +34,8 @@ question_blank <- function(
   trim = TRUE,
   rows = NULL,
   cols = NULL,
+  img = NULL,
+  style = "tutorial_question",
   options = list()
 ) {
   checkmate::assert_character(placeholder, len = 1, null.ok = TRUE, any.missing = FALSE)
@@ -53,7 +55,9 @@ question_blank <- function(
         placeholder = placeholder,
         trim = trim,
         rows = rows,
-        cols = cols
+        cols = cols,
+        img = img,
+        style = style
       )
     )
   )
@@ -145,6 +149,9 @@ blank_question <- function(
   )
   #class(ret) <- c(type, "notes_question")
   class(ret) <- c(type, "tutorial_question")
+  if(options$style == "notes_question"){
+    class(ret) <- c(type, "notes_question")
+  }
   ret
 }
 
@@ -188,6 +195,7 @@ question_ui_initialize.blank <- function(question, value, ...) {
   bootstrapPage(
     div(id = question$ids$answer,
         class = "bucketList",
+        question$options$img,
 
       lapply(seq(1,num_pos), function(x)
         # cannot figure out how to make Shiny.setInputValue a function of numBlanks
@@ -413,6 +421,7 @@ question_ui_completed.blank <- function(question, value, ...) {
   bootstrapPage(
     div(id = question$ids$answer,
         class = "bucketList",
+        question$options$img,
 
         lapply(seq(1,num_pos), function(x)
           # cannot figure out how to make Shiny.setInputValue a function of numBlanks

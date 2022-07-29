@@ -17,6 +17,8 @@ question_blank(
   trim = TRUE,
   rows = NULL,
   cols = NULL,
+  img = NULL,
+  style = "tutorial_question",
   options = list()
 )
 }
