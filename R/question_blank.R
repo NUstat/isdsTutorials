@@ -85,7 +85,7 @@ blank_question <- function(
   # capture/validate answers
   ellipsis::check_dots_unnamed() # validate all answers are not named and not a misspelling
   answers <- list(...)
-  
+
   # ensure num blanks in 1:5
   split <- unlist(stringr::str_split(text, pattern = "___") )
   num_blank = length(split) - 1
@@ -96,7 +96,7 @@ blank_question <- function(
   if (num_blank != length(answers)) {
     stop("Number of blanks must equal number of answer() inputs.")
   }
-  
+
   # can not guarantee that `label` exists
   label <- knitr::opts_current$get('label')
   q_id <- label %||% learnr:::random_question_id()
@@ -152,10 +152,10 @@ blank_question <- function(
 #' @export
 #' @seealso question_blank
 question_ui_initialize.blank <- function(question, value, ...) {
-  
+
   #split question by blanks
   split <- unlist(stringr::str_split(question$question, pattern = "___") )
-  
+
   pos <- NULL
   for(i in 1:length(split)){
    if(i < length(split)){
@@ -167,14 +167,14 @@ question_ui_initialize.blank <- function(question, value, ...) {
   }
   num_blank = length(split)-1
   num_pos = length(pos)
-  
+
   # set output to previous answers
   if (!is.null(value)) {
     ans <- as.character( unlist(value) )
   } else {
     ans <- rep("", num_blank)
   }
-  
+
   # set unique ids
   # pretty close to unique id
   rand = paste0(sample.int(100,1), sample.int(100,1) )
@@ -183,12 +183,12 @@ question_ui_initialize.blank <- function(question, value, ...) {
   css_ids = lapply(seq(1,num_blank), function(x) paste0("text", rand, x) )
   other_ids = lapply(seq(1,num_pos), function(x) paste0("other", rand, x) )
   group_ids = paste0("group", rand)
-  
+
 
   bootstrapPage(
     div(id = question$ids$answer,
         class = "bucketList",
-        
+
       lapply(seq(1,num_pos), function(x)
         # cannot figure out how to make Shiny.setInputValue a function of numBlanks
         # so setting it as a condition with max blanks of 5
@@ -197,11 +197,11 @@ question_ui_initialize.blank <- function(question, value, ...) {
             class = "panel-body",
             style="display:inline-block",
             id = css_ids[x/2],
-            tags$input(type = "text", 
-                       id = paste0(input_ids[x/2]), 
+            tags$input(type = "text",
+                       id = paste0(input_ids[x/2]),
                        class = "textClass",
                        value = ans[x/2],
-                       onkeyup = "Shiny.setInputValue(document.getElementsByClassName('bucketList')[0].id, 
+                       onkeyup = "Shiny.setInputValue(document.getElementsByClassName('bucketList')[0].id,
                        [document.getElementsByClassName('textClass')[0].value] )" )
           )
         }else if(num_blank == 2 && pos[x] == "___"){
@@ -209,11 +209,11 @@ question_ui_initialize.blank <- function(question, value, ...) {
             class = "panel-body",
             style="display:inline-block",
             id = css_ids[x/2],
-            tags$input(type = "text", 
-                       id = paste0(input_ids[x/2]), 
+            tags$input(type = "text",
+                       id = paste0(input_ids[x/2]),
                        class = "textClass",
                        value = ans[x/2],
-                       onkeyup = "Shiny.setInputValue(document.getElementsByClassName('bucketList')[0].id, 
+                       onkeyup = "Shiny.setInputValue(document.getElementsByClassName('bucketList')[0].id,
                        [document.getElementsByClassName('textClass')[0].value,
                    document.getElementsByClassName('textClass')[1].value] )" )
           )
@@ -222,11 +222,11 @@ question_ui_initialize.blank <- function(question, value, ...) {
             class = "panel-body",
             style="display:inline-block",
             id = css_ids[x/2],
-            tags$input(type = "text", 
-                       id = paste0(input_ids[x/2]), 
+            tags$input(type = "text",
+                       id = paste0(input_ids[x/2]),
                        class = "textClass",
                        value = ans[x/2],
-                       onkeyup = "Shiny.setInputValue(document.getElementsByClassName('bucketList')[0].id, 
+                       onkeyup = "Shiny.setInputValue(document.getElementsByClassName('bucketList')[0].id,
                        [document.getElementsByClassName('textClass')[0].value,
                    document.getElementsByClassName('textClass')[1].value,
                    document.getElementsByClassName('textClass')[2].value] )" )
@@ -236,11 +236,11 @@ question_ui_initialize.blank <- function(question, value, ...) {
             class = "panel-body",
             style="display:inline-block",
             id = css_ids[x/2],
-            tags$input(type = "text", 
-                       id = paste0(input_ids[x/2]), 
+            tags$input(type = "text",
+                       id = paste0(input_ids[x/2]),
                        class = "textClass",
                        value = ans[x/2],
-                       onkeyup = "Shiny.setInputValue(document.getElementsByClassName('bucketList')[0].id, 
+                       onkeyup = "Shiny.setInputValue(document.getElementsByClassName('bucketList')[0].id,
                        [document.getElementsByClassName('textClass')[0].value,
                    document.getElementsByClassName('textClass')[1].value,
                    document.getElementsByClassName('textClass')[2].value,
@@ -251,11 +251,11 @@ question_ui_initialize.blank <- function(question, value, ...) {
             class = "panel-body",
             style="display:inline-block",
             id = css_ids[x/2],
-            tags$input(type = "text", 
-                       id = paste0(input_ids[x/2]), 
+            tags$input(type = "text",
+                       id = paste0(input_ids[x/2]),
                        class = "textClass",
                        value = ans[x/2],
-                       onkeyup = "Shiny.setInputValue(document.getElementsByClassName('bucketList')[0].id, 
+                       onkeyup = "Shiny.setInputValue(document.getElementsByClassName('bucketList')[0].id,
                        [document.getElementsByClassName('textClass')[0].value,
                    document.getElementsByClassName('textClass')[1].value,
                    document.getElementsByClassName('textClass')[2].value,
@@ -272,11 +272,11 @@ question_ui_initialize.blank <- function(question, value, ...) {
         }
         ) #end lapply
      ) #ends bucket div group
-    
+
   ) #end bootstrap page
-  
-  
-  
+
+
+
 }
 
 
@@ -286,38 +286,25 @@ question_is_valid.blank <- function(question, value, ...) {
    #value <- as.character( unlist(value) )
    split <- unlist(stringr::str_split(question$question, pattern = "___") )
    num_blank = length(split) - 1
-   
+
    if (is.null(value)) {
      return(FALSE)
    }else if(length(value) < num_blank ){
      return(FALSE)
    }
-   
+
    if (isTRUE(question$options$trim)) {
      return(min( nchar(stringr::str_trim(value)) ) > 0)
    } else{
      return(min( nchar(value) ) > 0)
    }
-   # 
-   # else if(min(nchar(stringr::str_trim(value))) > 0){
-   #   return(TRUE)
-   # }
-   
-  # if(length(value) < num_blank){
-  #   return(FALSE)
-  # }else if(isTRUE(question$options$trim)) {
-  #   return(min(nchar(stringr::str_trim(value))) > 0)
-  # } else{
-  #   #return(nchar(value) > 0)
-  #   return(min(nchar(value) ) > 0)
-  # }
-   
+
 }
 
 #' @export
 #' @seealso question_blank
 question_is_correct.blank <- function(question, value, ...) {
-  
+
   append_message <- function(x, ans) {
     message <- ans$message
     if (is.null(message)) {
@@ -329,7 +316,7 @@ question_is_correct.blank <- function(question, value, ...) {
       tagList(x, message)
     }
   }
-  
+
   #how is value being taken in
   if (min(nchar(value)) == 0) {
     if (!is.null(shiny::getDefaultReactiveDomain())) {
@@ -343,7 +330,7 @@ question_is_correct.blank <- function(question, value, ...) {
     value <- stringr::str_trim(value)
   }
 
-  
+  record_correct <- c()
   for(i in 1:length(value)){
     q_ans <- question$answers[[i]]
     v_ans <- value[i]
@@ -351,20 +338,23 @@ question_is_correct.blank <- function(question, value, ...) {
     if(q_ans$type == "function"){
       answer_checker <- eval(parse(text = q_ans$value), envir = rlang::caller_env())
       ret <- answer_checker(v_ans)
-      if (inherits(ret, "learnr_mark_as")) {
-        return(ret)
-      }
+      record_correct[i] <- ret$correct
     } else{ # literal check
       if (v_ans == q_ans$value){ # correct
-        value_is_correct <- TRUE
-      } else{ # wrong
-        value_is_correct <- FALSE
-        # do not check remaining answers
-        break
+        record_correct[i] <- TRUE
+      } else if(v_ans != q_ans$value){ # wrong
+        record_correct[i] <- FALSE
       }
     }
   }
-    
+
+  #if everything is correct mark TRUE
+  if(all(record_correct)){
+    value_is_correct <- TRUE
+  }else{
+    value_is_correct <- FALSE
+  }
+
   ret_messages <- c()
   q_answers <- learnr:::answers_split_type(question$answers)
   if (value_is_correct) {
@@ -375,9 +365,9 @@ question_is_correct.blank <- function(question, value, ...) {
       }
     }
   }
-  
+
   learnr::mark_as(value_is_correct, ret_messages)
-  
+
 }
 
 #' @export
@@ -385,12 +375,12 @@ question_is_correct.blank <- function(question, value, ...) {
 question_ui_completed.blank <- function(question, value, ...) {
   # TODO display correct values with X or √ compared to best match
   # TODO DON'T display correct values (listen to an option?)
-  
+
   ns <- NS(question$ids$question)
-  
+
   #split question by blanks
   split <- unlist(stringr::str_split(question$question, pattern = "___") )
-  
+
   pos <- NULL
   for(i in 1:length(split)){
     if(i < length(split)){
@@ -402,14 +392,14 @@ question_ui_completed.blank <- function(question, value, ...) {
   }
   num_blank = length(split)-1
   num_pos = length(pos)
-  
+
   # set output to previous answers
   if (!is.null(value)) {
     ans <- as.character( unlist(value) )
   } else {
     ans <- rep("", num_blank)
   }
-  
+
   # set unique ids
   # pretty close to unique id
   rand = paste0(sample.int(100,1), sample.int(100,1) )
@@ -418,12 +408,12 @@ question_ui_completed.blank <- function(question, value, ...) {
   css_ids = lapply(seq(1,num_blank), function(x) paste0("text", rand, x) )
   other_ids = lapply(seq(1,num_pos), function(x) paste0("other", rand, x) )
   group_ids = paste0("group", rand)
-  
+
   learnr::disable_all_tags(
   bootstrapPage(
     div(id = question$ids$answer,
         class = "bucketList",
-        
+
         lapply(seq(1,num_pos), function(x)
           # cannot figure out how to make Shiny.setInputValue a function of numBlanks
           # so setting it as a condition with max blanks of 5
@@ -432,11 +422,11 @@ question_ui_completed.blank <- function(question, value, ...) {
               class = "panel-body",
               style="display:inline-block",
               id = css_ids[x/2],
-              tags$input(type = "text", 
-                         id = paste0(input_ids[x/2]), 
+              tags$input(type = "text",
+                         id = paste0(input_ids[x/2]),
                          class = "textClass",
                          value = ans[x/2],
-                         onkeyup = "Shiny.setInputValue(document.getElementsByClassName('bucketList')[0].id, 
+                         onkeyup = "Shiny.setInputValue(document.getElementsByClassName('bucketList')[0].id,
                        [document.getElementsByClassName('textClass')[0].value] )" )
             )
           }else if(num_blank == 2 && pos[x] == "___"){
@@ -444,11 +434,11 @@ question_ui_completed.blank <- function(question, value, ...) {
               class = "panel-body",
               style="display:inline-block",
               id = css_ids[x/2],
-              tags$input(type = "text", 
-                         id = paste0(input_ids[x/2]), 
+              tags$input(type = "text",
+                         id = paste0(input_ids[x/2]),
                          class = "textClass",
                          value = ans[x/2],
-                         onkeyup = "Shiny.setInputValue(document.getElementsByClassName('bucketList')[0].id, 
+                         onkeyup = "Shiny.setInputValue(document.getElementsByClassName('bucketList')[0].id,
                        [document.getElementsByClassName('textClass')[0].value,
                    document.getElementsByClassName('textClass')[1].value] )" )
             )
@@ -457,11 +447,11 @@ question_ui_completed.blank <- function(question, value, ...) {
               class = "panel-body",
               style="display:inline-block",
               id = css_ids[x/2],
-              tags$input(type = "text", 
-                         id = paste0(input_ids[x/2]), 
+              tags$input(type = "text",
+                         id = paste0(input_ids[x/2]),
                          class = "textClass",
                          value = ans[x/2],
-                         onkeyup = "Shiny.setInputValue(document.getElementsByClassName('bucketList')[0].id, 
+                         onkeyup = "Shiny.setInputValue(document.getElementsByClassName('bucketList')[0].id,
                        [document.getElementsByClassName('textClass')[0].value,
                    document.getElementsByClassName('textClass')[1].value,
                    document.getElementsByClassName('textClass')[2].value] )" )
@@ -471,11 +461,11 @@ question_ui_completed.blank <- function(question, value, ...) {
               class = "panel-body",
               style="display:inline-block",
               id = css_ids[x/2],
-              tags$input(type = "text", 
-                         id = paste0(input_ids[x/2]), 
+              tags$input(type = "text",
+                         id = paste0(input_ids[x/2]),
                          class = "textClass",
                          value = ans[x/2],
-                         onkeyup = "Shiny.setInputValue(document.getElementsByClassName('bucketList')[0].id, 
+                         onkeyup = "Shiny.setInputValue(document.getElementsByClassName('bucketList')[0].id,
                        [document.getElementsByClassName('textClass')[0].value,
                    document.getElementsByClassName('textClass')[1].value,
                    document.getElementsByClassName('textClass')[2].value,
@@ -486,11 +476,11 @@ question_ui_completed.blank <- function(question, value, ...) {
               class = "panel-body",
               style="display:inline-block",
               id = css_ids[x/2],
-              tags$input(type = "text", 
-                         id = paste0(input_ids[x/2]), 
+              tags$input(type = "text",
+                         id = paste0(input_ids[x/2]),
                          class = "textClass",
                          value = ans[x/2],
-                         onkeyup = "Shiny.setInputValue(document.getElementsByClassName('bucketList')[0].id, 
+                         onkeyup = "Shiny.setInputValue(document.getElementsByClassName('bucketList')[0].id,
                        [document.getElementsByClassName('textClass')[0].value,
                    document.getElementsByClassName('textClass')[1].value,
                    document.getElementsByClassName('textClass')[2].value,
@@ -507,9 +497,9 @@ question_ui_completed.blank <- function(question, value, ...) {
           }
         ) #end lapply
     ) #ends bucket div group
-    
+
   ) #end bootstrap page
-  
+
   ) #end disable all tags
-  
+
 }
