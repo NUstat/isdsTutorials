@@ -11,7 +11,6 @@
 #'   [shiny::textInput()].
 #' @param trim Logical to determine if whitespace before and after the answer
 #'   should be removed.  Defaults to `TRUE`.
-#' @param img insert image at the beginning of the question using htmltools::img(src="...", height = ..., width = ...)
 #' @param style can change display of question to condensed notes using style = "notes_question"
 #' @param ... parameters passed onto learnr answer.
 #' @inheritParams learnr::question
@@ -36,7 +35,6 @@ question_blank <- function(
   trim = TRUE,
   rows = NULL,
   cols = NULL,
-  img = NULL,
   style = "tutorial_question",
   options = list()
 ) {
@@ -58,7 +56,6 @@ question_blank <- function(
         trim = trim,
         rows = rows,
         cols = cols,
-        img = img,
         style = style
       )
     )
@@ -196,7 +193,6 @@ question_ui_initialize.blank <- function(question, value, ...) {
   bootstrapPage(
     div(id = question$ids$answer,
         class = "bucketList",
-        question$options$img,
 
       lapply(seq(1,num_pos), function(x)
         # cannot figure out how to make Shiny.setInputValue a function of numBlanks
@@ -422,7 +418,6 @@ question_ui_completed.blank <- function(question, value, ...) {
   bootstrapPage(
     div(id = question$ids$answer,
         class = "bucketList",
-        question$options$img,
 
         lapply(seq(1,num_pos), function(x)
           # cannot figure out how to make Shiny.setInputValue a function of numBlanks
