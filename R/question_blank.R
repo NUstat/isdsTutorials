@@ -216,6 +216,7 @@ question_ui_initialize.blank <- function(question, value, ...) {
       display: flex;
       flex-wrap: wrap;
       flex-direction: row;
+      width: 100%;
       padding: 3px;
     }"),
     tags$style(
@@ -492,6 +493,7 @@ question_ui_completed.blank <- function(question, value, ...) {
       display: flex;
       flex-wrap: wrap;
       flex-direction: row;
+      width: 100%;
       padding: 3px;
     }"),
       tags$style(
