@@ -50,9 +50,10 @@ After completing each tutorial, students can obtain their grade and download the
 
 - Print option: `print_ui`
 - Grade option: `grade_server`, `grade_button_ui`, `grade_output_ui`
-- Question drop down: `question_dropdown`
+- Question fill in the blanks: `question_blank`
 - Question wordbank: `question_wordbank`
 - Question multiple choice: `question_matching`
+- Question drop down: `question_dropdown`
 
 # ISDS setup
 
@@ -78,7 +79,7 @@ rubric_list <- data.frame(question = c("Ex1", "Q1", "Q2", "Q3"),
 
 grade_server("grade_out", 
             rubric_list = rubric_list, 
-            num_try = 3, deduction = 0.1, display = c("percent", "itemize") )
+            num_try = 3, deduction = 0.1, display = c("scaled", "itemize") )
 ```
 
 Finally add your desired header components. The following adds a name, grade button, print button, and grade output.
@@ -88,7 +89,8 @@ question_blank("Name: ___",
                answer_fn(function(value){
                               if (length(value) >= 1 ) { return(mark_as(TRUE)) }
                               return(mark_as(FALSE) )
-                              }), allow_retry = FALSE )
+                              }), 
+                style = "notes_question", allow_retry = FALSE )
 # grade button and print button on same line as name
 bootstrapPage(
      div(style="display:inline-block",
