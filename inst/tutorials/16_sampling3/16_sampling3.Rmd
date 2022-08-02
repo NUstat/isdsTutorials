@@ -1,0 +1,147 @@
+---
+title: "Tutorial: Chapter 9.5 - 9.7"
+tutorial:
+  id: "isds_16"
+  version: 0.1
+  
+output:
+  learnr::tutorial:
+    progressive: true
+    allow_skip: true
+    css: ["css/nu-theme.css"]
+runtime: shiny_prerendered
+description: >
+  Learn more advanced concepts about the sampling distribution.
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(tidyverse)
+library(ISDStutorials)
+library(gradethis)
+
+knitr::opts_chunk$set(echo = FALSE)
+gradethis_setup()
+options(tutorial.event_recorder = ISDStutorials::isds_recorder)
+```
+
+
+```{r, context = "server"}
+rubric_list <- data.frame(question = c("Q1", "Q2", "Q3", "Q4", "Q5", "Q6"),
+                          points_possible = rep(1, 6))
+
+grade_server("grade_out", 
+            rubric_list = rubric_list)
+```
+
+
+```{r isds-header}
+# student name
+question_blank("Name: ___",
+                            answer_fn(function(value){
+                              if (length(value) >= 1 ) {
+                                return(mark_as(TRUE))
+                                }
+                              return(mark_as(FALSE) )
+                              }),
+      correct = paste0(icons::ionicons("checkmark-outline") ),
+      incorrect = paste0(icons::ionicons("close-outline") ),
+      style = "notes_question",
+      allow_retry = FALSE )
+# have name, grade button, and print button on same line
+bootstrapPage(
+     div(style="display:inline-block",
+         grade_button_ui("grade_out") ),
+     div(style="display:inline-block", print_ui("Print") )
+)
+
+# can have the grade output appear anywhere in your tutorial
+grade_output_ui("grade_out")
+```
+
+## Instructions
+
+Complete this tutorial while reading Sections 9.5 - 9.7 of the [textbook](https://nustat.github.io/intro-stat-ds/9-sampling.html#size).
+
+Once you are finished:
+
+-   Click the 'grade tutorial' button at the top to retrieve your score.
+-   Click the 'pdf' button to save the document as a pdf, you must have the tutorial open in a browser window for this button to work.
+-   Submit the completed pdf to Canvas.
+
+
+### Goals
+
+-   Understand standard errors for different estimators.
+-   Describe how differing sample sizes affect the sampling distribution.
+-   Understand the Central Limit Theorem and how to use this theorem.
+
+## Reading Quiz
+
+```{r Q}
+quiz(
+  caption = NULL,
+  # Question 1
+   question("Q1) Which of the following are appropriate standardized statistics? Select all that apply. Hint: use the info in Table 9.6.",
+            answer("\\( \\frac{\\bar{x}_1 - \\bar{x}_2}{\\sqrt{ \\frac{s^2_1}{n_1} +\\frac{s^2_2}{n_2} } } \\)", correct = TRUE),
+            answer("\\( \\frac{\\hat{\\pi}_1 - \\hat{\\pi}_2}{\\sqrt{ \\frac{s^2_1}{n_1} +\\frac{s^2_2}{n_2} } } \\)"),
+            answer("\\( \\frac{\\hat{\\pi}}{\\sqrt{ \\frac{\\hat{\\pi}(1-\\hat{\\pi})}{n} } } \\)", correct = TRUE),
+            answer("\\( \\frac{\\sqrt{n}\\bar{x}}{s} \\)", correct = TRUE),
+            allow_retry = TRUE,
+           random_answer_order = TRUE),
+  #Q2
+  question_blank("<strong> Q2) Consider the data frame `virtual_prop_red_100` that results from the following lines of code: </strong> <br/>
+    `virtual_samples_100 <- bowl %>%
+        rep_sample_n(size = 100, reps = 10000)` <br/>
+    `virtual_prop_red_100 <- virtual_samples_100 %>%
+        group_by(replicate) %>%
+        summarize(red = sum(color == 'red')) %>%
+        mutate(prop_red = red / 100)` <br/>
+
+a) How many rows will `virtual_prop_red_100` have? ___ <br/>
+b) What is the maximum possible value of the `red` column (even if it is highly unlikely)? ___ <br/>
+c) What is the maximum possible value of the `prop_red` column (even if it is highly unlikely)? ___ <br/>
+d) How many rows will have `replicate == 437`? ___",
+           answer("10000", correct = TRUE),
+           answer("100", correct = TRUE),
+           answer("1", correct = TRUE),
+           answer("1", correct = TRUE),
+           allow_retry = TRUE), 
+  # Q3
+  question("Q3) Consider using shovels of size 200 and 75 to sample from the bowl of red and white balls. Which of the following are TRUE statements? Select all that apply.",
+           answer("Using a shovel of size 200 would result in a larger standard error for proportions red, compared to using a shovel of size 75"),
+           answer("Using a shovel of size 200 would result in there being more variation in estimates of proportion red, compared to using a shovel of size 75"),
+           answer("Using a shovel of size 200 would give an estimate $\\hat{\\pi}$ that is likely to be closer to the true population parameter $\\pi$, compared to using a shovel of size 75", correct = TRUE),
+           answer("Using a shovel of size 200 would result in the sampling distribution of $\\hat{\\pi}$ having a smaller standard deviation, compared to using a shovel of size 75", correct = TRUE),
+           allow_retry = TRUE,
+           random_answer_order = TRUE), 
+  # Q4
+  question("Q4) Which of the following are TRUE about the theory of repeated samples? Select all that apply.",
+           answer("It is a purely theoretical construct - you will not observe repeated samples in real life", correct = TRUE),
+           answer("It provides the theory for how we can connect a sample estimate to the population parameter we care about", correct = TRUE),
+           answer("It relies on the process of randomization (e.g. random sampling)", correct = TRUE),
+           answer("It ensures that we will get a precise estimate of the population parameter"),
+           answer("It helps us to determine if an estimator (e.g. $\\bar{x}$ or $s^2$) is unbiased", correct = TRUE),
+           allow_retry = TRUE,
+           random_answer_order = TRUE), 
+  # Q5
+  question_blank(paste0("<strong> Q5) Imagine that you have a random sample of students who took the SAT in Illinois, and you find the average SAT Math score in your sample to be $\\bar{x}$ = 527 and the standard deviation of SAT Math scores to be 100. </strong> <br/>
+  
+What is the standard error of your estimate $\\bar{x}$ if your sample has 100 students? ___ <br/>
+What is the standard error of your estimate $\\bar{x}$ if your sample has 400 students? ___ <br/>
+Which sample size (100 or 400) gives a more precise estimate? ___"), 
+           answer("10", correct = TRUE),
+           answer("5", correct = TRUE),
+           answer("400", correct = TRUE),
+           allow_retry = TRUE),
+  # Question 10
+  question("Q6) Which of the following are TRUE statements about $\\bar{x}$? Select all that apply. ",
+           answer("In large enough samples, it will be normally distributed, even if the underlying data is skewed", correct = TRUE),
+           answer("Its sampling distribution will become wider as sample size increases"),
+           answer("Its standard error depends on the sample size", correct = TRUE),
+           answer("Its sampling distribution will be centered around the true population mean ($\\mu$)",correct=TRUE),
+           allow_retry = TRUE,
+           random_answer_order = TRUE)
+)
+
+```
