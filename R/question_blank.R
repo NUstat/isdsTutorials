@@ -41,7 +41,7 @@ question_blank <- function(
   checkmate::assert_character(placeholder, len = 1, null.ok = TRUE, any.missing = FALSE)
   checkmate::assert_logical(trim, len = 1, null.ok = FALSE, any.missing = FALSE)
 
-  question <- blank_question(
+  question <- ISDStutorials:::blank_question(
     text = text,
     ...,
     type = "blank",
