@@ -18,7 +18,10 @@ description: >
 library(learnr)
 library(tidyverse)
 library(ISDStutorials)
+#library(shiny)
 library(gradethis)
+#library(shinyjs)
+#library(rlang)
 
 knitr::opts_chunk$set(echo = FALSE)
 gradethis_setup()
@@ -46,6 +49,8 @@ question_blank("Name: ___",
                               return(mark_as(FALSE) )
                               }),
                style = "notes_question",
+               correct = paste0(icons::ionicons("checkmark-outline") ),
+               incorrect = paste0(icons::ionicons("close-outline") ),
                allow_retry = FALSE )
 # have name, grade button, and print button on same line
 bootstrapPage(
