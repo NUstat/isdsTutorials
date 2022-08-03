@@ -156,7 +156,7 @@ question_ui_initialize.multidrop <- function(question, value, ...) {
   }
 
   #shuffle answer options because must be listed in order
-  options <- unlist(learnr:::answer_values(question, exclude_answer_fn = TRUE) )
+  options <- unique( unlist(learnr:::answer_values(question, exclude_answer_fn = TRUE) ) )
   if(question$arrange == "ordered"){
     labels <- sort(options)
   }else{
@@ -280,7 +280,7 @@ question_ui_completed.multidrop <- function(question, value, ...) {
   }
 
   #shuffle answer options because must be listed in order
-  options <- unlist(learnr:::answer_values(question, exclude_answer_fn = TRUE) )
+  options <- unique( unlist(learnr:::answer_values(question, exclude_answer_fn = TRUE) ) )
   if(question$arrange == "ordered"){
     labels <- sort(options)
   }else{
