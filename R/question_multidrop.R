@@ -1,14 +1,16 @@
-#' Multiple dropdown question
+#' Multiple drop-down question
 #'
 #' @description
-#' Creates a multiple dropdown tutorial quiz question.
-#' Each dropdown will have the same list of options that correspond to a vector of questions.
-#' Each dropdown only allow only one selection.
+#' Creates a multiple drop-down tutorial quiz question.
+#' Each drop-down will have the same list of options that correspond to a vector of questions.
+#' Each drop-down only allow only one selection.
 #'
 #'
 #' @param choices a vector of choices that will remain stationary in the left column.
-#' @param box a number between 1 and 11, inclusive, indicating the width of the dropdown box.
+#' @param box a number between 1 and 11, inclusive, indicating the width of the drop-down box.
 #' The default is 6 which corresponds to 50% of the page width.
+#' @param arrange either 'random' or 'ordered'; default is random. Set equal to ordered if
+#' you want the drop-down list to appear alphabetically.
 #' @param ... parameters passed onto learnr answer.
 #' @inheritParams learnr::question
 #'
@@ -21,6 +23,7 @@ question_multidrop <- function(
     choices,
     ...,
     box = 6,
+    arrange = "random",
     type = "multidrop",
     correct = "Correct!",
     incorrect = "Incorrect",
@@ -34,6 +37,7 @@ question_multidrop <- function(
       choices = choices,
       ...,
       box = box,
+      arrange = arrange,
       type = "multidrop",
       correct = correct,
       incorrect = incorrect,
@@ -51,6 +55,7 @@ multidrop_question <- function(
     choices,
     ...,
     box = box,
+    arrange = arrange,
     type = c("multidrop"),
     correct = "Correct!",
     incorrect = "Incorrect",
@@ -75,6 +80,10 @@ multidrop_question <- function(
   # ensure box is in 1:11
   if (! box %in% c(1:11)) {
     stop("Box must be a number between 1 to 11, inclusive.")
+  }
+  # ensure box is in 1:11
+  if (! arrange %in% c("random", "ordered")) {
+    stop("arrange must be either 'random' or 'ordered' ")
   }
 
   # can not guarantee that `label` exists
@@ -102,6 +111,7 @@ multidrop_question <- function(
     question = learnr:::quiz_text(text),
     choices = choices,
     box = box,
+    arrange = arrange,
     answers = answers,
     button_labels = list(
       submit = submit_button,
@@ -147,7 +157,12 @@ question_ui_initialize.multidrop <- function(question, value, ...) {
 
   #shuffle answer options because must be listed in order
   options <- unlist(learnr:::answer_values(question, exclude_answer_fn = TRUE) )
-  labels <- sample(options, length(options))
+  if(question$arrange == "ordered"){
+    labels <- sort(options)
+  }else{
+    labels <- sample(options, length(options))
+  }
+
 
   # pretty close to unique id
   rand = paste0(sample.int(100,1), sample.int(100,1) )
@@ -266,7 +281,11 @@ question_ui_completed.multidrop <- function(question, value, ...) {
 
   #shuffle answer options because must be listed in order
   options <- unlist(learnr:::answer_values(question, exclude_answer_fn = TRUE) )
-  labels <- sample(options, length(options))
+  if(question$arrange == "ordered"){
+    labels <- sort(options)
+  }else{
+    labels <- sample(options, length(options))
+  }
 
   # pretty close to unique id
   rand = paste0(sample.int(100,1), sample.int(100,1) )

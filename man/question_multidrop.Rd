@@ -2,13 +2,14 @@
 % Please edit documentation in R/question_multidrop.R
 \name{question_multidrop}
 \alias{question_multidrop}
-\title{Multiple dropdown question}
+\title{Multiple drop-down question}
 \usage{
 question_multidrop(
   text,
   choices,
   ...,
   box = 6,
+  arrange = "random",
   type = "multidrop",
   correct = "Correct!",
   incorrect = "Incorrect",
@@ -24,8 +25,11 @@ question_multidrop(
 
 \item{...}{parameters passed onto learnr answer.}
 
-\item{box}{a number between 1 and 11, inclusive, indicating the width of the dropdown box.
+\item{box}{a number between 1 and 11, inclusive, indicating the width of the drop-down box.
 The default is 6 which corresponds to 50\% of the page width.}
+
+\item{arrange}{either 'random' or 'ordered'; default is random. Set equal to ordered if
+you want the drop-down list to appear alphabetically.}
 
 \item{type}{Type of quiz question. Typically this can be automatically determined
 based on the provided answers. Pass \code{"radio"} to indicate that even though
@@ -51,9 +55,9 @@ when \code{allow_retry} is \code{TRUE}.}
 A custom \code{learnr} question, with \code{type = multidrop}.
 }
 \description{
-Creates a multiple dropdown tutorial quiz question.
-Each dropdown will have the same list of options that correspond to a vector of questions.
-Each dropdown only allow only one selection.
+Creates a multiple drop-down tutorial quiz question.
+Each drop-down will have the same list of options that correspond to a vector of questions.
+Each drop-down only allow only one selection.
 }
 \seealso{
 Other Interactive Questions: 
