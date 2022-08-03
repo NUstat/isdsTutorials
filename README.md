@@ -52,8 +52,8 @@ After completing each tutorial, students can obtain their grade and download the
 - Grade option: `grade_server`, `grade_button_ui`, `grade_output_ui`
 - Question fill in the blanks: `question_blank`
 - Question wordbank: `question_wordbank`
-- Question multiple choice: `question_matching`
-- Question drop down: `question_dropdown`
+- Question reorder matching: `question_matching`
+- Question multiple drop downs: `question_multidrop`
 
 # ISDS setup
 
@@ -90,7 +90,10 @@ question_blank("Name: ___",
                               if (length(value) >= 1 ) { return(mark_as(TRUE)) }
                               return(mark_as(FALSE) )
                               }), 
-                style = "notes_question", allow_retry = FALSE )
+                style = "notes_question", 
+                correct = paste0(icons::ionicons("checkmark-outline") ),
+                incorrect = paste0(icons::ionicons("close-outline")),
+                allow_retry = FALSE )
 # grade button and print button on same line as name
 bootstrapPage(
      div(style="display:inline-block",
