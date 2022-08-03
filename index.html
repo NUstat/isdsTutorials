@@ -183,9 +183,9 @@
 </li>
 <li>Question wordbank: <code>question_wordbank</code>
 </li>
-<li>Question multiple choice: <code>question_matching</code>
+<li>Question reorder matching: <code>question_matching</code>
 </li>
-<li>Question drop down: <code>question_dropdown</code>
+<li>Question multiple drop downs: <code>question_multidrop</code>
 </li>
 </ul>
 </div>
@@ -208,7 +208,7 @@ rubric_list &lt;- data.frame(question = c("Ex1", "Q1", "Q2", "Q3"),
 grade_server("grade_out", 
             rubric_list = rubric_list, 
             num_try = 3, deduction = 0.1, display = c("scaled", "itemize") )</code></pre>
-<p>Finally add your desired header components. The following adds a name, grade button, print button, and grade output. ```{r isds-header} # student name question_blank(“Name: ___“, answer_fn(function(value){ if (length(value) &gt;= 1 ) { return(mark_as(TRUE)) } return(mark_as(FALSE) ) }), style =”notes_question”, allow_retry = FALSE ) # grade button and print button on same line as name bootstrapPage( div(style=“display:inline-block”, grade_button_ui(“grade_out”) ), div(style=“display:inline-block”, print_ui(“Print”) ) )</p>
+<p>Finally add your desired header components. The following adds a name, grade button, print button, and grade output. ```{r isds-header} # student name question_blank(“Name: ___“, answer_fn(function(value){ if (length(value) &gt;= 1 ) { return(mark_as(TRUE)) } return(mark_as(FALSE) ) }), style =”notes_question”, correct = paste0(icons::ionicons(“checkmark-outline”) ), incorrect = paste0(icons::ionicons(“close-outline”)), allow_retry = FALSE ) # grade button and print button on same line as name bootstrapPage( div(style=“display:inline-block”, grade_button_ui(“grade_out”) ), div(style=“display:inline-block”, print_ui(“Print”) ) )</p>
 </div>
 <div class="section level1">
 <h1 id="can-have-the-grade-output-appear-anywhere-in-your-tutorial">can have the grade output appear anywhere in your tutorial<a class="anchor" aria-label="anchor" href="#can-have-the-grade-output-appear-anywhere-in-your-tutorial"></a>
