@@ -50,8 +50,9 @@ Each drop-down only allow only one selection.</p>
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">question_multidrop</span><span class="op">(</span></span>
 <span>  <span class="va">text</span>,</span>
-<span>  <span class="va">choices</span>,</span>
 <span>  <span class="va">...</span>,</span>
+<span>  <span class="va">choices</span>,</span>
+<span>  wordbank <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  box <span class="op">=</span> <span class="fl">6</span>,</span>
 <span>  arrange <span class="op">=</span> <span class="st">"random"</span>,</span>
 <span>  type <span class="op">=</span> <span class="st">"multidrop"</span>,</span>
@@ -69,12 +70,17 @@ Each drop-down only allow only one selection.</p>
 <dd><p>Question or option text</p></dd>
 
 
+<dt>...</dt>
+<dd><p>parameters passed onto learnr answer.</p></dd>
+
+
 <dt>choices</dt>
 <dd><p>a vector of choices that will remain stationary in the left column.</p></dd>
 
 
-<dt>...</dt>
-<dd><p>parameters passed onto learnr answer.</p></dd>
+<dt>wordbank</dt>
+<dd><p>a vector of drop-down options when providing more or less options then answers.
+If NULL then the wordbank will be set equal to the answer choices.</p></dd>
 
 
 <dt>box</dt>
