@@ -1,0 +1,182 @@
+---
+title: "Tutorial: Chapter 11"
+tutorial:
+  id: "isds_18"
+  version: 0.1
+  
+output:
+  learnr::tutorial:
+    progressive: true
+    allow_skip: true
+    css: ["css/nu-theme.css"]
+runtime: shiny_prerendered
+description: >
+  Learn how to calculate and interpret p-values.
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(tidyverse)
+library(ISDStutorials)
+library(gradethis)
+
+knitr::opts_chunk$set(echo = FALSE)
+gradethis_setup()
+options(tutorial.event_recorder = ISDStutorials::isds_recorder)
+
+```
+
+
+```{r, context = "server"}
+rubric_list <- data.frame(question = c("Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7", "Q8", "Q9"),
+                          points_possible = rep(1, 9))
+
+grade_server("grade_out", 
+            rubric_list = rubric_list)
+```
+
+
+```{r isds-header}
+# student name
+question_blank("Name: ___",
+                            answer_fn(function(value){
+                              if (length(value) >= 1 ) {
+                                return(mark_as(TRUE))
+                                }
+                              return(mark_as(FALSE) )
+                              }), 
+          style = "notes_question",
+          correct = paste0(icons::ionicons("checkmark-outline") ),
+          incorrect = paste0(icons::ionicons("close-outline")),
+          allow_retry = FALSE )
+# have name, grade button, and print button on same line
+bootstrapPage(
+     div(style="display:inline-block",
+         grade_button_ui("grade_out") ),
+     div(style="display:inline-block", print_ui("Print") )
+)
+
+# can have the grade output appear anywhere in your tutorial
+grade_output_ui("grade_out")
+```
+
+## Instructions
+
+Complete this tutorial while reading Chapter 11 of the [textbook](https://nustat.github.io/intro-stat-ds/11-pvalues.html).
+
+Once you are finished:
+
+-   Click the 'grade tutorial' button at the top to retrieve your score.
+-   Click the 'pdf' button to save the document as a pdf, you must have the tutorial open in a browser window for this button to work.
+-   Submit the completed pdf to Canvas.
+
+
+### Goals
+
+-   Be able to define a null hypothesis.
+-   Calculate p-values from test statistics.
+-   Understand how to interpret p-values.
+
+## Reading Quiz
+
+```{r Q}
+quiz(
+  caption = NULL,
+  # Question 1
+    question("Q1) P-values rely on a mathematical technique known as a stochastic proof by _______ .", 
+           type = "learnr_text",
+           answer("contradiction", correct = TRUE),
+           allow_retry = TRUE), 
+    #question 2
+  question_multidrop("Q2) Imagine that you wish to determine whether a new drug lowers cholesterol in at-risk patients, so you conduct a randomized experiment. You wish to compare the average cholesterol among those who took the drug vs. those who took a placebo. Match each step with the appropriate order for conducting a stochastic proof by contradiction. ",
+  choices = c("Determine the sampling distribution of \\( \\frac{\\bar{x}_T - \\bar{x}_C - 0}{SE(\\bar{x}_T - \\bar{x}_C)} \\) and compute its value in your sample",
+              "Use your p-value to determine the probability that the null hypothesis is true",
+              "Compute a p-value from the t-distribution",
+              "Use your p-value to determine how likely your observed value is under the null hypothesis",
+              "Assume \\(\\mu_T = \\mu_C \\) (i.e. assume \\(\\mu_T - \\mu_C = 0 \\) )",
+              "Assume \\(\\mu_T < \\mu_C \\) (i.e. that those in the treatment group have lower cholesterol on average)"),
+  box = 3,
+  arrange = "ordered",
+  answer(c("Step 2", "This is not a valid step in a stochastic proof by contradiction", "Step 3", "Step 4",  "Step 1","This is not a valid step in a stochastic proof by contradiction"), correct = TRUE),
+  allow_retry = TRUE
+  ),
+    # Q3
+    question("Q3) You conduct a randomized clinical trial where participants are randomly assigned to a diet and exercise regimen and you want to test whether they experience imprpoved sleep quality (measured on a continuous numeric scale) compared to the control group. What is the appropriate null hypothesis?
+             Note this requires determining what the population parameter of interest is (e.g. $\\pi,\\mu,\\pi_1 - \\pi_2,\\mu_T - \\mu_C,\\beta_0,\\beta_1$ )", 
+           answer("$\\beta_0 = 0$"),
+           answer("$\\pi_1 - \\pi_2 = 0$"),
+           answer("$\\pi = \\pi_{national}$"),
+           answer("$\\mu_1 - \\mu_2 = 0$",correct=TRUE),
+           answer("$\\mu = \\mu_{national}$"),
+           answer("$\\beta_1 = 0$"),
+           allow_retry = TRUE,
+           random_answer_order = TRUE), 
+  # Q4
+    question("Q4) You use a survey of a random sample of NU students to test whether the percentage of students experiencing depression at Northwestern differs by minority status (coded as a binary categorical variable). What is the appropriate null hypothesis?
+             Note this requires determining what the population parameter of interest is (e.g. $\\pi,\\mu,\\pi_1 - \\pi_2,\\mu_T - \\mu_C,\\beta_0,\\beta_1$ )", 
+           answer("$\\beta_0 = 0$"),
+           answer("$\\pi_1 - \\pi_2 = 0$",correct=TRUE),
+           answer("$\\pi = \\pi_{national}$"),
+           answer("$\\mu_1 - \\mu_2 = 0$"),
+           answer("$\\mu = \\mu_{national}$"),
+           answer("$\\beta_1 = 0$"),
+           allow_retry = TRUE,
+           random_answer_order = TRUE), 
+  # Q5
+    question("Q5) You use a survey of a random sample of NU students to test whether the percentage of students experiencing depression at Northwestern differs from the national norm. What is the appropriate null hypothesis?
+             Note this requires determining what the population parameter of interest is (e.g. $\\pi,\\mu,\\pi_1 - \\pi_2,\\mu_T - \\mu_C,\\beta_0,\\beta_1$ )", 
+           answer("$\\beta_0 = 0$"),
+           answer("$\\pi_1 - \\pi_2 = 0$"),
+           answer("$\\pi = \\pi_{national}$",correct=TRUE),
+           answer("$\\mu_1 - \\mu_2 = 0$"),
+           answer("$\\mu = \\mu_{national}$"),
+           answer("$\\beta_1 = 0$"),
+           allow_retry = TRUE,
+           random_answer_order = TRUE), 
+  # Q6
+    question("Q6) You fit a regression model to determine if there is a relationship between housing prices (X) and a measure of school quality (Y) across zipcodes. What is the appropriate null hypothesis?
+             Note this requires determining what the population parameter of interest is (e.g. $\\pi,\\mu,\\pi_1 - \\pi_2,\\mu_T - \\mu_C,\\beta_0,\\beta_1$ )", 
+           answer("$\\beta_0 = 0$"),
+           answer("$\\pi_1 - \\pi_2 = 0$"),
+           answer("$\\pi = \\pi_{national}$"),
+           answer("$\\mu_1 - \\mu_2 = 0$"),
+           answer("$\\mu = \\mu_{national}$"),
+           answer("$\\beta_1 = 0$",correct=TRUE),
+           allow_retry = TRUE,
+           random_answer_order = TRUE),
+    # Q7
+    question("Q7) Which of the following are valid examples of a null hypotheses? Select all that apply.", 
+           answer("$\\mu = 19.5$",correct=TRUE),
+           answer("$\\beta_1 = 0$",correct=TRUE),
+           answer("$\\mu_1 - \\mu_2 = 0$",correct=TRUE),
+           answer("$\\bar{x} = 19.5$"),
+           answer("$\\hat{\\pi}_1 - \\hat{\\pi}_2 = 0$"),
+           answer("$b_0 = 0$"),
+           answer("$\\pi = 0.5$",correct=TRUE),
+           answer("$\\pi_1 - \\pi_2 = 0$",correct=TRUE),
+           allow_retry = TRUE,
+           random_answer_order = TRUE),
+    # Q8
+    question("Q8) Which of the following are TRUE statements about p-values? Select all that apply.", 
+           answer("A small p-value indicates data as extreme as what you observed is unlikely to occur if the null hypothesis is true", correct = TRUE),
+           answer("A p-value is the probability that the observed statistic was produced by chance alone"),
+           answer("A p-value is the probability of observing a t-statistic as extreme as the one you did assuming the null hypothesis is true", correct = TRUE),
+           answer("A large p-value indicates you observed a large effect"),
+           answer("A p-value is the probability that the null hypothesis is true"),
+           answer("A p-value is the probability that the alternative hypothesis is true"),
+           allow_retry = TRUE,
+           random_answer_order = TRUE), 
+      # Q9
+    question("Q9) Assume for the context of your research question, you decide that a p-value < 0.1 is considered 'small.' Which of the following t-statistic values, if observed and calculated from your data, would result in 'small' p-values (i.e. p-value < 0.1)? Assume you have a sample of n = 1,000 people. Hint: You can use properties you know about the N(0,1) distribution since it is virtually equivalent to the t-distribution when the sample size is this large. Or you can use the function pt() to actually compute the p-values in R.", 
+           answer("t-stat = -2.575", correct = TRUE),
+           answer("t-stat = -1.7", correct = TRUE),
+           answer("t-stat = -1"),
+           answer("t-stat = 0.002"),
+           answer("t-stat = 0.5"),
+           answer("t-stat = 1.96", correct = TRUE),
+           answer("t-stat = 3.2", correct = TRUE),
+           allow_retry = TRUE,
+           random_answer_order = TRUE)
+)
+
+```
