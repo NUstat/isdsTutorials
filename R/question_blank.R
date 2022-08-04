@@ -1,7 +1,11 @@
 #' Fill in the blank question for learnr tutorials.
 #'
 #' Add interactive fill in the blank tasks to your `learnr` tutorials.
-#' Note: you must include a single blank line ___ in the question text.
+#' You must include at least one single blank line ___ in the question text.
+#' A blank is created by typing 3 underscores.
+#'
+#' The text utilizes HTML for further display customization, which can be used
+#' to insert an image or line break.
 #'
 #' @param placeholder Sample text to appear in blank.
 #' @param rows,cols Defines the size of the text input area in terms of the

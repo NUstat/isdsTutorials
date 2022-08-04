@@ -1,9 +1,9 @@
 #' Word bank for learnr tutorials.
 #'
 #' The following function was modified from the sortable package, available at
-#' https://github.com/rstudio/sortable and a solution thread by stefan's on Jun 01, 2022.
+#' https://github.com/rstudio/sortable and a solution thread by "stefan's on Jun 01, 2022".
 #' Many thanks to the sortable author who developed tools to drag and drop objects in rank order.
-#' This extends the "question_rank" option so that you can drag any options from the
+#' This extends the "question_rank" option so that you can drag any option from the
 #' word bank into the answer blanks.
 #'
 #' Add interactive word bank tasks to your `learnr` tutorials.  The student can
@@ -18,10 +18,14 @@
 #'
 #' The word bank should be a set of options for the user to choose from to
 #' drag and drop into the blanks. If can be shorter or longer than then number
-#' of blanks but must include all unique answer options.
+#' of blanks but must include all unique answer options. If no word bank is
+#' provided it will be set equal to the answer options.
 #'
 #' @param choices a vector of choices that will remain stationary in the left column.
-#' @param wordbank a vector of choices to be placed into the blanks. Can be shorter or longer than the number of blanks.
+#' @param wordbank a vector of choices to be placed into the blanks when providing more options than answers.
+#' If NULL then the wordbank will be set equal to the answer choices.
+#' @param arrange either 'random' or 'ordered'; default is random. Set equal to ordered if
+#' you want the wordbank list to appear alphabetically.
 #' @param ... parameters passed onto learnr answer.
 #' @inheritParams learnr::question
 #'
@@ -48,8 +52,10 @@
 question_wordbank <- function(
     text,
     ...,
-    choices = choices,
-    wordbank = wordbank,
+    choices,
+    wordbank = NULL,
+    arrange = "random",
+    type = "wordbank",
     correct = "Correct!",
     incorrect = "Incorrect",
     loading = c("**Loading:** ", text, "<br/><br/><br/>"),
@@ -65,6 +71,7 @@ question_wordbank <- function(
     ...,
     choices = choices,
     wordbank = wordbank,
+    arrange = arrange,
     type = "wordbank",
     correct = correct,
     incorrect = incorrect,
@@ -83,6 +90,7 @@ wordbank_question <- function(
     ...,
     choices = choices,
     wordbank = wordbank,
+    arrange = arrange,
     type = c("wordbank"),
     correct = "Correct!",
     incorrect = "Incorrect",
@@ -103,7 +111,23 @@ wordbank_question <- function(
   # capture/validate answers
   ellipsis::check_dots_unnamed() # validate all answers are not named and not a misspelling
   answers <- list(...)
-  #answers <- list(answer)
+
+  #set wordbank equal to answers if NULL
+  if(is.null(wordbank)){
+    wordbank <- unique(answers[[1]]$option)
+  }
+  # ensure arrange is correct
+  if (! arrange %in% c("random", "ordered")) {
+    stop("arrange must be either 'random' or 'ordered' ")
+  }
+  # all correct answers must be an option in wordbank
+  if (!all( answers[[1]]$option %in% wordbank) ) {
+    stop("All answers must be an option in the wordbank.")
+  }
+  # number of choices must equal number of answers
+  if (length(choices) != length(answers[[1]]$option)) {
+    stop("Length of choices must equal to length in answer().")
+  }
 
   # can not guarantee that `label` exists
   label <- knitr::opts_current$get('label')
@@ -130,6 +154,7 @@ wordbank_question <- function(
     question = learnr:::quiz_text(text),
     choices = choices,
     wordbank = wordbank,
+    arrange = arrange,
     answers = answers,
     button_labels = list(
       submit = submit_button,
@@ -161,7 +186,6 @@ wordbank_question <- function(
 #' @export
 #' @seealso question_wordbank
 question_ui_initialize.wordbank <- function(question, value, ...) {
-  ns <- NS(question$ids$question)
 
   # get number of parts
   num <- length(question$choices)
@@ -174,15 +198,13 @@ question_ui_initialize.wordbank <- function(question, value, ...) {
   }
   # need to add randomization to question init
   # or it will randomize everytime
-  #question$wordbank <- sample(question$wordbank, length(question$wordbank))
-  #order <- sample(1:num)
-  #question$choices <- question$choices[order]
-  # }
-
-  #if the question is to be displayed in random order, shuffle the options
-  if (isTRUE(question$random_answer_order) ) {
-    labels <- sample(question$wordbank, length(question$wordbank))
-  }else{labels <- question$wordbank}
+  # shuffle wordbank options either ordered or random
+  options <- question$wordbank
+  if(question$arrange == "ordered"){
+    labels <- sort(options)
+  }else{
+    labels <- sample(options, length(options))
+  }
 
   num_bank = length(labels)
 
@@ -320,14 +342,20 @@ question_ui_completed.wordbank <- function(question, value, ...) {
   # TODO display correct values with X or √ compared to best match
   # TODO DON'T display correct values (listen to an option?)
 
-  ns <- NS(question$ids$question)
-
+  # get number of parts
   num <- length(question$choices)
 
-  labels <- question$wordbank
+  # shuffle wordbank options either ordered or random
+  options <- question$wordbank
+  if(question$arrange == "ordered"){
+    labels <- sort(options)
+  }else{
+    labels <- sample(options, length(options))
+  }
 
   num_bank = length(labels)
 
+  # set output to previous answers
   ans <- unlist(value)
 
   rand = paste0(sample.int(100,1), sample.int(100,1) )

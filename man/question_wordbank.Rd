@@ -7,8 +7,10 @@
 question_wordbank(
   text,
   ...,
-  choices = choices,
-  wordbank = wordbank,
+  choices,
+  wordbank = NULL,
+  arrange = "random",
+  type = "wordbank",
   correct = "Correct!",
   incorrect = "Incorrect",
   loading = c("**Loading:** ", text, "<br/><br/><br/>"),
@@ -26,7 +28,17 @@ question_wordbank(
 
 \item{choices}{a vector of choices that will remain stationary in the left column.}
 
-\item{wordbank}{a vector of choices to be placed into the blanks. Can be shorter or longer than the number of blanks.}
+\item{wordbank}{a vector of choices to be placed into the blanks when providing more options than answers.
+If NULL then the wordbank will be set equal to the answer choices.}
+
+\item{arrange}{either 'random' or 'ordered'; default is random. Set equal to ordered if
+you want the wordbank list to appear alphabetically.}
+
+\item{type}{Type of quiz question. Typically this can be automatically determined
+based on the provided answers. Pass \code{"radio"} to indicate that even though
+multiple correct answers are specified that inputs which include only one correct
+answer are still correct. Pass \code{"checkbox"} to force the use of checkboxes
+(as opposed to radio buttons) even though only once correct answer was provided.}
 
 \item{correct}{For \code{question}, text to print for a correct answer (defaults
 to "Correct!"). For \code{answer}, a boolean indicating whether this answer is
@@ -52,9 +64,9 @@ A custom \code{learnr} question, with \code{type = wordbank}.
 }
 \description{
 The following function was modified from the sortable package, available at
-https://github.com/rstudio/sortable and a solution thread by stefan's on Jun 01, 2022.
+https://github.com/rstudio/sortable and a solution thread by "stefan's on Jun 01, 2022".
 Many thanks to the sortable author who developed tools to drag and drop objects in rank order.
-This extends the "question_rank" option so that you can drag any options from the
+This extends the "question_rank" option so that you can drag any option from the
 word bank into the answer blanks.
 }
 \details{
@@ -70,7 +82,8 @@ answer much match the first choice and so forth.
 
 The word bank should be a set of options for the user to choose from to
 drag and drop into the blanks. If can be shorter or longer than then number
-of blanks but must include all unique answer options.
+of blanks but must include all unique answer options. If no word bank is
+provided it will be set equal to the answer options.
 }
 \examples{
 question_wordbank(

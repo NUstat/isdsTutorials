@@ -6,11 +6,11 @@
 #' Each drop-down only allow only one selection.
 #'
 #'
-#' @param choices a vector of choices that will remain stationary in the left column.
+#' @param choices a vector of questions/options that will remain stationary in the right column.
 #' @param box a number between 1 and 11, inclusive, indicating the width of the drop-down box.
 #' The default is 6 which corresponds to 50% of the page width.
-#' @param wordbank a vector of drop-down options when providing more or less options then answers.
-#' If NULL then the wordbank will be set equal to the answer choices.
+#' @param wordbank a vector of drop-down options when providing more options than answers.
+#' If NULL then wordbank will be set equal to the answer choices.
 #' @param arrange either 'random' or 'ordered'; default is random. Set equal to ordered if
 #' you want the drop-down list to appear alphabetically.
 #' @param ... parameters passed onto learnr answer.
@@ -97,6 +97,10 @@ multidrop_question <- function(
   if (!all( answers[[1]]$option %in% wordbank) ) {
     stop("All answers must be an option in the wordbank.")
   }
+  # number of choices must equal number of answers
+  if (length(choices) != length(answers[[1]]$option)) {
+    stop("Length of choices must equal to length in answer().")
+  }
 
   # can not guarantee that `label` exists
   label <- knitr::opts_current$get('label')
@@ -169,7 +173,7 @@ question_ui_initialize.multidrop <- function(question, value, ...) {
   }
 
 
-  #shuffle answer options because must be listed in order
+  # shuffle wordbank options either ordered or random
   options <- question$wordbank
   if(question$arrange == "ordered"){
     labels <- sort(options)
@@ -250,31 +254,6 @@ question_is_valid.multidrop <- function(question, value, ...) {
 #' @seealso question_multidrop
 question_is_correct.multidrop <- function(question, value, ...) {
   # for each possible answer, check if it matches
-  #choice_values <- unlist(learnr:::answer_values(question, exclude_answer_fn = TRUE) )
-  # choice_values <- unlist(question$answers)
-  #
-  # record_correct <- c()
-  # for (i in 1:length(question$choices)){
-  #   # for (answer in question$answers) {
-  #   if (identical(choice_values[i], value[i] )) {
-  #     #if (identical(question$answers[[i]], value[i])) {
-  #     # if it matches, return the correct-ness and its message
-  #     record_correct[i] <- TRUE
-  #   } else{
-  #     # no match found. mark as incorrect
-  #     record_correct[i] <- FALSE
-  #   }
-  # }
-  #
-  # #if everything is correct mark TRUE
-  # if(all(record_correct)){
-  #   value_is_correct <- TRUE
-  # }else{
-  #   value_is_correct <- FALSE
-  # }
-  #
-  # learnr::mark_as(value_is_correct)
-
   for (ans in question$answers) {
 
     if (identical(as.character(ans$option), as.character(value) ) ) {

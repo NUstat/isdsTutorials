@@ -24,10 +24,10 @@ question_multidrop(
 
 \item{...}{parameters passed onto learnr answer.}
 
-\item{choices}{a vector of choices that will remain stationary in the left column.}
+\item{choices}{a vector of questions/options that will remain stationary in the right column.}
 
-\item{wordbank}{a vector of drop-down options when providing more or less options then answers.
-If NULL then the wordbank will be set equal to the answer choices.}
+\item{wordbank}{a vector of drop-down options when providing more options than answers.
+If NULL then wordbank will be set equal to the answer choices.}
 
 \item{box}{a number between 1 and 11, inclusive, indicating the width of the drop-down box.
 The default is 6 which corresponds to 50\% of the page width.}

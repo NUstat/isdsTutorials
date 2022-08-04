@@ -66,5 +66,10 @@ A custom \code{learnr} question, with \code{type = blank}.
 }
 \description{
 Add interactive fill in the blank tasks to your \code{learnr} tutorials.
-Note: you must include a single blank line ___ in the question text.
+You must include at least one single blank line ___ in the question text.
+A blank is created by typing 3 underscores.
+}
+\details{
+The text utilizes HTML for further display customization, which can be used
+to insert an image or line break.
 }
