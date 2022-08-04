@@ -6,8 +6,9 @@
 \usage{
 question_multidrop(
   text,
-  choices,
   ...,
+  choices,
+  wordbank = NULL,
   box = 6,
   arrange = "random",
   type = "multidrop",
@@ -21,9 +22,12 @@ question_multidrop(
 \arguments{
 \item{text}{Question or option text}
 
+\item{...}{parameters passed onto learnr answer.}
+
 \item{choices}{a vector of choices that will remain stationary in the left column.}
 
-\item{...}{parameters passed onto learnr answer.}
+\item{wordbank}{a vector of drop-down options when providing more or less options then answers.
+If NULL then the wordbank will be set equal to the answer choices.}
 
 \item{box}{a number between 1 and 11, inclusive, indicating the width of the drop-down box.
 The default is 6 which corresponds to 50\% of the page width.}

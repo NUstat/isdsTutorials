@@ -9,6 +9,8 @@
 #' @param choices a vector of choices that will remain stationary in the left column.
 #' @param box a number between 1 and 11, inclusive, indicating the width of the drop-down box.
 #' The default is 6 which corresponds to 50% of the page width.
+#' @param wordbank a vector of drop-down options when providing more or less options then answers.
+#' If NULL then the wordbank will be set equal to the answer choices.
 #' @param arrange either 'random' or 'ordered'; default is random. Set equal to ordered if
 #' you want the drop-down list to appear alphabetically.
 #' @param ... parameters passed onto learnr answer.
@@ -20,8 +22,9 @@
 #' @export
 question_multidrop <- function(
     text,
-    choices,
     ...,
+    choices,
+    wordbank = NULL,
     box = 6,
     arrange = "random",
     type = "multidrop",
@@ -31,19 +34,19 @@ question_multidrop <- function(
     allow_retry = FALSE,
     random_answer_order = FALSE
 ) {
-  question <-
-    ISDStutorials:::multidrop_question(
-      text = text,
-      choices = choices,
-      ...,
-      box = box,
-      arrange = arrange,
-      type = "multidrop",
-      correct = correct,
-      incorrect = incorrect,
-      allow_retry = allow_retry,
-      random_answer_order = random_answer_order
-    )
+  question <- ISDStutorials:::multidrop_question(
+    text = text,
+    ...,
+    choices = choices,
+    wordbank = wordbank,
+    box = box,
+    arrange = arrange,
+    type = "multidrop",
+    correct = correct,
+    incorrect = incorrect,
+    allow_retry = allow_retry,
+    random_answer_order = random_answer_order
+  )
 
   answer_is_fn <- FALSE
 
@@ -52,9 +55,10 @@ question_multidrop <- function(
 
 multidrop_question <- function(
     text,
-    choices,
     ...,
+    choices,
     box = box,
+    wordbank = wordbank,
     arrange = arrange,
     type = c("multidrop"),
     correct = "Correct!",
@@ -71,19 +75,27 @@ multidrop_question <- function(
 ) {
 
   # one time tutor initialization
-  #initialize_tutorial()
+  initialize_tutorial()
 
   # capture/validate answers
-  #ellipsis::check_dots_unnamed() # validate all answers are not named and not a misspelling
+  ellipsis::check_dots_unnamed() # validate all answers are not named and not a misspelling
   answers <- list(...)
+
+  if(is.null(wordbank)){
+    wordbank <- unique(answers[[1]]$option)
+  }
 
   # ensure box is in 1:11
   if (! box %in% c(1:11)) {
     stop("Box must be a number between 1 to 11, inclusive.")
   }
-  # ensure box is in 1:11
+  # ensure arrange is correct
   if (! arrange %in% c("random", "ordered")) {
     stop("arrange must be either 'random' or 'ordered' ")
+  }
+  # all correct answers must be an option in wordbank
+  if (!all( answers[[1]]$option %in% wordbank) ) {
+    stop("All answers must be an option in the wordbank.")
   }
 
   # can not guarantee that `label` exists
@@ -111,6 +123,7 @@ multidrop_question <- function(
     question = learnr:::quiz_text(text),
     choices = choices,
     box = box,
+    wordbank = wordbank,
     arrange = arrange,
     answers = answers,
     button_labels = list(
@@ -155,8 +168,9 @@ question_ui_initialize.multidrop <- function(question, value, ...) {
     ans <- rep(" ", num)
   }
 
+
   #shuffle answer options because must be listed in order
-  options <- unique( unlist(learnr:::answer_values(question, exclude_answer_fn = TRUE) ) )
+  options <- question$wordbank
   if(question$arrange == "ordered"){
     labels <- sort(options)
   }else{
@@ -179,43 +193,41 @@ question_ui_initialize.multidrop <- function(question, value, ...) {
     div(class = "panel-heading",
         strong(question$question)  ),
     div(id = paste0("bucket", rand),
-         lapply(seq(1,num), function(x)
-           fixedRow(
-             column(
-               width = question$box,
-               div(
-                 class = "panel panel-default",
-                 div(
-                   class = "selectbox",
-                   id = css_ids[x],
-                   #style="display:inline-block",
-                   tags$select(id = input_ids[x],
-                               class = "selectbox",
-                               tagList(
-                                 lapply(c(" ",labels), function(y)
-                                        if(ans[x] == y){
-                                          tags$option(y,selected="selected")}
-                                        else{tags$option(y)}),
-                               ),#end tagList
-                               onclick = htmlwidgets::JS(
-                     paste0("Shiny.setInputValue('",question$ids$answer,"',
+        lapply(seq(1,num), function(x)
+          fixedRow(
+            column(
+              width = question$box,
+              div(
+                class = "panel panel-default",
+                div(
+                  class = "selectbox",
+                  id = css_ids[x],
+                  tags$select(id = input_ids[x],
+                              class = "selectbox",
+                              tagList(
+                                lapply(c(" ",labels), function(y)
+                                  if(ans[x] == y){
+                                    tags$option(y,selected="selected")}
+                                  else{tags$option(y)}),
+                              ),#end tagList
+                              onclick = htmlwidgets::JS(
+                                paste0("Shiny.setInputValue('",question$ids$answer,"',
                      [", toString(lapply(input_ids, function(z)
                        paste0("document.getElementById('",z,"').value")
-                       ) ),
-                       "] )")
-                      )#end JS
+                     ) ),
+                     "] )")
+                              )#end JS
 
-
-                   ) #end tag select
+                  ) #end tag select
                 )#end select div
-                )#end bigger div
-             ), #end column
-             column(
-               width = 12-question$box,
-               #icons(question$choices[x]) )
-               p(paste0(question$choices[x]) ) )
-           ) #ends fixed row
-         ) #ends lapply
+              )#end bigger div
+            ), #end column
+            column(
+              width = 12-question$box,
+              #icons(question$choices[x]) )
+              p(paste0(question$choices[x]) ) )
+          ) #ends fixed row
+        ) #ends lapply
     ) #ends bucket div group
   ) # end fluidpage
 
@@ -238,29 +250,42 @@ question_is_valid.multidrop <- function(question, value, ...) {
 #' @seealso question_multidrop
 question_is_correct.multidrop <- function(question, value, ...) {
   # for each possible answer, check if it matches
-  choice_values <- unlist(learnr:::answer_values(question, exclude_answer_fn = TRUE) )
+  #choice_values <- unlist(learnr:::answer_values(question, exclude_answer_fn = TRUE) )
+  # choice_values <- unlist(question$answers)
+  #
+  # record_correct <- c()
+  # for (i in 1:length(question$choices)){
+  #   # for (answer in question$answers) {
+  #   if (identical(choice_values[i], value[i] )) {
+  #     #if (identical(question$answers[[i]], value[i])) {
+  #     # if it matches, return the correct-ness and its message
+  #     record_correct[i] <- TRUE
+  #   } else{
+  #     # no match found. mark as incorrect
+  #     record_correct[i] <- FALSE
+  #   }
+  # }
+  #
+  # #if everything is correct mark TRUE
+  # if(all(record_correct)){
+  #   value_is_correct <- TRUE
+  # }else{
+  #   value_is_correct <- FALSE
+  # }
+  #
+  # learnr::mark_as(value_is_correct)
 
-  record_correct <- c()
-  for (i in 1:length(question$choices)){
-  # for (answer in question$answers) {
-    if (identical(choice_values[i], value[i] )) {
-    #if (identical(question$answers[[i]], value[i])) {
-      # if it matches, return the correct-ness and its message
-      record_correct[i] <- TRUE
-    } else{
-      # no match found. mark as incorrect
-      record_correct[i] <- FALSE
+  for (ans in question$answers) {
+
+    if (identical(as.character(ans$option), as.character(value) ) ) {
+      return(mark_as(
+        ans$correct,
+        ans$message
+      ))
     }
-  }
 
-  #if everything is correct mark TRUE
-  if(all(record_correct)){
-    value_is_correct <- TRUE
-  }else{
-    value_is_correct <- FALSE
   }
-
-  learnr::mark_as(value_is_correct)
+  mark_as(FALSE, NULL)
 
 }
 
@@ -279,8 +304,9 @@ question_ui_completed.multidrop <- function(question, value, ...) {
     ans <- rep(" ", num)
   }
 
+
   #shuffle answer options because must be listed in order
-  options <- unique( unlist(learnr:::answer_values(question, exclude_answer_fn = TRUE) ) )
+  options <- question$wordbank
   if(question$arrange == "ordered"){
     labels <- sort(options)
   }else{
@@ -295,54 +321,52 @@ question_ui_completed.multidrop <- function(question, value, ...) {
 
   learnr::disable_all_tags(
 
-  fluidPage(
-    withMathJax(),
-    tags$style(
-      ".selectbox {
+    fluidPage(
+      withMathJax(),
+      tags$style(
+        ".selectbox {
       width: 100%;
     }"),
-    div(class = "panel-heading",
-        strong(question$question)  ),
-    div(id = paste0("bucket", rand),
-        lapply(seq(1,num), function(x)
-          fixedRow(
-            column(
-              width = question$box,
-              div(
-                class = "panel panel-default",
+      div(class = "panel-heading",
+          strong(question$question)  ),
+      div(id = paste0("bucket", rand),
+          lapply(seq(1,num), function(x)
+            fixedRow(
+              column(
+                width = question$box,
                 div(
-                  class = "selectbox",
-                  id = css_ids[x],
-                  #style="display:inline-block",
-                  tags$select(id = input_ids[x],
-                              class = "selectbox",
-                              tagList(
-                                lapply(c(" ",labels), function(y)
-                                  if(ans[x] == y){
-                                    tags$option(y,selected="selected")}
-                                  else{tags$option(y)}),
-                              ),#end tagList
-                              onclick = htmlwidgets::JS(
-                                paste0("Shiny.setInputValue('",question$ids$answer,"',
+                  class = "panel panel-default",
+                  div(
+                    class = "selectbox",
+                    id = css_ids[x],
+                    tags$select(id = input_ids[x],
+                                class = "selectbox",
+                                tagList(
+                                  lapply(c(" ",labels), function(y)
+                                    if(ans[x] == y){
+                                      tags$option(y,selected="selected")}
+                                    else{tags$option(y)}),
+                                ),#end tagList
+                                onclick = htmlwidgets::JS(
+                                  paste0("Shiny.setInputValue('",question$ids$answer,"',
                      [", toString(lapply(input_ids, function(z)
                        paste0("document.getElementById('",z,"').value")
                      ) ),
                      "] )")
-                              )#end JS
+                                )#end JS
 
-
-                  ) #end tag select
-                )#end select div
-              )#end bigger div
-            ), #end column
-            column(
-              width = 12-question$box,
-              #icons(question$choices[x]) )
-              p(paste0(question$choices[x]) ) )
-          ) #ends fixed row
-        ) #ends lapply
-    ) #ends bucket div group
-  ) # end fluidpage
+                    ) #end tag select
+                  )#end select div
+                )#end bigger div
+              ), #end column
+              column(
+                width = 12-question$box,
+                #icons(question$choices[x]) )
+                p(paste0(question$choices[x]) ) )
+            ) #ends fixed row
+          ) #ends lapply
+      ) #ends bucket div group
+    ) # end fluidpage
 
   ) #end disable all tags
 
