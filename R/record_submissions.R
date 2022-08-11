@@ -17,7 +17,7 @@
 #' @export
 isds_recorder <- function(tutorial_id, tutorial_version,
                          user_id, event, data) {
-  if(event %in% c("question_submission", "exercise_result") &&
+  if(event %in% c("question_submission", "exercise_submission") &&
      data$label != "grade_recorder" ){
 
     tmp <- paste0(tutorial_id,",", tutorial_version, ", ",

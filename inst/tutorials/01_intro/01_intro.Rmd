@@ -43,7 +43,11 @@ question_blank("Name: ___",
                                 return(mark_as(TRUE))
                                 }
                               return(mark_as(FALSE) )
-                              }), allow_retry = FALSE )
+                              }),
+          style = "notes_question",
+          correct = paste0(icons::ionicons("checkmark-outline") ),
+          incorrect = paste0(icons::ionicons("close-outline") ),
+          allow_retry = FALSE )
 # have name, grade button, and print button on same line
 bootstrapPage(
      div(style="display:inline-block",
@@ -99,6 +103,7 @@ grade_this_code()
 **Exercise 2:**
 
 The `mpg` dataset is included in the `ggplot2` package. Print the dataset to answer the following questions by typing `mpg` in the codechunk and clicking `run`.
+
 ```{r Ex2, exercise = TRUE, exercise.eval = FALSE}
 #print mpg dataset
 ```
