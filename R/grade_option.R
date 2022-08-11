@@ -119,10 +119,22 @@ grade_tutorial <- function(submissions, rubric_list,
 
   # issue using dplyr with shiny object
   # so need to manually set as table
-  newdf <- data.frame(id = table$V3, time = table$V4,
+  tmpdf <- data.frame(id = table$V3, time = table$V4,
                       type = table$V5,
                       question = table$V6,
                       correct = table$V7)
+
+  #fix issue with exercise_result saving correct every time document is loaded
+  split_1 <- tmpdf %>%
+    mutate(correct = as.numeric(correct)) %>%
+    filter(correct != 1)
+
+  split_2 <- tmpdf %>%
+    mutate(correct = as.numeric(correct)) %>%
+    filter(correct == 1) %>%
+    distinct(type, question, correct, .keep_all = TRUE)
+
+  newdf <- rbind(split_1, split_2)
 
   # create data frame of student submission summary
   correct_q <- newdf %>%
