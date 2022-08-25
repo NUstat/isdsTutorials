@@ -46,8 +46,8 @@ question_blank("Name: ___",
                               return(mark_as(FALSE) )
                               }),
           style = "notes_question",
-          correct = paste0(icons::ionicons("checkmark-outline") ),
-          incorrect = paste0(icons::ionicons("close-outline")),
+          correct = paste0(fontawesome::fa("check") ),
+          incorrect = paste0(fontawesome::fa("xmark") ),
           allow_retry = FALSE )
 # have name, grade button, and print button on same line
 bootstrapPage(
