@@ -17,6 +17,7 @@ Imports:
     dplyr,
     ellipsis,
     gt,
+    fontawesome,
     htmltools,
     htmlwidgets,
     janitor,
