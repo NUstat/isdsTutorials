@@ -5,6 +5,7 @@ template:
 tutorials:
 - name: 01_intro
   title: Tutorial Preface & Chapter1
+  url: https://northwestern-university.shinyapps.io/01_intro/
 - name: 02_ggplot1
   title: Tutorial Preface & Chapter2a
 - name: 03_ggplot2
