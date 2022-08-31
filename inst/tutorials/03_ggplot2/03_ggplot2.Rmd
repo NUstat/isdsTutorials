@@ -1,0 +1,133 @@
+---
+title: "Tutorial: Chapter 2.4-2.6"
+tutorial:
+  id: "isds_03"
+  version: 0.1
+  
+output:
+  learnr::tutorial:
+    progressive: true
+    allow_skip: true
+    css: ["css/nu-theme.css"]
+runtime: shiny_prerendered
+description: >
+  Learn further data visualization graphics, including linegraphs, histograms, and faceting.
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(tidyverse)
+library(ISDStutorials)
+library(gradethis)
+
+knitr::opts_chunk$set(echo = FALSE)
+gradethis_setup()
+options(tutorial.event_recorder = ISDStutorials::isds_recorder)
+```
+
+
+```{r, context = "server"}
+rubric_list <- data.frame(question = c("Ex1", "Q1", "Q2", "Q3"),
+                          points_possible = rep(1, 4))
+
+grade_server("grade_out", 
+            rubric_list = rubric_list)
+```
+
+
+```{r isds-header}
+# student name
+question_blank("Name: ___",
+                            answer_fn(function(value){
+                              if (length(value) >= 1 ) {
+                                return(mark_as(TRUE))
+                                }
+                              return(mark_as(FALSE) )
+                              }),
+               style = "notes_question",
+               correct = paste0(fontawesome::fa("check") ),
+               incorrect = paste0(fontawesome::fa("xmark") ),
+               allow_retry = FALSE )
+# have name, grade button, and print button on same line
+bootstrapPage(
+     div(style="display:inline-block",
+         grade_button_ui("grade_out") ),
+     div(style="display:inline-block", print_ui("Print") )
+)
+
+# can have the grade output appear anywhere in your tutorial
+grade_output_ui("grade_out")
+```
+
+## Instructions
+
+Complete this tutorial while reading Sections 2.4-2.6 of the [textbook](https://nustat.github.io/intro-stat-ds/2-viz.html#linegraphs). Each question allows 3 'free' attempts. After the third attempt a 10% deduction occurs per attempt.
+
+Once you are finished:
+
+-   Click the 'grade tutorial' button at the top to retrieve your score.
+-   Click the 'pdf' button to save the document as a pdf, you must have the tutorial open in a browser window for this button to work.
+-   Submit the completed pdf to Canvas.
+
+
+### Goals
+
+- Learn how to use and interpret a linegraph
+- Learn to use and interpret a histogram
+- Choose an appropriate number of bins for a histogram
+- Use faceting to view plots by a category
+
+## Exercise
+
+Consider the following plot.
+
+```{r}
+htmltools::img(src="images/Figure_02_6.png", height = 700, width = 700)
+```
+
+Fill in the code below to create this plot.
+
+```{r Ex1, exercise=TRUE}
+ggplot(data = weather, mapping = aes(x = temp)) +
+    ___(color = 'white') +
+    ___(~ month)
+```
+
+```{r Ex1-solution, exercise.reveal_solution = FALSE}
+ggplot(data = weather, mapping = aes(x = temp)) +
+    geom_histogram(color = 'white') +
+    facet_wrap(~ month)
+```
+
+```{r Ex1-code-check}
+grade_this_code()
+```
+
+## Reading Quiz
+
+```{r Q}
+quiz(caption = NULL,
+  # Q1
+    question("Q1) Which of the following are typically used to visualize the relationship between two numeric variables? Select all that apply.",
+           answer("histogram"),
+           answer("boxplot"),
+           answer("scatterplot", correct = TRUE),
+           answer("linegraph", correct = TRUE),
+           allow_retry = TRUE,
+           random_answer_order = TRUE), 
+  # Q2
+  question("Q2) What is the default number of bins R uses to build a histogram?", 
+           type = "learnr_text",
+           answer("30", correct = TRUE),
+           allow_retry = TRUE),
+    # Q3
+    question("Q3) Which of the following arguments in geom_histogram() will make the inside (as opposed to the outline) of the bars blue?",
+           answer(" bar = 'blue' "),
+           answer(" shade = 'blue' "),
+           answer(" color = 'blue' "),
+           answer(" fill = 'blue' ", correct = TRUE),
+           allow_retry = TRUE,
+           random_answer_order = TRUE)
+) 
+
+```

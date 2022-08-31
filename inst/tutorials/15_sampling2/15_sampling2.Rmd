@@ -1,0 +1,162 @@
+---
+title: "Tutorial: Chapter 9.2 - 9.4"
+tutorial:
+  id: "isds_15"
+  version: 0.1
+  
+output:
+  learnr::tutorial:
+    progressive: true
+    allow_skip: true
+    css: ["css/nu-theme.css"]
+runtime: shiny_prerendered
+description: >
+ Learn about the sampling distribution.
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(tidyverse)
+library(ISDStutorials)
+library(gradethis)
+
+knitr::opts_chunk$set(echo = FALSE)
+gradethis_setup()
+options(tutorial.event_recorder = ISDStutorials::isds_recorder)
+
+```
+
+
+```{r, context = "server"}
+rubric_list <- data.frame(question = c("Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7", "Q8"),
+                          points_possible = rep(1, 8))
+
+grade_server("grade_out", 
+            rubric_list = rubric_list)
+```
+
+
+```{r isds-header}
+# student name
+question_blank("Name: ___",
+                            answer_fn(function(value){
+                              if (length(value) >= 1 ) {
+                                return(mark_as(TRUE))
+                                }
+                              return(mark_as(FALSE) )
+                              }),
+               style = "notes_question",
+               correct = paste0(fontawesome::fa("check") ),
+               incorrect = paste0(fontawesome::fa("xmark") ), 
+               allow_retry = FALSE )
+# have name, grade button, and print button on same line
+bootstrapPage(
+     div(style="display:inline-block",
+         grade_button_ui("grade_out") ),
+     div(style="display:inline-block", print_ui("Print") )
+)
+
+# can have the grade output appear anywhere in your tutorial
+grade_output_ui("grade_out")
+```
+
+## Instructions
+
+Complete this tutorial while reading Sections 9.2 - 9.4 of the [textbook](https://nustat.github.io/intro-stat-ds/9-sampling.html#repeated-sampling).
+
+Once you are finished:
+
+-   Click the 'grade tutorial' button at the top to retrieve your score.
+-   Click the 'pdf' button to save the document as a pdf, you must have the tutorial open in a browser window for this button to work.
+-   Submit the completed pdf to Canvas.
+
+
+### Goals
+
+-   Understand the theory of repeated sampling.
+-   Describe the properties of a sampling distribution.
+-   Understand the difference between a distribution and a sampling distribution.
+
+
+## Reading Quiz
+
+```{r Q}
+quiz(
+  caption = NULL,
+  #Question 1
+  question("Q1) Which of the following are TRUE about the theory of repeated samples? Select all that apply.  ",
+           answer("It is a purely theoretical construct - you will not observe repeated samples in real life", correct = TRUE),
+           answer("It allows us to calculate the true value of a population parameter exactly"),
+           answer("It provides the theory for how we can use a sample to infer to a population", correct = TRUE),
+           answer("It relies on the process of randomization (e.g. random sampling)", correct = TRUE),
+           allow_retry = TRUE,
+           random_answer_order = TRUE),
+  # Question 2
+  question("Q2) What is the maximum value of `replicate` in the `tactile_prop_red` dataset? ", 
+           type = "learnr_text",
+           answer("33", correct = TRUE),
+           allow_retry = TRUE),
+  #Q3
+  question_blank(paste0("<strong> Q3) </strong>  <br/>
+  a) What does the value `TRUE` evaluate to in R? ___  <br/>
+  b) What does the value `FALSE` evaluate to in R? ___"),
+           answer("1", correct = TRUE),
+           answer("0", correct = TRUE),
+           allow_retry = TRUE),
+  # Q4
+  question_blank(paste0("<strong> Q4) Consider the tibble `coin_flips_RQ` shown below and the lines of code that follow. </strong>  <br/>",
+  htmltools::img(src="images/coin_flips_RQ.png", height = 400, width = 200)," <br/>
+`coin_flips_RQ %>%  
+                summarize(
+                  sum = sum(result),
+                  mean = mean(result)
+                  )`
+                  <br/>
+a) What is the resulting value for `sum`? ___ <br/>
+b) What is the resulting value for `mean`? ___" ), 
+           answer("3", correct = TRUE),
+           answer_fn(function(value){
+                if (value %in% c("0.3", ".3")) {
+                    return(mark_as(TRUE))}
+                    return(mark_as(FALSE) ) }),
+           allow_retry = TRUE),
+  # Q5
+  question_blank(paste0("<strong> Q5) Consider the data frame `virtual_samples_RQ` that results from the following lines of code: </strong>  <br/>
+           `virtual_samples_RQ <- bowl %>%  
+                rep_sample_n(size = 50, reps = 5000)` <br/>
+
+a) How many rows will `virtual_samples_RQ` have? ___ <br/>
+b) What will be the maximum value of the `replicate` column? ___ <br/>
+c) What will the value of `replicate` be for the 73rd row? ___ <br/>
+d) How many rows will have `replicate == 437`? ___"), 
+           answer("250000", correct = TRUE),
+           answer("5000", correct = TRUE),
+           answer("2", correct = TRUE),
+           answer("50", correct = TRUE),
+           allow_retry = TRUE),
+  # Q6
+  question_blank("<strong> Q6) Consider the bowl of red and white balls in Figure 9.10 and its virtual analog in the data frame bowls. </strong>  <br/>
+a) How many balls total are in the bowl? ___ <br/>
+b) What is the true proportion of red balls in the bowl? ___ <br/>
+c) How many red balls are in the bowl? ___ ",
+           answer("2400", correct = TRUE),
+           answer_fn(function(value){
+                if (value %in% c("0.375", ".375")) {
+                    return(mark_as(TRUE))}
+                    return(mark_as(FALSE) ) }),
+           answer("900", correct = TRUE),
+           allow_retry = TRUE),
+  # Q7
+  question("Q7) What phrase do we use to refer to the standard deviation of a sampling distribution? ", 
+           type = "learnr_text",
+           answer("standard error", correct = TRUE),
+           allow_retry = TRUE),
+  # Q8
+  question_wordbank("Q8) Match the following descriptions with the appropriate term:",
+           choices = c("Standard deviation squared; a measure of spread in the data", "The difference between the average value of a sampling distribution and the true population parameter", "The distribution of possible values of estimates across repeated samples","A measure of spread of an estimator across repeated samples", "A parameter of the t-distribution that depends on sample size"),
+           wordbank = c("Variance","Bias", "Sampling distribution", "Standard error", "Degrees of freedom"),
+           answer(c("Variance","Bias", "Sampling distribution", "Standard error", "Degrees of freedom"), correct = TRUE),
+           allow_retry = TRUE)
+)
+
+```

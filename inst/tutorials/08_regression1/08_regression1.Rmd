@@ -1,0 +1,187 @@
+---
+title: "Tutorial: Chapter 5.0 - 5.1"
+tutorial:
+  id: "isds_08"
+  version: 0.1
+  
+output:
+  learnr::tutorial:
+    progressive: true
+    allow_skip: true
+    css: ["css/nu-theme.css"]
+runtime: shiny_prerendered
+description: >
+  Learn the basics of regression.
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(tidyverse)
+library(ISDStutorials)
+library(gradethis)
+
+knitr::opts_chunk$set(echo = FALSE)
+gradethis_setup()
+options(tutorial.event_recorder = ISDStutorials::isds_recorder)
+```
+
+
+```{r, context = "server"}
+rubric_list <- data.frame(question = c("Ex1", "Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7", "Q8", "Q9", "Q10"),
+                          points_possible = rep(1, 11))
+
+grade_server("grade_out", 
+            rubric_list = rubric_list)
+```
+
+
+```{r isds-header}
+# student name
+question_blank("Name: ___",
+                            answer_fn(function(value){
+                              if (length(value) >= 1 ) {
+                                return(mark_as(TRUE))
+                                }
+                              return(mark_as(FALSE) )
+                              }),
+               style = "notes_question",
+               correct = paste0(fontawesome::fa("check") ),
+               incorrect = paste0(fontawesome::fa("xmark") ),
+               allow_retry = FALSE )
+# have name, grade button, and print button on same line
+bootstrapPage(
+     div(style="display:inline-block",
+         grade_button_ui("grade_out") ),
+     div(style="display:inline-block", print_ui("Print") )
+)
+
+# can have the grade output appear anywhere in your tutorial
+grade_output_ui("grade_out")
+```
+
+## Instructions
+
+Complete this tutorial while reading Sections 5.0 - 5.1 of the [textbook](https://nustat.github.io/intro-stat-ds/5-regression.html).
+
+Once you are finished:
+
+-   Click the 'grade tutorial' button at the top to retrieve your score.
+-   Click the 'pdf' button to save the document as a pdf, you must have the tutorial open in a browser window for this button to work.
+-   Submit the completed pdf to Canvas.
+
+
+### Goals
+
+-   Understand the essential components of basic regression.
+-   Learn how to perform exploratory data analysis. 
+-   Learn to perform simple linear regression.
+-   Understand how to interpret fitted values and residuals.
+
+
+## Exercise
+
+Fill in the blanks of the code that creates a scatterplot of teaching score by beauty score and plots the regression line.
+
+
+```{r Ex1, exercise=TRUE}
+# Create the evals_ch5 dataset
+evals_ch5 <- moderndive::evals %>%
+  select(score, bty_avg, age)
+# Create the scatterplot
+ggplot(evals_ch5, aes(x = ___, y = ___)) +
+   geom_point() +
+   labs(___ = "Beauty Score",
+        ___ = "Teaching Score",
+        title = "Relationship of teaching and beauty scores") +
+   geom____(method = ___)
+```
+
+```{r Ex1-hint-1}
+Common language: y by x
+```
+
+```{r Ex1-solution, exercise.reveal_solution = FALSE}
+# Create the evals_ch5 dataset
+evals_ch5 <- moderndive::evals %>%
+  select(score, bty_avg, age)
+# Create the scatterplot
+ggplot(evals_ch5, aes(x = bty_avg, y = score)) +
+   geom_point() +
+   labs(x = "Beauty Score",
+        y = "Teaching Score",
+        title = "Relationship of teaching and beauty scores") +
+   geom_smooth(method = "lm")
+```
+
+```{r Ex1-code-check}
+grade_this_code()
+```
+
+
+## Reading Quiz
+
+```{r Q}
+
+quiz(caption = NULL,
+  # Q1
+    question_wordbank("Q1) Match each of the following terms with whether they refer to the variable y or x in a data model.",
+           choices = c("dependent variable", "outcomevariable", "predictor variable", "explanatory variable", "independent variable"),
+           wordbank = c("x","y"),
+           answer(c("y", "y", "x","x","x"), correct = TRUE),
+           allow_retry = TRUE), 
+    # Q2 
+    question("Q2) What is the name of the commonly-used modeling technique that is the focus of Chapter 5? (Hint: it's two words)", 
+           type = "learnr_text",
+           answer("linear regression", correct = TRUE),
+           allow_retry = TRUE),
+     # Q3
+    question("Q3) Which of the following are TRUE of a linear regression model? ",
+           answer("an explanatory variable can be numerical or categorical", correct = TRUE),
+           answer("it can include more than one explanatory variable, x", correct = TRUE),
+           answer("an outcome variable can be numerical or categorical"),
+           answer("it can include more than one outcome variable, y"),
+           allow_retry = TRUE,
+           random_answer_order = TRUE),  
+    # Q4
+    question("Q4) How many variables are in the data frame evals_ch5?", 
+           type = "learnr_text",
+           answer("3", correct = TRUE),
+           allow_retry = TRUE),  
+     # Q5
+    question_wordbank("Q5) Match the following functions with their primary purpose.",
+           choices = c("fit a linear regression model", "identify columns of a dataframe to keep", "identify rows of a dataframe to keep", "view summary information for each variable", "look at raw data"),
+           wordbank = c("View()", "filter()", "lm()", "select()", "skim()"),
+           answer(c("lm()", "select()", "filter()", "skim()", "View()"), correct = TRUE),
+           allow_retry = TRUE),
+    # Q6
+    question("Q6) What is the maximum value of bty_avg  in the data frame evals? Round to two decimal places.", 
+           type = "learnr_text",
+           answer("8.17", correct = TRUE),
+           allow_retry = TRUE),    
+      # Q7
+    question_wordbank("Q7) What is the primary purpose of the gapminder package?",
+           choices = c("importing data files such as .csv", "data visualization", "includes datasets for analysis", "data wrangling", "computing summary statistics", "converting data to tidy format"),
+           wordbank = c("readr", "ggplot2", "gapminder", "dplyr", "skimr", "tidyr"),
+           answer(c("readr", "ggplot2", "gapminder", "dplyr", "skimr", "tidyr"), correct = TRUE),
+           allow_retry = TRUE), 
+    # Q8
+    question("Q8) Which of the following can you conclude from the fact that the correlation coefficient between score and bty_avg is 0.187? Select all that apply.",
+           answer("For every one unit increase in bty_avg , score increases by 0.187 on average."),
+           answer("The slope of the best fit line for score vs. bty_avg is positive.", correct = TRUE),
+           answer("As a bty_avg decreases, score also tends to decrease.", correct = TRUE),
+           answer("There is a strong positive linear relationship between score and bty_avg."),
+           allow_retry = TRUE,
+           random_answer_order = TRUE),   
+    # Q9
+    question("Q9) Provide the slope of the regression line for score ~ bty_avg. Round to 3 decimal places.", 
+           type = "learnr_text",
+           answer("0.067", correct = TRUE),
+           allow_retry = TRUE), 
+    # Q10
+    question("Q10) What is the fitted/predicted value for the 24th instructor in the evals_ch5 dataset when fitting the regression model score ~ bty_avg?", 
+           type = "learnr_text",
+           answer("4.25", correct = TRUE),
+           allow_retry = TRUE)
+)
+
+```
