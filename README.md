@@ -71,7 +71,7 @@ options(tutorial.event_recorder = ISDStutorials::isds_recorder)
 
 Next, add the `grade_server` function to a code chunk of type `context = "server"`
 
-```{r, context = "server"}
+```{r}
 # must supply a data.frame consisting of "question" and "points_possible" to rubric_list.
 # the question/exercise name is the code chunk name followed by a number, ignoring all spaces and/or "-" symbols
 rubric_list <- data.frame(question = c("Ex1", "Q1", "Q2", "Q3"),
