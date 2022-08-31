@@ -13,3 +13,4 @@ Rplots.pdf
 # Ignore these folders
 inst/doc/
 inst/tutorials/*/*.html
+docs
