@@ -83,6 +83,7 @@ grade_server("grade_out",
 ```
 
 Finally add your desired header components. The following adds a name, grade button, print button, and grade output.
+
 ```{r isds-header}
 # student name
 question_blank("Name: ___",
@@ -90,9 +91,9 @@ question_blank("Name: ___",
                               if (length(value) >= 1 ) { return(mark_as(TRUE)) }
                               return(mark_as(FALSE) )
                               }), 
-                style = "notes_question", 
-                correct = paste0(icons::ionicons("checkmark-outline") ),
-                incorrect = paste0(icons::ionicons("close-outline")),
+                style = "notes_question",
+                correct = paste0(fontawesome::fa("check") ),
+                incorrect = paste0(fontawesome::fa("xmark") ),
                 allow_retry = FALSE )
 # grade button and print button on same line as name
 bootstrapPage(
