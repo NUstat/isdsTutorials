@@ -6,38 +6,38 @@ tutorials:
 - name: 01_intro
   title: Tutorial Preface & Chapter1
 - name: 02_ggplot1
-  title: Tutorial Preface & Chapter1
+  title: Tutorial Preface & Chapter2a
 - name: 03_ggplot2
-  title: Tutorial Preface & Chapter1
+  title: Tutorial Preface & Chapter2b
 - name: 04_ggplot3
-  title: Tutorial Preface & Chapter1
+  title: Tutorial Preface & Chapter2c
 - name: 05_wrangling1
-  title: Tutorial Preface & Chapter1
+  title: Tutorial Preface & Chapter3a
 - name: 06_wrangling2
-  title: Tutorial Preface & Chapter1
+  title: Tutorial Preface & Chapter3b
 - name: 07_tidy
-  title: Tutorial Preface & Chapter1
+  title: Tutorial Preface & Chapter4
 - name: 08_regression1
-  title: Tutorial Preface & Chapter1
+  title: Tutorial Preface & Chapter5a
 - name: 09_regression2
-  title: Tutorial Preface & Chapter1
+  title: Tutorial Preface & Chapter5b
 - name: 10_regression3
-  title: Tutorial Preface & Chapter1
+  title: Tutorial Preface & Chapter6a
 - name: 11_regresson4
-  title: Tutorial Preface & Chapter1
+  title: Tutorial Preface & Chapter6b
 - name: 12_randomization
-  title: Tutorial Preface & Chapter1
+  title: Tutorial Preface & Chapter7
 - name: 13_generalizability
-  title: Tutorial Preface & Chapter1
+  title: Tutorial Preface & Chapter8
 - name: 14_sampling1
-  title: Tutorial Preface & Chapter1
+  title: Tutorial Preface & Chapter9a
 - name: 15_sampling2
-  title: Tutorial Preface & Chapter1
+  title: Tutorial Preface & Chapter9b
 - name: 16_sampling3
-  title: Tutorial Preface & Chapter1
+  title: Tutorial Preface & Chapter9c
 - name: 17_CI
-  title: Tutorial Preface & Chapter1
+  title: Tutorial Preface & Chapter10
 - name: 18_pvalues
-  title: Tutorial Preface & Chapter1
+  title: Tutorial Preface & Chapter11
 - name: 19_hypothesis
   title: Tutorial Preface & Chapter12
