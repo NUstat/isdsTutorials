@@ -1,0 +1,13 @@
+name: 01_intro
+title:
+username:
+account: amkuyper
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 6771977
+bundleId: 6256593
+url: https://northwestern-university.shinyapps.io/01_intro/
+when: 1661974346.69526
+lastSyncTime: 1661974346.69527
+asMultiple: FALSE
+asStatic: FALSE

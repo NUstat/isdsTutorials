@@ -1,0 +1,13 @@
+name: 17_CI
+title: 17_CI
+username:
+account: amkuyper
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 6891508
+bundleId: 6256958
+url: https://amkuyper.shinyapps.io/17_CI/
+when: 1661981387.13294
+lastSyncTime: 1661981387.13295
+asMultiple: FALSE
+asStatic: FALSE

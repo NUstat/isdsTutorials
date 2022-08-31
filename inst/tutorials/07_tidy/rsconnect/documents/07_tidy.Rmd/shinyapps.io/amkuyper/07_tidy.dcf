@@ -1,0 +1,13 @@
+name: 07_tidy
+title: 07_tidy
+username:
+account: amkuyper
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 6890669
+bundleId: 6256643
+url: https://amkuyper.shinyapps.io/07_tidy/
+when: 1661975158.11474
+lastSyncTime: 1661975158.11475
+asMultiple: FALSE
+asStatic: FALSE

@@ -2,7 +2,7 @@ url: https://nustat.github.io/ISDStutorials/
 template:
   bootstrap: 5
 
-tutorials:
-- name: 01_intro
-  title: Tutorial Preface & Chapter1
-  url: https://northwestern-university.shinyapps.io/01_intro/
+# tutorials:
+# - name: 01_intro
+#   title: Tutorial Preface & Chapter1
+#   url: https://northwestern-university.shinyapps.io/01_intro/
