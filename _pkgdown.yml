@@ -1,6 +1,14 @@
 url: https://nustat.github.io/ISDStutorials/
-template:
-  bootstrap: 5
+
+
+navbar:
+  left:
+  - text: Tutorials
+    href: tutorials/index.html
+  right:
+  - text: Introduction to Statistics and Data Science
+    href: https://nustat.github.io/intro-stat-ds/
+
 
 # tutorials:
 # - name: 01_intro

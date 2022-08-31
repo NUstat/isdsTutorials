@@ -59,7 +59,7 @@ After completing each tutorial, students can obtain their grade and download the
 
 To use ISDStutorials custom grade and print functions in one of your own learnr tutorials, start by loading ISDStutorials after learnr and gradethis in the setup chunk of your tutorial and adding the `isds_recorder` to the options:
 
-```{r setup}
+```{r}
 library(learnr)
 library(gradethis)
 library(ISDStutorials)
@@ -71,7 +71,7 @@ options(tutorial.event_recorder = ISDStutorials::isds_recorder)
 
 Next, add the `grade_server` function to a code chunk of type `context = "server"`
 
-```{r, context = "server"}
+```{r}
 # must supply a data.frame consisting of "question" and "points_possible" to rubric_list.
 # the question/exercise name is the code chunk name followed by a number, ignoring all spaces and/or "-" symbols
 rubric_list <- data.frame(question = c("Ex1", "Q1", "Q2", "Q3"),
@@ -83,16 +83,17 @@ grade_server("grade_out",
 ```
 
 Finally add your desired header components. The following adds a name, grade button, print button, and grade output.
-```{r isds-header}
+
+```{r}
 # student name
 question_blank("Name: ___",
                answer_fn(function(value){
                               if (length(value) >= 1 ) { return(mark_as(TRUE)) }
                               return(mark_as(FALSE) )
                               }), 
-                style = "notes_question", 
-                correct = paste0(icons::ionicons("checkmark-outline") ),
-                incorrect = paste0(icons::ionicons("close-outline")),
+                style = "notes_question",
+                correct = paste0(fontawesome::fa("check") ),
+                incorrect = paste0(fontawesome::fa("xmark") ),
                 allow_retry = FALSE )
 # grade button and print button on same line as name
 bootstrapPage(
