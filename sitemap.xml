@@ -1,51 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>/404.html</loc>
+    <loc>https://nustat.github.io/ISDStutorials/404.html</loc>
   </url>
   <url>
-    <loc>/LICENSE-text.html</loc>
+    <loc>https://nustat.github.io/ISDStutorials/LICENSE-text.html</loc>
   </url>
   <url>
-    <loc>/authors.html</loc>
+    <loc>https://nustat.github.io/ISDStutorials/authors.html</loc>
   </url>
   <url>
-    <loc>/index.html</loc>
+    <loc>https://nustat.github.io/ISDStutorials/index.html</loc>
   </url>
   <url>
-    <loc>/reference/grade_button_ui.html</loc>
+    <loc>https://nustat.github.io/ISDStutorials/reference/grade_button_ui.html</loc>
   </url>
   <url>
-    <loc>/reference/grade_output_ui.html</loc>
+    <loc>https://nustat.github.io/ISDStutorials/reference/grade_output_ui.html</loc>
   </url>
   <url>
-    <loc>/reference/grade_server.html</loc>
+    <loc>https://nustat.github.io/ISDStutorials/reference/grade_server.html</loc>
   </url>
   <url>
-    <loc>/reference/index.html</loc>
+    <loc>https://nustat.github.io/ISDStutorials/reference/index.html</loc>
   </url>
   <url>
-    <loc>/reference/isds_recorder.html</loc>
+    <loc>https://nustat.github.io/ISDStutorials/reference/isds_recorder.html</loc>
   </url>
   <url>
-    <loc>/reference/knit_print.html</loc>
+    <loc>https://nustat.github.io/ISDStutorials/reference/knit_print.html</loc>
   </url>
   <url>
-    <loc>/reference/print_ui.html</loc>
+    <loc>https://nustat.github.io/ISDStutorials/reference/print_ui.html</loc>
   </url>
   <url>
-    <loc>/reference/question_blank.html</loc>
+    <loc>https://nustat.github.io/ISDStutorials/reference/question_blank.html</loc>
   </url>
   <url>
-    <loc>/reference/question_matching.html</loc>
+    <loc>https://nustat.github.io/ISDStutorials/reference/question_matching.html</loc>
   </url>
   <url>
-    <loc>/reference/question_multidrop.html</loc>
+    <loc>https://nustat.github.io/ISDStutorials/reference/question_multidrop.html</loc>
   </url>
   <url>
-    <loc>/reference/question_wordbank.html</loc>
+    <loc>https://nustat.github.io/ISDStutorials/reference/question_wordbank.html</loc>
   </url>
   <url>
-    <loc>/reference/quiz_notes.html</loc>
+    <loc>https://nustat.github.io/ISDStutorials/reference/quiz_notes.html</loc>
+  </url>
+  <url>
+    <loc>https://nustat.github.io/ISDStutorials/tutorials/01_intro.html</loc>
+  </url>
+  <url>
+    <loc>https://nustat.github.io/ISDStutorials/tutorials/index.html</loc>
   </url>
 </urlset>
