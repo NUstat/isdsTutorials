@@ -59,7 +59,7 @@ After completing each tutorial, students can obtain their grade and download the
 
 To use ISDStutorials custom grade and print functions in one of your own learnr tutorials, start by loading ISDStutorials after learnr and gradethis in the setup chunk of your tutorial and adding the `isds_recorder` to the options:
 
-```{r setup}
+```{r}
 library(learnr)
 library(gradethis)
 library(ISDStutorials)
@@ -84,7 +84,7 @@ grade_server("grade_out",
 
 Finally add your desired header components. The following adds a name, grade button, print button, and grade output.
 
-```{r isds-header}
+```{r}
 # student name
 question_blank("Name: ___",
                answer_fn(function(value){
