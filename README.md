@@ -26,7 +26,7 @@ The tutorials are named sequentially and correspond to the recommended material 
 | **07_tidy** | Chapter 4 |     |**17_ci** | Chapter 10 |
 | **08_regression1** | Chapter 5.0 - 5.1 |     |**18_pvalues** | Chapter 11 |
 | **09_regression2** | Chapter 5.2 - 5.4 |     |**19_hypothesis** | Chapter 12 |
-| **10_regression3** | Chapter 6.2 - 6.4 |     
+| **10_regression3** | Chapter 6.2 - 6.4 |     |**isds_functions** | Educator Resource |
 
 
 # Running tutorials
