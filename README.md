@@ -8,7 +8,6 @@ Install the latest version of ISDStutorials from GitHub with the remotes package
 
 ```{r}
 # install.packages("remotes")
-# remotes::install_github("rstudio/gradethis")
 remotes::install_github("NUstat/ISDStutorials", dependencies = TRUE)
 ```
 
@@ -27,7 +26,7 @@ The tutorials are named sequentially and correspond to the recommended material 
 | **07_tidy** | Chapter 4 |     |**17_ci** | Chapter 10 |
 | **08_regression1** | Chapter 5.0 - 5.1 |     |**18_pvalues** | Chapter 11 |
 | **09_regression2** | Chapter 5.2 - 5.4 |     |**19_hypothesis** | Chapter 12 |
-| **10_regression3** | Chapter 6.2 - 6.4 |     |**20_conclusion** | Chapter 13 |
+| **10_regression3** | Chapter 6.2 - 6.4 |     
 
 
 # Running tutorials
@@ -73,7 +72,7 @@ Next, add the `grade_server` function to a code chunk of type `context = "server
 
 ```{r}
 # must supply a data.frame consisting of "question" and "points_possible" to rubric_list.
-# the question/exercise name is the code chunk name followed by a number, ignoring all spaces and/or "-" symbols
+# the question/exercise name is the code chunk name followed by a number, ignoring all spaces and symbols
 rubric_list <- data.frame(question = c("Ex1", "Q1", "Q2", "Q3"),
                           points_possible = rep(1, 4))
 
