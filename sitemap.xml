@@ -52,7 +52,58 @@
     <loc>https://nustat.github.io/ISDStutorials/reference/quiz_notes.html</loc>
   </url>
   <url>
-    <loc>https://nustat.github.io/ISDStutorials/tutorials/01_intro.html</loc>
+    <loc>https://nustat.github.io/ISDStutorials/tutorials/02_ggplot1.html</loc>
+  </url>
+  <url>
+    <loc>https://nustat.github.io/ISDStutorials/tutorials/03_ggplot2.html</loc>
+  </url>
+  <url>
+    <loc>https://nustat.github.io/ISDStutorials/tutorials/04_ggplot3.html</loc>
+  </url>
+  <url>
+    <loc>https://nustat.github.io/ISDStutorials/tutorials/05_wrangling1.html</loc>
+  </url>
+  <url>
+    <loc>https://nustat.github.io/ISDStutorials/tutorials/06_wrangling2.html</loc>
+  </url>
+  <url>
+    <loc>https://nustat.github.io/ISDStutorials/tutorials/07_tidy.html</loc>
+  </url>
+  <url>
+    <loc>https://nustat.github.io/ISDStutorials/tutorials/08_regression1.html</loc>
+  </url>
+  <url>
+    <loc>https://nustat.github.io/ISDStutorials/tutorials/09_regression2.html</loc>
+  </url>
+  <url>
+    <loc>https://nustat.github.io/ISDStutorials/tutorials/10_regression3.html</loc>
+  </url>
+  <url>
+    <loc>https://nustat.github.io/ISDStutorials/tutorials/11_regression4.html</loc>
+  </url>
+  <url>
+    <loc>https://nustat.github.io/ISDStutorials/tutorials/12_randomization.html</loc>
+  </url>
+  <url>
+    <loc>https://nustat.github.io/ISDStutorials/tutorials/13_generalizability.html</loc>
+  </url>
+  <url>
+    <loc>https://nustat.github.io/ISDStutorials/tutorials/14_sampling1.html</loc>
+  </url>
+  <url>
+    <loc>https://nustat.github.io/ISDStutorials/tutorials/15_sampling2.html</loc>
+  </url>
+  <url>
+    <loc>https://nustat.github.io/ISDStutorials/tutorials/16_sampling3.html</loc>
+  </url>
+  <url>
+    <loc>https://nustat.github.io/ISDStutorials/tutorials/17_CI.html</loc>
+  </url>
+  <url>
+    <loc>https://nustat.github.io/ISDStutorials/tutorials/18_pvalues.html</loc>
+  </url>
+  <url>
+    <loc>https://nustat.github.io/ISDStutorials/tutorials/19_hypothesis.html</loc>
   </url>
   <url>
     <loc>https://nustat.github.io/ISDStutorials/tutorials/index.html</loc>
