@@ -63,8 +63,12 @@ Creates a multiple drop-down tutorial quiz question.
 Each drop-down will have the same list of options that correspond to a vector of questions.
 Each drop-down only allow only one selection.
 }
-\seealso{
-Other Interactive Questions: 
-\code{\link{quiz_notes}()}
+\examples{
+question_multidrop(
+  "True or False",
+  choices = c("1+1 = 2", "4*2 =16", "7-5 =2"),
+  learnr::answer(c("True", "False", "True"), correct = TRUE),
+  allow_retry = TRUE
+)
+
 }
-\concept{Interactive Questions}

@@ -21,7 +21,14 @@
 #'
 #' @return A custom `learnr` question, with `type = blank`.
 #'
-# @return Returns a learnr question of type `"blank"`.
+#' @examples
+#' question_blank(
+#'   "3 + ___ = 5 <br/>
+#'    ___ - 4 = 4",
+#'   learnr::answer("2", correct = TRUE),
+#'   learnr::answer("8", correct = TRUE),
+#'   allow_retry = TRUE
+#' )
 #'
 #' @export
 question_blank <- function(
@@ -382,139 +389,144 @@ question_is_correct.blank <- function(question, value, ...) {
 #' @export
 #' @seealso question_blank
 question_ui_completed.blank <- function(question, value, ...) {
-  # TODO display correct values with X or √ compared to best match
-  # TODO DON'T display correct values (listen to an option?)
-
-  #split question by blanks
-  split <- unlist(stringr::str_split(question$question, pattern = "___") )
-
-  pos <- NULL
-  for(i in 1:length(split)){
-    if(i < length(split)){
-      pos <- c(pos, split[i], "___")
-    }
-    else{
-      pos <- c(pos, split[i])
-    }
-  }
-  pos <- as.list(pos)
-
-  #now separate out the line breaks
-  for(i in 1:length(pos)){
-    if(stringr::str_detect(pos[i], "<br/>")){
-      tmp <- unlist(stringr::str_split(pos[i], pattern = "<br/>") )
-      #tmp[tmp==""] <- "<br/>"
-      new <- NULL
-      for(j in 1:length(tmp)){
-        if(j < length(tmp)){
-          new <- c(new, tmp[j], "<br/>")
-        }else{
-          new <- c(new, tmp[j])
-        }
-      }
-      pos[[i]] <- new
-    }
-  }
-
-  pos <- unlist(pos)
-
-  where_blank <- vector()
-  j = 1
-  for(i in 1:length(pos)){
-    if(pos[i] == "___"){
-      where_blank[i] = j
-      j = j+1
-    }else{
-      where_blank[i] = 0
-    }
-  }
-
-  num_blank = length(split)-1
-  num_pos = length(pos)
-
-  # set output to previous answers
-  if (!is.null(value)) {
-    ans <- as.character( unlist(value) )
-  } else {
-    ans <- rep("", num_blank)
-  }
-
-  # set unique ids
-  # pretty close to unique id
-  rand = paste0(sample.int(100,1), sample.int(100,1) )
-  # set input and bucket ids
-  input_ids = lapply(seq(1,num_blank), function(x) paste0("blank", rand, x) )
-  css_ids = lapply(seq(1,num_blank), function(x) paste0("text", rand, x) )
-  other_ids = lapply(seq(1,num_pos), function(x) paste0("other", rand, x) )
-  group_ids = paste0("group", rand)
-  class_id = paste0("class",rand)
-
-  learnr::disable_all_tags(
-
-    bootstrapPage(
-      tags$style(
-        ".container {
-      display: flex;
-      flex-wrap: wrap;
-      flex-direction: row;
-      width: 100%;
-      padding: 3px;
-    }") ,
-      tags$style(
-        ".break {
-      flex-basis: 100%;
-      height: 0;
-      }"),
-      tags$style(
-        ".item {
-      display: flex;
-      flex-wrap: wrap;
-      flex-direction: row;
-      padding: 3px;
-    }"),
-
-      div(id = question$ids$answer,
-          class = "container",
-
-          lapply(seq(1,num_pos), function(x)
-            # could not easily make Shiny.setInputValue a function of numBlanks
-            # so setting it as a condition with max blanks of 5
-            if(num_blank == 1 && pos[x] == "___"){
-              tags$div(
-                class = "item",
-                style="display:inline-block",
-                id = css_ids[where_blank[x]],
-                tags$input(type = "text",
-                           id = paste0(input_ids[where_blank[x]]),
-                           class = class_id,
-                           value = ans[where_blank[x]],
-                           onkeyup = htmlwidgets::JS(
-                             paste0("Shiny.setInputValue('",question$ids$answer,"',
-                     [", toString(lapply(input_ids, function(z)
-                       paste0("document.getElementById('",z,"').value")
-                     ) ),
-                     "] )")
-                           ) #end JS
-                )
-              )
-            }else if(pos[x] == "<br/>"){
-              div(
-                class = "break",
-                #style="display:inline-block",
-                id = other_ids[x]
-              )
-            }else{
-              div(
-                class = "item",
-                id = other_ids[x],
-                HTML(pos[x] )
-              )
-            }
-          ) #end lapply
-      ) #ends bucket div group
-
-    ) #end bootstrap page
-
-  ) #end disable all tags
-
+disable_all_tags(
+  question_ui_initialize(question, value, ...)
+)
 }
+# question_ui_completed.blank <- function(question, value, ...) {
+#   # TODO display correct values with X or √ compared to best match
+#   # TODO DON'T display correct values (listen to an option?)
+#
+#   #split question by blanks
+#   split <- unlist(stringr::str_split(question$question, pattern = "___") )
+#
+#   pos <- NULL
+#   for(i in 1:length(split)){
+#     if(i < length(split)){
+#       pos <- c(pos, split[i], "___")
+#     }
+#     else{
+#       pos <- c(pos, split[i])
+#     }
+#   }
+#   pos <- as.list(pos)
+#
+#   #now separate out the line breaks
+#   for(i in 1:length(pos)){
+#     if(stringr::str_detect(pos[i], "<br/>")){
+#       tmp <- unlist(stringr::str_split(pos[i], pattern = "<br/>") )
+#       #tmp[tmp==""] <- "<br/>"
+#       new <- NULL
+#       for(j in 1:length(tmp)){
+#         if(j < length(tmp)){
+#           new <- c(new, tmp[j], "<br/>")
+#         }else{
+#           new <- c(new, tmp[j])
+#         }
+#       }
+#       pos[[i]] <- new
+#     }
+#   }
+#
+#   pos <- unlist(pos)
+#
+#   where_blank <- vector()
+#   j = 1
+#   for(i in 1:length(pos)){
+#     if(pos[i] == "___"){
+#       where_blank[i] = j
+#       j = j+1
+#     }else{
+#       where_blank[i] = 0
+#     }
+#   }
+#
+#   num_blank = length(split)-1
+#   num_pos = length(pos)
+#
+#   # set output to previous answers
+#   if (!is.null(value)) {
+#     ans <- as.character( unlist(value) )
+#   } else {
+#     ans <- rep("", num_blank)
+#   }
+#
+#   # set unique ids
+#   # pretty close to unique id
+#   rand = paste0(sample.int(100,1), sample.int(100,1) )
+#   # set input and bucket ids
+#   input_ids = lapply(seq(1,num_blank), function(x) paste0("blank", rand, x) )
+#   css_ids = lapply(seq(1,num_blank), function(x) paste0("text", rand, x) )
+#   other_ids = lapply(seq(1,num_pos), function(x) paste0("other", rand, x) )
+#   group_ids = paste0("group", rand)
+#   class_id = paste0("class",rand)
+#
+#   learnr::disable_all_tags(
+#
+#     bootstrapPage(
+#       tags$style(
+#         ".container {
+#       display: flex;
+#       flex-wrap: wrap;
+#       flex-direction: row;
+#       width: 100%;
+#       padding: 3px;
+#     }") ,
+#       tags$style(
+#         ".break {
+#       flex-basis: 100%;
+#       height: 0;
+#       }"),
+#       tags$style(
+#         ".item {
+#       display: flex;
+#       flex-wrap: wrap;
+#       flex-direction: row;
+#       padding: 3px;
+#     }"),
+#
+#       div(id = question$ids$answer,
+#           class = "container",
+#
+#           lapply(seq(1,num_pos), function(x)
+#             # could not easily make Shiny.setInputValue a function of numBlanks
+#             # so setting it as a condition with max blanks of 5
+#             if(num_blank == 1 && pos[x] == "___"){
+#               tags$div(
+#                 class = "item",
+#                 style="display:inline-block",
+#                 id = css_ids[where_blank[x]],
+#                 tags$input(type = "text",
+#                            id = paste0(input_ids[where_blank[x]]),
+#                            class = class_id,
+#                            value = ans[where_blank[x]],
+#                            onkeyup = htmlwidgets::JS(
+#                              paste0("Shiny.setInputValue('",question$ids$answer,"',
+#                      [", toString(lapply(input_ids, function(z)
+#                        paste0("document.getElementById('",z,"').value")
+#                      ) ),
+#                      "] )")
+#                            ) #end JS
+#                 )
+#               )
+#             }else if(pos[x] == "<br/>"){
+#               div(
+#                 class = "break",
+#                 #style="display:inline-block",
+#                 id = other_ids[x]
+#               )
+#             }else{
+#               div(
+#                 class = "item",
+#                 id = other_ids[x],
+#                 HTML(pos[x] )
+#               )
+#             }
+#           ) #end lapply
+#       ) #ends bucket div group
+#
+#     ) #end bootstrap page
+#
+#   ) #end disable all tags
+#
+# }

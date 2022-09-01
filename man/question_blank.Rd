@@ -73,3 +73,13 @@ A blank is created by typing 3 underscores.
 The text utilizes HTML for further display customization, which can be used
 to insert an image or line break.
 }
+\examples{
+question_blank(
+  "3 + ___ = 5 <br/>
+   ___ - 4 = 4",
+  learnr::answer("2", correct = TRUE),
+  learnr::answer("8", correct = TRUE),
+  allow_retry = TRUE
+)
+
+}

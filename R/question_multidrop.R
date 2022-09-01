@@ -18,7 +18,14 @@
 #'
 #' @return A custom `learnr` question, with `type = multidrop`.
 #'
-#' @family Interactive Questions
+#' @examples
+#' question_multidrop(
+#'   "True or False",
+#'   choices = c("1+1 = 2", "4*2 =16", "7-5 =2"),
+#'   learnr::answer(c("True", "False", "True"), correct = TRUE),
+#'   allow_retry = TRUE
+#' )
+#'
 #' @export
 question_multidrop <- function(
     text,

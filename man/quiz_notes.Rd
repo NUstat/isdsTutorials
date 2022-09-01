@@ -20,8 +20,5 @@ who developed a great and adaptable teaching tool.
 }
 \seealso{
 quiz
-
-Other Interactive Questions: 
-\code{\link{question_multidrop}()}
 }
 \concept{Interactive Questions}

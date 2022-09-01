@@ -43,7 +43,6 @@
 #' question_wordbank(
 #'   "Drag the numbers to match the corresponding letter's position in the alphabet.",
 #'   choices = c("C", "B", "A", "D"),
-#'   wordbank = c("1", "2", "3", "4"),
 #'   learnr::answer(c("3", "2", "1", "4"), correct = TRUE),
 #'   allow_retry = TRUE
 #' )
