@@ -54,6 +54,8 @@ After completing each tutorial, students can obtain their grade and download the
 - Question reorder matching: `question_matching`
 - Question multiple drop downs: `question_multidrop`
 
+For detailed examples and explanations of the additional features run the "isds_functions" tutorial using the command `learnr::run_tutorial("isds_functions", package = "ISDStutorials")`
+
 # ISDS setup
 
 To use ISDStutorials custom grade and print functions in one of your own learnr tutorials, start by loading ISDStutorials after learnr and gradethis in the setup chunk of your tutorial and adding the `isds_recorder` to the options:
