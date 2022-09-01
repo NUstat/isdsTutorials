@@ -206,6 +206,34 @@ for the text input, otherwise the default input element is a single-line
 to insert an image or line break.</p>
     </div>
 
+    <div id="ref-examples">
+    <h2>Examples</h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">question_blank</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="st">"3 + ___ = 5 &lt;br/&gt;</span></span></span>
+<span class="r-in"><span><span class="st">   ___ - 4 = 4"</span>,</span></span>
+<span class="r-in"><span>  <span class="fu">learnr</span><span class="fu">::</span><span class="fu"><a href="https://pkgs.rstudio.com/learnr/reference/answer.html" class="external-link">answer</a></span><span class="op">(</span><span class="st">"2"</span>, correct <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="fu">learnr</span><span class="fu">::</span><span class="fu"><a href="https://pkgs.rstudio.com/learnr/reference/answer.html" class="external-link">answer</a></span><span class="op">(</span><span class="st">"8"</span>, correct <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  allow_retry <span class="op">=</span> <span class="cn">TRUE</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Question: "3 + ___ = 5 &lt;br/&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    ___ - 4 = 4"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   type: "blank"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   allow_retry: TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   random_answer_order: FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   answers:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     ✔: "2"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     ✔: "8"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   messages:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     correct: "Correct!"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     incorrect: "Incorrect"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     try_again: "Incorrect"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Options:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     placeholder: "Enter answer here..."</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     trim: TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     style: "tutorial_question" </span>
+<span class="r-in"><span></span></span>
+</code></pre></div>
+    </div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top"><h2 data-toc-skip>Contents</h2>
