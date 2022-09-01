@@ -131,7 +131,6 @@
 </h1>
 <p>Install the latest version of ISDStutorials from GitHub with the remotes package.</p>
 <pre class="{r}"><code><span><span class="co"># install.packages("remotes")</span></span>
-<span><span class="co"># remotes::install_github("rstudio/gradethis")</span></span>
 <span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"NUstat/ISDStutorials"</span>, dependencies <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="section level1">
@@ -214,8 +213,8 @@
 <td><strong>10_regression3</strong></td>
 <td>Chapter 6.2 - 6.4</td>
 <td></td>
-<td><strong>20_conclusion</strong></td>
-<td>Chapter 13</td>
+<td></td>
+<td></td>
 </tr>
 </tbody>
 </table>
@@ -265,7 +264,7 @@
 <span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>tutorial.event_recorder <span class="op">=</span> <span class="fu">ISDStutorials</span><span class="fu">::</span><span class="va"><a href="reference/isds_recorder.html">isds_recorder</a></span><span class="op">)</span></span></code></pre>
 <p>Next, add the <code>grade_server</code> function to a code chunk of type <code>context = "server"</code></p>
 <pre class="{r}"><code><span><span class="co"># must supply a data.frame consisting of "question" and "points_possible" to rubric_list.</span></span>
-<span><span class="co"># the question/exercise name is the code chunk name followed by a number, ignoring all spaces and/or "-" symbols</span></span>
+<span><span class="co"># the question/exercise name is the code chunk name followed by a number, ignoring all spaces and symbols</span></span>
 <span><span class="va">rubric_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>question <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Ex1"</span>, <span class="st">"Q1"</span>, <span class="st">"Q2"</span>, <span class="st">"Q3"</span><span class="op">)</span>,</span>
 <span>                          points_possible <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
