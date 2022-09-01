@@ -1,4 +1,4 @@
-#' Multiple drop-down question
+#' Multiple drop-down question for learnr tutorials
 #'
 #' @description
 #' Creates a multiple drop-down tutorial quiz question.

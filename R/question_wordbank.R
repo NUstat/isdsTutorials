@@ -1,4 +1,4 @@
-#' Word bank for learnr tutorials.
+#' Word bank question for learnr tutorials
 #'
 #' The following function was modified from the sortable package, available at
 #' https://github.com/rstudio/sortable and a solution thread by "stefan's on Jun 01, 2022".

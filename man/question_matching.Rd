@@ -2,7 +2,7 @@
 % Please edit documentation in R/question_matching.R
 \name{question_matching}
 \alias{question_matching}
-\title{Matching order question for learnr tutorials.}
+\title{Matching order question for learnr tutorials}
 \usage{
 question_matching(
   text,

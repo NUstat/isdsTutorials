@@ -2,7 +2,7 @@
 % Please edit documentation in R/question_blank.R
 \name{question_blank}
 \alias{question_blank}
-\title{Fill in the blank question for learnr tutorials.}
+\title{Fill in the blank question for learnr tutorials}
 \usage{
 question_blank(
   text,

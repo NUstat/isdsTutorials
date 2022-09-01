@@ -1,4 +1,4 @@
-#' Matching order question for learnr tutorials.
+#' Matching order question for learnr tutorials
 #'
 #' The following function was modified from the sortable package, available at
 #' https://github.com/rstudio/sortable. Many thanks to the sortable author

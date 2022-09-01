@@ -2,7 +2,7 @@
 % Please edit documentation in R/question_multidrop.R
 \name{question_multidrop}
 \alias{question_multidrop}
-\title{Multiple drop-down question}
+\title{Multiple drop-down question for learnr tutorials}
 \usage{
 question_multidrop(
   text,

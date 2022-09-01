@@ -2,7 +2,7 @@
 % Please edit documentation in R/question_wordbank.R
 \name{question_wordbank}
 \alias{question_wordbank}
-\title{Word bank for learnr tutorials.}
+\title{Word bank question for learnr tutorials}
 \usage{
 question_wordbank(
   text,
