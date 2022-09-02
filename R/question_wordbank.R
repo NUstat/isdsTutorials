@@ -65,7 +65,6 @@ question_wordbank <- function(
     options = sortable::sortable_options()
 ) {
   ISDStutorials:::wordbank_question(
-  #wordbank_question(
     text = text,
     ...,
     choices = choices,
@@ -195,7 +194,7 @@ question_ui_initialize.wordbank <- function(question, value, ...) {
   } else {
     ans <- rep(NULL, num)
   }
-  # need to add randomization to question init
+  # need to eventually add randomization to question init
   # or it will randomize everytime
   # shuffle wordbank options either ordered or random
   options <- question$wordbank
@@ -269,7 +268,6 @@ question_ui_initialize.wordbank <- function(question, value, ...) {
                width = 9,
                HTML(question$choices[x])
              )
-               #p(paste0(question$choices[x]) ) )
            ) #ends fixed row
          ) #ends lapply
     ), #ends bucket div group
@@ -415,7 +413,6 @@ question_ui_completed.wordbank <- function(question, value, ...) {
                ),
                column(
                  width = 9,
-                 #p(paste0(question$choices[x]) )
                  HTML(question$choices[x])
                  )
              ) #ends fixed row

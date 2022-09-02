@@ -199,46 +199,6 @@ question_ui_initialize.matching <- function(question, value, ...) {
   )
 
 
-  # return the rank_list htmlwidget
-  # rank_list(
-  #   text = question$question,
-  #   input_id = question$ids$answer,
-  #   labels = labels,
-  #   options = question$options
-  # )
-}
-
-#' @export
-#' @seealso question_matching
-question_ui_completed.matching <- function(question, value, ...) {
-  # TODO display correct values with X or √ compared to best match
-  # TODO DON'T display correct values (listen to an option?)
-  learnr::disable_all_tags(
-    sortable::bucket_list(
-      header = HTML(paste0("<b>",question$question,"</b>") ),
-      sortable::add_rank_list(
-        text = NULL,
-        labels = question$choices,
-        options = sortable::sortable_options(draggable = FALSE)
-      ),
-      sortable::add_rank_list(
-        text = NULL,
-        input_id = question$ids$answer,
-        labels = value,
-        options = sortable::sortable_options(disabled = TRUE)
-      ),
-      orientation = "horizontal"
-    )
-    # rank_list(
-    #   text = question$question,
-    #   input_id = question$ids$answer,
-    #   labels = value,
-    #   options = modifyList(
-    #     question$options,
-    #     sortable::sortable_options(disabled = TRUE)
-    #   )
-    # )
-  )
 }
 
 #' @export
@@ -264,7 +224,6 @@ question_ui_try_again.matching <- function(question, value, ...) {
   )
 }
 
-
 #' @export
 #' @seealso question_matching
 question_is_correct.matching <- function(question, value, ...) {
@@ -277,4 +236,29 @@ question_is_correct.matching <- function(question, value, ...) {
   }
   # no match found. not correct
   learnr::mark_as(FALSE, NULL)
+}
+
+
+#' @export
+#' @seealso question_matching
+question_ui_completed.matching <- function(question, value, ...) {
+  # TODO display correct values with X or √ compared to best match
+  # TODO DON'T display correct values (listen to an option?)
+  learnr::disable_all_tags(
+    sortable::bucket_list(
+      header = HTML(paste0("<b>",question$question,"</b>") ),
+      sortable::add_rank_list(
+        text = NULL,
+        labels = question$choices,
+        options = sortable::sortable_options(draggable = FALSE)
+      ),
+      sortable::add_rank_list(
+        text = NULL,
+        input_id = question$ids$answer,
+        labels = value,
+        options = sortable::sortable_options(disabled = TRUE)
+      ),
+      orientation = "horizontal"
+    )
+  )
 }

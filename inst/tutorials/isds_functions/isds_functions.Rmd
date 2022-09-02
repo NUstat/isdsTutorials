@@ -46,7 +46,9 @@ grade_server("grade_out",
 Next we need to set up the "rubric_list" in the `grade_server()` function. This must be in a code chunk with `context = "server"`.
 The rubric_list should be a data frame consisting of two variables `question` and `points_possible`.
 
-The name of each question is important. The name will be the name of the code chunk header with the exercise/question followed by a number starting at 1. In the following questions you will see that I named the code chunks "A", "B", "C", ... for simplicity. If you want different questions to be worth more or less points, you can specify that in the `points_possible` vector.
+The name of each question is important. The name will be the name of the code chunk header with the exercise/question followed by a number starting at 1. In the following questions you will see that I named the code chunks "A", "B", "C", ... for simplicity. Note if you do NOT have the question wrapped in the `quiz()` function then the label will not have a number after. 
+
+If you want different questions to be worth more or less points, you can specify that in the `points_possible` vector.
 
 `{r, context = "server"}`
 ```{r, eval = FALSE, echo = TRUE}
@@ -59,7 +61,7 @@ grade_server("grade_out",
 
 <br>
 
-Then we can output the tutorial header. I recomment putting this before any sections so that it will always be visible no matter what part of the tutorial the student is on. The `grade_server()`, `grade_button_ui`, and `grade_output_ui` should all have the same `id`.
+Then we can output the tutorial header. I recommend putting this before any sections so that it will always be visible no matter what part of the tutorial the student is on. The `grade_server()`, `grade_button_ui`, and `grade_output_ui` should all have the same `id`. For example, below they are all named "grade_out".
 
 ```{r isds-header, eval = FALSE, echo = TRUE}
 # This chunk will output a spot for the student name, grade button, print button, and display the grade output
@@ -100,7 +102,8 @@ question_blank("Name: ___",
           correct = paste0(fontawesome::fa("check") ),
           incorrect = paste0(fontawesome::fa("xmark") ),
           allow_retry = FALSE )
-# have name, grade button, and print button on same line
+# add grade button and print button
+# the bootrapPage and div puts everything on the same line (not necessary but looks nicer)
 bootstrapPage(
      div(style="display:inline-block",
          grade_button_ui("grade_out") ),
@@ -119,8 +122,7 @@ Once you are finished:
 
 -   Click the 'grade tutorial' button at the top to retrieve your score.
 -   Click the 'pdf' button to save the document as a pdf, you must have the tutorial open in a browser window for this button to work.
--   Submit the completed pdf to a learning management system like Canvas or Gradescope.
-
+-   Submit the completed pdf to your learning management system, like Canvas or Gradescope.
 
 
 ## question_blank
@@ -131,7 +133,7 @@ You must provide the correct answers, using the `learnr` `answer()` function. Th
 
 The student must have all blanks in a question correct in order for the question to be marked correct.
 
-Note I named the code chunk "A". So the first question is labeled "A1" and the second is "A2" in the grade output.
+Note: I named the code chunk "A". So the first question is labeled "A1" and the second is "A2" in the grade output.
 
 `{r A}`
 ```{r A, echo = TRUE}
@@ -171,11 +173,13 @@ To insert a question with rearrange matching into a `learnr` quiz, use `question
 
 `{r B}`
 ```{r B, echo = TRUE}
-question_matching(
-  "Rearrange the numbers to match the corresponding letter's position in the alphabet.",
-  choices = c("A", "B", "C", "D"),
-  learnr::answer(c("1", "2", "3", "4"), correct = TRUE),
-  allow_retry = TRUE 
+quiz(caption = NULL,
+    question_matching(
+      "Rearrange the numbers to match the corresponding letter's position in the alphabet.",
+      choices = c("A", "B", "C", "D"),
+      learnr::answer(c("1", "2", "3", "4"), correct = TRUE),
+      allow_retry = TRUE 
+    )
 )
 ```
 
@@ -198,12 +202,14 @@ ggplot(mpg, aes(cty, hwy, color = drv))+
 
 `{r C}`
 ```{r C, echo = TRUE}
-question_multidrop("The plot above uses the mpg dataset. Match each aesthetic with the variable that was mapped to it.",
-  choices = c("y", "x",  "color", "size"),
-       arrange = "ordered",
-       box = 3,
-       answer(c("hwy", "cty",  "drv", "not mapped"), correct = TRUE),
-       allow_retry = TRUE)
+quiz(caption = NULL,
+    question_multidrop("The plot above uses the mpg dataset. Match each aesthetic with the variable that was mapped to it.",
+      choices = c("y", "x",  "color", "size"),
+           arrange = "ordered",
+           box = 3,
+           answer(c("hwy", "cty",  "drv", "not mapped"), correct = TRUE),
+           allow_retry = TRUE)
+)
 ```
 
 
@@ -211,13 +217,15 @@ question_multidrop("The plot above uses the mpg dataset. Match each aesthetic wi
 
 `{r D}`
 ```{r D, echo = TRUE}
-question_multidrop("The plot above uses the mpg dataset. Match each aesthetic with the variable that was mapped to it.",
-  choices = c("y", "x",  "color", "size"),
-  wordbank = c("mpg", "hwy", "cty", "drv", "cyl", "not mapped"),
-       arrange = "ordered",
-       box = 3,
-       answer(c("hwy", "cty",  "drv", "not mapped"), correct = TRUE),
-       allow_retry = TRUE)
+quiz(caption = NULL,
+    question_multidrop("The plot above uses the mpg dataset. Match each aesthetic with the variable that was mapped to it.",
+      choices = c("y", "x",  "color", "size"),
+      wordbank = c("mpg", "hwy", "cty", "drv", "cyl", "not mapped"),
+           arrange = "ordered",
+           box = 3,
+           answer(c("hwy", "cty",  "drv", "not mapped"), correct = TRUE),
+           allow_retry = TRUE)
+)
 ```
 
 ## question_wordbank
@@ -230,12 +238,14 @@ To insert a wordbank question into a `learnr` quiz, use `question_wordbank()`.
 
 `{r E}`
 ```{r E, echo = TRUE}
-question_wordbank("Match the following words with their definitions.",
-        choices = c("The center of a list of numbers", 
-                    "The sum of a list of numbers, divided by the number of elements in the list.",  
-                    "The most common (frequent) value."),
-        answer(c("median", "mean", "mode"), correct = TRUE), 
-        allow_retry = TRUE )
+quiz(caption = NULL,
+    question_wordbank("Match the following words with their definitions.",
+            choices = c("The center of a list of numbers", 
+                        "The sum of a list of numbers, divided by the number of elements in the list.",  
+                        "The most common (frequent) value."),
+            answer(c("median", "mean", "mode"), correct = TRUE), 
+            allow_retry = TRUE )
+)
 ```
 
 
@@ -243,25 +253,31 @@ question_wordbank("Match the following words with their definitions.",
 
 `{r F}`
 ```{r F, echo = TRUE}
-question_wordbank("Match the following words with their definitions.",
-        choices = c("The center of a list of numbers", 
-                    "The sum of a list of numbers, divided by the number of elements in the list",  
-                    "The most common (frequent) value"),
-        wordbank = c("mean", "standard deviation", "median", "mode", "IQR", "range"),
-        answer(c("median", "mean", "mode"), correct = TRUE), 
-        allow_retry = TRUE )
+quiz(caption = NULL,
+    question_wordbank("Match the following words with their definitions.",
+            choices = c("The center of a list of numbers", 
+                        "The sum of a list of numbers, divided by the number of elements in the list",  
+                        "The most common (frequent) value"),
+            wordbank = c("mean", "standard deviation", "median", "mode", "IQR", "range"),
+            answer(c("median", "mean", "mode"), correct = TRUE), 
+            allow_retry = TRUE )
+)
 ```
 
 If you would like the `wordbank` to appear in alphabetical order add the argument `arrange = "ordered"`. This can be useful so the `wordbank` does not accidentally randomly appear in the correct answer order if there are very few choices.
 
 `{r G}`
 ```{r G, echo = TRUE}
-question_wordbank("Match the following words with their definitions.",
-        choices = c("The center of a list of numbers",
-                    "The sum of a list of numbers, divided by the number of elements in the list", 
-                    "The most common (frequent) value"),
-        wordbank = c("mean", "standard deviation", "median", "mode", "IQR", "range"),
-        arrange = "ordered",
-        answer(c("median", "mean", "mode"), correct = TRUE), 
-        allow_retry = TRUE )
+quiz(caption = NULL,
+    question_wordbank("Match the following words with their definitions.",
+            choices = c("The center of a list of numbers",
+                        "The sum of a list of numbers, divided by the number of elements in the list", 
+                        "The most common (frequent) value"),
+            wordbank = c("mean", "standard deviation", "median", "mode", "IQR", "range"),
+            arrange = "ordered",
+            answer(c("median", "mean", "mode"), correct = TRUE), 
+            allow_retry = TRUE )
+)
 ```
+
+

@@ -153,7 +153,6 @@ blank_question <- function(
     seed = learnr:::random_seed(),
     options = options
   )
-  #class(ret) <- c(type, "notes_question")
   class(ret) <- c(type, "tutorial_question")
   if(options$style == "notes_question"){
     class(ret) <- c(type, "notes_question")
@@ -255,8 +254,6 @@ question_ui_initialize.blank <- function(question, value, ...) {
         class = "container",
 
         lapply(seq(1,num_pos), function(x)
-          # could not easily make Shiny.setInputValue a function of numBlanks
-          # so setting it as a condition with max blanks of 5
           if(pos[x] == "___"){
             tags$div(
               class = "item",
@@ -278,7 +275,6 @@ question_ui_initialize.blank <- function(question, value, ...) {
           }else if(pos[x] == "<br/>"){
             div(
               class = "break",
-              #style="display:inline-block",
               id = other_ids[x]
             )
           }else{
@@ -299,7 +295,6 @@ question_ui_initialize.blank <- function(question, value, ...) {
 #' @export
 #' @seealso question_blank
 question_is_valid.blank <- function(question, value, ...) {
-   #value <- as.character( unlist(value) )
    split <- unlist(stringr::str_split(question$question, pattern = "___") )
    num_blank = length(split) - 1
 
