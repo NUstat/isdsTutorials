@@ -1,0 +1,13 @@
+name: 01_intro
+title: 01_intro
+username:
+account: amkuyper
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 6933674
+bundleId: 6274836
+url: https://amkuyper.shinyapps.io/01_intro/
+when: 1662490115.74913
+lastSyncTime: 1662490115.74914
+asMultiple: FALSE
+asStatic: FALSE
