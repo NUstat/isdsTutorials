@@ -20,5 +20,8 @@ who developed a great and adaptable teaching tool.
 }
 \seealso{
 quiz
+
+Other Interactive Questions: 
+\code{\link{exam}()}
 }
 \concept{Interactive Questions}
