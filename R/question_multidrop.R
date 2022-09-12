@@ -169,12 +169,11 @@ multidrop_question <- function(
     options = options
   )
 
+  class(ret) <- c(type, "tutorial_question")
   if(style == "notes"){
     class(ret) <- c(type, "notes_question")
   #}else if(style == "exam"){
   #  class(ret) <- c(type, "exam")
-  }else{
-    class(ret) <- c(type, "tutorial_question")
   }
 
   ret
@@ -279,7 +278,7 @@ question_is_correct.multidrop <- function(question, value, ...) {
 
   if(question$style == "exam"){
     return(mark_as(FALSE, NULL))
-  }
+  }else{
 
     # for each possible answer, check if it matches
     for (ans in question$answers) {
@@ -293,6 +292,7 @@ question_is_correct.multidrop <- function(question, value, ...) {
 
     }
     mark_as(FALSE, NULL)
+  }
 
 }
 
