@@ -1,7 +1,7 @@
 ---
-title: "Practice Exam 1"
+title: "Sample Exam 1"
 tutorial:
-  id: "isds_pexam1"
+  id: "isds_sexam1"
   version: 0.1
   
 output:
@@ -20,9 +20,8 @@ library(tidyverse)
 library(ISDStutorials)
 library(gradethis)
 
-library(stat202exams)
-#conflicted::conflict_prefer_all("stat202exams", "learnr")
-conflicted::conflict_prefer_all("stat202exams", "ISDStutorials")
+#library(stat202exams)
+#conflicted::conflict_prefer_all("stat202exams", "ISDStutorials")
 
 knitr::opts_chunk$set(echo = FALSE)
 gradethis_setup()
@@ -30,6 +29,13 @@ options(tutorial.event_recorder = ISDStutorials::isds_recorder)
 ```
 
 
+```{r, context = "server"}
+rubric_list <- data.frame(question = c("Ex1", "Ex2Q1", "Ex2Q2", "Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7", "Q8", "Q9"),
+                          points_possible = rep(1, 12))
+
+grade_server("grade_out", 
+            rubric_list = rubric_list)
+```
 
 ```{r isds-header}
 # student name
@@ -40,14 +46,19 @@ question_blank("Name: ___",
                                 }
                               return(mark_as(FALSE) )
                               }),
-          style = "notes_question",
+          style = "notes",
           correct = paste0(fontawesome::fa("check") ),
           incorrect = paste0(fontawesome::fa("xmark") ),
           allow_retry = FALSE )
 # have name, grade button, and print button on same line
 bootstrapPage(
+     div(style="display:inline-block",
+         grade_button_ui("grade_out") ),
      div(style="display:inline-block", print_ui("Print") )
 )
+
+# can have the grade output appear anywhere in your tutorial
+grade_output_ui("grade_out")
 ```
 
 
@@ -75,12 +86,14 @@ quiz(
   wordbank = c("4", "TRUE", "FALSE", "NA", "Error", "0"),
   answer(c("Error"), correct = TRUE),
   allow_retry = TRUE,
+  style = "exam",
   incorrect = "submitted"),
   question_blank(
     "In a typical dataframe, columns correspond to ___.",
     answer(c("variables"), correct = TRUE),
     allow_retry = TRUE,
-    incorrect = "submitted"
+    incorrect = "submitted",
+    style  ="exam"
   ),
   question_multidrop(
   "Which of the following shows the relationship between two categorical variables?",
@@ -88,7 +101,8 @@ quiz(
   wordbank = c("linegraph", "faceted histogram", "stacked barplot", "boxplot", "none of these"),
   answer(c("stacked barplot"), correct = TRUE),
   allow_retry = TRUE,
-  incorrect = "submitted"
+  incorrect = "submitted",
+  style  ="exam"
   )
 
 )

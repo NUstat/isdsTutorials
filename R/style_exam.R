@@ -19,7 +19,7 @@ knit_print.exam <- function(x, ...) {
     'server',
     sprintf(
       'learnr:::question_prerendered_chunk(%s, session = session)',
-      dput_to_string(question)
+      learnr:::dput_to_string(question)
     )
   )
 
@@ -339,7 +339,7 @@ question_button_label <- function(question, label_type = "submit", is_valid = TR
     }
     button
   } else if (label_type %in% c("correct", "incorrect", "try_again")) {
-    mutate_tags(
+    learnr:::mutate_tags(
       actionButton(
         action_button_id, button_label,
         class = warning_class
