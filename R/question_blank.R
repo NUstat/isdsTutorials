@@ -15,7 +15,7 @@
 #'   [shiny::textInput()].
 #' @param trim Logical to determine if whitespace before and after the answer
 #'   should be removed.  Defaults to `TRUE`.
-#' @param style can change display of question to condensed notes using style = "notes_question"
+#' @param style can change display of question to "notes" or "exam"
 #' @param ... parameters passed onto learnr answer.
 #' @inheritParams learnr::question
 #'
@@ -60,14 +60,14 @@ question_blank <- function(
     incorrect = incorrect,
     allow_retry = allow_retry,
     random_answer_order = FALSE,
+    style = style,
     options = utils::modifyList(
       options,
       list(
         placeholder = placeholder,
         trim = trim,
         rows = rows,
-        cols = cols,
-        style = style
+        cols = cols
       )
     )
   )
@@ -90,6 +90,7 @@ blank_question <- function(
     try_again_button = rlang::missing_arg(),
     allow_retry = FALSE,
     random_answer_order = FALSE,
+    style = "tutorial_question",
     options = list()
 ) {
 
@@ -105,6 +106,10 @@ blank_question <- function(
   num_blank = length(split) - 1
   if (num_blank != length(answers)) {
     stop("Number of blanks must equal number of answer() inputs.")
+  }
+  # ensure style is correct
+  if (! style %in% c("tutorial_question", "notes", "exam")) {
+    stop("style must be either 'tutorial_question', 'notes', or 'exam'")
   }
 
   # can not guarantee that `label` exists
@@ -153,10 +158,15 @@ blank_question <- function(
     seed = learnr:::random_seed(),
     options = options
   )
-  class(ret) <- c(type, "tutorial_question")
-  if(options$style == "notes_question"){
+
+  if(options$style == "notes"){
     class(ret) <- c(type, "notes_question")
+  }else if(options$style == "exam"){
+    class(ret) <- c(type, "exam")
+  }else{
+    class(ret) <- c(type, "tutorial_question")
   }
+
   ret
 }
 

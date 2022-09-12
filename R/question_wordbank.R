@@ -27,6 +27,7 @@
 #' @param arrange either 'random' or 'ordered'; default is random. Set equal to ordered if
 #' you want the wordbank list to appear alphabetically.
 #' @param ... parameters passed onto learnr answer.
+#' @param style can change display of question to "notes" or "exam"
 #' @inheritParams learnr::question
 #'
 #' @return A custom `learnr` question, with `type = wordbank`.
@@ -62,6 +63,7 @@ question_wordbank <- function(
     try_again_button = "Try Again",
     allow_retry = FALSE,
     random_answer_order = TRUE,
+    style = "tutorial_question",
     options = sortable::sortable_options()
 ) {
   ISDStutorials:::wordbank_question(
@@ -78,6 +80,7 @@ question_wordbank <- function(
     try_again_button = try_again_button,
     allow_retry = allow_retry,
     random_answer_order = random_answer_order,
+    style = style,
     options = options
   )
 }
@@ -100,6 +103,7 @@ wordbank_question <- function(
     try_again_button = rlang::missing_arg(),
     allow_retry = FALSE,
     random_answer_order = FALSE,
+    style = "tutorial_question",
     options = list()
 ) {
 
@@ -125,6 +129,10 @@ wordbank_question <- function(
   # number of choices must equal number of answers
   if (length(choices) != length(answers[[1]]$option)) {
     stop("Length of choices must equal to length in answer().")
+  }
+  # ensure style is correct
+  if (! style %in% c("tutorial_question", "notes", "exam")) {
+    stop("style must be either 'tutorial_question', 'notes', or 'exam'")
   }
 
   # can not guarantee that `label` exists
@@ -176,7 +184,15 @@ wordbank_question <- function(
     seed = learnr:::random_seed(),
     options = options
   )
-  class(ret) <- c(type, "tutorial_question")
+
+  if(options$style == "notes"){
+    class(ret) <- c(type, "notes_question")
+  }else if(options$style == "exam"){
+    class(ret) <- c(type, "exam")
+  }else{
+    class(ret) <- c(type, "tutorial_question")
+  }
+
   ret
 }
 

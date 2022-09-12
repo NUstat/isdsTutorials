@@ -20,6 +20,7 @@
 #'
 #' @param choices a vector of choices that will remain stationary in the left column.
 #' @param ... parameters passed onto learnr answer.
+#' @param style can change display of question to "notes" or "exam"
 #' @inheritParams learnr::question
 #'
 #' @return A custom `learnr` question, with `type = matching`.
@@ -52,6 +53,7 @@ question_matching <- function(
     try_again_button = "Try Again",
     allow_retry = FALSE,
     random_answer_order = TRUE,
+    style = "tutorial_question",
     options = sortable::sortable_options()
 ) {
   ISDStutorials:::matching_question(
@@ -66,6 +68,7 @@ question_matching <- function(
     try_again_button = try_again_button,
     allow_retry = allow_retry,
     random_answer_order = random_answer_order,
+    style = style,
     options = options
   )
 }
@@ -86,6 +89,7 @@ matching_question <- function(
     try_again_button = rlang::missing_arg(),
     allow_retry = FALSE,
     random_answer_order = FALSE,
+    style = "tutorial_question",
     options = list()
 ) {
 
@@ -96,6 +100,11 @@ matching_question <- function(
   ellipsis::check_dots_unnamed() # validate all answers are not named and not a misspelling
   answers <- list(...)
   #answers <- list(answer)
+
+  # ensure style is correct
+  if (! style %in% c("tutorial_question", "notes", "exam")) {
+    stop("style must be either 'tutorial_question', 'notes', or 'exam'")
+  }
 
   # can not guarantee that `label` exists
   label <- knitr::opts_current$get('label')
@@ -144,7 +153,15 @@ matching_question <- function(
     seed = learnr:::random_seed(),
     options = options
   )
-  class(ret) <- c(type, "tutorial_question")
+
+  if(options$style == "notes"){
+    class(ret) <- c(type, "notes_question")
+  }else if(options$style == "exam"){
+    class(ret) <- c(type, "exam")
+  }else{
+    class(ret) <- c(type, "tutorial_question")
+  }
+
   ret
 }
 

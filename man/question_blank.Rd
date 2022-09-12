@@ -57,7 +57,7 @@ or \code{cols} are provided, the quiz input will use \code{\link[shiny:textAreaI
 for the text input, otherwise the default input element is a single-line
 \code{\link[shiny:textInput]{shiny::textInput()}}.}
 
-\item{style}{can change display of question to condensed notes using style = "notes_question"}
+\item{style}{can change display of question to "notes" or "exam"}
 
 \item{options}{Extra options to be stored in the question object.}
 }

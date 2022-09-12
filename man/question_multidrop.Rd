@@ -16,6 +16,7 @@ question_multidrop(
   incorrect = "Incorrect",
   try_again = incorrect,
   allow_retry = FALSE,
+  style = "tutorial_question",
   random_answer_order = FALSE
 )
 }
@@ -52,6 +53,8 @@ when \code{allow_retry} is \code{FALSE}.}
 when \code{allow_retry} is \code{TRUE}.}
 
 \item{allow_retry}{Allow retry for incorrect answers. Defaults to \code{FALSE}.}
+
+\item{style}{can change display of question to "notes" or "exam"}
 
 \item{random_answer_order}{Display answers in a random order.}
 }

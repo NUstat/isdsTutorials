@@ -18,6 +18,7 @@ question_wordbank(
   try_again_button = "Try Again",
   allow_retry = FALSE,
   random_answer_order = TRUE,
+  style = "tutorial_question",
   options = sortable::sortable_options()
 )
 }
@@ -56,6 +57,8 @@ when \code{allow_retry} is \code{FALSE}.}
 \item{allow_retry}{Allow retry for incorrect answers. Defaults to \code{FALSE}.}
 
 \item{random_answer_order}{Display answers in a random order.}
+
+\item{style}{can change display of question to "notes" or "exam"}
 
 \item{options}{Extra options to be stored in the question object.}
 }

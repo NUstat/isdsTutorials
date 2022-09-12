@@ -14,6 +14,7 @@
 #' @param arrange either 'random' or 'ordered'; default is random. Set equal to ordered if
 #' you want the drop-down list to appear alphabetically.
 #' @param ... parameters passed onto learnr answer.
+#' @param style can change display of question to "notes" or "exam"
 #' @inheritParams learnr::question
 #'
 #' @return A custom `learnr` question, with `type = multidrop`.
@@ -39,6 +40,7 @@ question_multidrop <- function(
     incorrect = "Incorrect",
     try_again = incorrect,
     allow_retry = FALSE,
+    style = "tutorial_question",
     random_answer_order = FALSE
 ) {
   question <- ISDStutorials:::multidrop_question(
@@ -52,6 +54,7 @@ question_multidrop <- function(
     correct = correct,
     incorrect = incorrect,
     allow_retry = allow_retry,
+    style = style,
     random_answer_order = random_answer_order
   )
 
@@ -78,6 +81,7 @@ multidrop_question <- function(
     try_again_button = rlang::missing_arg(),
     allow_retry = FALSE,
     random_answer_order = FALSE,
+    style = "tutorial_question",
     options = list()
 ) {
 
@@ -107,6 +111,10 @@ multidrop_question <- function(
   # number of choices must equal number of answers
   if (length(choices) != length(answers[[1]]$option)) {
     stop("Length of choices must equal to length in answer().")
+  }
+  # ensure style is correct
+  if (! style %in% c("tutorial_question", "notes", "exam")) {
+    stop("style must be either 'tutorial_question', 'notes', or 'exam'")
   }
 
   # can not guarantee that `label` exists
@@ -159,8 +167,15 @@ multidrop_question <- function(
     seed = learnr:::random_seed(),
     options = options
   )
-  #class(ret) <- c(type, "notes_question")
-  class(ret) <- c(type, "tutorial_question")
+
+  if(options$style == "notes"){
+    class(ret) <- c(type, "notes_question")
+  }else if(options$style == "exam"){
+    class(ret) <- c(type, "exam")
+  }else{
+    class(ret) <- c(type, "tutorial_question")
+  }
+
   ret
 }
 
