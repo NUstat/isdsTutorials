@@ -39,6 +39,7 @@
 #' @importFrom learnr question_is_correct
 #' @import learnr
 #' @import shiny
+#' @importFrom rlang "%||%"
 #'
 #' @examples
 #' question_wordbank(
