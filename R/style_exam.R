@@ -148,7 +148,7 @@ question_module_server_exam_impl <- function(
   })
 
 
-  button_type <- reactive(label = "button type", {
+  my_button_type <- reactive(label = "button type", {
     if (is.null(submitted_answer())) {
       "submit"
     } else {
@@ -206,7 +206,7 @@ question_module_server_exam_impl <- function(
   output$action_button_container <- renderUI({
     question_button_label(
       question,
-      button_type(),
+      my_button_type(),
       answer_is_valid()
     )
   })
@@ -268,7 +268,7 @@ question_module_server_exam_impl <- function(
 
   observeEvent(input$action_button, {
 
-    if (button_type() == "try_again") {
+    if (my_button_type() == "try_again") {
       # maintain current submission / do not randomize answer order
       # only reset the submitted answers
       # does NOT reset input$answer
