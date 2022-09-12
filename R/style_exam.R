@@ -18,7 +18,7 @@ knit_print.exam <- function(x, ...) {
   rmarkdown::shiny_prerendered_chunk(
     'server',
     sprintf(
-      'learnr:::question_prerendered_chunk(%s, session = session)',
+      'question_prerendered_chunk_exam(%s, session = session)',
       learnr:::dput_to_string(question)
     )
   )
@@ -48,7 +48,7 @@ retrieve_question_submission_answer <- function(session, question_label) {
 }
 
 
-question_prerendered_chunk <- function(question, ..., session = getDefaultReactiveDomain()) {
+question_prerendered_chunk_exam <- function(question, ..., session = getDefaultReactiveDomain()) {
   learnr:::store_question_cache(question)
 
   question_state <-
