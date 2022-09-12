@@ -276,14 +276,11 @@ question_is_valid.multidrop <- function(question, value, ...) {
 #' @seealso question_multidrop
 question_is_correct.multidrop <- function(question, value, ...) {
 
-  if(question$style == "exam"){
-    return(mark_as(FALSE, NULL))
-  }else{
 
     # for each possible answer, check if it matches
     for (ans in question$answers) {
 
-      if (identical(as.character(ans$option), as.character(value) ) ) {
+      if (identical(as.character(ans$option), as.character(value) ) && question$style != "exam" ) {
         return(mark_as(
           ans$correct,
           ans$message
@@ -292,7 +289,6 @@ question_is_correct.multidrop <- function(question, value, ...) {
 
     }
     mark_as(FALSE, NULL)
-  }
 
 }
 
