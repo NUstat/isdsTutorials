@@ -271,6 +271,10 @@ question_ui_initialize.wordbank <- function(question, value, ...) {
          lapply(seq(1,num), function(x)
            fixedRow(
              column(
+               width = 9,
+               HTML(question$choices[x])
+             ),
+             column(
                width = 3,
                div(
                  class = "panel panel-default",
@@ -280,10 +284,6 @@ question_ui_initialize.wordbank <- function(question, value, ...) {
                    icons(ans[x])
                  )
                )
-             ),
-             column(
-               width = 9,
-               HTML(question$choices[x])
              )
            ) #ends fixed row
          ) #ends lapply

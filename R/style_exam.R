@@ -203,7 +203,7 @@ question_module_server_exam_impl <- function(
 
 
   output$action_button_container <- renderUI({
-    question_button_label(
+    exam_button_label(
       question,
       "try_again",
       #button_type(),
@@ -289,7 +289,7 @@ question_module_server_exam_impl <- function(
     submitted_answer(input$answer)
 
     # submit question to server
-    event_trigger(
+    learnr:::event_trigger(
       session = session,
       event   = "question_submission",
       data    = list(
@@ -318,7 +318,7 @@ question_module_server_exam_impl <- function(
 
 
 
-question_button_label <- function(question, label_type = "submit", is_valid = TRUE) {
+exam_button_label <- function(question, label_type = "submit", is_valid = TRUE) {
   label_type <- match.arg(label_type, c("submit", "try_again", "correct", "incorrect"))
 
  # if (label_type %in% c("correct", "incorrect")) {
