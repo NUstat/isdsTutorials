@@ -277,21 +277,21 @@ question_is_valid.multidrop <- function(question, value, ...) {
 question_is_correct.multidrop <- function(question, value, ...) {
 
   if(question$style == "exam"){
-    return(learnr::mark_as(FALSE, NULL))
-  }
+    return(mark_as(FALSE, NULL))
+  }else{
+    # for each possible answer, check if it matches
+    for (ans in question$answers) {
 
-  # for each possible answer, check if it matches
-  for (ans in question$answers) {
+      if (identical(as.character(ans$option), as.character(value) ) ) {
+        return(mark_as(
+          ans$correct,
+          ans$message
+        ))
+      }
 
-    if (identical(as.character(ans$option), as.character(value) ) ) {
-      return(mark_as(
-        ans$correct,
-        ans$message
-      ))
     }
-
+    mark_as(FALSE, NULL)
   }
-  mark_as(FALSE, NULL)
 
 }
 

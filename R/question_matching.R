@@ -246,18 +246,18 @@ question_ui_try_again.matching <- function(question, value, ...) {
 question_is_correct.matching <- function(question, value, ...) {
 
   if(question$style == "exam"){
-    return(learnr::mark_as(FALSE, NULL))
-  }
-
-  # for each possible answer, check if it matches
-  for (answer in question$answers) {
-    if (identical(answer$option, value)) {
-      # if it matches, return the correct-ness and its message
-      return(learnr::mark_as(answer$correct, answer$message))
+    return(mark_as(FALSE, NULL))
+  }else{
+    # for each possible answer, check if it matches
+    for (answer in question$answers) {
+      if (identical(answer$option, value)) {
+        # if it matches, return the correct-ness and its message
+        return(learnr::mark_as(answer$correct, answer$message))
+      }
     }
+    # no match found. not correct
+    learnr::mark_as(FALSE, NULL)
   }
-  # no match found. not correct
-  learnr::mark_as(FALSE, NULL)
 }
 
 
