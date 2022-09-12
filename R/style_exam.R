@@ -131,7 +131,8 @@ question_module_server_exam_impl <- function(
     # find out if answer is right
     # set to always wrong for exam
     #ret <- question_is_correct(question, submitted_answer())
-    ret <- 'incorrect'
+    #ret <- 'incorrect'
+    ret <- learnr::mark_as(FALSE)
     if (!inherits(ret, "learnr_mark_as")) {
       stop("`question_is_correct(question, input$answer)` must return a result from `correct`, `incorrect`, or `mark_as`")
     }
