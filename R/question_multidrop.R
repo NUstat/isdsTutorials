@@ -280,7 +280,7 @@ question_is_correct.multidrop <- function(question, value, ...) {
     # for each possible answer, check if it matches
     for (ans in question$answers) {
 
-      if (identical(as.character(ans$option), as.character(value) ) && question$style != "exam" ) {
+      if (identical(as.character(ans$option), as.character(value) ) ) {
         return(mark_as(
           ans$correct,
           ans$message

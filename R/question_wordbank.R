@@ -346,9 +346,9 @@ question_ui_initialize.wordbank <- function(question, value, ...) {
 #' @seealso question_wordbank
 question_is_correct.wordbank <- function(question, value, ...) {
 
-  if(question$style == "exam"){
-    return(learnr::mark_as(FALSE, NULL))
-  }
+  # if(question$style == "exam"){
+  #   return(learnr::mark_as(FALSE, NULL))
+  # }
 
   for (ans in question$answers) {
 
