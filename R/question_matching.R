@@ -131,6 +131,7 @@ matching_question <- function(
     question = learnr:::quiz_text(text),
     choices = choices,
     answers = answers,
+    style = style,
     button_labels = list(
       submit = submit_button,
       try_again = try_again_button
@@ -247,7 +248,8 @@ question_is_correct.matching <- function(question, value, ...) {
 
   if(question$style == "exam"){
     return(mark_as(FALSE, NULL))
-  }else{
+  }
+
     # for each possible answer, check if it matches
     for (answer in question$answers) {
       if (identical(answer$option, value)) {
@@ -257,7 +259,6 @@ question_is_correct.matching <- function(question, value, ...) {
     }
     # no match found. not correct
     learnr::mark_as(FALSE, NULL)
-  }
 }
 
 

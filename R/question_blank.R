@@ -136,6 +136,7 @@ blank_question <- function(
     label = label,
     question = learnr:::quiz_text(text),
     answers = answers,
+    style = style,
     button_labels = list(
       submit = submit_button,
       try_again = try_again_button
