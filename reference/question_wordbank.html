@@ -121,6 +121,7 @@ word bank into the answer blanks.</p>
 <span>  <span class="va">...</span>,</span>
 <span>  <span class="va">choices</span>,</span>
 <span>  wordbank <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  box <span class="op">=</span> <span class="fl">6</span>,</span>
 <span>  arrange <span class="op">=</span> <span class="st">"random"</span>,</span>
 <span>  type <span class="op">=</span> <span class="st">"wordbank"</span>,</span>
 <span>  correct <span class="op">=</span> <span class="st">"Correct!"</span>,</span>
@@ -152,6 +153,11 @@ word bank into the answer blanks.</p>
 <dt>wordbank</dt>
 <dd><p>a vector of choices to be placed into the blanks when providing more options than answers.
 If NULL then the wordbank will be set equal to the answer choices.</p></dd>
+
+
+<dt>box</dt>
+<dd><p>a number between 1 and 11, inclusive, indicating the width of the 'choices' box.
+The default is 6 which corresponds to 50% of the page width.</p></dd>
 
 
 <dt>arrange</dt>
