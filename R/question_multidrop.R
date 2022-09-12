@@ -276,9 +276,9 @@ question_is_valid.multidrop <- function(question, value, ...) {
 #' @seealso question_multidrop
 question_is_correct.multidrop <- function(question, value, ...) {
 
-  if(question$style == "exam"){
-    return(mark_as(FALSE, NULL))
-  }
+  # if(question$style == "exam"){
+  #   return(mark_as(FALSE, NULL))
+  # }
 
     # for each possible answer, check if it matches
     for (ans in question$answers) {
