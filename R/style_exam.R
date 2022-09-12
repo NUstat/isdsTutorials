@@ -129,7 +129,9 @@ question_module_server_exam_impl <- function(
     # question has not been submitted
     if (is.null(submitted_answer())) return(NULL)
     # find out if answer is right
-    ret <- question_is_correct(question, submitted_answer())
+    # set to always wrong for exam
+    #ret <- question_is_correct(question, submitted_answer())
+    ret <- 'incorrect'
     if (!inherits(ret, "learnr_mark_as")) {
       stop("`question_is_correct(question, input$answer)` must return a result from `correct`, `incorrect`, or `mark_as`")
     }
