@@ -108,7 +108,7 @@ blank_question <- function(
     stop("Number of blanks must equal number of answer() inputs.")
   }
   # ensure style is correct
-  if (! style %in% c("tutorial_question", "notes", "exam")) {
+  if (! style %in% c("tutorial_question", "notes", "exam", "notes_question")) {
     stop("style must be either 'tutorial_question', 'notes', or 'exam'")
   }
 
@@ -159,7 +159,7 @@ blank_question <- function(
     options = options
   )
 
-  if(style == "notes"){
+  if(style == "notes" || style == "notes_question"){
     class(ret) <- c(type, "notes_question")
   }else if(style == "exam"){
     class(ret) <- c(type, "exam")
