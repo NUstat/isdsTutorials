@@ -159,9 +159,9 @@ blank_question <- function(
     options = options
   )
 
-  if(options$style == "notes"){
+  if(style == "notes"){
     class(ret) <- c(type, "notes_question")
-  }else if(options$style == "exam"){
+  }else if(style == "exam"){
     class(ret) <- c(type, "exam")
   }else{
     class(ret) <- c(type, "tutorial_question")
