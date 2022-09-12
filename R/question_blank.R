@@ -326,7 +326,7 @@ question_is_valid.blank <- function(question, value, ...) {
 #' @seealso question_blank
 question_is_correct.blank <- function(question, value, ...) {
 
-  if(queston$style == "exam"){
+  if(question$style == "exam"){
     return(learnr::mark_as(FALSE, NULL))
   }
 

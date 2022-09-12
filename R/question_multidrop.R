@@ -276,7 +276,7 @@ question_is_valid.multidrop <- function(question, value, ...) {
 #' @seealso question_multidrop
 question_is_correct.multidrop <- function(question, value, ...) {
 
-  if(queston$style == "exam"){
+  if(question$style == "exam"){
     return(learnr::mark_as(FALSE, NULL))
   }
 

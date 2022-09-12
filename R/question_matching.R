@@ -245,7 +245,7 @@ question_ui_try_again.matching <- function(question, value, ...) {
 #' @seealso question_matching
 question_is_correct.matching <- function(question, value, ...) {
 
-  if(queston$style == "exam"){
+  if(question$style == "exam"){
     return(learnr::mark_as(FALSE, NULL))
   }
 
