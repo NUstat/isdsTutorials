@@ -132,10 +132,10 @@ question_module_server_exam_impl <- function(
     # set to always wrong for exam
     #ret <- question_is_correct(question, submitted_answer())
     #ret <- 'incorrect'
-    ret <- learnr::mark_as(FALSE)
-    if (!inherits(ret, "learnr_mark_as")) {
-      stop("`question_is_correct(question, input$answer)` must return a result from `correct`, `incorrect`, or `mark_as`")
-    }
+    ret <- learnr::mark_as(FALSE, NULL)
+    # if (!inherits(ret, "learnr_mark_as")) {
+    #   stop("`question_is_correct(question, input$answer)` must return a result from `correct`, `incorrect`, or `mark_as`")
+    # }
     ret
   })
 
@@ -148,7 +148,7 @@ question_module_server_exam_impl <- function(
   })
 
 
-  my_button_type <- reactive(label = "button type", {
+  button_type <- reactive(label = "button type", {
     if (is.null(submitted_answer())) {
       "submit"
     } else {
@@ -156,7 +156,6 @@ question_module_server_exam_impl <- function(
       if (is.null(is_correct_info())) {
         stop("`is_correct_info()` is `NULL` in a place it shouldn't be")
       }
-      is_correct_info()$correct <- FALSE
       # update the submit button label
       if (is_correct_info()$correct) {
         "try_again"
@@ -206,7 +205,7 @@ question_module_server_exam_impl <- function(
   output$action_button_container <- renderUI({
     question_button_label(
       question,
-      my_button_type(),
+      button_type(),
       answer_is_valid()
     )
   })
@@ -268,7 +267,7 @@ question_module_server_exam_impl <- function(
 
   observeEvent(input$action_button, {
 
-    if (my_button_type() == "try_again") {
+    if (button_type() == "try_again") {
       # maintain current submission / do not randomize answer order
       # only reset the submitted answers
       # does NOT reset input$answer
