@@ -118,7 +118,7 @@ question_module_server_exam_impl <- function(
 
   ns <- getDefaultReactiveDomain()$ns
   # set a seed for each user session for question methods to use
-  question$seed <- random_seed()
+  question$seed <- learnr:::random_seed()
 
   # only set when a submit button has been pressed
   # (or reset when try again is hit)
@@ -184,8 +184,8 @@ question_module_server_exam_impl <- function(
   init_question <- function(restoreValue = NULL) {
     if (question$random_answer_order) {
       # Shuffle visible answer options (i.e. static, non-function answers)
-      is_visible_option <- !answer_type_is_function(question$answers)
-      question$answers[is_visible_option] <<- shuffle(question$answers[is_visible_option])
+      is_visible_option <- !learnr:::answer_type_is_function(question$answers)
+      question$answers[is_visible_option] <<- learnr:::shuffle(question$answers[is_visible_option])
     }
     submitted_answer(restoreValue)
   }
@@ -272,7 +272,7 @@ question_module_server_exam_impl <- function(
       submitted_answer(NULL)
 
       # submit "reset" to server
-      event_trigger(
+      learnr:::event_trigger(
         session,
         "reset_question_submission",
         data = list(
@@ -346,7 +346,7 @@ question_button_label <- function(question, label_type = "submit", is_valid = TR
       ),
       paste0("#", action_button_id),
       function(ele) {
-        ele$attribs$class <- str_remove(ele$attribs$class, "\\s+btn-default")
+        ele$attribs$class <- stringr::str_remove(ele$attribs$class, "\\s+btn-default")
         ele
       }
     )
@@ -436,7 +436,7 @@ question_messages <- function(question, messages, is_correct, is_done) {
 }
 
 question_ui_loading <- function(question) {
-  n_paragraphs <- max(length(str_match_all(question$question, "</p>")), 1)
+  n_paragraphs <- max(length(stringr::str_match_all(question$question, "</p>")), 1)
   paras <- lapply(seq_len(n_paragraphs), function(...) {
     spans <- lapply(seq_len(sample(2:8, 1)), function(...) {
       htmltools::span(class = sprintf("placeholder col-%s", sample(2:7, 1)))
