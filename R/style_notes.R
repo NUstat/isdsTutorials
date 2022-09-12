@@ -1,46 +1,46 @@
-#' Tutorial notes format
-#'
-#' Add interactive notes to a tutorial. This is an alternative format to
-#' display fill in the blank lines with smaller submit buttons for a
-#' more fluid document then the boxed questions. This was adapted from
-#' the learnr package quiz function. Many thanks to the learnr author
-#' who developed a great and adaptable teaching tool.
-#'
-#'
-#' @param ... One or more questions or answers
-#' @param caption Optional quiz caption (defaults to "Quiz")
-#' @family Interactive Questions
-#'
-#' @importFrom rlang "%||%"
-#'
-#' @seealso quiz
-#' @export
-quiz_notes <- function(..., caption = rlang::missing_arg()) {
-
-  # create table rows from questions
-  index <- 1
-  questions <- lapply(list(...), function(question) {
-    if (!is.null(question$label)) {
-      label <- paste(question$label, index, sep="-")
-      question$label <- label
-      question$ids$answer <- NS(label)("answer")
-      question$ids$question <- label
-      index <<- index + 1
-    }
-    question
-  })
-
-  caption <-
-    if (rlang::is_missing(caption)) {
-      learnr:::i18n_span("text.quiz", "Quiz")
-    } else if (!is.null(caption)) {
-      learnr:::quiz_text(caption)
-    }
-
-  ret <- list(caption = caption, questions = questions)
-  class(ret) <- "notes_quiz"
-  ret
-}
+# Tutorial notes format
+#
+# Add interactive notes to a tutorial. This is an alternative format to
+# display fill in the blank lines with smaller submit buttons for a
+# more fluid document then the boxed questions. This was adapted from
+# the learnr package quiz function. Many thanks to the learnr author
+# who developed a great and adaptable teaching tool.
+#
+#
+# @param ... One or more questions or answers
+# @param caption Optional quiz caption (defaults to "Quiz")
+# @family Interactive Questions
+#
+# @importFrom rlang "%||%"
+#
+# @seealso quiz
+# @export
+# quiz_notes <- function(..., caption = rlang::missing_arg()) {
+#
+#   # create table rows from questions
+#   index <- 1
+#   questions <- lapply(list(...), function(question) {
+#     if (!is.null(question$label)) {
+#       label <- paste(question$label, index, sep="-")
+#       question$label <- label
+#       question$ids$answer <- NS(label)("answer")
+#       question$ids$question <- label
+#       index <<- index + 1
+#     }
+#     question
+#   })
+#
+#   caption <-
+#     if (rlang::is_missing(caption)) {
+#       learnr:::i18n_span("text.quiz", "Quiz")
+#     } else if (!is.null(caption)) {
+#       learnr:::quiz_text(caption)
+#     }
+#
+#   ret <- list(caption = caption, questions = questions)
+#   class(ret) <- "notes_quiz"
+#   ret
+# }
 
 
 
