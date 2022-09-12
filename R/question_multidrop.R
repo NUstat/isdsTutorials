@@ -81,7 +81,7 @@ multidrop_question <- function(
     try_again_button = rlang::missing_arg(),
     allow_retry = FALSE,
     random_answer_order = FALSE,
-    style = "tutorial_question",
+    style = style,
     options = list()
 ) {
 
@@ -278,7 +278,8 @@ question_is_correct.multidrop <- function(question, value, ...) {
 
   if(question$style == "exam"){
     return(mark_as(FALSE, NULL))
-  }else{
+  }
+
     # for each possible answer, check if it matches
     for (ans in question$answers) {
 
@@ -291,7 +292,6 @@ question_is_correct.multidrop <- function(question, value, ...) {
 
     }
     mark_as(FALSE, NULL)
-  }
 
 }
 
