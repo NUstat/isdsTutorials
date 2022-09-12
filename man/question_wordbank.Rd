@@ -9,6 +9,7 @@ question_wordbank(
   ...,
   choices,
   wordbank = NULL,
+  box = 6,
   arrange = "random",
   type = "wordbank",
   correct = "Correct!",
@@ -31,6 +32,9 @@ question_wordbank(
 
 \item{wordbank}{a vector of choices to be placed into the blanks when providing more options than answers.
 If NULL then the wordbank will be set equal to the answer choices.}
+
+\item{box}{a number between 1 and 11, inclusive, indicating the width of the 'choices' box.
+The default is 6 which corresponds to 50\% of the page width.}
 
 \item{arrange}{either 'random' or 'ordered'; default is random. Set equal to ordered if
 you want the wordbank list to appear alphabetically.}

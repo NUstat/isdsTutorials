@@ -26,6 +26,8 @@
 #' If NULL then the wordbank will be set equal to the answer choices.
 #' @param arrange either 'random' or 'ordered'; default is random. Set equal to ordered if
 #' you want the wordbank list to appear alphabetically.
+#' @param box a number between 1 and 11, inclusive, indicating the width of the 'choices' box.
+#' The default is 6 which corresponds to 50% of the page width.
 #' @param ... parameters passed onto learnr answer.
 #' @param style can change display of question to "notes" or "exam"
 #' @inheritParams learnr::question
@@ -55,6 +57,7 @@ question_wordbank <- function(
     ...,
     choices,
     wordbank = NULL,
+    box = 6,
     arrange = "random",
     type = "wordbank",
     correct = "Correct!",
@@ -73,6 +76,7 @@ question_wordbank <- function(
     choices = choices,
     wordbank = wordbank,
     arrange = arrange,
+    box = box,
     type = "wordbank",
     correct = correct,
     incorrect = incorrect,
@@ -93,6 +97,7 @@ wordbank_question <- function(
     choices = choices,
     wordbank = wordbank,
     arrange = arrange,
+    box = box,
     type = c("wordbank"),
     correct = "Correct!",
     incorrect = "Incorrect",
@@ -118,6 +123,11 @@ wordbank_question <- function(
   #set wordbank equal to answers if NULL
   if(is.null(wordbank)){
     wordbank <- unique(answers[[1]]$option)
+  }
+
+  # ensure box is in 1:11
+  if (! box %in% c(1:11)) {
+    stop("Box must be a number between 1 to 11, inclusive.")
   }
   # ensure arrange is correct
   if (! arrange %in% c("random", "ordered")) {
@@ -161,6 +171,7 @@ wordbank_question <- function(
     question = learnr:::quiz_text(text),
     choices = choices,
     wordbank = wordbank,
+    box = box,
     arrange = arrange,
     answers = answers,
     button_labels = list(
@@ -188,8 +199,8 @@ wordbank_question <- function(
 
   if(style == "notes"){
     class(ret) <- c(type, "notes_question")
-  }else if(style == "exam"){
-    class(ret) <- c(type, "exam")
+  #}else if(style == "exam"){
+  #  class(ret) <- c(type, "exam")
   }else{
     class(ret) <- c(type, "tutorial_question")
   }
@@ -271,11 +282,11 @@ question_ui_initialize.wordbank <- function(question, value, ...) {
          lapply(seq(1,num), function(x)
            fixedRow(
              column(
-               width = 9,
+               width = box,
                HTML(question$choices[x])
              ),
              column(
-               width = 3,
+               width = 12-box,
                div(
                  class = "panel panel-default",
                  div(
@@ -333,6 +344,10 @@ question_ui_initialize.wordbank <- function(question, value, ...) {
 #' @export
 #' @seealso question_wordbank
 question_is_correct.wordbank <- function(question, value, ...) {
+
+  if(queston$style == "exam"){
+    return(learnr::mark_as(FALSE, NULL))
+  }
 
   for (ans in question$answers) {
 
@@ -418,7 +433,11 @@ question_ui_completed.wordbank <- function(question, value, ...) {
            lapply(seq(1,num), function(x)
              fixedRow(
                column(
-                 width = 3,
+                 width = box,
+                 HTML(question$choices[x])
+               ),
+               column(
+                 width = 12-box,
                  div(
                    class = "panel panel-default",
                    div(
@@ -427,11 +446,7 @@ question_ui_completed.wordbank <- function(question, value, ...) {
                      icons(ans[x])
                    )
                  )
-               ),
-               column(
-                 width = 9,
-                 HTML(question$choices[x])
-                 )
+               )
              ) #ends fixed row
            ) #ends lapply
       ), #ends bucket div group

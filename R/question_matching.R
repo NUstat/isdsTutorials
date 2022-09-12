@@ -156,8 +156,8 @@ matching_question <- function(
 
   if(style == "notes"){
     class(ret) <- c(type, "notes_question")
-  }else if(style == "exam"){
-    class(ret) <- c(type, "exam")
+  #}else if(style == "exam"){
+  #  class(ret) <- c(type, "exam")
   }else{
     class(ret) <- c(type, "tutorial_question")
   }
@@ -244,6 +244,11 @@ question_ui_try_again.matching <- function(question, value, ...) {
 #' @export
 #' @seealso question_matching
 question_is_correct.matching <- function(question, value, ...) {
+
+  if(queston$style == "exam"){
+    return(learnr::mark_as(FALSE, NULL))
+  }
+
   # for each possible answer, check if it matches
   for (answer in question$answers) {
     if (identical(answer$option, value)) {

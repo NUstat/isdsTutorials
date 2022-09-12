@@ -161,8 +161,8 @@ blank_question <- function(
 
   if(style == "notes" || style == "notes_question"){
     class(ret) <- c(type, "notes_question")
-  }else if(style == "exam"){
-    class(ret) <- c(type, "exam")
+  #}else if(style == "exam"){
+    #class(ret) <- c(type, "exam")
   }else{
     class(ret) <- c(type, "tutorial_question")
   }
@@ -325,6 +325,10 @@ question_is_valid.blank <- function(question, value, ...) {
 #' @export
 #' @seealso question_blank
 question_is_correct.blank <- function(question, value, ...) {
+
+  if(queston$style == "exam"){
+    return(learnr::mark_as(FALSE, NULL))
+  }
 
   append_message <- function(x, ans) {
     message <- ans$message
