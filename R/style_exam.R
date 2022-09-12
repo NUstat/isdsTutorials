@@ -295,7 +295,8 @@ question_module_server_exam_impl <- function(
         label    = as.character(question$label),
         question = as.character(question$question),
         answer   = as.character(input$answer),
-        correct  = is_correct_info()$correct
+        correct = FALSE
+        #correct  = is_correct_info()$correct
       )
     )
 
@@ -307,7 +308,8 @@ question_module_server_exam_impl <- function(
     current_answer_state <- list(
       type = "question",
       answer = submitted_answer(),
-      correct = is_correct_info()$correct
+      correct = FALSE
+      #correct = is_correct_info()$correct
     )
     question_state(current_answer_state)
   })
