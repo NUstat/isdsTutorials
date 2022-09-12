@@ -56,57 +56,6 @@ After completing each tutorial, students can obtain their grade and download the
 
 For detailed examples and explanations of the additional features run the "isds_functions" tutorial using the command `learnr::run_tutorial("isds_functions", package = "ISDStutorials")`
 
-# ISDS setup
-
-To use ISDStutorials custom grade and print functions in one of your own learnr tutorials, start by loading ISDStutorials after learnr and gradethis in the setup chunk of your tutorial and adding the `isds_recorder` to the options:
-
-```{r}
-library(learnr)
-library(gradethis)
-library(ISDStutorials)
-
-gradethis_setup()
-
-options(tutorial.event_recorder = ISDStutorials::isds_recorder)
-```
-
-Next, add the `grade_server` function to a code chunk of type `context = "server"`
-
-```{r}
-# must supply a data.frame consisting of "question" and "points_possible" to rubric_list.
-# the question/exercise name is the code chunk name followed by a number, ignoring all spaces and symbols
-rubric_list <- data.frame(question = c("Ex1", "Q1", "Q2", "Q3"),
-                          points_possible = rep(1, 4))
-
-grade_server("grade_out", 
-            rubric_list = rubric_list, 
-            num_try = 3, deduction = 0.1, display = c("scaled", "itemize") )
-```
-
-Finally add your desired header components. The following adds a name, grade button, print button, and grade output.
-
-```{r}
-# student name
-question_blank("Name: ___",
-               answer_fn(function(value){
-                              if (length(value) >= 1 ) { return(mark_as(TRUE)) }
-                              return(mark_as(FALSE) )
-                              }), 
-                style = "notes_question",
-                correct = paste0(fontawesome::fa("check") ),
-                incorrect = paste0(fontawesome::fa("xmark") ),
-                allow_retry = FALSE )
-# grade button and print button on same line as name
-bootstrapPage(
-     div(style="display:inline-block",
-         grade_button_ui("grade_out") ),
-     div(style="display:inline-block", print_ui("Print") )
-)
-
-# can have the grade output appear anywhere in your tutorial
-grade_output_ui("grade_out")
-```
-
 # Acknowledgments
 
 This work was made possible through funding from the Alumnae of Northwestern University grant and the Open Educational Resources (OER) grant.
