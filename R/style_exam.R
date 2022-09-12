@@ -8,7 +8,7 @@
 #' @import shiny
 #' @import learnr
 #' @method knit_print exam
-#' @rdname knit_print
+# @rdname knit_print
 knit_print.exam <- function(x, ...) {
   question <- x
   ui <- question_module_ui_exam(question$ids$question)
@@ -125,7 +125,7 @@ question_module_server_exam_impl <- function(
   # (or set when restoring)
   submitted_answer <- reactiveVal(NULL, label = "submitted_answer")
 
-  is_correct_info <- reactive(label = "is_correct_info", {
+  my_correct_info <- reactive(label = "my_correct_info", {
     # question has not been submitted
     if (is.null(submitted_answer())) return(NULL)
     # find out if answer is right
@@ -141,10 +141,10 @@ question_module_server_exam_impl <- function(
 
   # should present all messages?
   is_done <- reactive(label = "is_done", {
-    if (is.null(is_correct_info())) return(NULL)
+    if (is.null(my_correct_info())) return(NULL)
     FALSE
     #DOES NOT APPEAR TO CHANGE ANYTHING
-    #(!isTRUE(question$allow_retry)) || is_correct_info()$correct
+    #(!isTRUE(question$allow_retry)) || my_correct_info()$correct
   })
 
 
@@ -152,12 +152,12 @@ question_module_server_exam_impl <- function(
     if (is.null(submitted_answer())) {
       "submit"
     } else {
-      # is_correct_info() should be valid
-      if (is.null(is_correct_info())) {
-        stop("`is_correct_info()` is `NULL` in a place it shouldn't be")
+      # my_correct_info() should be valid
+      if (is.null(my_correct_info())) {
+        stop("`my_correct_info()` is `NULL` in a place it shouldn't be")
       }
       # update the submit button label
-      if (is_correct_info()$correct) {
+      if (my_correct_info()$correct) {
         "try_again"
         #"correct"
       } else {
@@ -205,19 +205,20 @@ question_module_server_exam_impl <- function(
   output$action_button_container <- renderUI({
     question_button_label(
       question,
-      button_type(),
+      "try_again",
+      #button_type(),
       answer_is_valid()
     )
   })
 
   output$message_container <- renderUI({
-    req(!is.null(is_correct_info()), !is.null(is_done()))
+    req(!is.null(my_correct_info()), !is.null(is_done()))
 
     learnr:::withLearnrMathJax(
       question_messages(
         question,
-        messages = is_correct_info()$messages,
-        is_correct = is_correct_info()$correct,
+        messages = my_correct_info()$messages,
+        is_correct = my_correct_info()$correct,
         is_done = is_done()
       )
     )
@@ -296,7 +297,7 @@ question_module_server_exam_impl <- function(
         question = as.character(question$question),
         answer   = as.character(input$answer),
         correct = FALSE
-        #correct  = is_correct_info()$correct
+        #correct  = my_correct_info()$correct
       )
     )
 
@@ -309,7 +310,7 @@ question_module_server_exam_impl <- function(
       type = "question",
       answer = submitted_answer(),
       correct = FALSE
-      #correct = is_correct_info()$correct
+      #correct = my_correct_info()$correct
     )
     question_state(current_answer_state)
   })
