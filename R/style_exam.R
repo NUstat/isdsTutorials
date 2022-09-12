@@ -156,7 +156,7 @@ question_module_server_exam_impl <- function(
       if (is.null(is_correct_info())) {
         stop("`is_correct_info()` is `NULL` in a place it shouldn't be")
       }
-
+      is_correct_info()$correct <- FALSE
       # update the submit button label
       if (is_correct_info()$correct) {
         "try_again"
