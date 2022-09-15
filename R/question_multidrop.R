@@ -172,8 +172,6 @@ multidrop_question <- function(
   class(ret) <- c(type, "tutorial_question")
   if(style == "notes"){
     class(ret) <- c(type, "notes_question")
-  #}else if(style == "exam"){
-  #  class(ret) <- c(type, "exam")
   }
 
   ret
@@ -276,6 +274,9 @@ question_is_valid.multidrop <- function(question, value, ...) {
 #' @seealso question_multidrop
 question_is_correct.multidrop <- function(question, value, ...) {
 
+    if(question$style == "exam"){
+      return(mark_as(FALSE, NULL))
+    }
 
     # for each possible answer, check if it matches
     for (ans in question$answers) {
