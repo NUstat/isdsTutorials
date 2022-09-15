@@ -246,9 +246,9 @@ question_ui_try_again.matching <- function(question, value, ...) {
 #' @seealso question_matching
 question_is_correct.matching <- function(question, value, ...) {
 
-  # if(question$style == "exam"){
-  #   return(mark_as(FALSE, NULL))
-  # }
+    if(question$style == "exam"){
+      return(mark_as(FALSE, NULL))
+    }
 
     # for each possible answer, check if it matches
     for (answer in question$answers) {
