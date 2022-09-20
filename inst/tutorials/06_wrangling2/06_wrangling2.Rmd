@@ -44,7 +44,7 @@ question_blank("Name: ___",
                                 }
                               return(mark_as(FALSE) )
                               }),
-               style = "notes_question",
+               style = "notes",
                correct = paste0(fontawesome::fa("check") ),
                incorrect = paste0(fontawesome::fa("xmark") ),
                allow_retry = FALSE )
@@ -61,7 +61,7 @@ grade_output_ui("grade_out")
 
 ## Instructions
 
-Complete this tutorial while reading Sections 3.4 - 3.9 of the [textbook](https://nustat.github.io/intro-stat-ds/3-wrangling.html#groupby). Each question allows 3 'free' attempts. After the third attempt a 10% deduction occurs per attempt.
+Complete this tutorial while reading Sections 3.4 - 3.9 of the [textbook](https://nustat.github.io/intro-stat-data-sci/03-wrangling.html). Each question allows 3 'free' attempts. After the third attempt a 10% deduction occurs per attempt.
 
 Once you are finished:
 

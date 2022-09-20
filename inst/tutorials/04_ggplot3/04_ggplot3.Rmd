@@ -44,7 +44,7 @@ question_blank("Name: ___",
                                 }
                               return(mark_as(FALSE) )
                               }),
-               style = "notes_question",
+               style = "notes",
                correct = paste0(fontawesome::fa("check") ),
                incorrect = paste0(fontawesome::fa("xmark") ),
                allow_retry = FALSE )
@@ -61,7 +61,7 @@ grade_output_ui("grade_out")
 
 ## Instructions
 
-Complete this tutorial while reading Sections 2.7 - 2.9 of the [textbook](https://nustat.github.io/intro-stat-ds/2-viz.html#boxplots). Each question allows 3 'free' attempts. After the third attempt a 10% deduction occurs per attempt.
+Complete this tutorial while reading Sections 2.7 - 2.9 of the [textbook](https://nustat.github.io/intro-stat-data-sci/02-visualization.html). Each question allows 3 'free' attempts. After the third attempt a 10% deduction occurs per attempt.
 
 Once you are finished:
 

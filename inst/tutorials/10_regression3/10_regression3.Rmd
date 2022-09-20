@@ -56,7 +56,7 @@ question_blank("Name: ___",
                                 }
                               return(mark_as(FALSE) )
                               }),
-               style = "notes_question",
+               style = "notes",
                correct = paste0(fontawesome::fa("check") ),
                incorrect = paste0(fontawesome::fa("xmark") ),
                allow_retry = FALSE )
@@ -73,7 +73,7 @@ grade_output_ui("grade_out")
 
 ## Instructions
 
-Complete this tutorial while reading Sections 6.0 - 6.1 of the [textbook](https://nustat.github.io/intro-stat-ds/6-multiple-regression.html).
+Complete this tutorial while reading Sections 6.0 - 6.1 of the [textbook](https://nustat.github.io/intro-stat-data-sci/06-multiple-regression.html).
 
 Once you are finished:
 
