@@ -69,8 +69,9 @@ quiz(
   caption = NULL,
   #Q1
   question_multidrop(
-  "The following code is in a code chunk: $\\quad 8/2 \\; = 4$",
-  choices = c("What is the output?"),
+  "The following code is in a code chunk: $\\quad 8/2 \\; = 4$
+  <br/> What is the output?",
+  choices = c(""),
   wordbank = c("4", "TRUE", "FALSE", "NA", "Error", "0"),
   answer(c("Error"), correct = TRUE),
   allow_retry = TRUE,
