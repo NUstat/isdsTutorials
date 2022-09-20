@@ -220,6 +220,10 @@ question_ui_initialize.multidrop <- function(question, value, ...) {
         lapply(seq(1,num), function(x)
           fixedRow(
             column(
+              width = 12-question$box,
+              #icons(question$choices[x]) )
+              p(paste0(question$choices[x]) ) ),
+            column(
               width = question$box,
               div(
                 class = "panel panel-default",
@@ -245,11 +249,7 @@ question_ui_initialize.multidrop <- function(question, value, ...) {
                   ) #end tag select
                 )#end select div
               )#end bigger div
-            ), #end column
-            column(
-              width = 12-question$box,
-              #icons(question$choices[x]) )
-              p(paste0(question$choices[x]) ) )
+            ) #end column
           ) #ends fixed row
         ) #ends lapply
     ) #ends bucket div group
