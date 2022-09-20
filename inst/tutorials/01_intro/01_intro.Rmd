@@ -44,7 +44,7 @@ question_blank("Name: ___",
                                 }
                               return(mark_as(FALSE) )
                               }),
-          style = "notes_question",
+          style = "notes",
           correct = paste0(fontawesome::fa("check") ),
           incorrect = paste0(fontawesome::fa("xmark") ),
           allow_retry = FALSE )
@@ -61,7 +61,7 @@ grade_output_ui("grade_out")
 
 ## Instructions
 
-Complete this tutorial while reading the Preface and Chapter 1 of the [textbook](https://nustat.github.io/intro-stat-ds/). Each question allows 3 'free' attempts. After the third attempt a 10% deduction occurs per attempt.
+Complete this tutorial while reading the Preface and Chapter 1 of the [textbook](https://nustat.github.io/intro-stat-data-sci/). Each question allows 3 'free' attempts. After the third attempt a 10% deduction occurs per attempt.
 
 Once you are finished:
 
@@ -82,7 +82,7 @@ Once you are finished:
 
 **Exercise 1:**
 
-Store the result of `20*40` into the variable `x`
+Store the result of `20*40` into the variable `x`.
 
 ```{r Ex1, exercise=TRUE}
 x ___ 20*___
@@ -180,8 +180,8 @@ quiz(caption = NULL,
   question("Q6) Which of the following is a good analogy for R packages?",
            answer("iOS software"),
            answer("iPhone accessories"),
-           answer("apps you can download"),
-           answer("a new iPhone", correct = TRUE),
+           answer("apps you can download", correct = TRUE),
+           answer("a new iPhone"),
            allow_retry = TRUE,
            random_answer_order = TRUE),
   # Q7

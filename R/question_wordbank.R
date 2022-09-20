@@ -283,11 +283,11 @@ question_ui_initialize.wordbank <- function(question, value, ...) {
          lapply(seq(1,num), function(x)
            fixedRow(
              column(
-               width = box,
+               width = question$box,
                HTML(question$choices[x])
              ),
              column(
-               width = 12-box,
+               width = 12-question$box,
                div(
                  class = "panel panel-default",
                  div(
@@ -434,11 +434,11 @@ question_ui_completed.wordbank <- function(question, value, ...) {
            lapply(seq(1,num), function(x)
              fixedRow(
                column(
-                 width = box,
+                 width = question$box,
                  HTML(question$choices[x])
                ),
                column(
-                 width = 12-box,
+                 width = 12-question$box,
                  div(
                    class = "panel panel-default",
                    div(
