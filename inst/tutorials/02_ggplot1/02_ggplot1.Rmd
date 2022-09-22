@@ -178,7 +178,7 @@ quiz(
   # Q6
   question("Q6) How many Alaska Airlines flights are in the flights data frame?", 
            type = "learnr_text",
-           answer("42", correct = TRUE),
+           answer("714", correct = TRUE),
            allow_retry = TRUE,
            random_answer_order = TRUE),
   # Q7
