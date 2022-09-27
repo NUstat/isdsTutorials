@@ -133,10 +133,14 @@ quiz(
   #Q1
   question("Q1) What is the name of the theoretical framework for data visualization that is the foundation of the ggplot2 package?",
     type = "learnr_text",
-    answer("the grammar of graphics", correct = TRUE),
-    answer("grammar of graphics", correct = TRUE),
-    answer("layered grammar of graphics", correct = TRUE),
-    answer("the layered grammar of graphics", correct = TRUE),
+    answer_fn(function(value){
+            if (tolower(value) %in% 
+                c("the grammar of graphics", "grammar of graphics",
+                  "layered grammar of graphics", 
+                  "the layered grammar of graphics")) {
+                 return(mark_as(TRUE))}
+                 return(mark_as(FALSE) )
+                              }),
     allow_retry = TRUE,
     random_answer_order = TRUE
   ),
