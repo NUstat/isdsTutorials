@@ -77,8 +77,10 @@ quiz(
   allow_retry = TRUE,
   style = "exam",
   incorrect = "submitted"),
-  question_blank(
+  question_multidrop(
     "In a typical dataframe, cells correspond to ___.",
+    choices = c(""),
+    wordbank = c("columns", "rows", "values", "variables", "observations"),
     answer(c("values"), correct = TRUE),
     allow_retry = TRUE,
     style = "exam",
@@ -183,7 +185,7 @@ quiz(
 
 ## Application
 
-The following applications use the `cdc` dataset which has been preloaded for you. .
+The following applications use the `cdc` dataset which has been preloaded for you.
 
 ```{r}
 
@@ -197,7 +199,7 @@ Construct a side-by-side boxplot of `height` by `gender`.
 
 ```
 
-Describe and compare the distribution, including center, spread, and shape/outliers.
+Describe and compare the distribution, including center, spread, skew, and outliers.
 
 ```{r App1-desc}
 question_text("", incorrect = "submitted",
@@ -209,7 +211,11 @@ question_text("", incorrect = "submitted",
 
 ### Application 2
 
-For male survey participants, compute the count of men in each `genhlth` category. Create a new variable called `proportion` which is equal to the "count"/sum("count"). This depends on what your variable is called. Make sure you print/output your results.
+For male survey participants, compute the count of men in each `genhlth` category. 
+
+Then add a new variable called `proportion` which is equal to the `count/sum(count)`. Where `count` should be whatever you called your variable. 
+
+Make sure you print/output your results.
 
 ```{r App2, exercise=TRUE}
 
@@ -232,5 +238,32 @@ question_text("", incorrect = "submitted",
                      correct = TRUE),
               allow_retry = TRUE,
               rows = 5)
+```
+
+## CDC Data Codebook
+
+Each variable corresponds to a question that was asked in the survey.
+
+- `genhlth`, respondents were asked to evaluate their general health, responding either excellent, very good, good, fair or poor. 
+- `exerany` variable indicates whether the respondent exercised in the past month (`1`) or did not (`0`).
+- `hlthplan` indicates whether the respondent had some form of health 
+coverage (`yes`) or did not (`no`). 
+- `smoke100` variable indicates whether the respondent had smoked at least 100 cigarettes in her lifetime: `yes` they have or `no` they have not. 
+- `height` respondent's height in inches
+- `weight` respondent's weight in pounds
+- `wtdesire` their desired weight
+- `age` in years, 
+- `gender` (recorded as `m` or `f`).
+
+Glimpse the data
+
+```{r}
+glimpse(cdc)
+```
+
+Skim the data
+
+```{r}
+skim(cdc)
 ```
 
