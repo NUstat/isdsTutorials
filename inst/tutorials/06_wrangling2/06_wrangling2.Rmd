@@ -19,6 +19,7 @@ library(learnr)
 library(tidyverse)
 library(ISDStutorials)
 library(gradethis)
+library(nycflights13)
 
 knitr::opts_chunk$set(echo = FALSE)
 gradethis_setup()
@@ -121,7 +122,12 @@ quiz(
   #Question 1
   question("Q1) How many flights departed from JFK in the flights dataset?", 
            type = "learnr_text",
-           answer("111279", correct = TRUE),
+           answer_fn(function(value){
+                    if (value %in% c("111279", "111,279") ) {
+                                return(mark_as(TRUE))
+                                }
+                              return(mark_as(FALSE) )
+                              }),
            allow_retry = TRUE),
   #Question 2
   question("Q2) Which function allows you to create a new variable?",
