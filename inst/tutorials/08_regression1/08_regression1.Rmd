@@ -20,6 +20,11 @@ library(tidyverse)
 library(ISDStutorials)
 library(gradethis)
 
+#for exercise
+library(moderndive)
+evals_ch5 <- evals %>%
+  select(score, bty_avg, age)
+
 knitr::opts_chunk$set(echo = FALSE)
 gradethis_setup()
 options(tutorial.event_recorder = ISDStutorials::isds_recorder)
@@ -81,7 +86,6 @@ Once you are finished:
 ## Exercise
 
 Fill in the blanks of the code that creates a scatterplot of teaching score by beauty score and plots the regression line.
-
 
 ```{r Ex1, exercise=TRUE}
 # Create the evals_ch5 dataset

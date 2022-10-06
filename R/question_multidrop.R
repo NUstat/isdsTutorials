@@ -105,7 +105,7 @@ multidrop_question <- function(
     stop("arrange must be either 'random' or 'ordered' ")
   }
   # all correct answers must be an option in wordbank
-  if (!all( answers[[1]]$option %in% wordbank) ) {
+  if (!all( answers[[1]]$option %in% c(wordbank, " ") ) ) {
     stop("All answers must be an option in the wordbank.")
   }
   # number of choices must equal number of answers
