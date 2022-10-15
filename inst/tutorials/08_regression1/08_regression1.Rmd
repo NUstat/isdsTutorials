@@ -136,7 +136,11 @@ quiz(caption = NULL,
     # Q2 
     question("Q2) What is the name of the commonly-used modeling technique that is the focus of Chapter 5? (Hint: it's two words)", 
            type = "learnr_text",
-           answer("linear regression", correct = TRUE),
+           answer_fn(function(value){
+            if (tolower(value) %in% 
+                c("linear regression")) {
+                 return(mark_as(TRUE))}
+                 return(mark_as(FALSE) ) }),
            allow_retry = TRUE),
      # Q3
     question("Q3) Which of the following are TRUE of a linear regression model? ",
@@ -180,6 +184,7 @@ quiz(caption = NULL,
     question("Q9) Provide the slope of the regression line for score ~ bty_avg. Round to 3 decimal places.", 
            type = "learnr_text",
            answer("0.067", correct = TRUE),
+           answer(".067", correct = TRUE),
            allow_retry = TRUE), 
     # Q10
     question("Q10) What is the fitted/predicted value for the 24th instructor in the evals_ch5 dataset when fitting the regression model score ~ bty_avg?", 
