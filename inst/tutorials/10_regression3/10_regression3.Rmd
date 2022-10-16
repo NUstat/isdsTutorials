@@ -183,13 +183,16 @@ quiz(
   What is the estimated slope of credit_limit that results from this model? Round to 3 decimal places.", 
            type = "learnr_text",
            answer("0.264", correct = TRUE),
+           answer(".264", correct = TRUE),
            allow_retry = TRUE),
   # Q4
   question("Q4) What is the name of the phenomenon where relationships that exist in aggregate disappear or reverse when the data are broken into groups?", 
            type = "learnr_text",
-           answer("simpson's paradox", correct = TRUE),
-           answer("simpson paradox", correct = TRUE),
-           answer("simpsons paradox", correct = TRUE),
+           answer_fn(function(value){
+            if (tolower(value) %in% 
+                c("simpson's paradox", "simpson paradox", "simpsons paradox")) {
+                 return(mark_as(TRUE))}
+                 return(mark_as(FALSE) ) }),
            allow_retry = TRUE),
   # Q5
   question("Q5) What is the name of the function that provides you with the fitted values for a model?", 
