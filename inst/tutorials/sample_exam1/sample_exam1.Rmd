@@ -6,7 +6,7 @@ tutorial:
   
 output:
   learnr::tutorial:
-    progressive: true
+    progressive: false
     allow_skip: true
     css: ["css/nu-theme.css"]
 runtime: shiny_prerendered

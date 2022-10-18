@@ -6,7 +6,7 @@ tutorial:
   
 output:
   learnr::tutorial:
-    progressive: true
+    progressive: false
     allow_skip: true
     css: ["css/nu-theme.css"]
 runtime: shiny_prerendered
@@ -27,15 +27,15 @@ options(tutorial.event_recorder = ISDStutorials::isds_recorder)
 
 
 ```{r, context = "server"}
-rubric_list <- data.frame(question = c("Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7", "Q8", "Q9"),
-                          points_possible = rep(1, 9))
+rubric_list <- data.frame(question = c("Name","Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7", "Q8", "Q9"),
+                          points_possible = rep(1, 10))
 
 grade_server("grade_out", 
             rubric_list = rubric_list)
 ```
 
 
-```{r isds-header}
+```{r Name}
 # student name
 question_blank("Name: ___",
                             answer_fn(function(value){
