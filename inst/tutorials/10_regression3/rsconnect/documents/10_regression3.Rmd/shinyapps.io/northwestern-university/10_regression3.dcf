@@ -1,0 +1,13 @@
+name: 10_regression3
+title:
+username:
+account: northwestern-university
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 6890758
+bundleId: 6416329
+url: https://amkuyper.shinyapps.io/10_regression3/
+when: 1666118137.81099
+lastSyncTime: 1666118137.81099
+asMultiple: FALSE
+asStatic: FALSE

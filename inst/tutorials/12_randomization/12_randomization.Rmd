@@ -138,6 +138,7 @@ quiz(caption = NULL,
     question("Q8) In the ed_data randomized experiment example (i.e. in the scenario where treatment status was randomly assigned), what percentage of students in the control group were minority students? Round to 1 decimal place.", 
            type = "learnr_text",
            answer("32.7", correct = TRUE),
+           answer("32.7%", correct = TRUE),
            allow_retry = TRUE), 
     # Q9
     question("Q9) How many students did we randomly assign to the treatment group in the ed_data example?", 
