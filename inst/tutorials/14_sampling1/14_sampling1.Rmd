@@ -129,6 +129,7 @@ c) 99.7% of students spend between ___ and ___ hours studying"),
 Compute the STAT of the value x = $35,000.", 
            type = "learnr_text",
            answer("-1.5", correct = TRUE),
+           answer("-1.50", correct = TRUE),
            allow_retry = TRUE),
   # Q6
   question_wordbank("Q6) Consider a standardized statistic that follows a standard normal distribution. Match each of the following values with where you would expect them to fall on the standard N(0,1) distribution.",
