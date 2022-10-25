@@ -87,10 +87,14 @@ quiz(caption = NULL,
   # Question 1
     question("Q1) What is the gold standard method for understanding causality?", 
            type = "learnr_text",
-           answer("randomized experiment", correct = TRUE),
-           answer("randomized trial", correct = TRUE),
-           answer("randomized control trial", correct = TRUE),
-           answer("random assignment", correct = TRUE),
+           answer_fn(function(value){
+            if (tolower(value) %in% 
+                c("randomized experiment",
+                  "randomized trial",
+                  "randomized control trial",
+                  "random assignment")) {
+                 return(mark_as(TRUE))}
+                 return(mark_as(FALSE) ) }),
            allow_retry = TRUE), 
     # Question 2
     question_wordbank("Q2) What is the purpose of the rbernoulli() function?",

@@ -1,7 +1,7 @@
 ---
-title: "Sample Exam 1"
+title: "Sample Exam 2"
 tutorial:
-  id: "isds_sexam1"
+  id: "isds_sampleexam2"
   version: 0.1
   
 output:
@@ -11,7 +11,7 @@ output:
     css: ["css/nu-theme.css"]
 runtime: shiny_prerendered
 description: >
-  This proficiency exam covers Preface - Chapter 4.
+  This proficiency exam covers Chapter 5 - Section 9.1.
 ---
 
 ```{r setup, include=FALSE}
@@ -25,7 +25,8 @@ knitr::opts_chunk$set(echo = FALSE)
 gradethis_setup()
 options(tutorial.event_recorder = ISDStutorials::isds_recorder)
 
-load("data/cdc.rda")
+mcdonalds <- read_csv("data/mcdonalds.csv")
+
 ```
 
 
@@ -52,7 +53,7 @@ bootstrapPage(
 
 ## Instructions
 
-You have 50 minutes to complete this exam. The exam covers the material learned from Preface - Chapter 4. You are allowed one page of notes front and back.
+You have 50 minutes to complete this exam. The exam covers the material learned from Chapter 5 - Section 9.1. You are allowed one page of notes front and back.
 
 Once you are finished:
 
@@ -63,7 +64,9 @@ Once you are finished:
 
 ## Concept
 
-If one of your Concept answers does not submit manually enter the number followed by the answer (a, b, c, etc...) in this box.
+You only need to type the letter of the solution in the textbox (ie: a, b, c, d, e). I strongly recommend playing it safe and writing down your answers on a piece of paper especially if you are a student who has experienced computer issues.
+
+If one of your Concept answers does not submit manually enter the number followed by the answer (1. a, 2. b,etc...) in this box.
 
 ```{r Concept-help}
 question_text("", incorrect = "submitted",
@@ -78,113 +81,192 @@ question_text("", incorrect = "submitted",
 quiz(
   caption = NULL,
   #Q1
-  question_multidrop(
-  "Q1) The following code is in a code chunk: $\\quad 8/2 \\; = 4$
-  <br/> What is the output?",
-  choices = c(""),
-  wordbank = c("4", "TRUE", "FALSE", "NA", "Error", "0"),
-  answer(c("Error"), correct = TRUE),
+  question_text(
+  "Q1) Which option best describes the correlation.
+  <br> Y is exactly twice the corresponding X. <br> <br>
+  a) Exactly -1 <br>
+  b) Between -1 and 0 <br>
+  c) About 0 <br>
+  d) Between 0 and 1 <br>
+  e) Exactly +1 <br>
+  f) Not enough information",
+  answer(c("wrong"), 
+         correct = TRUE),
   allow_retry = TRUE,
-  style = "exam",
   incorrect = "submitted"),
-  question_multidrop(
-    "Q2) In a typical dataframe, cells correspond to ___.",
-    choices = c(""),
-    wordbank = c("columns", "rows", "values", "variables", "observations"),
-    answer(c("values"), correct = TRUE),
+  question_text(
+    paste("Q2) Examine the graph below and then select the best estimate of the correlation. <br>", htmltools::img(src="images/cor_-0.75.png", height = 300, width = 400), "<br> <br>
+    a) 0 <br>
+    b) -1 <br>
+    c) -0.75 <br>
+    d) -0.5 <br>
+    e) -0.2"),
+    answer(c("wrong"), 
+           correct = TRUE),
     allow_retry = TRUE,
-    style = "exam",
+    message = "Practice estimating correlation at http://guessthecorrelation.com/",
     incorrect = "submitted"
   ),
-  question_multidrop(
-  "Q3) Which of the following shows the relationship between two categorical variables?",
-  choices = c(""),
-  wordbank = c("linegraph", "histogram", "stacked barplot", "grouped boxplot", "none of these"),
-  answer(c("stacked barplot"), correct = TRUE),
+  question_text(
+  paste("Q3) A multiple linear regression model uses the weight (in carats) and cut (Fair, Good, Very Good, Premium, Ideal) of a diamond to predict its price ($). <br>", htmltools::img(src="images/lm_diamonds.png", height = 150, width = 500), "<br> What is the reference level/group for the model? <br> <br>
+        a) Ideal <br>
+        b) Premium <br>
+        c) Very Good <br>
+        d) Good <br>
+        e) Fair"),
+  answer(c("wrong"), correct = TRUE),
   allow_retry = TRUE,
-  style = "exam",
+  incorrect = "submitted"
+  ),
+  question_text(
+  "Q4) Using the multiple linear regression model output from Q3... <br> For diamonds that weigh the same (i.e., hold carat constant) which cut type is predicted to have the highest priced diamonds? <br> <br>
+        a) Ideal <br>
+        b) Premium <br>
+        c) Very Good <br>
+        d) Good <br>
+        e) Fair",
+  answer(c("wrong"), correct = TRUE),
+  allow_retry = TRUE,
+  incorrect = "submitted"
+  ),
+  question_text(
+  "Q5) Consider the following model that predicts a person's salary in thousands ($salary$) based on their year's of service ($years$) and whether or not they have a college degree ($grad$). The variable $grad$ is an indicator variable with two levels {$degree, no degree$}. The reference group for grad is $degree$ . The regression output equation is given below<br>
+  $\\hat{salary} = 45 + 2(years) - 5(grad) - 1(years*grad)$ <br><br>
+  What is the correct interpretation for the coefficient 2 (ie: $b_1$).
+  <br> <br>
+  a) intercept for someone with a degree <br>
+  b) intercept for someone with no degree <br>
+  c) slope of years for someone with a degree <br>
+  d) slope of years for someone with no degree <br>
+  e) offset in slope of years for someone with no degree <br>
+  f) offset in intercept for someone with a degree" ,
+  answer(c("wrong"), correct = TRUE),
+  allow_retry = TRUE,
+  incorrect = "submitted"
+  ),
+  question_text(
+  "Q6) Consider the model above from Q5. <br>
+  What is the salary for a person with 0 years of service and no degree?
+  <br> <br>
+  a) 40,000 <br>
+  b) 41,000 <br>
+  c) 42,000 <br>
+  d) 45,000 <br>
+  e) 47,000",
+  answer(c("wrong"), correct = TRUE),
+  allow_retry = TRUE,
+  incorrect = "submitted"
+  ),
+  question_text(
+  paste("Q7) A residual is defined as the difference between the: <br> <br>
+        a) actual value of y and the estimated value of x <br>
+        b) actual value of y and the estimated value of y <br>
+        c) estimated value of y and the actual value of y <br>
+        d) estimated value of x and the actual value of y" ),
+  answer(c("wrong"), correct = TRUE),
+  allow_retry = TRUE,
+  incorrect = "submitted"
+  ),
+  question_text(
+  "Q8) You are a marketing manager for a chip company and want to evaluate if a new design will increase sales. You don't want to change production unless sales will increase. You compile a list of all stores that sell your product and randomly select 20 stores. You then randomly choose 10 of those stores to get the new design and the other 10 get the old design and compare average sales. What conclusions can we draw from this experiment?
+  <br> <br>
+  a) causal conclusions generalized to all stores selling your chips <br>
+  b) no causal conclusions, correlation statement generalized to all stores selling your chips <br>
+  c) no causal conclusions, correlation statement only applicable to our sample <br>
+  d) causal conclusions only applicable to our sample" ,
+  answer(c("wrong"), correct = TRUE),
+  allow_retry = TRUE,
+  incorrect = "submitted"
+  ),
+  question_text(
+  "Q9) A manufactorer wants to check the rate of defective products that a machine produces. The quality control worker selects the first 100 items produced as their sample and determines the proportion of items that are defective. What type of sample is this?
+  <br> <br>
+  a) simple random sample <br>
+  b) stratified sampling <br>
+  c) cluster sampling <br>
+  d) systematic sampling <br>
+  e) none of these" ,
+  answer(c("wrong"), correct = TRUE),
+  allow_retry = TRUE,
+  incorrect = "submitted"
+  ),
+  question_text(
+  "Q10) A study found that older mothers are more likely to have autistic children than younger mothers. The study randomly selected 500,000 birth records in California and found that Mothers over 40 were 77% more likely to have given birth to an autistic child than mothers under 20. <br>
+  What notation best describes the value 77% above?
+  <br> <br>
+  a) $\\mu$<br>
+  b) $\\bar{x}$ <br>
+  c) $s$ <br>
+  d) $\\pi$ <br>
+  e) $\\hat{\\pi}$" ,
+  answer(c("wrong"), correct = TRUE),
+  allow_retry = TRUE,
+  incorrect = "submitted"
+  ),
+  question_text(
+  "Q11) Based on Q10 above. <br>
+  The results can be generalized to...
+  <br> <br>
+  a) only our sample <br>
+  b) all mothers over 40 or under 25 <br>
+  c) all mothers over 40 or under 25 in California <br>
+  d) all women in California expecting to be a mother" ,
+  answer(c("wrong"), correct = TRUE),
+  allow_retry = TRUE,
+  incorrect = "submitted"
+  ),
+  question_text(
+  "Q12) A large university wanted to study the relationship between completing an internship during college and students' future earning potential. From the same graduating class, they selected a random sample of 80 students who completed an internship and 100 students who did not complete an internship and examined their salaries five years after graduation. They found that there was a statistically higher mean salary for the internship group than for the noninternship group. Which one of the following interpretations is the most appropriate?
+  <br> <br>
+  a) More students should complete internships because having an internship produces a higher salary. <br>
+  b) There could be a confounding variable such as student major, that explains the difference in mean salary between the internship and no internship groups <br>
+  c) We cannot infer anything from these data since the distributions of salaries is likely right skewed. <br>
+  d) You cannot draw any valid conclusions because the sample sizes are different." ,
+  answer(c("wrong"), correct = TRUE),
+  allow_retry = TRUE,
+  incorrect = "submitted"
+  ),
+  question_text(
+  "Q13) Southwest airlines wants to evaluate customer satisfaction. They have a list of all upcoming flights and randomly select five flights to survey everyone on the flight. What type of sampling is this?
+  <br> <br>
+  a) simple random sample <br>
+  b) stratified sampling <br>
+  c) cluster sampling <br>
+  d) systematic sampling <br>
+  e) none of these",
+  answer(c("wrong"), correct = TRUE),
+  allow_retry = TRUE,
   incorrect = "submitted"
   ),
   question_blank(
-  "Q4) We use `geom_jitter()` and/or transparancy of points (alpha) to solve what specific issue when making scatterplots? ___",
-  answer(c("overplotting"), correct = TRUE),
+  "<strong> Q14) (2 pts) Math SAT scores are normally distributed with a mean of 500 and a standard deviation of 100. Based on the empirical rule, 95% of math SAT scores are between ___ and ___. </strong>" ,
+  answer(c("wrong"), correct = TRUE),
+  answer(c("wrong"), correct = TRUE),
   allow_retry = TRUE,
-  style = "exam",
   incorrect = "submitted"
   ),
- question_multidrop(
-  paste("Q5) The table provides data for a single individual, John Statman, who received a health evaluation every five years from the age of 20-55. <br/>", htmltools::img(src="images/01_tableC.png", height = 300, width = 700) ),
-  box = 4,
-  choices = c("Which type of graphic would be most useful for visualizing the relationship between `Age` and `Weight`?"),
-  wordbank = c("histogram", "scatterplot", "linegraph", "boxplot", "barplot"),
-  answer(c("linegraph"), correct = TRUE),
+  question_text(
+  "Q15) Math SAT scores are normally distributed with an average score of 500 and standard deviation of 100. What percent of people score higher than 600 on the Math SAT?
+  <br> <br>
+  a) qnorm(p = 1, mean = 0, sd = 1, lower.tail = FALSE) <br>
+  b) pnorm(q = 400, mean = 500, sd = 100, lower.tail = FALSE) <br>
+  c) pnorm(q = 600, mean = 500, sd = 100) <br>
+  d) pnorm(q = 1, mean = 0, sd = 1, lower.tail = FALSE) <br>
+  c) qnorm(p = 600, mean = 500, sd = 100)",
+  answer(c("wrong"), correct = TRUE),
   allow_retry = TRUE,
-  style = "exam",
   incorrect = "submitted"
   ),
- question_blank("Q6) In the table above, how many variables are categorical? ___",
-    answer(c("3"), correct = TRUE),
-    allow_retry = TRUE,
-    style = "exam",
-    incorrect = "submitted"
- ),
-  question_multidrop(
-  paste("Q7) Below is a boxplot of a unimodal distribution. Which of the following statements is TRUE concerning this distribution? <br/>", htmltools::img(src="images/02_boxplot.png", height = 350, width = 400) ),
-  box = 11,
-  choices = c(""),
-  wordbank = c("The distribution is skewed left and the mean is less than the median.",
-              "The distribution is skewed right and the mean is less than the median.",
-              "The distribution is skewed left and the mean is greater than the median.",
-              "The distribution is skewed right and the mean is greater than the median.",
-              "The distribution is symmetric and the mean is equal to the median."),
-  answer(c("The distribution is skewed right and the mean is greater than the median."), correct = TRUE),
+  question_text(
+  paste("Q16) Which of the following will give you the area of the shaded region for a standard normal distribution? <br>", htmltools::img(src="images/normal_dist1.png", height = 300, width = 400),
+  "<br> <br>
+  a) pnorm(q = -1) <br>
+  b) pnorm(q = -1, lower.tail = FALSE) <br>
+  c) qnorm(p = -1, lower.tail = FALSE) <br>
+  d) qnorm(p = -1) <br>
+  e) 1-pnorm(q = -1, lower.tail = FALSE") ,
+  answer(c("wrong"), correct = TRUE),
   allow_retry = TRUE,
-  style = "exam",
-  incorrect = "submitted"
-  ),
-  question_multidrop(
-  "Q8) Suppose we have a dataset of 500 student's exam scores for a lecture class. The professor decided to curve the exam such that 5 points were added to everyone's exam score.",
-  box = 2,
-  choices = c("How would the average exam score change?",
-              "How would the median exam score change?",
-              "How would the range of exam scores change?"),
-  wordbank = c("Increase","Decrease", "Stay the same"),
-  answer(c("Increase", "Increase", "Stay the same"), correct = TRUE),
-  allow_retry = TRUE,
-  style = "exam",
-  incorrect = "submitted"
-  ),
- question_blank(
-  "Q9) Name one statistic that is invariant to outliers. ___",
-  answer(c("median"), correct = TRUE),
-  allow_retry = TRUE,
-  style = "exam",
-  incorrect = "submitted"
-  ),
-  question_multidrop(
-  "Q10) Match each task with the appropriate function/verb that will accomplish it.",
-  box = 4,
-  arrange = "ordered",
-  choices = c("initialize the plotting space", "keep only desired variables", "pipe operator for linking wrangling functions"),
-  wordbank = c("%>%", "count()", "ggplot()", "filter()", "select()", "+", "geom_*()"),
-  answer(c("ggplot()", "select()", "%>%"), correct = TRUE),
-  allow_retry = TRUE,
-  style = "exam",
-  incorrect = "submitted"
-  ),
-  question_multidrop(
-  "Q11) Suppose we have a dataset (some data) and we want to calculate the mean of one of the numerical variables per level/category for a categorical variable and then order the results with the smallest mean at the top of the output. Which general sequence of functions/verbs would achieve this?",
-  box = 11,
-  choices = c(""),
-  wordbank = c("some data %>% filter() %>% summarize() %>% arrange()",
-               "some data %>% filter() %>% summarize() %>% arrange(desc())",
-               "some data %>% arrange() %>% filter() %>% summarize()",
-               "some data %>% arrange() %>% count()",
-               "some data %>% group_by() %>% summarize() %>% arrange()",
-               "some data %>% group_by() %>% summarize() %>% arrange(desc())"), 
-  answer(c("some data %>% group_by() %>% summarize() %>% arrange()"),correct = TRUE),
-  allow_retry = TRUE,
-  style = "exam",
   incorrect = "submitted"
   )
   
@@ -195,85 +277,129 @@ quiz(
 
 ## Application
 
-The following applications use the `cdc` dataset which has been preloaded for you.
-
-```{r}
-
-```
+The following applications use the `mcdonalds` dataset which has been preloaded for you. This data has been pre-cleaned to remove any impossible observations. Missing values have not been removed and may need to be handled. See the "mcdonalds Data tab" for more information.
 
 ### Application 1
 
-Construct a side-by-side boxplot of `height` by `gender`.
+**Part 1**
 
-```{r App1, exercise=TRUE}
+Calculate the correlation between `calories`, `total_fat` and `carbohydrates`.
+
+```{r App1a, exercise=TRUE}
 
 ```
 
-Describe and compare the distribution, including center, spread, skew, and outliers.
+<br>
 
-```{r App1-desc}
+**Part 2**
+
+Build a multiple linear model that predicts `calories` using `total_fat` and `carbohydrates`. Store the model and print the `summary()`.
+
+```{r App1b, exercise = TRUE, exercise.setup = "App1a"}
+
+```
+
+<br>
+
+**Part 3**
+
+Interpret the **intercept** in the context of the problem.
+
+```{r App-describe1}
 question_text("", incorrect = "submitted",
               answer("ManuallyGradedEverythingWrong", 
                      correct = TRUE),
               allow_retry = TRUE,
               rows = 5)
 ```
+
 
 ### Application 2
 
-For male survey participants, compute the count of men in each `genhlth` category. 
+**Part 1**
 
-Then add a new variable called `proportion` which is equal to the `count/sum(count)`. Where `count` should be whatever you called your variable. 
+Build a multiple regression model with an **interaction** term that predicts `calories` based on `total_fat` and `category`. The variable `category` has 2 levels: {food, drink}.
 
-Make sure you print/output your results.
+Store the model as `model_calories` and print the `summary()`. 
 
-```{r App2, exercise=TRUE}
+```{r App2}
+model_calories <- lm(calories ~ total_fat*category, data = mcdonalds)
+```
+
+
+```{r App2a, exercise=TRUE}
+
+```
+
+<br>
+
+**Part 2**
+
+```{r app2Q1}
+question_text(
+  "App2 Q1) What is the baseline/reference level?<br> <br>
+  a) drink <br>
+  b) food",
+  answer(c("wrong"), correct = TRUE),
+  allow_retry = TRUE,
+  incorrect = "submitted"
+  )
+```
+
+<br>
+
+**Part 3**
+
+Plot the relationship between `calories`, `total_fat`, and `category`. The code has been started for you. Then add the line of best fit for the interaction model. 
+
+Note: The "drink" line may be hard to see and that is okay. If you want to be able to see it better you can add `fullrange = TRUE` as an argument in the layer that created the line (but not necessary).
+
+```{r App2b, exercise = TRUE, exercise.setup = "App2"}
+ggplot(mcdonalds, aes(x = , y = , color = )) +
+  geom_point()
+  
+```
+
+<br>
+
+**Part 4**
+
+Use `model_calories` to add the `residuals()` to the `mcdonalds` dataset. Hint: remove NA values from the dataset and then add the residuals. Print/output the results.
+
+```{r App2c, exercise = TRUE, exercise.setup = "App2"}
 
 ```
 
 
-### Application 3
+## mcdonalds Data
 
-What if we want to know the relationship of `gender` in each of the `genhlth` groups?
+You are welcome to open the dataset in RStudio Cloud as well if the information provided below is not sufficient for you.
 
-```{r App3, exercise=TRUE}
+This dataset provides a nutrition analysis of every menu item on the US McDonald's menu, including breakfast, beef burgers, chicken and fish sandwiches, fries, salads, soda, coffee and tea, milkshakes, and desserts.
 
-```
+Variables:
 
-Explain what the barplot tells us about the relationship between `genhlth` and `gender` for our respondents.
+- `category` -- Binary variable with two options (food, drink)
+- `item` -- Name of food or drink item
+- `serving_size` -- serving size
+- `calories` 
+- `calories_from_fat` 
+- `total_fat` -- in grams (g)
+- `saturated_fat`-- in grams (g)
+- `trans_fat` -- in grams (g)
+- `cholesterol` -- in milligrams (mg)
+- `sodium` -- in milligrams (mg)
+- `carbohydrates` -- in grams (g)
+- `dietary_fiber` -- in grams (g)
+- `sugars` -- in grams (g)
+- `protein` -- in grams (g)
 
-```{r App3-describe}
-question_text("", incorrect = "submitted",
-              answer("ManuallyGradedEverythingWrong", 
-                     correct = TRUE),
-              allow_retry = TRUE,
-              rows = 5)
-```
-
-## CDC Data Codebook
-
-Each variable corresponds to a question that was asked in the survey.
-
-- `genhlth`, respondents were asked to evaluate their general health, responding either excellent, very good, good, fair or poor. 
-- `exerany` variable indicates whether the respondent exercised in the past month (`1`) or did not (`0`).
-- `hlthplan` indicates whether the respondent had some form of health 
-coverage (`yes`) or did not (`no`). 
-- `smoke100` variable indicates whether the respondent had smoked at least 100 cigarettes in her lifetime: `yes` they have or `no` they have not. 
-- `height` respondent's height in inches
-- `weight` respondent's weight in pounds
-- `wtdesire` their desired weight
-- `age` in years, 
-- `gender` (recorded as `m` or `f`).
-
-Glimpse the data
 
 ```{r}
-glimpse(cdc)
+glimpse(mcdonalds)
 ```
 
-Skim the data
-
 ```{r}
-skim(cdc)
+skim(mcdonalds)
 ```
 
