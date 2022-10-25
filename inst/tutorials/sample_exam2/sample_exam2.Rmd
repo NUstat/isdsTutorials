@@ -293,7 +293,7 @@ Calculate the correlation between `calories`, `total_fat` and `carbohydrates`.
 
 **Part 2**
 
-Build a multiple linear model that predicts `calories` using `total_fat` and `carbohydrates`. Store the model and print the `summary()`.
+Build a multiple linear regression model that predicts `calories` using `total_fat` and `carbohydrates`. Store the model and print the `summary()`.
 
 ```{r App1b, exercise = TRUE, exercise.setup = "App1a"}
 
@@ -318,7 +318,7 @@ question_text("", incorrect = "submitted",
 
 **Part 1**
 
-Build a multiple regression model with an **interaction** term that predicts `calories` based on `total_fat` and `category`. The variable `category` has 2 levels: {food, drink}.
+Build a multiple linear regression model with an **interaction** term that predicts `calories` based on `total_fat` and `category`. The variable `category` has 2 levels: {food, drink}.
 
 Store the model as `model_calories` and print the `summary()`. 
 
@@ -364,7 +364,9 @@ ggplot(mcdonalds, aes(x = , y = , color = )) +
 
 **Part 4**
 
-Use `model_calories` to add the `residuals()` to the `mcdonalds` dataset. Hint: remove NA values from the dataset and then add the residuals. Print/output the results.
+Use `model_calories` to add the `residuals()` to the `mcdonalds` dataset. Hint: remove NA values from the dataset and then add the residuals. 
+
+Print/output the results.
 
 ```{r App2c, exercise = TRUE, exercise.setup = "App2"}
 
