@@ -134,7 +134,7 @@ wordbank_question <- function(
     stop("arrange must be either 'random' or 'ordered' ")
   }
   # all correct answers must be an option in wordbank
-  if (!all( answers[[1]]$option %in% wordbank) ) {
+  if (!all( answers[[1]]$option %in% c(wordbank,"answer","dummy","placeholder") ) ) {
     stop("All answers must be an option in the wordbank.")
   }
   # number of choices must equal number of answers
@@ -346,9 +346,9 @@ question_ui_initialize.wordbank <- function(question, value, ...) {
 #' @seealso question_wordbank
 question_is_correct.wordbank <- function(question, value, ...) {
 
-  if(question$style == "exam"){
-    return(mark_as(FALSE, NULL))
-  }
+  # if(question$style == "exam"){
+  #   return(mark_as(FALSE, NULL))
+  # }
 
   for (ans in question$answers) {
 
