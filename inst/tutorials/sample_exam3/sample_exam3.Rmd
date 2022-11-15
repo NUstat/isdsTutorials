@@ -81,11 +81,11 @@ quiz(
   caption = NULL,
   #Q1
   question_text(
-  paste0("Q1) Consider a population that has a unimodal right-skewed distribution. Which of the following pictures would best represent a sampling distribution where repeated samples were taken of size $n = 30$? <br>
+  paste0("Q1) Consider a population that has a unimodal right-skewed distribution. Which of the following pictures would best represent a sampling distribution of a sample mean where repeated samples were taken of size $n = 30$? <br>
   
   a) ", htmltools::img(src="images/sampling_01a.png", height = 200, width = 400) ,"<br>
-  b) ", htmltools::img(src="images/sampling_01c.png", height =300, width = 300) ,"
-  c) ", htmltools::img(src="images/sampling_01b.png", height = 300, width = 300)),
+  b) ", htmltools::img(src="images/sampling_01c.png", height =200, width = 200) ,"
+  c) ", htmltools::img(src="images/sampling_01b.png", height = 200, width = 200)),
   answer(c("wrong"), 
          correct = TRUE),
   allow_retry = TRUE,
@@ -153,8 +153,8 @@ quiz(
   question_text(
   "Q8) Which one of the statements below is TRUE when we decrease the sample size from 500 to 200? Assume a two-tailed hypothesis test for the mean and no other alterations. <br><br>
   a) test statistic becomes larger <br>
-  b) p-value for a hypothesis test becomes larger <br>
-  c) 95% confidence interval becomes narrower <br>
+  b) p-value for a hypothesis test becomes smaller <br>
+  c) 95% confidence interval becomes wider <br>
   d) standard error becomes smaller" ,
   answer(c("wrong"), correct = TRUE),
   allow_retry = TRUE,
@@ -171,7 +171,7 @@ quiz(
   incorrect = "submitted"
   ),
   question_text(
-  "Q10) You are conducting a hypothesis test and change your significance level from $\\alpha = 0.10$ to $\\alpha = 0.5$. How doe sthis impact your Type II error rate? <br> <br>
+  "Q10) You are conducting a hypothesis test and change your significance level from $\\alpha = 0.10$ to $\\alpha = 0.5$. How does this impact your Type II error rate? <br> <br>
   a) increases by exactly 0.05 <br>
   b) decreases by exactly 0.05 <br>
   c) increases but the magnitude is unknown <br>
