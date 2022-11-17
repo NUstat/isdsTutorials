@@ -113,7 +113,7 @@ quiz(
   question_text(
   "Q4) Suppose we want to estimate $\\mu$, the average number of states a student at Northwestern has visited, so we collect a random sample of 100 students and find that the average is 6.4 states. We use this data to compute the following 94% confidence interval for $\\mu$: [4.2, 8.6]. Which one of the following statements is true? <br> <br>
   a) 94% of Northwestern students have visited between 4.2 and 8.6 states. <br>
-  b) There is a 4% chance our interval does not contain $\\mu$. <br>
+  b) There is a 6% chance our interval does not contain $\\mu$. <br>
   c) There is a 94% chance that $\\mu$ is between 4.2 and 8.6. <br>
   d) The margin of error of our interval is 6%.",
   answer(c("wrong"), correct = TRUE),
