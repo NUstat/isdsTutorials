@@ -267,17 +267,22 @@ question_ui_initialize.multidrop <- function(question, value, ...) {
 question_is_valid.multidrop <- function(question, value, ...) {
   value <- unlist(stringr::str_split(value, pattern = ", "))
   #value <- unlist(value)
+  print(value)
 
   if (is.null(value)) {
     return(FALSE)
-  }else if(length(value) < length(question$choices) ){
-    return(FALSE)
-  }else if(any(value == " ")  ){
-    return(FALSE)
-  }else{
-    return(TRUE)
-    #return(length(value) == length(question$choices))
   }
+
+  if(length(as.character(value)) < length(question$choices) ){
+    return(FALSE)
+  }
+
+  if(any(value == " ")  ){
+    return(FALSE)
+  }
+
+  return(TRUE)
+    #return(length(value) == length(question$choices))
 
 }
 
