@@ -230,10 +230,10 @@ question_ui_initialize.multidrop <- function(question, value, ...) {
                               class = "selectbox",
                               tagList(
                                 lapply(c(" ",labels), function(y){
-                                  tags$option(y, selected = "selected")
-                                  # if(ans[x] == y){
-                                  #   tags$option(y, selected="selected")}
-                                  # else{tags$option(y)}
+                                  #tags$option(y, selected = "selected")
+                                  if(ans[x] == y){
+                                    tags$option(y, selected="selected")}
+                                  else{tags$option(y)}
                                   }),
                               ),#end tagList
                               onclick = htmlwidgets::JS(
