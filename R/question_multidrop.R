@@ -187,7 +187,8 @@ question_ui_initialize.multidrop <- function(question, value, ...) {
 
   # set output to previous answers
   if (!is.null(value)) {
-    ans <- as.character( unlist(value) )
+    ans <- unlist(stringr::str_split(value, pattern = ", "))
+    #ans <- as.character( unlist(value) )
   } else {
     ans <- rep(" ", num)
   }
@@ -264,8 +265,8 @@ question_ui_initialize.multidrop <- function(question, value, ...) {
 #' @export
 #' @seealso question_multidrop
 question_is_valid.multidrop <- function(question, value, ...) {
-  value <- unlist(value)
-  value <- value[value != " "]
+  value <- unlist(stringr::str_split(value, pattern = ", "))
+  #value <- unlist(value)
 
   if (is.null(value)) {
     return(FALSE)
