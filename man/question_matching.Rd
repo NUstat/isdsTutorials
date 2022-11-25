@@ -30,10 +30,12 @@ question_matching(
 to "Correct!"). For \code{answer}, a boolean indicating whether this answer is
 correct.}
 
-\item{incorrect}{Text to print for an incorrect answer (defaults to "Incorrect")
-when \code{allow_retry} is \code{FALSE}.}
+\item{incorrect}{Text to print for an incorrect answer (defaults to
+"Incorrect") when \code{allow_retry} is \code{FALSE}.}
 
-\item{loading}{Loading text to display as a placeholder while the question is loaded}
+\item{loading}{Loading text to display as a placeholder while the question is
+loaded. If not provided, generic "Loading..." or placeholder elements will
+be displayed.}
 
 \item{submit_button}{Label for the submit button. Defaults to \code{"Submit Answer"}}
 
@@ -45,7 +47,9 @@ when \code{allow_retry} is \code{FALSE}.}
 
 \item{style}{can change display of question to "notes" or "exam"}
 
-\item{options}{Extra options to be stored in the question object.}
+\item{options}{Extra options to be stored in the question object. This is
+useful when using custom question types. See \code{\link[sortable:question_rank]{sortable::question_rank()}}
+for an example question implementation that uses the \code{options} parameter.}
 }
 \value{
 A custom \code{learnr} question, with \code{type = matching}.

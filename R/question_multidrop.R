@@ -193,7 +193,7 @@ question_ui_initialize.multidrop <- function(question, value, ...) {
   }
 
 
-  # shuffle wordbank options either ordered or random
+  # shuffle options either ordered or random
   options <- question$wordbank
   if(question$arrange == "ordered"){
     labels <- sort(options)
@@ -217,7 +217,7 @@ question_ui_initialize.multidrop <- function(question, value, ...) {
     div(class = "panel-heading",
         strong(question$question)  ),
     div(id = paste0("bucket", rand),
-        lapply(seq(1,num), function(x)
+        lapply(seq(1,num), function(x){
           fixedRow(
             column(
               width = question$box,
@@ -229,10 +229,12 @@ question_ui_initialize.multidrop <- function(question, value, ...) {
                   tags$select(id = input_ids[x],
                               class = "selectbox",
                               tagList(
-                                lapply(c(" ",labels), function(y)
-                                  if(ans[x] == y){
-                                    tags$option(y,selected="selected")}
-                                  else{tags$option(y)}),
+                                lapply(c(" ",labels), function(y){
+                                  tags$option(y, selected = "selected")
+                                  # if(ans[x] == y){
+                                  #   tags$option(y, selected="selected")}
+                                  # else{tags$option(y)}
+                                  }),
                               ),#end tagList
                               onclick = htmlwidgets::JS(
                                 paste0("Shiny.setInputValue('",question$ids$answer,"',
@@ -251,6 +253,7 @@ question_ui_initialize.multidrop <- function(question, value, ...) {
               #icons(question$choices[x]) )
               p(paste0(question$choices[x]) ) )
           ) #ends fixed row
+        }
         ) #ends lapply
     ) #ends bucket div group
   ) # end fluidpage

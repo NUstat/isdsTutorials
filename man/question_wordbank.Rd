@@ -39,20 +39,23 @@ The default is 6 which corresponds to 50\% of the page width.}
 \item{arrange}{either 'random' or 'ordered'; default is random. Set equal to ordered if
 you want the wordbank list to appear alphabetically.}
 
-\item{type}{Type of quiz question. Typically this can be automatically determined
-based on the provided answers. Pass \code{"radio"} to indicate that even though
-multiple correct answers are specified that inputs which include only one correct
-answer are still correct. Pass \code{"checkbox"} to force the use of checkboxes
-(as opposed to radio buttons) even though only once correct answer was provided.}
+\item{type}{Type of quiz question. Typically this can be automatically
+determined based on the provided answers. Pass \code{"radio"} to indicate that
+even though multiple correct answers are specified that inputs which
+include only one correct answer are still correct. Pass \code{"checkbox"} to
+force the use of checkboxes (as opposed to radio buttons) even though only
+once correct answer was provided.}
 
 \item{correct}{For \code{question}, text to print for a correct answer (defaults
 to "Correct!"). For \code{answer}, a boolean indicating whether this answer is
 correct.}
 
-\item{incorrect}{Text to print for an incorrect answer (defaults to "Incorrect")
-when \code{allow_retry} is \code{FALSE}.}
+\item{incorrect}{Text to print for an incorrect answer (defaults to
+"Incorrect") when \code{allow_retry} is \code{FALSE}.}
 
-\item{loading}{Loading text to display as a placeholder while the question is loaded}
+\item{loading}{Loading text to display as a placeholder while the question is
+loaded. If not provided, generic "Loading..." or placeholder elements will
+be displayed.}
 
 \item{submit_button}{Label for the submit button. Defaults to \code{"Submit Answer"}}
 
@@ -64,7 +67,9 @@ when \code{allow_retry} is \code{FALSE}.}
 
 \item{style}{can change display of question to "notes" or "exam"}
 
-\item{options}{Extra options to be stored in the question object.}
+\item{options}{Extra options to be stored in the question object. This is
+useful when using custom question types. See \code{\link[sortable:question_rank]{sortable::question_rank()}}
+for an example question implementation that uses the \code{options} parameter.}
 }
 \value{
 A custom \code{learnr} question, with \code{type = wordbank}.
