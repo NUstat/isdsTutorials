@@ -187,12 +187,13 @@ question_ui_initialize.multidrop <- function(question, value, ...) {
 
   # set output to previous answers
   if (!is.null(value)) {
-    ans <- unlist(stringr::str_split(value, pattern = ", "))
-    #ans <- as.character( unlist(value) )
+    #ans <- unlist(stringr::str_split(value, pattern = ", "))
+    ans <- as.character( unlist(value) )
   } else {
     ans <- rep(" ", num)
   }
 
+  print(ans)
 
   # shuffle options either ordered or random
   options <- question$wordbank
@@ -239,8 +240,8 @@ question_ui_initialize.multidrop <- function(question, value, ...) {
                               ),#end tagList
                               onclick = htmlwidgets::JS(
                                 paste0("Shiny.setInputValue('",question$ids$answer,"',
-                     [", toString(lapply(input_ids, function(z)
-                       paste0("document.getElementById('",z,"').value")
+                     [", toString(lapply(input_ids,
+                                         function(z){paste0("document.getElementById('",z,"').value")}
                      ) ),
                      "] )")
                               )#end JS
@@ -265,24 +266,21 @@ question_ui_initialize.multidrop <- function(question, value, ...) {
 #' @export
 #' @seealso question_multidrop
 question_is_valid.multidrop <- function(question, value, ...) {
-  value <- unlist(stringr::str_split(value, pattern = ", "))
-  #value <- unlist(value)
-  print(value)
 
   if (is.null(value)) {
     return(FALSE)
   }
 
-  if(length(as.character(value)) < length(question$choices) ){
-    return(FALSE)
-  }
+  #value <- as.character(unlist(stringr::str_split(value, pattern = ", ")) )
 
-  if(any(value == " ")  ){
+  value <- as.character(unlist(value))
+  value <- value[value != ""]
+
+  if(length(value) < length(question$choices) ){
     return(FALSE)
   }
 
   return(TRUE)
-    #return(length(value) == length(question$choices))
 
 }
 
@@ -309,11 +307,18 @@ question_is_correct.multidrop <- function(question, value, ...) {
 
 }
 
+#' @export
+#' @seealso question_multidrop
+question_ui_try_again.multidrop <- function(question, value, ...) {
+  disable_all_tags(
+    question_ui_initialize.multidrop(question, value, ...)
+  )
+}
 
 #' @export
 #' @seealso question_multidrop
 question_ui_completed.multidrop <- function(question, value, ...) {
   disable_all_tags(
-    question_ui_initialize(question, value, ...)
+    question_ui_initialize.multidrop(question, value, ...)
   )
 }

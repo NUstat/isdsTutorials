@@ -124,7 +124,7 @@ Hint: You can use properties you know about the N(0,1) distribution or you can u
            answer("t-stat = 3.2", correct = TRUE),
            allow_retry = TRUE,
            random_answer_order = TRUE),
-    question_multidrop("Q6) Imagine that you wish to compare the proportion of NU students ($\\pi_s$) vs. faculty ($\\pi_f$) that support universal healthcare.  Reorder each step in the right column to be in the appropriate order for conducting a hypothesis test to test whether there is a difference in support rates.",
+    question_multidrop("Q6) Imagine that you wish to compare the proportion of NU students ( $\\pi_s$ ) vs. faculty ( $\\pi_f$ ) that support universal healthcare.  Reorder each step in the right column to be in the appropriate order for conducting a hypothesis test to test whether there is a difference in support rates.",
            choices = c("Determine the Type I error rate you are comfortable with", "Conclude that there is a difference among students vs. faculty in support of universal healthcare if \\(p<\\alpha\\)", "Determine the sampling distribution of \\( \\frac{ (\\hat{\\pi_s}- \\hat{\\pi_f}) - (\\pi_s - \\pi_f) }{ \\sqrt{ \\frac{\\hat{\\pi_0}(1-\\hat{\\pi_0})}{n_s} +\\frac{\\hat{\\pi_0}(1-\\hat{\\pi_0})}{n_f} } } \\)",  "Specify \\(H_0:\\pi_s = \\pi_f\\) vs \\(H_A: \\pi_s \\ne`1 \\pi_f \\)", "Compute your p-value", "Compute the value of \\( \\frac{ \\hat{\\pi_s}- \\hat{\\pi_f}}{ \\sqrt{ \\frac{\\hat{\\pi_0}(1-\\hat{\\pi_0})}{n_s} +\\frac{\\hat{\\pi_0}(1-\\hat{\\pi_0})}{n_f} } } \\) observed in your data"),
            arrange = "ordered",
            answer(c("Step 2", "Step 6", "Step 3", "Step 1", "Step 5", "Step 4"), correct = TRUE),
