@@ -271,6 +271,8 @@ question_is_valid.multidrop <- function(question, value, ...) {
     return(FALSE)
   }else if(length(value) < length(question$choices) ){
     return(FALSE)
+  }else if(any(value == " ")  ){
+    return(FALSE)
   }else{
     return(TRUE)
     #return(length(value) == length(question$choices))
