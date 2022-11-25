@@ -316,9 +316,9 @@ question_is_valid.blank <- function(question, value, ...) {
    }
 
    if (isTRUE(question$options$trim)) {
-     return(min( nchar(stringr::str_trim(value)) ) > 0)
+     return(min( nchar(stringr::str_trim(value)) ) > 1)
    } else{
-     return(min( nchar(value) ) > 0)
+     return(min( nchar(value) ) > 1)
    }
 
 }
