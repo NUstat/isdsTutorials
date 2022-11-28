@@ -56,7 +56,7 @@ exam <- function(..., caption = rlang::missing_arg()) {
 #' @method knit_print exam_question
 #' @export
 #' @rdname knit_print
-knit_print.tutorial_exam <- function(x, ...) {
+knit_print.exam_question <- function(x, ...) {
   question <- x
   ui <- question_exam_ui(question$ids$question)
 
