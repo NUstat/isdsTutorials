@@ -142,7 +142,7 @@ wordbank_question <- function(
     stop("Length of choices must equal to length in answer().")
   }
   # ensure style is correct
-  if (! style %in% c("tutorial_question", "notes", "exam")) {
+  if (! style %in% c("tutorial_question", "notes", "exam", "tutorial_exam")) {
     stop("style must be either 'tutorial_question', 'notes', or 'exam'")
   }
 
@@ -200,8 +200,8 @@ wordbank_question <- function(
 
   if(style == "notes"){
     class(ret) <- c(type, "notes_question")
-  #}else if(style == "exam"){
-  #  class(ret) <- c(type, "exam")
+  }else if(style == "tutorial_exam"){
+   class(ret) <- c(type, "tutorial_exam")
   }else{
     class(ret) <- c(type, "tutorial_question")
   }

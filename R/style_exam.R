@@ -1,24 +1,71 @@
+#' Tutorial exam questions
+#'
+#' @description
+#' Add interactive exam questions to a tutorial. Each exam question is executed
+#' within a shiny runtime to provide more flexibility in the types of questions
+#' offered.
+#'
+#' @param ... One or more questions or answers
+#' @param caption Optional quiz caption (defaults to "Quiz")
+#'
+#' @return A learnr quiz, or collection of questions.
+#'
+#' @name exam
+#' @rdname exam
+#' @export
+exam <- function(..., caption = rlang::missing_arg()) {
+
+  # create table rows from questions
+  index <- 1
+  questions <- lapply(list(...), function(question) {
+    if (!is.null(question$label)) {
+      label <- paste(question$label, index, sep="-")
+      question$label <- label
+      question$ids$answer <- NS(label)("answer")
+      question$ids$question <- label
+      index <<- index + 1
+    }
+    question
+  })
+
+  # if(shuffle){
+  #   question <- sample(question)
+  # }
+
+  caption <-
+    if (rlang::is_missing(caption)) {
+      learnr:::i18n_span("text.quiz", "Quiz")
+    } else if (!is.null(caption)) {
+      learnr:::quiz_text(caption)
+    }
+
+  ret <- list(caption = caption, questions = questions)
+  class(ret) <- "tutorial_exam"
+  ret
+}
+
 
 #' Knitr quiz print methods
 #'
-#' \code{knitr::\link[knitr]{knit_print}} methods for \code{\link{question}} and \code{\link{quiz}}
+#' \code{knitr::\link[knitr]{knit_print}} methods for \code{\link{question}} and
+#' \code{\link{quiz}}
+#'
 #' @inheritParams knitr::knit_print
-#' @export
+#'
 #' @importFrom knitr knit_print
-#' @import shiny
-#' @import learnr
-#' @method knit_print exam
-# @rdname knit_print
-knit_print.exam <- function(x, ...) {
+#' @method knit_print exam_question
+#' @export
+#' @rdname knit_print
+knit_print.tutorial_exam <- function(x, ...) {
   question <- x
-  ui <- question_module_ui_exam(question$ids$question)
+  ui <- question_exam_ui(question$ids$question)
 
   # too late to try to set a chunk attribute
   # knitr::set_chunkattr(echo = FALSE)
   rmarkdown::shiny_prerendered_chunk(
     'server',
     sprintf(
-      'question_prerendered_chunk_exam(%s, session = session)',
+      'ISDStutorials:::exam_prerendered_chunk(%s, session = session)',
       learnr:::dput_to_string(question)
     )
   )
@@ -27,33 +74,30 @@ knit_print.exam <- function(x, ...) {
   knitr::knit_print(ui)
 }
 
-retrieve_all_question_submissions <- function(session) {
-  state_objects <- learnr:::get_all_state_objects(session, exercise_output = FALSE)
-
-  # create submissions from state objects
-  submissions <- learnr:::submissions_from_state_objects(state_objects)
-
-  submissions
-}
-
-retrieve_question_submission_answer <- function(session, question_label) {
-  question_label <- as.character(question_label)
-
-  for (submission in retrieve_all_question_submissions(session)) {
-    if (identical(as.character(submission$id), question_label)) {
-      return(submission$data$answer)
-    }
+#' @method knit_print tutorial_exam
+#' @export
+#' @rdname knit_print
+knit_print.tutorial_exam <- function(x, ...) {
+  quiz <- x
+  caption_tag <- if (!is.null(quiz$caption)) {
+    list(knitr::knit_print(
+      tags$div(class = "panel-heading tutorial-quiz-title", quiz$caption)
+    ))
   }
-  return(NULL)
+
+  append(
+    caption_tag,
+    lapply(quiz$questions, knitr::knit_print)
+  )
 }
 
 
-question_prerendered_chunk_exam <- function(question, ..., session = getDefaultReactiveDomain()) {
+exam_prerendered_chunk <- function(question, ..., session = getDefaultReactiveDomain()) {
   learnr:::store_question_cache(question)
 
   question_state <-
     callModule(
-      question_module_server_exam,
+      question_exam_server,
       question$ids$question,
       question = question,
       session = session
@@ -67,11 +111,12 @@ question_prerendered_chunk_exam <- function(question, ..., session = getDefaultR
   question_state
 }
 
-question_module_ui_exam <- function(id) {
+question_exam_ui <- function(id) {
   ns <- NS(id)
   div(
     class = "panel panel-default tutorial-question-container",
     div(
+      useShinyjs(),
       "data-label" = as.character(id),
       class = "tutorial-question panel-body",
       uiOutput(ns("answer_container")),
@@ -82,7 +127,7 @@ question_module_ui_exam <- function(id) {
   )
 }
 
-question_module_server_exam <- function(
+question_exam_server <- function(
     input, output, session,
     question
 ) {
@@ -104,13 +149,13 @@ question_module_server_exam <- function(
   observeEvent(
     req(session$userData$learnr_state() == "restored"),
     once = TRUE,
-    question_module_server_exam_impl(input, output, session, question, question_state)
+    question_exam_server_impl(input, output, session, question, question_state)
   )
 
   question_state
 }
 
-question_module_server_exam_impl <- function(
+question_exam_server_impl <- function(
     input, output, session,
     question,
     question_state = NULL
@@ -125,26 +170,21 @@ question_module_server_exam_impl <- function(
   # (or set when restoring)
   submitted_answer <- reactiveVal(NULL, label = "submitted_answer")
 
-  my_correct_info <- reactive(label = "my_correct_info", {
+  is_correct_info <- reactive(label = "is_correct_info", {
     # question has not been submitted
     if (is.null(submitted_answer())) return(NULL)
     # find out if answer is right
-    # set to always wrong for exam
-    #ret <- question_is_correct(question, submitted_answer())
-    #ret <- 'incorrect'
-    ret <- learnr::mark_as(FALSE, NULL)
-    # if (!inherits(ret, "learnr_mark_as")) {
-    #   stop("`question_is_correct(question, input$answer)` must return a result from `correct`, `incorrect`, or `mark_as`")
-    # }
+    ret <- question_is_correct(question, submitted_answer())
+    if (!inherits(ret, "learnr_mark_as")) {
+      stop("`question_is_correct(question, input$answer)` must return a result from `correct`, `incorrect`, or `mark_as`")
+    }
     ret
   })
 
   # should present all messages?
   is_done <- reactive(label = "is_done", {
-    if (is.null(my_correct_info())) return(NULL)
-    FALSE
-    #DOES NOT APPEAR TO CHANGE ANYTHING
-    #(!isTRUE(question$allow_retry)) || my_correct_info()$correct
+    if (is.null(is_correct_info())) return(NULL)
+    (!isTRUE(question$allow_retry)) || is_correct_info()$correct
   })
 
 
@@ -152,14 +192,14 @@ question_module_server_exam_impl <- function(
     if (is.null(submitted_answer())) {
       "submit"
     } else {
-      # my_correct_info() should be valid
-      if (is.null(my_correct_info())) {
-        stop("`my_correct_info()` is `NULL` in a place it shouldn't be")
+      # is_correct_info() should be valid
+      if (is.null(is_correct_info())) {
+        stop("`is_correct_info()` is `NULL` in a place it shouldn't be")
       }
+
       # update the submit button label
-      if (my_correct_info()$correct) {
-        "try_again"
-        #"correct"
+      if (is_correct_info()$correct) {
+        "correct"
       } else {
         # not correct
         if (isTRUE(question$allow_retry)) {
@@ -167,8 +207,7 @@ question_module_server_exam_impl <- function(
           "try_again"
         } else {
           # not correct and can not try again
-          #"incorrect"
-          "try_again"
+          "incorrect"
         }
       }
     }
@@ -187,14 +226,14 @@ question_module_server_exam_impl <- function(
     if (question$random_answer_order) {
       # Shuffle visible answer options (i.e. static, non-function answers)
       is_visible_option <- !learnr:::answer_type_is_function(question$answers)
-      question$answers[is_visible_option] <<- learnr:::shuffle(question$answers[is_visible_option])
+      question$answers[is_visible_option] <<- shuffle(question$answers[is_visible_option])
     }
     submitted_answer(restoreValue)
   }
 
   # restore past submission
   #  If no prior submission, it returns NULL
-  past_submission_answer <- retrieve_question_submission_answer(session, question$label)
+  past_submission_answer <- learnr:::retrieve_question_submission_answer(session, question$label)
   # initialize like normal... nothing has been submitted
   #   or
   # initialize with the past answer
@@ -203,22 +242,21 @@ question_module_server_exam_impl <- function(
 
 
   output$action_button_container <- renderUI({
-    exam_button_label(
+    question_button_label(
       question,
-      "try_again",
-      #button_type(),
+      button_type(),
       answer_is_valid()
     )
   })
 
   output$message_container <- renderUI({
-    req(!is.null(my_correct_info()), !is.null(is_done()))
+    req(!is.null(is_correct_info()), !is.null(is_done()))
 
     learnr:::withLearnrMathJax(
       question_messages(
         question,
-        messages = my_correct_info()$messages,
-        is_correct = my_correct_info()$correct,
+        messages = is_correct_info()$messages,
+        is_correct = is_correct_info()$correct,
         is_done = is_done()
       )
     )
@@ -244,16 +282,15 @@ question_module_server_exam_impl <- function(
       return(NULL)
     }
 
+    if (is_done()) {
+      # if the question is 'done', display the final input ui and disable everything
 
-    # if (is_done()) {
-    #   # if the question is 'done', display the final input ui and disable everything
-    #
-    #   return(
-    #     learnr:::withLearnrMathJax(
-    #       question_ui_completed(question, submitted_answer())
-    #     )
-    #   )
-    # }
+      return(
+        learnr:::withLearnrMathJax(
+          question_ui_completed(question, submitted_answer())
+        )
+      )
+    }
 
     # if the question is NOT 'done', disable the current UI
     #   until it is reset with the try again button
@@ -275,7 +312,7 @@ question_module_server_exam_impl <- function(
       submitted_answer(NULL)
 
       # submit "reset" to server
-      learnr:::event_trigger(
+      event_trigger(
         session,
         "reset_question_submission",
         data = list(
@@ -289,15 +326,14 @@ question_module_server_exam_impl <- function(
     submitted_answer(input$answer)
 
     # submit question to server
-    learnr:::event_trigger(
+    event_trigger(
       session = session,
       event   = "question_submission",
       data    = list(
         label    = as.character(question$label),
         question = as.character(question$question),
         answer   = as.character(input$answer),
-        correct = FALSE
-        #correct  = my_correct_info()$correct
+        correct  = is_correct_info()$correct
       )
     )
 
@@ -309,8 +345,7 @@ question_module_server_exam_impl <- function(
     current_answer_state <- list(
       type = "question",
       answer = submitted_answer(),
-      correct = FALSE
-      #correct = my_correct_info()$correct
+      correct = is_correct_info()$correct
     )
     question_state(current_answer_state)
   })
@@ -318,13 +353,13 @@ question_module_server_exam_impl <- function(
 
 
 
-exam_button_label <- function(question, label_type = "submit", is_valid = TRUE) {
+question_button_label <- function(question, label_type = "submit", is_valid = TRUE) {
   label_type <- match.arg(label_type, c("submit", "try_again", "correct", "incorrect"))
 
- # if (label_type %in% c("correct", "incorrect")) {
+  if (label_type %in% c("correct", "incorrect")) {
     # No button when answer is correct or incorrect (wrong without try again)
-#    return(NULL)
-  #}
+    return(NULL)
+  }
 
   button_label <- question$button_labels[[label_type]]
   is_valid <- isTRUE(is_valid)
@@ -343,7 +378,7 @@ exam_button_label <- function(question, label_type = "submit", is_valid = TRUE) 
       button <- disable_all_tags(button)
     }
     button
-  } else if (label_type %in% c("correct", "incorrect", "try_again")) {
+  } else if (label_type == "try_again") {
     learnr:::mutate_tags(
       actionButton(
         action_button_id, button_label,
@@ -441,9 +476,10 @@ question_messages <- function(question, messages, is_correct, is_done) {
 }
 
 question_ui_loading <- function(question) {
-  n_paragraphs <- max(length(stringr::str_match_all(question$question, "</p>")), 1)
+  prompt <- format(question$question)
+  n_paragraphs <- max(length(stringr::str_match_all(prompt, "</p>")), 1)
   paras <- lapply(seq_len(n_paragraphs), function(...) {
-    spans <- lapply(seq_len(sample(2:8, 1)), function(...) {
+    spans <- lapply(seq_len(sample(2:4, 1)), function(...) {
       htmltools::span(class = sprintf("placeholder col-%s", sample(2:7, 1)))
     })
     htmltools::p(spans)

@@ -20,6 +20,7 @@ library(learnr)
 library(tidyverse)
 library(ISDStutorials)
 library(gradethis)
+library(shinyjs)
 
 gradethis_setup()
 knitr::opts_chunk$set(echo = FALSE)
@@ -33,6 +34,8 @@ rubric_list <- data.frame(question = c("Name","Ex1", "Ex2Q1", "Ex2Q2", "Q1", "Q2
 
 grade_server("grade_out", 
             rubric_list = rubric_list)
+
+lock_server("lock")
 ```
 
 ```{r Name}
@@ -54,6 +57,8 @@ bootstrapPage(
          grade_button_ui("grade_out") ),
      div(style="display:inline-block", print_ui("Print") )
 )
+
+lock_exam_button("lock")
 
 # can have the grade output appear anywhere in your tutorial
 grade_output_ui("grade_out")
@@ -143,8 +148,8 @@ quiz(caption = NULL,
      question("Q1) What is a section of code in an RMarkdown document called?",
            answer("a tibble"),
            answer("a sandwich"),
-           answer("a code letter",message = "Close, but not quite"),
-           answer("a code chunk",correct = TRUE),
+           answer("a code letter", message = "Close, but not quite"),
+           answer("a code chunk", correct = TRUE),
            allow_retry = TRUE,
            random_answer_order = TRUE),
   #Q2
@@ -204,7 +209,8 @@ quiz(caption = NULL,
         choices = c("accompanies this book","data wrangling",  "data visualization"),
         wordbank = c("moderndive", "dplyr", "ggplot2"),
         answer(c("moderndive", "dplyr", "ggplot2"), correct = TRUE), 
-        allow_retry = TRUE )
+        allow_retry = TRUE,
+        style = "tutorial_exam")
 )
 ```
 

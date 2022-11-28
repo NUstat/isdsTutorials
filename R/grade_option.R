@@ -110,7 +110,6 @@ utils::globalVariables(c("V1", "x1", "x0", "n", "num_try", ".",
 grade_tutorial <- function(submissions, rubric_list,
                            num_try = 3, deduction = 0.1){
 
-
   table <- submissions %>%
     data.table::data.table() %>%
     data.table::transpose() %>%
@@ -123,19 +122,27 @@ grade_tutorial <- function(submissions, rubric_list,
   tmpdf <- data.frame(id = table$V3, time = table$V4,
                       type = table$V5,
                       question = table$V6,
-                      correct = table$V7)
+                      answer = table$V7,
+                      correct = table$V8) %>%
+    mutate(correct = as.numeric(correct),
+           type = as.factor(stringr::str_trim(type) ))
 
+
+  #fix issue with exercise_result submitting multiple times if student get's kicked out
   #fix issue with exercise_result saving correct every time document is loaded
   split_1 <- tmpdf %>%
-    mutate(correct = as.numeric(correct)) %>%
-    filter(correct != 1)
+    filter(type == "question_submission") %>%
+    filter(question != "lock_pressed") %>%
+    mutate(correct = as.numeric(correct))
 
   split_2 <- tmpdf %>%
+    filter(type == "exercise_result") %>%
     mutate(correct = as.numeric(correct)) %>%
-    filter(correct == 1) %>%
-    distinct(type, question, correct, .keep_all = TRUE)
+    distinct(type, question, answer, correct, .keep_all = TRUE)
 
   newdf <- rbind(split_1, split_2)
+
+  print(newdf)
 
   # create data frame of student submission summary
   correct_q <- newdf %>%

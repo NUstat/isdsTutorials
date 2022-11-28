@@ -23,6 +23,8 @@ isds_recorder <- function(tutorial_id, tutorial_version,
     tmp <- paste0(tutorial_id,",", tutorial_version, ", ",
                   user_id, ", ", Sys.time() ,", ",
                   event, ", ", data$label, ", ",
+                  #answer is for question and code is for exercise
+                  data$answer, data$code, ", ",
                   as.numeric(data$correct),
                   as.numeric(data$feedback$correct), sep = "")
 
