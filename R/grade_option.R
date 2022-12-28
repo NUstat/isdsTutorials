@@ -112,7 +112,7 @@ grade_server <- function(id, rubric_list, num_try = 3, deduction = 0.1, display 
       })
 
       observe({
-        output$downloadData <- downloadHandler(
+        output$downloadHTML <- downloadHandler(
           filename = function() {
             paste("rc-", Sys.Date(), ".html", sep="")
           },
