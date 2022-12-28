@@ -114,8 +114,9 @@ grade_server <- function(id, rubric_list, num_try = 3, deduction = 0.1, display 
           paste("rc-", Sys.Date(), ".html", sep="")
         },
         content = function(file) {
-          gt_output(ns("tableout"))
-        }
+          saveKable(kable(c("5", "6"), "html"), file)
+        },
+        contentType = "text/html"
       )
 
       # observeEvent(input$printGrade, {

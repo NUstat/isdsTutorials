@@ -20,7 +20,7 @@ library(learnr)
 library(tidyverse)
 library(ISDStutorials)
 library(gradethis)
-library(shinyjs)
+#library(shinyjs)
 
 gradethis_setup()
 knitr::opts_chunk$set(echo = FALSE)
@@ -54,9 +54,8 @@ question_blank("Name: ___",
 # have name, grade button, and print button on same line
 bootstrapPage(
      div(style="display:inline-block",
-         grade_button_ui("grade_out") ),
+         grade_button_ui("grade_out", label = "View Grade") )
      #div(style="display:inline-block", print_ui("Print") )
-     div(style="display:inline-block", grade_print_ui("grade_out") )
 )
 
 #lock_exam_button("lock")
@@ -71,11 +70,7 @@ grade_output_ui("grade_out")
 
 Complete this tutorial while reading the Preface and Chapter 1 of the [textbook](https://nustat.github.io/intro-stat-data-sci/). Each question allows 3 'free' attempts. After the third attempt a 10% deduction occurs per attempt.
 
-Once you are finished:
-
--   Click the 'grade tutorial' button at the top to retrieve your score.
--   Click the 'pdf' button to save the document as a pdf, you must have the tutorial open in a browser window for this button to work.
--   Submit the completed pdf to Canvas.
+You can click the "view grade" button as many times as you would like to see your current grade and the number of attempts you are on. Before submitting make sure your grade is as expected.
 
 
 ### Goals
@@ -214,5 +209,18 @@ quiz(caption = NULL,
         answer(c("moderndive", "dplyr", "ggplot2"), correct = TRUE), 
         allow_retry = TRUE)
 )
+```
+
+
+## Submit
+
+Once you are finished:
+
+-   Click the 'Download Grade' button below. This will download an html of your grade
+-   Make sure your grade is correct and as expected!
+-   Submit the downloaded html to Canvas.
+
+```{r}
+grade_print_ui("grade_out")
 ```
 
