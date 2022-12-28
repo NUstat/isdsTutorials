@@ -10,5 +10,5 @@ grade_print_ui(id)
 \item{id}{ID matching ui with server}
 }
 \description{
-Tutorial print grade
+Obtain grade on all question and exercise submissions for a user.
 }

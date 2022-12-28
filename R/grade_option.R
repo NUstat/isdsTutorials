@@ -24,14 +24,16 @@ grade_button_ui <- function(id, label = "grade tutorial") {
 }
 
 #' @title Tutorial print grade
+#' @description
+#' Obtain grade on all question and exercise submissions for a user.
 #' @param id ID matching ui with server
 #' @export
 grade_print_ui <- function(id) {
   ns <- NS(id)
+
   tagList(
     #actionButton( ns("printGrade"), label = label)
-
-    downloadButton("downloadHTML", "Download Grade")
+    downloadButton(ns("downloadHTML"), "Download Grade")
   )
 }
 
@@ -109,22 +111,17 @@ grade_server <- function(id, rubric_list, num_try = 3, deduction = 0.1, display 
 
       })
 
-      output$downloadData <- downloadHandler(
-        filename = function() {
-          paste("rc-", Sys.Date(), ".html", sep="")
-        },
-        content = function(file) {
-          saveKable(kable(c("5", "6"), "html"), file)
-        },
-        contentType = "text/html"
-      )
-
-      # observeEvent(input$printGrade, {
-      #   output$download_html <- downloadHandler(
-      #     filename = "report.html",
-      #     content = build_report
-      #   )
-      # })
+      observe({
+        output$downloadData <- downloadHandler(
+          filename = function() {
+            paste("rc-", Sys.Date(), ".html", sep="")
+          },
+          content = function(file) {
+            tableHTML::write_tableHTML(tableHTML::tableHTML(mtcars), file)
+          },
+          contentType = "text/html"
+        )
+      })
 
     }
   )

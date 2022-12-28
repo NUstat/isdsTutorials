@@ -26,6 +26,7 @@ gradethis_setup()
 knitr::opts_chunk$set(echo = FALSE)
 
 options(tutorial.event_recorder = ISDStutorials::isds_recorder)
+
 ```
 
 ```{r, context = "server"}
