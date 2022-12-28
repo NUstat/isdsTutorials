@@ -22,6 +22,9 @@
     <loc>https://nustat.github.io/ISDStutorials/reference/grade_output_ui.html</loc>
   </url>
   <url>
+    <loc>https://nustat.github.io/ISDStutorials/reference/grade_print_ui.html</loc>
+  </url>
+  <url>
     <loc>https://nustat.github.io/ISDStutorials/reference/grade_server.html</loc>
   </url>
   <url>
@@ -31,6 +34,9 @@
     <loc>https://nustat.github.io/ISDStutorials/reference/inner_lock_server.html</loc>
   </url>
   <url>
+    <loc>https://nustat.github.io/ISDStutorials/reference/inner_q_lock_server.html</loc>
+  </url>
+  <url>
     <loc>https://nustat.github.io/ISDStutorials/reference/isds_recorder.html</loc>
   </url>
   <url>
@@ -38,6 +44,12 @@
   </url>
   <url>
     <loc>https://nustat.github.io/ISDStutorials/reference/lock_exam_button.html</loc>
+  </url>
+  <url>
+    <loc>https://nustat.github.io/ISDStutorials/reference/lock_q_button.html</loc>
+  </url>
+  <url>
+    <loc>https://nustat.github.io/ISDStutorials/reference/lock_q_server.html</loc>
   </url>
   <url>
     <loc>https://nustat.github.io/ISDStutorials/reference/lock_server.html</loc>
