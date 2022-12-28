@@ -32,8 +32,8 @@ grade_print_ui <- function(id) {
   ns <- NS(id)
 
   tagList(
-    #actionButton( ns("printGrade"), label = label)
-    downloadButton(ns("downloadHTML"), "Download Grade")
+    actionButton( ns("printGrade"), label = "Download Grade")
+    #downloadButton(ns("downloadHTML"), "Download Grade")
   )
 }
 
@@ -69,7 +69,7 @@ grade_server <- function(id, rubric_list, num_try = 3, deduction = 0.1, display 
   moduleServer(
     id,
     function(input, output, session) {
-
+    # View grade
     observeEvent(input$button, {
 
       ns <- getDefaultReactiveDomain()$ns
@@ -110,18 +110,47 @@ grade_server <- function(id, rubric_list, num_try = 3, deduction = 0.1, display 
       })
 
       })
+      #Print grade
+      observeEvent(input$printGrade, {
 
-      observe({
-        output$downloadHTML <- downloadHandler(
-          filename = function() {
-            paste("rc-", Sys.Date(), ".html", sep="")
-          },
-          content = function(file) {
-            tableHTML::write_tableHTML(tableHTML::tableHTML(mtcars), file)
-          },
-          contentType = "text/html"
-        )
+        ns <- getDefaultReactiveDomain()$ns
+
+        update_grade <- reactiveVal(NULL, label = "grade_recorder")
+
+        # restore past submission
+        past_submission_answer <- learnr:::retrieve_question_submission_answer(session, "grade_recorder")
+        update_grade(past_submission_answer)
+
+        #to prevent error if clicking without any submissions
+        check <- try({grade_tutorial(submissions = update_grade(),
+                                     rubric_list = rubric_list) }, silent = TRUE)
+        if(class(check) == 'try-error'){
+          get_grades <- list(grade_table = NULL, grade_percent = 0)
+        }else if(class(check) != 'try-error'){
+          get_grades <- grade_tutorial(submissions = update_grade() ,
+                                       rubric_list = rubric_list)
+        }
+
+        tab_html <- get_grades$grade_table %>%
+          as_raw_html()
+
+        tableHTML::write_tableHTML(tableHTML::tableHTML(tab_html), "test.html")
+
+        #paste0('<span style=\"font-size:30px; font-weight:normal; color:red\">',
+        #       round(get_grades$grade_percent/10, 2), "/10")}
       })
+
+      # observe({
+      #   output$downloadHTML <- downloadHandler(
+      #     filename = function() {
+      #       paste("rc-", Sys.Date(), ".html", sep="")
+      #     },
+      #     content = function(file) {
+      #       tableHTML::write_tableHTML(tableHTML::tableHTML(mtcars), file)
+      #     },
+      #     contentType = "text/html"
+      #   )
+      # })
 
     }
   )
