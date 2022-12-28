@@ -97,7 +97,8 @@ exam_prerendered_chunk <- function(question, ..., session = getDefaultReactiveDo
 
   question_state <-
     callModule(
-      question_exam_server,
+      learnr:::question_module_server,
+      #question_exam_server,
       question$ids$question,
       question = question,
       session = session
@@ -108,6 +109,8 @@ exam_prerendered_chunk <- function(question, ..., session = getDefaultReactiveDo
     learnr:::set_tutorial_state(question$label, question_state(), session = session)
   })
 
+  print("return_state")
+
   question_state
 }
 
@@ -117,6 +120,7 @@ question_exam_ui <- function(id) {
     class = "panel panel-default tutorial-question-container",
     div(
       useShinyjs(),
+      #useShinyjs(rmd = TRUE),
       "data-label" = as.character(id),
       class = "tutorial-question panel-body",
       uiOutput(ns("answer_container")),
@@ -226,7 +230,7 @@ question_exam_server_impl <- function(
     if (question$random_answer_order) {
       # Shuffle visible answer options (i.e. static, non-function answers)
       is_visible_option <- !learnr:::answer_type_is_function(question$answers)
-      question$answers[is_visible_option] <<- shuffle(question$answers[is_visible_option])
+      question$answers[is_visible_option] <<- learnr:::shuffle(question$answers[is_visible_option])
     }
     submitted_answer(restoreValue)
   }
@@ -312,7 +316,7 @@ question_exam_server_impl <- function(
       submitted_answer(NULL)
 
       # submit "reset" to server
-      event_trigger(
+      learnr:::event_trigger(
         session,
         "reset_question_submission",
         data = list(
@@ -325,8 +329,12 @@ question_exam_server_impl <- function(
 
     submitted_answer(input$answer)
 
+    print("event_trigger")
+
+    print(is_correct_info()$correct)
+
     # submit question to server
-    event_trigger(
+    learnr:::event_trigger(
       session = session,
       event   = "question_submission",
       data    = list(
@@ -347,6 +355,8 @@ question_exam_server_impl <- function(
       answer = submitted_answer(),
       correct = is_correct_info()$correct
     )
+
+
     question_state(current_answer_state)
   })
 }

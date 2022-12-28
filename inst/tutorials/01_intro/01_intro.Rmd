@@ -6,7 +6,7 @@ tutorial:
   
 output:
   learnr::tutorial:
-    progressive: false
+    progressive: true
     allow_skip: true
     css: ["css/nu-theme.css"]
 runtime: shiny_prerendered
@@ -35,7 +35,7 @@ rubric_list <- data.frame(question = c("Name","Ex1", "Ex2Q1", "Ex2Q2", "Q1", "Q2
 grade_server("grade_out", 
             rubric_list = rubric_list)
 
-lock_server("lock")
+#lock_server("lock")
 ```
 
 ```{r Name}
@@ -55,13 +55,16 @@ question_blank("Name: ___",
 bootstrapPage(
      div(style="display:inline-block",
          grade_button_ui("grade_out") ),
-     div(style="display:inline-block", print_ui("Print") )
+     #div(style="display:inline-block", print_ui("Print") )
+     div(style="display:inline-block", grade_print_ui("grade_out") )
 )
 
-lock_exam_button("lock")
+#lock_exam_button("lock")
 
 # can have the grade output appear anywhere in your tutorial
 grade_output_ui("grade_out")
+
+
 ```
 
 ## Instructions
@@ -209,9 +212,7 @@ quiz(caption = NULL,
         choices = c("accompanies this book","data wrangling",  "data visualization"),
         wordbank = c("moderndive", "dplyr", "ggplot2"),
         answer(c("moderndive", "dplyr", "ggplot2"), correct = TRUE), 
-        allow_retry = TRUE,
-        style = "tutorial_exam")
+        allow_retry = TRUE)
 )
 ```
-
 

@@ -216,12 +216,12 @@ quiz(
   incorrect = "submitted"
   ),
   question_text(
-  "Q12) A large university wanted to study the relationship between completing an internship during college and students' future earning potential. From the same graduating class, they selected a random sample of 80 students who completed an internship and 100 students who did not complete an internship and examined their salaries five years after graduation. They found that there was a statistically higher mean salary for the internship group than for the noninternship group. Which one of the following interpretations is the most appropriate?
+  "Q12) Which of the following best describes a confounding variable?
   <br> <br>
-  a) More students should complete internships because having an internship produces a higher salary. <br>
-  b) There could be a confounding variable such as student major, that explains the difference in mean salary between the internship and no internship groups <br>
-  c) We cannot infer anything from these data since the distributions of salaries is likely right skewed. <br>
-  d) You cannot draw any valid conclusions because the sample sizes are different." ,
+  a) a variable that is manipulated by the experimenter <br>
+  b) a variable that has been measured using an unreliable scale <br>
+  c) a variable that affects the outcome being measured as well as, or instead of, the independent variable <br>
+  d) a variable that is made up only of categories" ,
   answer(c("wrong"), correct = TRUE),
   allow_retry = TRUE,
   incorrect = "submitted"

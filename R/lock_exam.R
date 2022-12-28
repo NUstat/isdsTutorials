@@ -11,9 +11,8 @@ lock_exam_button <- function(id = "lock", label = "lock answers") {
     ns <- NS(id)
 
     fluidPage(
-      useShinyjs(),
       tagList(
-      actionButton( ns("lockbutton"), label = label)
+        actionButton( ns("lockbutton"), label = label)
       )
     )
 
@@ -29,7 +28,36 @@ lock_server <- function(id = "lock") {
   moduleServer(
     id,
     function(input, output, session) {
+      # check if lock was pressed in previous session.
+      observeEvent(
+        req(session$userData$learnr_state() == "restored"),{
 
+          ns <- getDefaultReactiveDomain()$ns
+          store_lock <- reactiveVal(NULL, label = "lock_pressed")
+          print("working")
+
+          check_lock_answer <- learnr:::retrieve_question_submission_answer(session, "lock_pressed")
+
+          store_lock(check_lock_answer)
+
+          print(store_lock())
+
+          if(!is.null(store_lock())){
+            #force lock click on reload if already been pressed.
+            print("lock previously clicked")
+            # cache_q <- as.list(learnr:::get_tutorial_cache(type = c("question")))
+            #
+            # map(cache_q, function(x){
+            #   label <- as.character(x$ids$question)
+            #   #print(label)
+            #   inner_lock_server(label)
+            # })
+            #click("lockbutton")
+          }
+
+        }) # close observe event
+
+      # check if lock was pressed now.
       observeEvent(input$lockbutton, {
 
         cache_q <- as.list(learnr:::get_tutorial_cache(type = c("question")))
@@ -50,7 +78,8 @@ lock_server <- function(id = "lock") {
             correct  = 1
           )
         )
-        learnr:::set_tutorial_state("lock_pressed", data    = list(
+        learnr:::set_tutorial_state("lock_pressed",
+                                    data = list(
           label    = "lock_pressed",
           question = NULL,
           answer   = TRUE,
@@ -59,18 +88,7 @@ lock_server <- function(id = "lock") {
 
       })
 
-      # observeEvent(
-      #     req(session$userData$learnr_state() == "start"),{
-      #
-      #     update_lock <- reactiveVal(NULL, label = "lock_pressed")
-      #
-      #     lock1 <- learnr:::retrieve_question_submission_answer(session, "lock_pressed")
-      #
-      #     print("working")
-      #
-      #   }) # close observe event
-
-      }) # close inner server
+      }) # close module server
 
 } # close lock server
 
@@ -107,30 +125,28 @@ inner_lock_server <- function(id) {
 
       #call module server to communicate with ui
       #question state with set tutorial state works but try another option
-      #question_state <-
+      question_state <- reactiveVal()
+
+      question_state <-
       callModule(
           learnr:::question_module_server,
           id = question$ids$question,
           question = question
       )
 
-      observe({
-        #not working!
-        print("fire submit!")
-        click(id = NS(question$ids$question)("action_button"))
-        click(id = ns("action_button"))
-      })
+      # observe({
+      #   #not working!
+      #   print("fire submit!")
+      #   click(id = NS(question$ids$question)("action_button"))
+      #   click(id = ns("action_button"))
+      # })
 
       #disable_all_tags(NS(question$ids$question)("action_button"))
 
 
       #The below two lines work but freezes all buttons and everything?
       #req(question_state())
-      #learnr:::set_tutorial_state(question$label, question_state(), session = session)
-
-      # observe({
-      #   learnr:::set_tutorial_state(question$label, question_state())
-      # })
+      learnr:::set_tutorial_state(question$label, question_state(), session = session)
 
       #add on?
       #tried to simplify to event trigger but not enough to freeze/rerun the UI.
