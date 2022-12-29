@@ -169,10 +169,13 @@ grade_server <- function(id, rubric_list, num_try = 3, deduction = 0.1, display 
                                         tz = "America/Chicago",
                                         usetz = TRUE),
                         rownames = FALSE,
-                        caption = get_grades$user_info$rc,
-                        second_headers = list(c(2, 2),
-                                              c(get_grades$user_info$id,
-                                                get_grades$user_info$name))) %>%
+                        caption = paste0("Scaled score: ",
+                                         round(get_grades$grade_percent/10, 2),
+                                         "/10"),
+                        second_headers = list(c(4),
+                                              c(paste0(get_grades$user_info$rc,
+                                                       " - ",
+                                                       get_grades$user_info$name))) ) %>%
               tableHTML::add_theme('rshiny-blue')
 
             tableHTML::write_tableHTML(tab_html,
