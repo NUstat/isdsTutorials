@@ -4,10 +4,12 @@
 \alias{grade_print_ui}
 \title{Tutorial print grade}
 \usage{
-grade_print_ui(id)
+grade_print_ui(id, label = "Download Grade")
 }
 \arguments{
 \item{id}{ID matching ui with server}
+
+\item{label}{Label to appear on the button}
 }
 \description{
 Obtain grade on all question and exercise submissions for a user.

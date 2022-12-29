@@ -217,11 +217,20 @@ quiz(caption = NULL,
 
 Once you are finished:
 
--   Click the 'Download Grade' button below. This will download an html of your grade
+-   Click the 'Download Grade' button below. This will download an html document of your grade summary
 -   Make sure your grade is correct and as expected!
 -   Submit the downloaded html to Canvas.
 
 ```{r}
 grade_print_ui("grade_out")
+```
+
+
+<br>
+
+If you would like you can also print the full reading check for your own review and records.
+
+```{r}
+print_ui("Print")
 ```
 

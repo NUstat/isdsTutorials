@@ -27,13 +27,14 @@ grade_button_ui <- function(id, label = "grade tutorial") {
 #' @description
 #' Obtain grade on all question and exercise submissions for a user.
 #' @param id ID matching ui with server
+#' @param label Label to appear on the button
 #' @export
-grade_print_ui <- function(id) {
+grade_print_ui <- function(id, label = "Download Grade") {
   ns <- NS(id)
 
   tagList(
     #actionButton( ns("printGrade"), label = "Download Grade"),
-    downloadButton(ns("downloadHTML"), "Download HTML")
+    downloadButton(ns("downloadHTML"), label)
   )
 }
 
@@ -169,7 +170,9 @@ grade_server <- function(id, rubric_list, num_try = 3, deduction = 0.1, display 
             print(session$user_id)
             print(session$tutorial_id)
 
-            tableHTML::write_tableHTML(tableHTML::tableHTML(tab_html, rownames = FALSE),
+            tableHTML::write_tableHTML(tableHTML::tableHTML(tab_html,
+                                                            footer = Sys.time(),
+                                                            rownames = FALSE),
                                        file)
           },
           contentType = "text/html"
@@ -194,7 +197,7 @@ grade_tutorial <- function(submissions, rubric_list,
     tidyr::separate_rows(V1, sep = "//") %>%
     data.table::transpose() %>%
     data.table::tstrsplit(split = ",", names = TRUE)
-  print(table)
+
   # issue using dplyr with shiny object
   # so need to manually set as table
   tmpdf <- data.frame(id = table$V3, time = table$V4,
@@ -205,6 +208,14 @@ grade_tutorial <- function(submissions, rubric_list,
     mutate(correct = as.numeric(correct),
            type = as.factor(stringr::str_trim(type) ))
 
+  # save user info for grade report output
+  name <- tmpdf %>%
+    filter(question == "Name") %>%
+    pull(answer)
+
+  user_info <- data.frame(rc = table$V1[1],
+                          id = table$V3[1],
+                          name = name)
 
   #fix issue with exercise_result submitting multiple times if student get's kicked out
   #fix issue with exercise_result saving correct every time document is loaded
@@ -234,6 +245,7 @@ grade_tutorial <- function(submissions, rubric_list,
     dplyr::count(question, correct) %>%
     tidyr::pivot_wider(names_from = correct, values_from = n)
 
+  print(correct_q)
   # match student progress with all possible questions
   # rubric_list must be defined by creator
   grade_summary <- dplyr::left_join(rubric_list, correct_q, by = "question") %>%
@@ -256,9 +268,11 @@ grade_tutorial <- function(submissions, rubric_list,
     dplyr::mutate(num_attempts = rowSums(dplyr::select(.,contains("x")),
                                   na.rm = TRUE)) %>%
     dplyr::mutate(score = ifelse(num_attempts>num_try,
-                          points_possible*x1*(1-deduction*(num_attempts-num_try)),
+                          points_possible*x1*max(0,(1-deduction*(num_attempts-num_try))),
                           points_possible*x1) ) %>%
     dplyr::select(-x1, -x0)
+
+  print(grade_organized)
 
   grade_table <- grade_organized %>%
     gt::gt(rowname_col = "question") %>%
@@ -271,7 +285,9 @@ grade_tutorial <- function(submissions, rubric_list,
 
   grade_percent = round(100*sum(grade_organized$score)/sum(grade_organized$points_possible),2)
 
-  return(list(grade_table = grade_table, grade_percent = grade_percent))
+  return(list(grade_table = grade_table,
+              grade_percent = grade_percent,
+              user_info = user_info))
 
 }
 
