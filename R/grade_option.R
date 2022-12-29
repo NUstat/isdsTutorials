@@ -32,7 +32,7 @@ grade_print_ui <- function(id) {
   ns <- NS(id)
 
   tagList(
-    actionButton( ns("printGrade"), label = "Download Grade"),
+    #actionButton( ns("printGrade"), label = "Download Grade"),
     downloadButton(ns("downloadHTML"), "Download HTML")
   )
 }
@@ -111,35 +111,33 @@ grade_server <- function(id, rubric_list, num_try = 3, deduction = 0.1, display 
 
       })
       #Print grade
-      observeEvent(input$printGrade, {
-
-        ns <- getDefaultReactiveDomain()$ns
-
-        update_grade <- reactiveVal(NULL, label = "grade_recorder")
-
-        # restore past submission
-        past_submission_answer <- learnr:::retrieve_question_submission_answer(session, "grade_recorder")
-        update_grade(past_submission_answer)
-
-        #to prevent error if clicking without any submissions
-        check <- try({grade_tutorial(submissions = update_grade(),
-                                     rubric_list = rubric_list) }, silent = TRUE)
-        if(class(check) == 'try-error'){
-          get_grades <- list(grade_table = NULL, grade_percent = 0)
-        }else if(class(check) != 'try-error'){
-          get_grades <- grade_tutorial(submissions = update_grade() ,
-                                       rubric_list = rubric_list)
-        }
-
-        tab_html <- get_grades$grade_table %>%
-          as_raw_html()
-
-        #tableHTML::write_tableHTML(tableHTML::tableHTML(tab_html), "test.html")
-        #tableHTML::write_tableHTML(tab_html, "test.html")
-        tableHTML::write_tableHTML(tableHTML::tableHTML(data.frame(x = c(1))), "test.html")
-
-
-      })
+      # observeEvent(input$printGrade, {
+      #
+      #   ns <- getDefaultReactiveDomain()$ns
+      #
+      #   update_grade <- reactiveVal(NULL, label = "grade_recorder")
+      #
+      #   # restore past submission
+      #   past_submission_answer <- learnr:::retrieve_question_submission_answer(session, "grade_recorder")
+      #   update_grade(past_submission_answer)
+      #
+      #   #to prevent error if clicking without any submissions
+      #   check <- try({grade_tutorial(submissions = update_grade(),
+      #                                rubric_list = rubric_list) }, silent = TRUE)
+      #   if(class(check) == 'try-error'){
+      #     get_grades <- list(grade_table = NULL, grade_percent = 0)
+      #   }else if(class(check) != 'try-error'){
+      #     get_grades <- grade_tutorial(submissions = update_grade() ,
+      #                                  rubric_list = rubric_list)
+      #   }
+      #
+      #   tab_html <- get_grades$grade_table %>%
+      #     as_raw_html()
+      #
+      #   #tableHTML::write_tableHTML(tableHTML::tableHTML(tab_html), "test.html")
+      #   #tableHTML::write_tableHTML(tab_html, "test.html")
+      #   tableHTML::write_tableHTML(tableHTML::tableHTML(data.frame(x = c(1))), "test.html")
+      # })
 
 
       output$downloadHTML <- downloadHandler(
@@ -168,8 +166,8 @@ grade_server <- function(id, rubric_list, num_try = 3, deduction = 0.1, display 
               as.data.frame()
             #check user
             #check time
-            print(session$user())
-            print(session$tutorial_id())
+            print(session$user_id)
+            print(session$tutorial_id)
 
             tableHTML::write_tableHTML(tableHTML::tableHTML(tab_html, rownames = FALSE),
                                        file)
