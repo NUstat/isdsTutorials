@@ -204,7 +204,6 @@ grade_tutorial <- function(submissions, rubric_list,
     data.table::transpose() %>%
     data.table::tstrsplit(split = ",", names = TRUE)
 
-  print(table)
   # issue using dplyr with shiny object
   # so need to manually set as table
   tmpdf <- data.frame(rc = table$V1, id = table$V3, time = table$V4,
@@ -216,22 +215,6 @@ grade_tutorial <- function(submissions, rubric_list,
            correct = ifelse(is.na(correct), 0, correct),
            type = as.factor(stringr::str_trim(type) ),
            rc = stringr::str_remove(rc, "\n"))
-
-  print(tmpdf[,c(5:7)])
-
-  # save user info for grade report output
-  name <- tmpdf %>%
-    filter(question == "Name")
-  print(name)
-  name <- name  %>%
-    pull(answer)
-  print(name)
-  name <- ifelse(!is_empty(name), name, NA)
-  print(name)
-
-  user_info <- data.frame(rc = tmpdf$rc[1],
-                          id = tmpdf$id[1],
-                          name = name)
 
   #fix issue with exercise_result submitting multiple times if student get's kicked out
   #fix issue with exercise_result saving correct every time document is loaded
@@ -261,13 +244,26 @@ grade_tutorial <- function(submissions, rubric_list,
     # Remove blank space for merge
     dplyr::mutate(question = gsub(" ", '', question))
 
+  # save user info for grade report output
+  name <- newdf %>%
+    filter(question == "Name")
+  print(name)
+  name <- name  %>%
+    pull(answer)
+  print(name)
+  name <- ifelse(!is_empty(name), name, NA)
+  print(name)
+
+  user_info <- data.frame(rc = tmpdf$rc[1],
+                          id = tmpdf$id[1],
+                          name = name)
+
   # create data frame of student submission summary
   correct_q <- newdf %>%
     # get counts of attempts
     dplyr::count(question, correct) %>%
     tidyr::pivot_wider(names_from = correct, values_from = n)
 
-  print(correct_q)
   # last submitted answer
   last_answer <- newdf %>%
     group_by(question) %>%
