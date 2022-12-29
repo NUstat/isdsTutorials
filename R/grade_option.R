@@ -227,11 +227,9 @@ grade_tutorial <- function(submissions, rubric_list,
     mutate(correct = as.numeric(correct)) %>%
     distinct(time, type, question, answer, correct, .keep_all = TRUE)
 
-  print(split_1)
   #find questions with multiple answers and concatenate
   split_1 <- aggregate(data=split_1, answer~.,
                        FUN = paste, collapse=",")
-  print(split_1)
 
   split_2 <- tmpdf %>%
     filter(type == "exercise_result") %>%
@@ -242,19 +240,29 @@ grade_tutorial <- function(submissions, rubric_list,
 
   print(newdf)
 
-  # create data frame of student submission summary
-  correct_q <- newdf %>%
+  # format question names for merge
+  newdf <- newdf %>%
     dplyr::filter(!is.na(question)) %>%
     # remove punctuation for merge
     dplyr::mutate(question = stringr::str_replace_all(question,
-                                      "[[:punct:]]", "")) %>%
+                                                      "[[:punct:]]", "")) %>%
     # Remove blank space for merge
-    dplyr::mutate(question = gsub(" ", '', question)) %>%
+    dplyr::mutate(question = gsub(" ", '', question))
+
+  # create data frame of student submission summary
+  correct_q <- newdf %>%
     # get counts of attempts
     dplyr::count(question, correct) %>%
     tidyr::pivot_wider(names_from = correct, values_from = n)
 
   print(correct_q)
+
+  # last submitted answer
+  last_answer <- newdf %>%
+    group_by(question) %>%
+    filter(time == max(time))
+  print(last_answer)
+
   # match student progress with all possible questions
   # rubric_list must be defined by creator
   grade_summary <- dplyr::left_join(rubric_list, correct_q, by = "question") %>%
