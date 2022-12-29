@@ -32,7 +32,7 @@ grade_print_ui <- function(id) {
   ns <- NS(id)
 
   tagList(
-    actionButton( ns("printGrade"), label = "Download Grade")
+    actionButton( ns("printGrade"), label = "Download")
     #downloadButton(ns("downloadHTML"), "Download Grade")
   )
 }
@@ -134,10 +134,11 @@ grade_server <- function(id, rubric_list, num_try = 3, deduction = 0.1, display 
         tab_html <- get_grades$grade_table %>%
           as_raw_html()
 
-        tableHTML::write_tableHTML(tableHTML::tableHTML(tab_html), "test.html")
+        #tableHTML::write_tableHTML(tableHTML::tableHTML(tab_html), "test.html")
+        #tableHTML::write_tableHTML(tab_html, "test.html")
+        tableHTML::write_tableHTML(tableHTML::tableHTML(data.frame(x = c(1))), "test.html")
 
-        #paste0('<span style=\"font-size:30px; font-weight:normal; color:red\">',
-        #       round(get_grades$grade_percent/10, 2), "/10")}
+
       })
 
       # observe({
