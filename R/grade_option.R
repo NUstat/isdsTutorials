@@ -169,7 +169,10 @@ grade_server <- function(id, rubric_list, num_try = 3, deduction = 0.1, display 
                                         tz = "America/Chicago",
                                         usetz = TRUE),
                         rownames = FALSE,
-                        caption = get_grades$user_info) %>%
+                        caption = get_grades$user_info$rc,
+                        second_headers = list(c(2, 2),
+                                              c(get_grades$user_info$id,
+                                                get_grades$user_info$name))) %>%
               tableHTML::add_theme('rshiny-blue')
 
             tableHTML::write_tableHTML(tab_html,
@@ -215,7 +218,9 @@ grade_tutorial <- function(submissions, rubric_list,
     pull(answer)
   name <- ifelse(is.null(name), "NA", name)
 
-  user_info <- paste(c(tmpdf$rc[1], tmpdf$id[1], name))
+  user_info <- data.frame(rc = tmpdf$rc[1],
+                          id = tmpdf$id[1],
+                          name = name)
 
   #fix issue with exercise_result submitting multiple times if student get's kicked out
   #fix issue with exercise_result saving correct every time document is loaded
