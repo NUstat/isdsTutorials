@@ -210,14 +210,14 @@ grade_tutorial <- function(submissions, rubric_list,
            rc = stringr::str_remove(rc, "\n"))
 
   # save user info for grade report output
-  # name <- tmpdf %>%
-  #   filter(question == "Name") %>%
-  #   pull(answer)
-  # name <- ifelse(is.null(name), "NA", name)
+  name <- tmpdf %>%
+    filter(question == "Name") %>%
+    pull(answer)
+  name <- ifelse(is.null(name), "NA", name)
 
-  # user_info <- data.frame(rc = tmpdf$rc[1],
-  #                         id = tmpdf$id[1],
-  #                         name = name)
+  user_info <- data.frame(rc = tmpdf$rc[1],
+                          id = tmpdf$id[1],
+                          name = name)
 
   #fix issue with exercise_result submitting multiple times if student get's kicked out
   #fix issue with exercise_result saving correct every time document is loaded
@@ -238,8 +238,6 @@ grade_tutorial <- function(submissions, rubric_list,
 
   newdf <- rbind(split_1, split_2)
 
-  print(newdf)
-
   # format question names for merge
   newdf <- newdf %>%
     dplyr::filter(!is.na(question)) %>%
@@ -254,8 +252,6 @@ grade_tutorial <- function(submissions, rubric_list,
     # get counts of attempts
     dplyr::count(question, correct) %>%
     tidyr::pivot_wider(names_from = correct, values_from = n)
-
-  print(correct_q)
 
   # last submitted answer
   last_answer <- newdf %>%
@@ -304,7 +300,8 @@ grade_tutorial <- function(submissions, rubric_list,
   grade_percent = round(100*sum(grade_organized$score)/sum(grade_organized$points_possible),2)
 
   return(list(grade_table = grade_table,
-              grade_percent = grade_percent))
+              grade_percent = grade_percent,
+              user_info = user_info))
 
 }
 
