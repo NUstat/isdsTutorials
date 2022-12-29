@@ -206,7 +206,8 @@ grade_tutorial <- function(submissions, rubric_list,
                       answer = table$V7,
                       correct = table$V8) %>%
     mutate(correct = as.numeric(correct),
-           type = as.factor(stringr::str_trim(type) ))
+           type = as.factor(stringr::str_trim(type) ),
+           rc = stringr::str_remove(rc, "\n"))
 
   # save user info for grade report output
   # name <- tmpdf %>%
@@ -222,7 +223,8 @@ grade_tutorial <- function(submissions, rubric_list,
   split_1 <- tmpdf %>%
     filter(type == "question_submission") %>%
     filter(question != "lock_pressed") %>%
-    mutate(correct = as.numeric(correct))
+    mutate(correct = as.numeric(correct)) %>%
+    distinct(time, type, question, answer, correct, .keep_all = TRUE)
 
   split_2 <- tmpdf %>%
     filter(type == "exercise_result") %>%
@@ -250,6 +252,7 @@ grade_tutorial <- function(submissions, rubric_list,
   # rubric_list must be defined by creator
   grade_summary <- dplyr::left_join(rubric_list, correct_q, by = "question") %>%
     janitor::clean_names()
+  # grade summary has question, points_possible, num_attempts_score
 
   # create placeholder column if x1 or x0 has not applied yet
   if(!"x1" %in% colnames(grade_summary)){
@@ -286,8 +289,7 @@ grade_tutorial <- function(submissions, rubric_list,
   grade_percent = round(100*sum(grade_organized$score)/sum(grade_organized$points_possible),2)
 
   return(list(grade_table = grade_table,
-              grade_percent = grade_percent,
-              user_info = user_info))
+              grade_percent = grade_percent))
 
 }
 
