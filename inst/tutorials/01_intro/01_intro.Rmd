@@ -20,6 +20,7 @@ library(learnr)
 library(tidyverse)
 library(ISDStutorials)
 library(gradethis)
+library(tableHTML)
 #library(shinyjs)
 
 gradethis_setup()
