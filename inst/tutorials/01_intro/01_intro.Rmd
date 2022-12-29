@@ -232,6 +232,8 @@ grade_print_ui("grade_out")
 If you would like you can also print the full reading check for your own review and records.
 
 ```{r}
-print_ui("Print", label = "full reading check")
+bootstrapPage(
+     div(style="display:inline-block",
+         print_ui("Print", label = "full reading check") ))
 ```
 

@@ -213,9 +213,10 @@ grade_tutorial <- function(submissions, rubric_list,
   # name <- tmpdf %>%
   #   filter(question == "Name") %>%
   #   pull(answer)
-  #
-  # user_info <- data.frame(rc = table$V1[1],
-  #                         id = table$V3[1],
+  # name <- ifelse(is.null(name), "NA", name)
+
+  # user_info <- data.frame(rc = tmpdf$rc[1],
+  #                         id = tmpdf$id[1],
   #                         name = name)
 
   #fix issue with exercise_result submitting multiple times if student get's kicked out
@@ -225,6 +226,12 @@ grade_tutorial <- function(submissions, rubric_list,
     filter(question != "lock_pressed") %>%
     mutate(correct = as.numeric(correct)) %>%
     distinct(time, type, question, answer, correct, .keep_all = TRUE)
+
+  print(split_1)
+  #find questions with multiple answers and concatenate
+  split_1 <- aggregate(data=split_1, answer~.,
+                       FUN = paste, collapse=",")
+  print(split_1)
 
   split_2 <- tmpdf %>%
     filter(type == "exercise_result") %>%
