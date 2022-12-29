@@ -7,7 +7,9 @@
   }
   .topics .tutorialTitle,
   .topics .section.level2,
-  .topics .section.level3:not(.hide),
+  .topics .section.level3:not(.hide) {
+    display: block;
+  }
   .topics {
     width: 100%;
   }
@@ -23,4 +25,3 @@
     font-style: italic;
   }
 }
-

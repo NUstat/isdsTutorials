@@ -164,15 +164,15 @@ grade_server <- function(id, rubric_list, num_try = 3, deduction = 0.1, display 
                                            rubric_list = rubric_list)
             }
             tab_html <- get_grades$grade_table %>%
-              as.data.frame()
-            #check user
-            #check time
-            print(session$user_id)
-            print(session$tutorial_id)
+              as.data.frame() %>%
+              tableHTML(footer = format(as.POSIXct(Sys.time()),
+                                        tz = "America/Chicago",
+                                        usetz = TRUE),
+                        rownames = FALSE,
+                        headers = get_grades$user_info) %>%
+              add_theme('rshiny-blue')
 
-            tableHTML::write_tableHTML(tableHTML::tableHTML(tab_html,
-                                                            footer = Sys.time(),
-                                                            rownames = FALSE),
+            tableHTML::write_tableHTML(tab_html,
                                        file)
           },
           contentType = "text/html"
