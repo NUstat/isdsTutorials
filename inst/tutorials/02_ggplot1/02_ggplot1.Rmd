@@ -71,7 +71,6 @@ You can click the "View Grade" button as many times as you would like to see you
 -   Describe a scatterplot.
 -   Understand the different aesthetics.
 
-
 ## Exercise
 
 Construct a scatterplot of `eruptions` by `waiting` using the `faithful` dataset by filling in the blanks (the data is already preloaded in R).

@@ -67,7 +67,6 @@ Complete this tutorial while reading the Preface and Chapter 1 of the [textbook]
 
 You can click the "View Grade" button as many times as you would like to see your current grade and the number of attempts you are on. Before submitting make sure your grade is as expected.
 
-
 ### Goals
 
 -   Know what resources you have available for help.

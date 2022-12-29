@@ -1,12 +1,12 @@
 ---
-title: "Tutorial: Chapter 3.0 - 3.3"
+title: "RC 05: Chapter 3.0 - 3.3"
 tutorial:
-  id: "isds_05"
+  id: "RC_05"
   version: 0.1
   
 output:
   learnr::tutorial:
-    progressive: true
+    progressive: false
     allow_skip: true
     css: ["css/nu-theme.css"]
 runtime: shiny_prerendered
@@ -51,8 +51,7 @@ question_blank("Name: ___",
 # have name, grade button, and print button on same line
 bootstrapPage(
      div(style="display:inline-block",
-         grade_button_ui("grade_out") ),
-     div(style="display:inline-block", print_ui("Print") )
+         grade_button_ui("grade_out") )
 )
 
 # can have the grade output appear anywhere in your tutorial
@@ -63,19 +62,13 @@ grade_output_ui("grade_out")
 
 Complete this tutorial while reading Sections 3.0 - 3.3 of the [textbook](https://nustat.github.io/intro-stat-data-sci/03-wrangling.html). Each question allows 3 'free' attempts. After the third attempt a 10% deduction occurs per attempt.
 
-Once you are finished:
-
--   Click the 'grade tutorial' button at the top to retrieve your score.
--   Click the 'pdf' button to save the document as a pdf, you must have the tutorial open in a browser window for this button to work.
--   Submit the completed pdf to Canvas.
-
+You can click the "View Grade" button as many times as you would like to see your current grade and the number of attempts you are on. Before submitting make sure your grade is as expected.
 
 ### Goals
 
 -   Understand and execute the basics of data wrangling.
 -   Understand how to handle missing values.
 -   Understand how to add layers to a ggplot.
-
 
 ## Exercise
 
@@ -179,3 +172,31 @@ quiz(
 )
 
 ```
+
+## Submit
+
+Once you are finished:
+
+-   Click the 'Download Grade' button below. This will download an html document of your grade summary.
+-   Make sure your grade is correct and as expected!
+-   Submit the downloaded html to Canvas.
+
+```{r}
+grade_print_ui("grade_out")
+```
+
+<br>
+<hr /> 
+<br>
+
+```{r}
+bootstrapPage(
+     div(style="display:inline-block", 
+         p("Optional: you can also") ),
+     div(style="display:inline-block",
+         print_ui("Print", label = "full reading check") ),
+     div(style="display:inline-block", 
+         p("for your own review and records.") ) 
+     )
+```
+<hr /> 
