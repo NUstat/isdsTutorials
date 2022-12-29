@@ -204,6 +204,7 @@ grade_tutorial <- function(submissions, rubric_list,
     data.table::transpose() %>%
     data.table::tstrsplit(split = ",", names = TRUE)
 
+  print(table)
   # issue using dplyr with shiny object
   # so need to manually set as table
   tmpdf <- data.frame(rc = table$V1, id = table$V3, time = table$V4,

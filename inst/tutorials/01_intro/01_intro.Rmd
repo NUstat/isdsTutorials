@@ -1,7 +1,7 @@
 ---
 title: "Tutorial: Preface & Chapter 1"
 tutorial:
-  id: "isds_01b"
+  id: "RC_01"
   version: 0.1
   
 output:
@@ -11,26 +11,23 @@ output:
     css: ["css/nu-theme.css"]
 runtime: shiny_prerendered
 description: >
-  Learn the basics of RMarkdown.
+  Learn the basics of Quarto.
 ---
 
 ```{r setup, include=FALSE}
-
 library(learnr)
 library(tidyverse)
 library(ISDStutorials)
 library(gradethis)
-#library(shinyjs)
 
 gradethis_setup()
 knitr::opts_chunk$set(echo = FALSE)
 
 options(tutorial.event_recorder = ISDStutorials::isds_recorder)
-
 ```
 
 ```{r, context = "server"}
-rubric_list <- data.frame(question = c("Name","Ex1", "Ex2Q1", "Ex2Q2", "Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7", "Q8", "Q9"),
+rubric_list <- data.frame(question = c("Name", "Ex1", "Ex2", "Ex3", "Ex4Q1", "Ex4Q2", "Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7"),
                           points_possible = rep(1, 13))
 
 grade_server("grade_out", 
@@ -56,15 +53,12 @@ question_blank("Name: ___",
 bootstrapPage(
      div(style="display:inline-block",
          grade_button_ui("grade_out", label = "View Grade") )
-     #div(style="display:inline-block", print_ui("Print") )
 )
 
 #lock_exam_button("lock")
 
 # can have the grade output appear anywhere in your tutorial
 grade_output_ui("grade_out")
-
-
 ```
 
 ## Instructions
@@ -86,18 +80,14 @@ You can click the "view grade" button as many times as you would like to see you
 
 **Exercise 1:**
 
-Store the result of `20*40` into the variable `x`.
+A code chunk can be used as a calculator. Try typing 2+2 into the code chunk and running the code.
 
 ```{r Ex1, exercise=TRUE}
-x ___ 20*___
-```
 
-```{r Ex1-hint-1}
-The assignment operator is `<-`
 ```
 
 ```{r Ex1-solution, exercise.reveal_solution = FALSE}
-x <- 20*40
+2 + 2
 ```
 
 ```{r Ex1-code-check}
@@ -106,17 +96,63 @@ grade_this_code()
 
 **Exercise 2:**
 
-The `mpg` dataset is included in the `ggplot2` package. Print the dataset to answer the following questions by typing `mpg` in the codechunk and clicking `run`.
+You can **store** output/results into a variable. Storing output allows you to access the variable later on. When working in Posit, these variables will appear in your **Environment** tab.
 
-```{r Ex2, exercise = TRUE, exercise.eval = FALSE}
+Fill in the blanks to store the result of `20*40` into the variable `x`. Note that * is the notation for multiply.
+
+```{r Ex2, exercise=TRUE}
+x ___ 20*___
+```
+
+```{r Ex2-hint-1}
+The assignment operator is `<-`
+```
+
+```{r Ex2-solution, exercise.reveal_solution = FALSE}
+x <- 20*40
+```
+
+```{r Ex2-code-check}
+grade_this_code()
+```
+
+
+**Exercise 3:**
+
+A **boolean** statement evaluates to TRUE or FALSE. Type any equation that evaluates to `TRUE`.
+
+```{r Ex3, exercise=TRUE}
+
+```
+
+```{r Ex3-solution, exercise.reveal_solution = FALSE}
+3 != 2
+```
+
+```{r Ex3-check}
+grade_this({
+  # custom checking code appears here
+  if (identical(.result, .solution)) {
+    pass("Great work!")
+  }
+  fail("Try again!")
+})
+```
+
+
+**Exercise 4:**
+
+The `mpg` dataset is included in the `ggplot2` package. Print the dataset to answer the following questions. You can "print" output by typing the name of the dataset or variable in a code chunk. Try typing `mpg` in the code chunk and clicking `run`.
+
+```{r Ex4, exercise = TRUE, exercise.eval = FALSE}
 #print mpg dataset
 ```
 
 
-```{r Ex2-Q}
+```{r Ex4-Q}
 quiz(caption = NULL,
-    # Ex2Q1
-  question("Ex2Q1) Which of the following are names of variables in the mpg data frame?",
+    # Ex4Q1
+  question("Ex4Q1) Which of the following are names of variables in the mpg data frame?",
            answer("audi"),
            answer("manufacturer", correct = TRUE),
            answer("dplyr"),
@@ -126,8 +162,8 @@ quiz(caption = NULL,
            answer("chr"),
            allow_retry = TRUE,
            random_answer_order = TRUE), 
-  # Ex2Q2
-  question("Ex2Q2) What's the city miles per gallon for the first observation in the mpg dataframe?",
+  # Ex4Q2
+  question("Ex4Q2) What's the city miles per gallon for the first observation in the mpg dataframe?",
            answer("29"),
            answer("18", correct = TRUE),
            answer("21"),
@@ -144,67 +180,52 @@ quiz(caption = NULL,
 ```{r Q}
 quiz(caption = NULL,
   #Q1
-     question("Q1) What is a section of code in an RMarkdown document called?",
-           answer("a tibble"),
-           answer("a sandwich"),
-           answer("a code letter", message = "Close, but not quite"),
-           answer("a code chunk", correct = TRUE),
-           allow_retry = TRUE,
-           random_answer_order = TRUE),
-  #Q2
-  question("Q2) What's the name of the online forum the authors mention with an extensive community of R users that you can consult for code troubleshooting?", 
-           type = "learnr_text",
-           answer("stackoverflow", correct = TRUE),
-           answer("stackoverflow.com", correct = TRUE),
-           allow_retry = TRUE,
-           random_answer_order = TRUE),
-  #Q3
-  question("Q3) Which of the following help ensure research is reproducible? Select all that apply.",
+  question("Q1) Which of the following help ensure research is reproducible? Select all that apply.",
            answer("Copying and pasting results into a word processor"),
            answer("Using a workflow tool such as RMarkdown", correct = TRUE),
            answer("Literate programming (i.e. code that is readable)", correct = TRUE),
            answer("Well-documented data cleaning and analyses", correct = TRUE),
            allow_retry = TRUE,
            random_answer_order = TRUE), 
-  # Q4
-  question("Q4) ___ is a programming language (like a car's engine); and ___ is an inintegrated development environment (like a car dashboard)",
+  # Q2
+  question("Q2) ___ is a programming language (like a car's engine); and ___ is an inintegrated development environment (like a car dashboard)",
            answer("R; RStudio", correct = TRUE),
            answer("RStudio; R"),
            allow_retry = TRUE,
            random_answer_order = TRUE),
-  # Q5
-  question("Q5) Which of the following applications do you need to install on your computer for this course?",
+  # Q3
+  question("Q3) Which of the following applications do you need to install on your computer for this course?",
            answer("R only"),
            answer("Both R and RStudio"),
            answer("RStudio only"),
-           answer("None. RStudio Cloud uses your web browser.", correct = TRUE),
+           answer("None. Posit Cloud uses your web browser.", correct = TRUE),
            allow_retry = TRUE,
            random_answer_order = TRUE),
-  # Q6
-  question("Q6) Which of the following is a good analogy for R packages?",
+  # Q4
+  question("Q4) Which of the following is a good analogy for R packages?",
            answer("iOS software"),
            answer("iPhone accessories"),
            answer("apps you can download", correct = TRUE),
            answer("a new iPhone"),
            allow_retry = TRUE,
            random_answer_order = TRUE),
-  # Q7
-  question("Q7) Which of the following lines of code will store the value 30 in the object x? Select all that apply.",
+  # Q5
+  question("Q5) Which of the following lines of code will store the value 30 in the object x? Select all that apply.",
            answer("x <- 15 + 15", correct = TRUE),
            answer("x = 30", correct = TRUE),
            answer("x <- 6*5", correct = TRUE),
            answer("x == 30"),
            allow_retry = TRUE,
            random_answer_order = TRUE), 
-    # Q8
-     question_wordbank("Q8) Seeing red text in your console is not always bad. Drag and drop the three different types of feedback R givew with how they should be interpreted.",
+    # Q6
+     question_wordbank("Q6) Seeing red text in your console is not always bad. Drag and drop the three different types of feedback R givew with how they should be interpreted.",
         choices = c("something is wrong! (red traffic light)","everything is working fine, but watch out/pay attention (yellow traffic light)", "everything is working fine (green traffic light)"),
         wordbank = c("Error", "Warning", "Message"),
         answer(c("Error", "Warning", "Message"), 
                correct = TRUE), 
         allow_retry = TRUE ),
-  # Q9
-    question_wordbank("Q9) Drag and drop the packages to match their primary purpose",
+  # Q7
+    question_wordbank("Q7) Drag and drop the packages to match their primary purpose",
         choices = c("accompanies this book","data wrangling",  "data visualization"),
         wordbank = c("moderndive", "dplyr", "ggplot2"),
         answer(c("moderndive", "dplyr", "ggplot2"), correct = TRUE), 
