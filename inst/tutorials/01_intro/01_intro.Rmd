@@ -229,11 +229,14 @@ grade_print_ui("grade_out")
 
 <br>
 
-If you would like you can also print the full reading check for your own review and records.
-
 ```{r}
 bootstrapPage(
+     div(style="display:inline-block", 
+         p("Optional: you can also ") ),
      div(style="display:inline-block",
-         print_ui("Print", label = "full reading check") ))
+         print_ui("Print", label = "full reading check") ),
+     div(style="display:inline-block", 
+         p(" for your own review and records.") ) 
+     )
 ```
 
