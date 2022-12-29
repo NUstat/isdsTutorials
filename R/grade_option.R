@@ -165,7 +165,7 @@ grade_server <- function(id, rubric_list, num_try = 3, deduction = 0.1, display 
             }
             tab_html <- get_grades$grade_table %>%
               as.data.frame() %>%
-              tableHTML(footer = format(as.POSIXct(Sys.time()),
+              tableHTML::tableHTML(footer = format(as.POSIXct(Sys.time()),
                                         tz = "America/Chicago",
                                         usetz = TRUE),
                         rownames = FALSE,
