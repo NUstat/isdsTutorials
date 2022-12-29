@@ -166,8 +166,13 @@ grade_server <- function(id, rubric_list, num_try = 3, deduction = 0.1, display 
             }
             tab_html <- get_grades$grade_table %>%
               as.data.frame()
+            #check user
+            #check time
+            print(session$user())
+            print(session$tutorial_id())
 
-            tableHTML::write_tableHTML(tableHTML::tableHTML(tab_html), file)
+            tableHTML::write_tableHTML(tableHTML::tableHTML(tab_html, rownames = FALSE),
+                                       file)
           },
           contentType = "text/html"
         )
@@ -191,7 +196,7 @@ grade_tutorial <- function(submissions, rubric_list,
     tidyr::separate_rows(V1, sep = "//") %>%
     data.table::transpose() %>%
     data.table::tstrsplit(split = ",", names = TRUE)
-
+  print(table)
   # issue using dplyr with shiny object
   # so need to manually set as table
   tmpdf <- data.frame(id = table$V3, time = table$V4,
