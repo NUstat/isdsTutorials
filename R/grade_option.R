@@ -165,9 +165,9 @@ grade_server <- function(id, rubric_list, num_try = 3, deduction = 0.1, display 
                                            rubric_list = rubric_list)
             }
             tab_html <- get_grades$grade_table %>%
-              as_raw_html()
+              as.data.frame()
 
-            tableHTML::write_tableHTML(tab_html, file)
+            tableHTML::write_tableHTML(tableHTML::tableHTML(tab_html), file)
           },
           contentType = "text/html"
         )
