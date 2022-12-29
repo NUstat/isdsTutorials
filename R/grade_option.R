@@ -200,7 +200,7 @@ grade_tutorial <- function(submissions, rubric_list,
 
   # issue using dplyr with shiny object
   # so need to manually set as table
-  tmpdf <- data.frame(id = table$V3, time = table$V4,
+  tmpdf <- data.frame(rc = table$V1, id = table$V3, time = table$V4,
                       type = table$V5,
                       question = table$V6,
                       answer = table$V7,
@@ -209,13 +209,13 @@ grade_tutorial <- function(submissions, rubric_list,
            type = as.factor(stringr::str_trim(type) ))
 
   # save user info for grade report output
-  name <- tmpdf %>%
-    filter(question == "Name") %>%
-    pull(answer)
-
-  user_info <- data.frame(rc = table$V1[1],
-                          id = table$V3[1],
-                          name = name)
+  # name <- tmpdf %>%
+  #   filter(question == "Name") %>%
+  #   pull(answer)
+  #
+  # user_info <- data.frame(rc = table$V1[1],
+  #                         id = table$V3[1],
+  #                         name = name)
 
   #fix issue with exercise_result submitting multiple times if student get's kicked out
   #fix issue with exercise_result saving correct every time document is loaded
