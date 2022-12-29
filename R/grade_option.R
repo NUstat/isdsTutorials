@@ -212,8 +212,8 @@ grade_tutorial <- function(submissions, rubric_list,
                       question = table$V6,
                       answer = table$V7,
                       correct = table$V8) %>%
-    mutate(answer = ifelse(is.na(answer), 0, answer),
-           correct = as.numeric(correct),
+    mutate(correct = as.numeric(correct),
+           correct = ifelse(is.na(correct), 0, correct),
            type = as.factor(stringr::str_trim(type) ),
            rc = stringr::str_remove(rc, "\n"))
 
