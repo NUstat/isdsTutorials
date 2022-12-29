@@ -212,9 +212,12 @@ grade_tutorial <- function(submissions, rubric_list,
                       question = table$V6,
                       answer = table$V7,
                       correct = table$V8) %>%
-    mutate(correct = as.numeric(correct),
+    mutate(answer = ifelse(is.na(answer), 0, answer),
+           correct = as.numeric(correct),
            type = as.factor(stringr::str_trim(type) ),
            rc = stringr::str_remove(rc, "\n"))
+
+  print(tmpdf[,c(5:7)])
 
   # save user info for grade report output
   name <- tmpdf %>%
@@ -260,11 +263,12 @@ grade_tutorial <- function(submissions, rubric_list,
     dplyr::count(question, correct) %>%
     tidyr::pivot_wider(names_from = correct, values_from = n)
 
+  print(correct_q)
   # last submitted answer
   last_answer <- newdf %>%
     group_by(question) %>%
-    filter(time == max(time))
-  print(last_answer)
+    filter(time == max(time)) %>%
+    ungroup()
 
   # match student progress with all possible questions
   # rubric_list must be defined by creator
