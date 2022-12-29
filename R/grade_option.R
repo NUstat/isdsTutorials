@@ -32,8 +32,8 @@ grade_print_ui <- function(id) {
   ns <- NS(id)
 
   tagList(
-    actionButton( ns("printGrade"), label = "Download")
-    #downloadButton(ns("downloadHTML"), "Download Grade")
+    actionButton( ns("printGrade"), label = "Download Grade"),
+    downloadButton(ns("downloadHTML"), "Download HTML")
   )
 }
 
@@ -141,17 +141,16 @@ grade_server <- function(id, rubric_list, num_try = 3, deduction = 0.1, display 
 
       })
 
-      # observe({
-      #   output$downloadHTML <- downloadHandler(
-      #     filename = function() {
-      #       paste("rc-", Sys.Date(), ".html", sep="")
-      #     },
-      #     content = function(file) {
-      #       tableHTML::write_tableHTML(tableHTML::tableHTML(mtcars), file)
-      #     },
-      #     contentType = "text/html"
-      #   )
-      # })
+
+      output$downloadHTML <- downloadHandler(
+          filename = function() {
+            paste("rc-", Sys.Date(), ".html", sep="")
+          },
+          content = function(file) {
+            tableHTML::write_tableHTML(tableHTML::tableHTML(mtcars), file)
+          },
+          contentType = "text/html"
+        )
 
     }
   )
