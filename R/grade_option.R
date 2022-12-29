@@ -223,7 +223,8 @@ grade_tutorial <- function(submissions, rubric_list,
   name <- tmpdf %>%
     filter(question == "Name") %>%
     pull(answer)
-  name <- ifelse(is.null(name), "NA", name)
+  name <- ifelse(!is.null(name), name, NA)
+  print(name)
 
   user_info <- data.frame(rc = tmpdf$rc[1],
                           id = tmpdf$id[1],
