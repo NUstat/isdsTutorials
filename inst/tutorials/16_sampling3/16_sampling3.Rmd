@@ -1,7 +1,7 @@
 ---
-title: "Tutorial: Chapter 9.5 - 9.7"
+title: "RC 16: Chapter 9.5 - 9.7"
 tutorial:
-  id: "isds_16"
+  id: "RC_16"
   version: 0.1
   
 output:
@@ -51,8 +51,7 @@ question_blank("Name: ___",
 # have name, grade button, and print button on same line
 bootstrapPage(
      div(style="display:inline-block",
-         grade_button_ui("grade_out") ),
-     div(style="display:inline-block", print_ui("Print") )
+         grade_button_ui("grade_out") )
 )
 
 # can have the grade output appear anywhere in your tutorial
@@ -61,14 +60,9 @@ grade_output_ui("grade_out")
 
 ## Instructions
 
-Complete this tutorial while reading Sections 9.5 - 9.7 of the [textbook](https://nustat.github.io/intro-stat-data-sci/09-sampling-distributions.html).
+Complete this tutorial while reading Sections 9.5 - 9.7 of the [textbook](https://nustat.github.io/intro-stat-data-sci/09-sampling-distributions.html). Each question allows 3 'free' attempts. After the third attempt a 10% deduction occurs per attempt.
 
-Once you are finished:
-
--   Click the 'grade tutorial' button at the top to retrieve your score.
--   Click the 'pdf' button to save the document as a pdf, you must have the tutorial open in a browser window for this button to work.
--   Submit the completed pdf to Canvas.
-
+You can click the "View Grade" button as many times as you would like to see your current grade and the number of attempts you are on. Before submitting make sure your grade is as expected.
 
 ### Goals
 
@@ -83,10 +77,10 @@ quiz(
   caption = NULL,
   # Question 1
    question("Q1) Which of the following are appropriate standardized statistics? Select all that apply. Hint: use the info in Table 9.6.",
-            answer("\\( \\frac{\\bar{x}_1 - \\bar{x}_2}{\\sqrt{ \\frac{s^2_1}{n_1} +\\frac{s^2_2}{n_2} } } \\)", correct = TRUE),
-            answer("\\( \\frac{\\hat{\\pi}_1 - \\hat{\\pi}_2}{\\sqrt{ \\frac{s^2_1}{n_1} +\\frac{s^2_2}{n_2} } } \\)"),
-            answer("\\( \\frac{\\hat{\\pi}}{\\sqrt{ \\frac{\\hat{\\pi}(1-\\hat{\\pi})}{n} } } \\)", correct = TRUE),
-            answer("\\( \\frac{\\sqrt{n}\\bar{x}}{s} \\)", correct = TRUE),
+            answer("$( \\frac{\\bar{x}_1 - \\bar{x}_2}{\\sqrt{ \\frac{s^2_1}{n_1} +\\frac{s^2_2}{n_2} } })$", correct = TRUE),
+            answer("$( \\frac{\\hat{\\pi}_1 - \\hat{\\pi}_2}{\\sqrt{ \\frac{s^2_1}{n_1} +\\frac{s^2_2}{n_2} } } )$"),
+            answer("$( \\frac{\\hat{\\pi}}{\\sqrt{ \\frac{\\hat{\\pi}(1-\\hat{\\pi})}{n} } } )$", correct = TRUE),
+            answer("$( \\frac{\\sqrt{n}\\bar{x}}{s} )$", correct = TRUE),
             allow_retry = TRUE,
            random_answer_order = TRUE),
   #Q2
@@ -102,7 +96,10 @@ a) How many rows will `virtual_prop_red_100` have? ___ <br/>
 b) What is the maximum possible value of the `red` column (even if it is highly unlikely)? ___ <br/>
 c) What is the maximum possible value of the `prop_red` column (even if it is highly unlikely)? ___ <br/>
 d) How many rows will have `replicate == 437`? ___",
-           answer("10000", correct = TRUE),
+           answer_fn(function(value){
+                if (value %in% c("10000", "10,000")) {
+                    return(mark_as(TRUE))}
+                    return(mark_as(FALSE) ) }),
            answer("100", correct = TRUE),
            answer("1", correct = TRUE),
            answer("1", correct = TRUE),
@@ -145,3 +142,31 @@ Which sample size (100 or 400) gives a more precise estimate? ___"),
 )
 
 ```
+
+## Submit
+
+Once you are finished:
+
+-   Click the 'Download Grade' button below. This will download an html document of your grade summary.
+-   Make sure your grade is correct and as expected!
+-   Submit the downloaded html to Canvas.
+
+```{r}
+grade_print_ui("grade_out")
+```
+
+<br>
+<hr /> 
+<br>
+
+```{r}
+bootstrapPage(
+     div(style="display:inline-block", 
+         strong("Optional:") ),
+     div(style="display:inline-block",
+         print_ui("Print", label = "full reading check") ),
+     div(style="display:inline-block", 
+         p("for your own review and records.") ) 
+     )
+```
+<hr /> 

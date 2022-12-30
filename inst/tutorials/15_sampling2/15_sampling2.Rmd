@@ -1,7 +1,7 @@
 ---
-title: "Tutorial: Chapter 9.2 - 9.4"
+title: "RC 15: Chapter 9.2 - 9.4"
 tutorial:
-  id: "isds_15"
+  id: "RC_15"
   version: 0.1
   
 output:
@@ -11,7 +11,7 @@ output:
     css: ["css/nu-theme.css"]
 runtime: shiny_prerendered
 description: >
- Learn about the sampling distribution.
+ Learn about sampling distributions.
 ---
 
 ```{r setup, include=FALSE}
@@ -52,8 +52,7 @@ question_blank("Name: ___",
 # have name, grade button, and print button on same line
 bootstrapPage(
      div(style="display:inline-block",
-         grade_button_ui("grade_out") ),
-     div(style="display:inline-block", print_ui("Print") )
+         grade_button_ui("grade_out") )
 )
 
 # can have the grade output appear anywhere in your tutorial
@@ -62,14 +61,9 @@ grade_output_ui("grade_out")
 
 ## Instructions
 
-Complete this tutorial while reading Sections 9.2 - 9.4 of the [textbook](https://nustat.github.io/intro-stat-data-sci/09-sampling-distributions.html).
+Complete this tutorial while reading Sections 9.2 - 9.4 of the [textbook](https://nustat.github.io/intro-stat-data-sci/09-sampling-distributions.html). Each question allows 3 'free' attempts. After the third attempt a 10% deduction occurs per attempt.
 
-Once you are finished:
-
--   Click the 'grade tutorial' button at the top to retrieve your score.
--   Click the 'pdf' button to save the document as a pdf, you must have the tutorial open in a browser window for this button to work.
--   Submit the completed pdf to Canvas.
-
+You can click the "View Grade" button as many times as you would like to see your current grade and the number of attempts you are on. Before submitting make sure your grade is as expected.
 
 ### Goals
 
@@ -128,9 +122,15 @@ b) What is the resulting value for `mean`? ___" ),
 a) How many rows will `virtual_samples_RQ` have? ___ <br/>
 b) What will be the maximum value of the `replicate` column? ___ <br/>
 c) What will the value of `replicate` be for the 73rd row? ___ <br/>
-d) How many rows will have `replicate == 437`? ___"), 
-           answer("250000", correct = TRUE),
-           answer("5000", correct = TRUE),
+d) How many rows will have `replicate == 437`? ___"),
+           answer_fn(function(value){
+                if (value %in% c("250000", "250,000")) {
+                    return(mark_as(TRUE))}
+                    return(mark_as(FALSE) ) }),
+           answer_fn(function(value){
+                if (value %in% c("5000", "5,000")) {
+                    return(mark_as(TRUE))}
+                    return(mark_as(FALSE) ) }),
            answer("2", correct = TRUE),
            answer("50", correct = TRUE),
            allow_retry = TRUE),
@@ -139,7 +139,10 @@ d) How many rows will have `replicate == 437`? ___"),
 a) How many balls total are in the bowl? ___ <br/>
 b) What is the true proportion of red balls in the bowl? ___ <br/>
 c) How many red balls are in the bowl? ___ ",
-           answer("2400", correct = TRUE),
+           answer_fn(function(value){
+                if (value %in% c("2400", "2,400")) {
+                    return(mark_as(TRUE))}
+                    return(mark_as(FALSE) ) }),
            answer_fn(function(value){
                 if (value %in% c("0.375", ".375")) {
                     return(mark_as(TRUE))}
@@ -149,7 +152,10 @@ c) How many red balls are in the bowl? ___ ",
   # Q7
   question("Q7) What phrase do we use to refer to the standard deviation of a sampling distribution? ", 
            type = "learnr_text",
-           answer("standard error", correct = TRUE),
+           answer_fn(function(value){
+                if (tolower(value) == "standard error") {
+                    return(mark_as(TRUE))}
+                    return(mark_as(FALSE) ) }),
            allow_retry = TRUE),
   # Q8
   question_wordbank("Q8) Match the following descriptions with the appropriate term:",
@@ -160,3 +166,31 @@ c) How many red balls are in the bowl? ___ ",
 )
 
 ```
+
+## Submit
+
+Once you are finished:
+
+-   Click the 'Download Grade' button below. This will download an html document of your grade summary.
+-   Make sure your grade is correct and as expected!
+-   Submit the downloaded html to Canvas.
+
+```{r}
+grade_print_ui("grade_out")
+```
+
+<br>
+<hr /> 
+<br>
+
+```{r}
+bootstrapPage(
+     div(style="display:inline-block", 
+         strong("Optional:") ),
+     div(style="display:inline-block",
+         print_ui("Print", label = "full reading check") ),
+     div(style="display:inline-block", 
+         p("for your own review and records.") ) 
+     )
+```
+<hr /> 

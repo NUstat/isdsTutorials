@@ -5,9 +5,9 @@ account: amkuyper
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 6891247
-bundleId: 6423073
+bundleId: 6684470
 url: https://amkuyper.shinyapps.io/13_generalizability/
-when: 1666272023.7403
-lastSyncTime: 1666272023.7403
+when: 1672426116.68032
+lastSyncTime: 1672426116.68034
 asMultiple: FALSE
 asStatic: FALSE

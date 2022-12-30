@@ -27,8 +27,8 @@ options(tutorial.event_recorder = ISDStutorials::isds_recorder)
 
 
 ```{r, context = "server"}
-rubric_list <- data.frame(question = c("Name", "Ex1", "Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7", "Q8", "Q9", "Q10", "Q11", "Q12"),
-                          points_possible = rep(1, 14))
+rubric_list <- data.frame(question = c("Name", "Ex1", "Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7", "Q8", "Q9", "Q10"),
+                          points_possible = rep(1, 12))
 
 grade_server("grade_out", 
             rubric_list = rubric_list)
@@ -143,50 +143,40 @@ quiz(
            type = "learnr_text",
            answer("3", correct = TRUE),
            allow_retry = TRUE),
-  #Question 5
-  question(paste("Q5) The following table is in tidy format.",htmltools::img(src="images/Figure_04_1_tidy.png", height = 240, width = 700)),
-           answer("True",correct=TRUE),
-           answer("False"),
+  question_wordbank("Q5) Tidy or Not?: Determine if the following tables are in tidy format.",
+           choices = c(paste0(htmltools::img(src="images/Figure_04_1_tidy.png", height = 175, width = 350) ), paste0(htmltools::img(src="images/Figure_04_2_nontidy.png", height = 75, width = 350) ), paste0(htmltools::img(src="images/Figure_04_3_tidy.png", height = 75, width = 350) ) ),
+           wordbank = c("Tidy", "Not tidy"),
+           answer(c("Tidy", "Not tidy", "Tidy"), correct=TRUE),
            allow_retry = TRUE),
-  #Question 6
-  question(paste("Q6) The following table is in tidy format.",htmltools::img(src="images/Figure_04_2_nontidy.png", height = 120, width = 700)),
-           answer("True"),
-           answer("False",correct=TRUE),
-           allow_retry = TRUE),
-  #Question 7
-  question(paste("Q7) The following table is in tidy format.",htmltools::img(src="images/Figure_04_3_tidy.png", height = 120, width = 700)),
-           answer("True",correct=TRUE),
-           answer("False"),
-           allow_retry = TRUE),
-  #Q8
-  question_wordbank("Q8) Complete the following three statements that define tidy data.",
+  #Q6
+  question_wordbank("Q6) Complete the following three statements that define tidy data.",
            choices = c("Each variable forms a _____.",
                        "Each observation forms a _____.",
                        "Each type of observational unit forms a _____."),
            wordbank = c("column", "row", "table"),
            answer(c("column", "row", "table"),correct=TRUE),
            allow_retry = TRUE),
-  #Q9
-  question_wordbank("Q9) Match the general description to the appropriate piece of code in the following code chunk:\n
+  #Q7
+  question_wordbank("Q7) Match the general description to the appropriate piece of code in the following code chunk:\n
            drinks_smaller_tidy <- drinks_smaller %>%
            pivot_longer(cols = -country, names_to = 'type', values_to = 'servings')",
            choices = c("name of the variable in the new tidy data frame that contains the column names of the original un-tidy data frame", "name of un-tidy data frame", "function to tidy the data", "name of the column you don't want to tidy", "name of tidy data frame"),
            wordbank = c("drinks_smaller", "type", "country", "drinks_smaller_tidy", "pivot_longer"),
            answer(c("type", "drinks_smaller", "pivot_longer",  "country", "drinks_smaller_tidy"), correct = TRUE),
            allow_retry = TRUE),
-  #Q10
-  question("Q10) In what year did Guatemala have the lowest democracy score?", 
+  #Q8
+  question("Q8) In what year did Guatemala have the lowest democracy score?", 
            type = "learnr_text",
            answer("82", correct = TRUE),
            answer("1982", correct = TRUE),
            allow_retry = TRUE),
-  #Q11
-  question("Q11) What is the name of the 'umbrella' package that includes ggplot2, dplyr, readr, etc.?", 
+  #Q9
+  question("Q9) What is the name of the 'umbrella' package that includes ggplot2, dplyr, readr, etc.?", 
            type = "learnr_text",
            answer("tidyverse", correct = TRUE),
            allow_retry = TRUE),
-  #Q12
-  question_wordbank("Q12) Match the following packages with their primary purpose.",
+  #Q10
+  question_wordbank("Q10) Match the following packages with their primary purpose.",
            choices = c("data wrangling", "converting data to tidy format", "import data files such as .csv", "includes datasets for analysis", "data visualization"),
            wordbank = c("nycflights13", "tidyr", "readr", "ggplot2", "dplyr"),
            answer(c("dplyr", "tidyr", "readr", "nycflights13", "ggplot2"),correct=TRUE),

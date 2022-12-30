@@ -1,7 +1,7 @@
 ---
-title: "Tutorial: Chapter 12"
+title: "RC 19: Chapter 12"
 tutorial:
-  id: "isds_19"
+  id: "RC_19"
   version: 0.1
   
 output:
@@ -52,8 +52,7 @@ question_blank("Name: ___",
 # have name, grade button, and print button on same line
 bootstrapPage(
      div(style="display:inline-block",
-         grade_button_ui("grade_out") ),
-     div(style="display:inline-block", print_ui("Print") )
+         grade_button_ui("grade_out") )
 )
 
 # can have the grade output appear anywhere in your tutorial
@@ -62,13 +61,10 @@ grade_output_ui("grade_out")
 
 ## Instructions
 
-Complete this tutorial while reading Chapter 12 of the [textbook](https://nustat.github.io/intro-stat-data-sci/12-hypothesis-tests.html).
+Complete this tutorial while reading Chapter 12 of the [textbook](https://nustat.github.io/intro-stat-data-sci/12-hypothesis-tests.html). Each question allows 3 'free' attempts. After the third attempt a 10% deduction occurs per attempt.
 
-Once you are finished:
+You can click the "View Grade" button as many times as you would like to see your current grade and the number of attempts you are on. Before submitting make sure your grade is as expected.
 
--   Click the 'grade tutorial' button at the top to retrieve your score.
--   Click the 'pdf' button to save the document as a pdf, you must have the tutorial open in a browser window for this button to work.
--   Submit the completed pdf to Canvas.
 
 
 ### Goals
@@ -84,10 +80,10 @@ Once you are finished:
 quiz(
  caption = NULL,
   # Question 1
- question_multidrop("Q1) Match each scenario and decision with whether it corresponds to a Type I or II error.",
+ question_wordbank("Q1) Match each scenario and decision with whether it corresponds to a Type I or II error.",
        choices = c("The null hypothesis is true but you reject it", "The defendant is guilty but not convicted", "You decide to go to the party but it is not fun", "You decide to stay home but you miss out on a fun party", "The pregnancy test comes back positive but you are not pregnant", "The defendant is innocent but convicted", "The null hypothesis is false but you do not reject it", "The pregnancy test comes back negative but you are pregnant"),
        arrange = "ordered",
-       box = 4,
+       box = 8,
        answer(c("Type I error (false positive)", "Type II error (false negative)", "Type I error (false positive)", "Type II error (false negative)", "Type I error (false positive)", "Type I error (false positive)", "Type II error (false negative)", "Type II error (false negative)"), correct = TRUE),
        allow_retry = TRUE),
   # Q2
@@ -124,12 +120,41 @@ Hint: You can use properties you know about the N(0,1) distribution or you can u
            answer("t-stat = 3.2", correct = TRUE),
            allow_retry = TRUE,
            random_answer_order = TRUE),
-    question_multidrop("Q6) Imagine that you wish to compare the proportion of NU students ( $\\pi_s$ ) vs. faculty ( $\\pi_f$ ) that support universal healthcare.  Reorder each step in the right column to be in the appropriate order for conducting a hypothesis test to test whether there is a difference in support rates.",
+    question_wordbank("Q6) Imagine that you wish to compare the proportion of NU students ( $\\pi_s$ ) vs. faculty ( $\\pi_f$ ) that support universal healthcare.  Reorder each step in the right column to be in the appropriate order for conducting a hypothesis test to test whether there is a difference in support rates.",
            choices = c("Determine the Type I error rate you are comfortable with", "Conclude that there is a difference among students vs. faculty in support of universal healthcare if \\(p<\\alpha\\)", "Determine the sampling distribution of \\( \\frac{ (\\hat{\\pi_s}- \\hat{\\pi_f}) - (\\pi_s - \\pi_f) }{ \\sqrt{ \\frac{\\hat{\\pi_0}(1-\\hat{\\pi_0})}{n_s} +\\frac{\\hat{\\pi_0}(1-\\hat{\\pi_0})}{n_f} } } \\)",  "Specify \\(H_0:\\pi_s = \\pi_f\\) vs \\(H_A: \\pi_s \\ne`1 \\pi_f \\)", "Compute your p-value", "Compute the value of \\( \\frac{ \\hat{\\pi_s}- \\hat{\\pi_f}}{ \\sqrt{ \\frac{\\hat{\\pi_0}(1-\\hat{\\pi_0})}{n_s} +\\frac{\\hat{\\pi_0}(1-\\hat{\\pi_0})}{n_f} } } \\) observed in your data"),
            arrange = "ordered",
+           box = 8,
            answer(c("Step 2", "Step 6", "Step 3", "Step 1", "Step 5", "Step 4"), correct = TRUE),
            allow_retry = TRUE)
 
 )
 
 ```
+
+## Submit
+
+Once you are finished:
+
+-   Click the 'Download Grade' button below. This will download an html document of your grade summary.
+-   Make sure your grade is correct and as expected!
+-   Submit the downloaded html to Canvas.
+
+```{r}
+grade_print_ui("grade_out")
+```
+
+<br>
+<hr /> 
+<br>
+
+```{r}
+bootstrapPage(
+     div(style="display:inline-block", 
+         strong("Optional:") ),
+     div(style="display:inline-block",
+         print_ui("Print", label = "full reading check") ),
+     div(style="display:inline-block", 
+         p("for your own review and records.") ) 
+     )
+```
+<hr /> 
