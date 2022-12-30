@@ -114,9 +114,10 @@ grade_server <- function(id, rubric_list, num_try = 3, deduction = 0.1, display 
 
       output$downloadHTML <- downloadHandler(
           filename = function() {
-            paste0(get_grades$user_info$rc, "_",
-                  get_grades$user_info$name,
-                  ".html")
+            paste0(Sys.time(), ".html")
+            # paste0(get_grades$user_info$rc, "_",
+            #       get_grades$user_info$name,
+            #       ".html")
           },
           content = function(file) {
             ns <- getDefaultReactiveDomain()$ns
@@ -151,8 +152,12 @@ grade_server <- function(id, rubric_list, num_try = 3, deduction = 0.1, display 
                                                        get_grades$user_info$name))) ) %>%
               tableHTML::add_theme('rshiny-blue')
 
+            filename <- paste0(get_grades$user_info$rc, "_",
+                   get_grades$user_info$name,
+                   ".html")
+
             tableHTML::write_tableHTML(tab_html,
-                                       file)
+                                       filename)
           },
           contentType = "text/html"
         )

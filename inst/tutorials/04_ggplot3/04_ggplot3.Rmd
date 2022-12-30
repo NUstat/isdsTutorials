@@ -27,8 +27,8 @@ options(tutorial.event_recorder = ISDStutorials::isds_recorder)
 
 
 ```{r, context = "server"}
-rubric_list <- data.frame(question = c("Ex1", "Ex1Q1", "Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7", "Q8"),
-                          points_possible = rep(1, 10))
+rubric_list <- data.frame(question = c("Name", "Ex1", "Ex1Q1", "Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7", "Q8", "Q9"),
+                          points_possible = rep(1, 12))
 
 grade_server("grade_out", 
             rubric_list = rubric_list)
@@ -143,7 +143,7 @@ quiz(caption = NULL,
            allow_retry = TRUE,
            random_answer_order = TRUE), 
       # Q4
-  question("Q4) Which geometric layer do you use with  categorical data that is NOT pre-counted?",
+  question("Q4) Which geometric layer do you use with categorical data that is NOT pre-counted?",
            answer("geom_bar()", correct = TRUE),
            answer("geom_col()"),
            allow_retry = TRUE,
@@ -169,7 +169,14 @@ quiz(caption = NULL,
            answer("scatterplot"),
            allow_retry = TRUE,
            random_answer_order = TRUE), 
-          # Q8
+  question("Q8) Which type of plot would be best to visualize differences in the distribution of life expectancy by continent?",
+           answer("side-by-side boxplots", correct = TRUE),
+           answer("scatterplot"),
+           answer("barplot"),
+           answer("histogram"),
+           allow_retry = TRUE,
+           random_answer_order = TRUE),
+          # Q9
   question("Q8) Which of the following does ggplot() expect to be listed as the second argument by default?",
            answer("geom"),
            answer("mapping", correct = TRUE),
@@ -199,7 +206,7 @@ grade_print_ui("grade_out")
 ```{r}
 bootstrapPage(
      div(style="display:inline-block", 
-         p("Optional: you can also") ),
+         strong("Optional:") ),
      div(style="display:inline-block",
          print_ui("Print", label = "full reading check") ),
      div(style="display:inline-block", 

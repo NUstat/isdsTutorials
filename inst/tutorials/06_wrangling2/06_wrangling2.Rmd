@@ -68,26 +68,33 @@ You can click the "View Grade" button as many times as you would like to see you
 ### Goals
 
 -   Extract information from datasets using data wrangling.
--   Understand the functionality of `group_by`, `mutate`,`arrange`, and `join`.
+-   Understand the functionality of `group_by`, `mutate`,`arrange`, and a few other functions.
 -   Use the pipe operator to link multiple operators at once.
 
 
-## Exercise
+## Exercises
 
-Fill in the blanks for the code that merges the data frames `flights` and `airports` by their respective key variables "`dest`" and "`faa`". 
+**Exercise 1**
 
+Fill in the blanks for the code to calculate the mean that standard deviation of the temperature **by** `month`. 
 
 ```{r Ex1, exercise=TRUE}
-flights_with_airport_names <- ___  %>%
-    inner____(airports, ___ = c("dest" = "faa"))
-flights_with_airport_names
+summary_monthly_temp <- weather %>% 
+  ___(___) %>% 
+  summarize(mean = mean(temp, na.rm = TRUE), 
+            std_dev = sd(temp, na.rm = TRUE))
+
+summary_monthly_temp
 ```
 
 
 ```{r Ex1-solution, exercise.reveal_solution = FALSE}
-flights_with_airport_names <- flights  %>%
-    inner_join(airports, by = c("dest" = "faa"))
-flights_with_airport_names
+summary_monthly_temp <- weather %>% 
+  group_by(month) %>% 
+  summarize(mean = mean(temp, na.rm = TRUE), 
+            std_dev = sd(temp, na.rm = TRUE))
+
+summary_monthly_temp
 ```
 
 ```{r Ex1-code-check}
@@ -97,14 +104,34 @@ grade_this_code()
 ```{r Ex1-Q}
 quiz(
   caption = "",
-  question("Ex1 Q1) How many columns does the resulting dataset `flights_with_airport_names` have?",
-           answer("9"),
-           answer("1000"),
-           answer("10"),
-           answer("26",correct = TRUE),
+  question("Ex1 Q1) How many rows does the resulting dataset `summary_monthly_temp` have?",
+           answer("1"),
+           answer("12",correct = TRUE),
+           answer("24"),
+           answer("26,115"),
            allow_retry = TRUE,
            random_answer_order = TRUE)
 )
+```
+
+
+**Exercise 2**
+
+Fill in the blanks for the code to create a new variable that converts the temperature from Fahrenheit to Celsius in the `weather` dataset. This is calculated by using the existing variable `temp` subtracting 32 then dividing by 1.8. 
+
+```{r Ex2, exercise=TRUE}
+weather <- weather %>% 
+  ___(temp_in_C = (___-32)/1.8)
+```
+
+
+```{r Ex2-solution, exercise.reveal_solution = FALSE}
+weather <- weather %>% 
+  mutate(temp_in_C = (temp-32)/1.8)
+```
+
+```{r Ex2-code-check}
+grade_this_code()
 ```
 
 
@@ -124,21 +151,12 @@ quiz(
                               }),
            allow_retry = TRUE),
   #Question 2
-  question("Q2) Which function allows you to create a new variable?",
-           answer("mutate()", correct = TRUE),
-           answer("new_var()"),
-           answer("create()"),
-           answer("summarize()"),
-           answer("group_by()"),
-           allow_retry = TRUE,
-           random_answer_order = TRUE), 
-  #Question 3
-  question("Q3) In the weather dataset, what is the average temperature in celcius in December?", 
+  question("Q2) In the weather dataset, what is the average temperature in celcius in December?", 
            type = "learnr_text",
            answer("3.58", correct = TRUE),
            allow_retry = TRUE),
   # Q4
-  question("Q4) What is the name of the dplyr function that allows you to sort the rows of a data frame by the alphanumeric order of a variable/column?", 
+  question("Q3) What is the name of the dplyr function that allows you to sort the rows of a data frame by the alphanumeric order of a variable/column?", 
            type = "learnr_text",
            answer("arrange", correct = TRUE),
            answer("arrange()", correct = TRUE),
@@ -158,15 +176,7 @@ quiz(
                  "std_dev", "weather"), correct = TRUE), 
         allow_retry = TRUE ),
   # Q6
-  question("Q6) Which type of plot would be best to visualize differences in the distribution of life expectancy by continent?",
-           answer("side-by-side boxplots", correct = TRUE),
-           answer("scatterplot"),
-           answer("barplot"),
-           answer("histogram"),
-           allow_retry = TRUE,
-           random_answer_order = TRUE),
-  #Q7
-    question_wordbank("Q7) Match each dplyr verb with the task it accomplishes.",
+    question_wordbank("Q6) Match each dplyr verb with the task it accomplishes.",
             choices = c("only keep desired columns", 
                         "only keep rows that meet a criteria",
                         "create a new variable",
@@ -201,7 +211,7 @@ grade_print_ui("grade_out")
 ```{r}
 bootstrapPage(
      div(style="display:inline-block", 
-         p("Optional: you can also") ),
+         strong("Optional:") ),
      div(style="display:inline-block",
          print_ui("Print", label = "full reading check") ),
      div(style="display:inline-block", 

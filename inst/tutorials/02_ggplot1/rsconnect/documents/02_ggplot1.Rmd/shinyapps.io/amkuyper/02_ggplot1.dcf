@@ -5,9 +5,9 @@ account: amkuyper
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 6890434
-bundleId: 6682477
+bundleId: 6684010
 url: https://amkuyper.shinyapps.io/02_ggplot1/
-when: 1672356379.12175
-lastSyncTime: 1672356379.12175
+when: 1672412021.77284
+lastSyncTime: 1672412021.77285
 asMultiple: FALSE
 asStatic: FALSE

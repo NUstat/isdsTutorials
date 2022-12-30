@@ -27,8 +27,8 @@ options(tutorial.event_recorder = ISDStutorials::isds_recorder)
 
 
 ```{r, context = "server"}
-rubric_list <- data.frame(question = c("Ex1", "Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7", "Q8", "Q9"),
-                          points_possible = rep(1, 10))
+rubric_list <- data.frame(question = c("Ex1", "Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7"),
+                          points_possible = rep(1, 8))
 
 grade_server("grade_out", 
             rubric_list = rubric_list)
@@ -114,16 +114,7 @@ quiz(
            allow_retry = TRUE,
            random_answer_order = TRUE),
   #Question 3
-  question("Q3) What operator allows you to keep adding layers to a ggplot() object?", 
-           type = "learnr_text",
-           answer("+", correct = TRUE),
-           answer("plus", correct = TRUE),
-           answer("plus sign", correct = TRUE),
-           answer("the plus sign", correct = TRUE),
-           allow_retry = TRUE,
-           random_answer_order = TRUE),
-  #Question 4
-  question("Q4) Which line of code will successfully create a new data frame flights_500mi containing only flights that travel at least 500 miles?",
+  question("Q3) Which line of code will successfully create a new data frame flights_500mi containing only flights that travel at least 500 miles?",
            answer("flights_500mi <- flights %>% select(distance >= 500)"),
            answer("flights_500mi <- flights %>% select(distance > 500)"),
            answer("flights_500mi <- flight %>% mutate(distance > 500)"),
@@ -132,8 +123,8 @@ quiz(
            answer("flights_500mi <- flights %>% filter(distance > 500)"),
            allow_retry = TRUE,
            random_answer_order = TRUE),
-  #Question 5
-  question("Q5) Which of the following is the correct syntax for 'not equal to'?",
+  #Question 4
+  question("Q4) Which of the following is the correct syntax for 'not equal to'?",
            answer("NOT ="),
            answer("!=",correct=TRUE),
            answer("=!"),
@@ -141,8 +132,8 @@ quiz(
            answer("/="),
            allow_retry = TRUE,
            random_answer_order = TRUE),
-  #Question 6
-  question("Q6) What is the standard deviation of the variable temp in the weather dataset?", 
+  #Question 5
+  question("Q5) What is the standard deviation of the variable temp in the weather dataset?", 
            type = "learnr_text",
            answer_fn(function(value){
                               if (round(as.numeric(value), 1) == 17.8 ) {
@@ -153,27 +144,19 @@ quiz(
            #answer("17.8", correct = TRUE),
            allow_retry = TRUE,
            random_answer_order = TRUE),
-  #Question 7
-  question("Q7) Which of the following arguments successfully removes missing values before computing a numerical summary (e.g. a mean, standard deviation, etc)?",
+  #Question 6
+  question("Q6) Which of the following arguments successfully removes missing values before computing a numerical summary (e.g. a mean, standard deviation, etc)?",
            answer("remove.missing = TRUE"),
            answer("NA.rm = TRUE"),
            answer("na.rm = TRUE",correct=TRUE),
            answer("remove.na = TRUE"),
            allow_retry = TRUE,
            random_answer_order = TRUE),
-  #Question 8
-  question("Q8) What is the default value for the na.rm argument in R?", 
+  #Question 7
+  question("Q7) What is the default value for the na.rm argument in R?", 
            type = "learnr_text",
            answer("FALSE", correct = TRUE),
            answer("F", correct = TRUE),
-           allow_retry = TRUE,
-           random_answer_order = TRUE),
-  #Question 9
-  question("Q9) What is the name of the geometric layer that you would add to create a histogram when using ggplot2?",
-           answer("geom_bar()"),
-           answer("geom_histogram()",correct=TRUE),
-           answer("geom_line()"),
-           answer("geom_hist()"),
            allow_retry = TRUE,
            random_answer_order = TRUE)
 )
@@ -199,7 +182,7 @@ grade_print_ui("grade_out")
 ```{r}
 bootstrapPage(
      div(style="display:inline-block", 
-         p("Optional: you can also") ),
+         strong("Optional:") ),
      div(style="display:inline-block",
          print_ui("Print", label = "full reading check") ),
      div(style="display:inline-block", 

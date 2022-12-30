@@ -252,7 +252,7 @@ grade_print_ui("grade_out")
 ```{r}
 bootstrapPage(
      div(style="display:inline-block", 
-         p("Optional: you can also") ),
+         strong("Optional:") ),
      div(style="display:inline-block",
          print_ui("Print", label = "full reading check") ),
      div(style="display:inline-block", 
