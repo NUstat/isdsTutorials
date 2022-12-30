@@ -1,7 +1,7 @@
 ---
-title: "Tutorial: Chapter 6.2 - 6.4"
+title: "RC 11: Chapter 6.2 - 6.4"
 tutorial:
-  id: "isds_11"
+  id: "RC_11"
   version: 0.1
   
 output:
@@ -56,8 +56,7 @@ question_blank("Name: ___",
 # have name, grade button, and print button on same line
 bootstrapPage(
      div(style="display:inline-block",
-         grade_button_ui("grade_out") ),
-     div(style="display:inline-block", print_ui("Print") )
+         grade_button_ui("grade_out") )
 )
 
 # can have the grade output appear anywhere in your tutorial
@@ -66,14 +65,9 @@ grade_output_ui("grade_out")
 
 ## Instructions
 
-Complete this tutorial while reading Sections 6.2 - 6.4 of the [textbook](https://nustat.github.io/intro-stat-data-sci/06-multiple-regression.html).
+Complete this tutorial while reading Sections 6.2 - 6.4 of the [textbook](https://nustat.github.io/intro-stat-data-sci/06-multiple-regression.html). Each question allows 3 'free' attempts. After the third attempt a 10% deduction occurs per attempt.
 
-Once you are finished:
-
--   Click the 'grade tutorial' button at the top to retrieve your score.
--   Click the 'pdf' button to save the document as a pdf, you must have the tutorial open in a browser window for this button to work.
--   Submit the completed pdf to Canvas.
-
+You can click the "View Grade" button as many times as you would like to see your current grade and the number of attempts you are on. Before submitting make sure your grade is as expected.
 
 ### Goals
 
@@ -129,6 +123,7 @@ quiz(
   question("Q2) What is the value of $b_2$ for the regression model score_model_interaction?  Round to 3 decimal places.", 
            type = "learnr_text",
            answer("-0.446", correct = TRUE),
+           answer("-.446", correct = TRUE),
            allow_retry = TRUE),
   # Q3
   question_wordbank("Q3) Consider the following model where age and gender are the explanatory/predictor variables, and female is the reference group for gender.\n
@@ -182,6 +177,7 @@ question("Q7) Match the model with the appropriate mathematical representation:\
   question("Q9) After fitting score_model_interaction to the evals_ch6 dataset, what is the value of  $y - \\hat{y}$ for the 4th instructor? Round to 3 decimal places.", 
            type = "learnr_text",
            answer("0.548", correct = TRUE),
+           answer(".548", correct = TRUE),
            allow_retry = TRUE),
   # Q10
   question("Q10) Suppose you ran the following lines of code:\n
@@ -197,3 +193,32 @@ What would the correlation between debt and income_5 in credit_ch6 be? Round to 
 )
 
 ```
+
+
+## Submit
+
+Once you are finished:
+
+-   Click the 'Download Grade' button below. This will download an html document of your grade summary.
+-   Make sure your grade is correct and as expected!
+-   Submit the downloaded html to Canvas.
+
+```{r}
+grade_print_ui("grade_out")
+```
+
+<br>
+<hr /> 
+<br>
+
+```{r}
+bootstrapPage(
+     div(style="display:inline-block", 
+         strong("Optional:") ),
+     div(style="display:inline-block",
+         print_ui("Print", label = "full reading check") ),
+     div(style="display:inline-block", 
+         p("for your own review and records.") ) 
+     )
+```
+<hr /> 

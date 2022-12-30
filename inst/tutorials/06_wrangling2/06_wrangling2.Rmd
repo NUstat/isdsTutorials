@@ -36,7 +36,7 @@ grade_server("grade_out",
 ```
 
 
-```{r isds-header}
+```{r Name}
 # student name
 question_blank("Name: ___",
                             answer_fn(function(value){

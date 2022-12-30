@@ -1,7 +1,7 @@
 ---
-title: "Tutorial: Chapter 5.2 - 5.4"
+title: "RC 09: Chapter 5.2 - 5.4"
 tutorial:
-  id: "isds_09"
+  id: "RC_09"
   version: 0.1
   
 output:
@@ -11,7 +11,7 @@ output:
     css: ["css/nu-theme.css"]
 runtime: shiny_prerendered
 description: >
-  Learn how to perform more advanced linear regression.
+  Learn how to perform simple linear regression with a categorical x variable.
 ---
 
 ```{r setup, include=FALSE}
@@ -51,8 +51,7 @@ question_blank("Name: ___",
 # have name, grade button, and print button on same line
 bootstrapPage(
      div(style="display:inline-block",
-         grade_button_ui("grade_out") ),
-     div(style="display:inline-block", print_ui("Print") )
+         grade_button_ui("grade_out") )
 )
 
 # can have the grade output appear anywhere in your tutorial
@@ -61,14 +60,9 @@ grade_output_ui("grade_out")
 
 ## Instructions
 
-Complete this tutorial while reading Sections 5.2 - 5.4 of the [textbook](https://nustat.github.io/intro-stat-data-sci/05-regression.html).
+Complete this tutorial while reading Sections 5.2 - 5.4 of the [textbook](https://nustat.github.io/intro-stat-data-sci/05-regression.html). Each question allows 3 'free' attempts. After the third attempt a 10% deduction occurs per attempt.
 
-Once you are finished:
-
--   Click the 'grade tutorial' button at the top to retrieve your score.
--   Click the 'pdf' button to save the document as a pdf, you must have the tutorial open in a browser window for this button to work.
--   Submit the completed pdf to Canvas.
-
+You can click the "View Grade" button as many times as you would like to see your current grade and the number of attempts you are on. Before submitting make sure your grade is as expected.
 
 ### Goals
 
@@ -133,3 +127,31 @@ quiz(caption = NULL,
 
 
 ```
+
+## Submit
+
+Once you are finished:
+
+-   Click the 'Download Grade' button below. This will download an html document of your grade summary.
+-   Make sure your grade is correct and as expected!
+-   Submit the downloaded html to Canvas.
+
+```{r}
+grade_print_ui("grade_out")
+```
+
+<br>
+<hr /> 
+<br>
+
+```{r}
+bootstrapPage(
+     div(style="display:inline-block", 
+         strong("Optional:") ),
+     div(style="display:inline-block",
+         print_ui("Print", label = "full reading check") ),
+     div(style="display:inline-block", 
+         p("for your own review and records.") ) 
+     )
+```
+<hr /> 

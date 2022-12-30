@@ -1,12 +1,12 @@
 ---
-title: "Tutorial: Chapter 4"
+title: "RC 07: Chapter 4"
 tutorial:
-  id: "isds_07"
+  id: "RC_07"
   version: 0.1
   
 output:
   learnr::tutorial:
-    progressive: true
+    progressive: false
     allow_skip: true
     css: ["css/nu-theme.css"]
 runtime: shiny_prerendered
@@ -27,15 +27,15 @@ options(tutorial.event_recorder = ISDStutorials::isds_recorder)
 
 
 ```{r, context = "server"}
-rubric_list <- data.frame(question = c("Ex1", "Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7", "Q8", "Q9", "Q10", "Q11", "Q12"),
-                          points_possible = rep(1, 13))
+rubric_list <- data.frame(question = c("Name", "Ex1", "Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7", "Q8", "Q9", "Q10", "Q11", "Q12"),
+                          points_possible = rep(1, 14))
 
 grade_server("grade_out", 
             rubric_list = rubric_list)
 ```
 
 
-```{r isds-header}
+```{r Name}
 # student name
 question_blank("Name: ___",
                             answer_fn(function(value){
@@ -51,8 +51,7 @@ question_blank("Name: ___",
 # have name, grade button, and print button on same line
 bootstrapPage(
      div(style="display:inline-block",
-         grade_button_ui("grade_out") ),
-     div(style="display:inline-block", print_ui("Print") )
+         grade_button_ui("grade_out") )
 )
 
 # can have the grade output appear anywhere in your tutorial
@@ -63,12 +62,7 @@ grade_output_ui("grade_out")
 
 Complete this tutorial while reading Chapter 4 of the [textbook](https://nustat.github.io/intro-stat-data-sci/04-tidy.html).
 
-Once you are finished:
-
--   Click the 'grade tutorial' button at the top to retrieve your score.
--   Click the 'pdf' button to save the document as a pdf, you must have the tutorial open in a browser window for this button to work.
--   Submit the completed pdf to Canvas.
-
+You can click the "View Grade" button as many times as you would like to see your current grade and the number of attempts you are on. Before submitting make sure your grade is as expected.
 
 ### Goals
 
@@ -122,8 +116,12 @@ quiz(
   # Q1
   question("Q1) What is the term used to describe data that is in the format required for analysis with the ggplot2 and dplyr packages?", 
            type = "learnr_text",
-           answer("tidy", correct = TRUE),
-           answer('"tidy"', correct = TRUE),
+           answer_fn(function(value){
+                    if (tolower(value) %in% c("tidy", '"tidy"') ) {
+                                return(mark_as(TRUE))
+                                }
+                              return(mark_as(FALSE) )
+                              }),
            allow_retry = TRUE),
   #Question 2
   question("Q2) Which function allows you to import a .csv file into R?",
@@ -196,3 +194,32 @@ quiz(
 )
 
 ```
+
+
+## Submit
+
+Once you are finished:
+
+-   Click the 'Download Grade' button below. This will download an html document of your grade summary.
+-   Make sure your grade is correct and as expected!
+-   Submit the downloaded html to Canvas.
+
+```{r}
+grade_print_ui("grade_out")
+```
+
+<br>
+<hr /> 
+<br>
+
+```{r}
+bootstrapPage(
+     div(style="display:inline-block", 
+         strong("Optional:") ),
+     div(style="display:inline-block",
+         print_ui("Print", label = "full reading check") ),
+     div(style="display:inline-block", 
+         p("for your own review and records.") ) 
+     )
+```
+<hr /> 
