@@ -157,7 +157,7 @@ grade_server <- function(id, rubric_list, num_try = 3, deduction = 0.1, display 
                    ".html")
 
             tableHTML::write_tableHTML(tab_html,
-                                       filename)
+                                       file)
           },
           contentType = "text/html"
         )

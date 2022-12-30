@@ -28,8 +28,8 @@ options(tutorial.event_recorder = ISDStutorials::isds_recorder)
 
 
 ```{r, context = "server"}
-rubric_list <- data.frame(question = c("Ex1", "Ex1Q1", "Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7"),
-                          points_possible = rep(1, 9))
+rubric_list <- data.frame(question = c("Name", "Ex1", "Ex1Q1", "Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7"),
+                          points_possible = rep(1, 10))
 
 grade_server("grade_out", 
             rubric_list = rubric_list)
