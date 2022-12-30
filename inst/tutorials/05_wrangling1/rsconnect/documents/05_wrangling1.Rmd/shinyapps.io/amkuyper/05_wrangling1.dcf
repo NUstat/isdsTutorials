@@ -5,9 +5,9 @@ account: amkuyper
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 6890627
-bundleId: 6256630
+bundleId: 6682765
 url: https://amkuyper.shinyapps.io/05_wrangling1/
-when: 1661974989.02166
-lastSyncTime: 1661974989.02167
+when: 1672369587.28721
+lastSyncTime: 1672369587.28722
 asMultiple: FALSE
 asStatic: FALSE

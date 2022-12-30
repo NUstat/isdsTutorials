@@ -66,8 +66,9 @@ You can click the "View Grade" button as many times as you would like to see you
 
 ### Goals
 
--   Understand and interpret boxplots.
--   Learn to visualize different types of variables.
+-   Learn to plot and interpret boxplots.
+-   Learn to plot a single categorical variable.
+-   Understand the different ways to visualize two categorical variables in a barplot.
 
 ## Exercise
 

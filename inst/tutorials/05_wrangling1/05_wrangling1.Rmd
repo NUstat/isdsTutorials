@@ -67,12 +67,13 @@ You can click the "View Grade" button as many times as you would like to see you
 ### Goals
 
 -   Understand and execute the basics of data wrangling.
+-   Know how to use the pipe operator.
+-   Use the `filter()` and `summarize()` functions.
 -   Understand how to handle missing values.
--   Understand how to add layers to a ggplot.
 
 ## Exercise
 
-Create a new data frame using the dataset `mpg` that is subsetted to include only cars from the year 1999 that get more than 30 miles per gallon on the highway by filling in the blanks (the data is already preloaded in R).
+Create a new data frame using the dataset `mpg` that is subsetted to include only cars from the year 1999 that get more than 30 miles per gallon on the highway by filling in the blanks (the data is already pre-loaded in R).
 
 ```{r Ex1, exercise=TRUE}
 mpg_subset <- mpg ___
@@ -143,7 +144,13 @@ quiz(
   #Question 6
   question("Q6) What is the standard deviation of the variable temp in the weather dataset?", 
            type = "learnr_text",
-           answer("17.8", correct = TRUE),
+           answer_fn(function(value){
+                              if (round(as.numeric(value), 1) == 17.8 ) {
+                                return(mark_as(TRUE))
+                                }
+                              return(mark_as(FALSE) )
+                              }),
+           #answer("17.8", correct = TRUE),
            allow_retry = TRUE,
            random_answer_order = TRUE),
   #Question 7
