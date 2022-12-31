@@ -120,7 +120,8 @@ and want to save space.</p>
 <span>  incorrect <span class="op">=</span> <span class="st">"Incorrect"</span>,</span>
 <span>  try_again <span class="op">=</span> <span class="va">incorrect</span>,</span>
 <span>  allow_retry <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  random_answer_order <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  random_answer_order <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  style <span class="op">=</span> <span class="st">"tutorial_question"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -166,6 +167,10 @@ correct.</p></dd>
 <dt>random_answer_order</dt>
 <dd><p>Display answers in a random order.</p></dd>
 
+
+<dt>style</dt>
+<dd><p>can change display of question to "notes" or "exam"</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
@@ -185,7 +190,19 @@ correct.</p></dd>
 <span class="r-in"><span>  allow_retry <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
 <span class="r-in"><span>  random_answer_order <span class="op">=</span> <span class="cn">TRUE</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in ISDStutorials:::drop_question(text = text, ..., type = "dropdown",     correct = correct, incorrect = incorrect, allow_retry = allow_retry,     random_answer_order = random_answer_order):</span> object 'style' not found</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Question: "Pick the letter B"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   type: "dropdown"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   allow_retry: TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   random_answer_order: TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   answers:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     X: "A"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     ✔: "B"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     X: "C"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     X: "D"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   messages:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     correct: "Correct!"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     incorrect: "Incorrect"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     try_again: "Incorrect" </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
