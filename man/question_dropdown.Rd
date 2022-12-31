@@ -12,7 +12,8 @@ question_dropdown(
   incorrect = "Incorrect",
   try_again = incorrect,
   allow_retry = FALSE,
-  random_answer_order = FALSE
+  random_answer_order = FALSE,
+  style = "tutorial_question"
 )
 }
 \arguments{
@@ -40,6 +41,8 @@ correct.}
 \item{allow_retry}{Allow retry for incorrect answers. Defaults to \code{FALSE}.}
 
 \item{random_answer_order}{Display answers in a random order.}
+
+\item{style}{can change display of question to "notes" or "exam"}
 }
 \value{
 A custom \code{learnr} question, with \code{type = dropdown}.

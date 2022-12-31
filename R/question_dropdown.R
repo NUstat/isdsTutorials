@@ -7,6 +7,7 @@
 #'
 #'
 #' @param ... parameters passed onto learnr answer.
+#' @param style can change display of question to "notes" or "exam"
 #' @inheritParams learnr::question
 #'
 #' @return A custom `learnr` question, with `type = dropdown`.
@@ -31,7 +32,8 @@ question_dropdown <- function(
   incorrect = "Incorrect",
   try_again = incorrect,
   allow_retry = FALSE,
-  random_answer_order = FALSE
+  random_answer_order = FALSE,
+  style = "tutorial_question"
 ) {
   question <-
     ISDStutorials:::drop_question(
@@ -41,7 +43,8 @@ question_dropdown <- function(
       correct = correct,
       incorrect = incorrect,
       allow_retry = allow_retry,
-      random_answer_order = random_answer_order
+      random_answer_order = random_answer_order,
+      style = style
     )
 
   answer_is_fn <- FALSE
@@ -64,6 +67,7 @@ drop_question <- function(
     try_again_button = rlang::missing_arg(),
     allow_retry = FALSE,
     random_answer_order = FALSE,
+    style = "tutorial_question",
     options = list()
 ) {
 
@@ -73,17 +77,11 @@ drop_question <- function(
   # capture/validate answers
   ellipsis::check_dots_unnamed() # validate all answers are not named and not a misspelling
   answers <- list(...)
-  #answers <- list(answer)
-  #lapply(answers, function(answer) {
-  #  checkmate::assert_class(answer, "tutorial_question_answer")
-  #})
 
-  # verify chunk label if necessary
-  #verify_tutorial_chunk_label()
-
-  # count total correct answers to decide between radio/checkbox
-  #answers_split <- learnr:::answers_split_type(answers)
-  #total_correct <- sum(vapply(answers_split[["literal"]], `[[`, logical(1), "correct"))
+  # ensure style is correct
+  if (! style %in% c("tutorial_question", "notes", "exam", "notes_question")) {
+    stop("style must be either 'tutorial_question', 'notes', or 'exam'")
+  }
 
   # can not guarantee that `label` exists
   label <- knitr::opts_current$get('label')
@@ -110,6 +108,7 @@ drop_question <- function(
     label = label,
     question = learnr:::quiz_text(text),
     answers = answers,
+    style = style,
     button_labels = list(
       submit = submit_button,
       try_again = try_again_button
