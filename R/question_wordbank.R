@@ -200,8 +200,8 @@ wordbank_question <- function(
 
   if(style == "notes"){
     class(ret) <- c(type, "notes_question")
-  }else if(style == "exam_question"){
-   class(ret) <- c(type, "exam_question")
+  # }else if(style == "exam_question"){
+  #  class(ret) <- c(type, "exam_question")
   }else{
     class(ret) <- c(type, "tutorial_question")
   }
@@ -346,9 +346,9 @@ question_ui_initialize.wordbank <- function(question, value, ...) {
 #' @seealso question_wordbank
 question_is_correct.wordbank <- function(question, value, ...) {
 
-  # if(question$style == "exam"){
-  #   return(mark_as(FALSE, NULL))
-  # }
+  if(question$style == "exam"){
+    return(mark_as(FALSE, NULL))
+  }
 
   for (ans in question$answers) {
 

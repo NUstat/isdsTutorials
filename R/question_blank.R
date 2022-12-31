@@ -327,9 +327,9 @@ question_is_valid.blank <- function(question, value, ...) {
 #' @seealso question_blank
 question_is_correct.blank <- function(question, value, ...) {
 
-  # if(question$style == "exam"){
-  #   return(mark_as(FALSE, NULL))
-  # }
+  if(question$style == "exam"){
+    return(mark_as(FALSE, NULL))
+  }
 
   append_message <- function(x, ans) {
     message <- ans$message
