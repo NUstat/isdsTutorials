@@ -211,6 +211,9 @@ grade_tutorial <- function(submissions, rubric_list,
     mutate(correct = as.numeric(correct)) %>%
     distinct(type, question, answer, correct, .keep_all = TRUE)
 
+  print("exercise")
+  print(split_2)
+
   newdf <- rbind(split_1, split_2)
 
   # format question names for merge
@@ -225,12 +228,10 @@ grade_tutorial <- function(submissions, rubric_list,
   # save user info for grade report output
   name <- newdf %>%
     filter(question == "Name")
-  print(name)
   name <- name  %>%
     pull(answer)
-  print(name)
+
   name <- ifelse(!is_empty(name), name, NA)
-  print(name)
 
   user_info <- data.frame(rc = tmpdf$rc[1],
                           id = tmpdf$id[1],
@@ -266,6 +267,9 @@ grade_tutorial <- function(submissions, rubric_list,
   grade_summary[is.na(grade_summary$x1),"x1"] <- 0
   grade_summary[is.na(grade_summary$x0),"x0"] <- 0
 
+  print("Print summary")
+  print(grade_summary)
+
   # create summary columns for num_attempts and score
   grade_organized <- grade_summary %>%
     dplyr::mutate(num_attempts = rowSums(dplyr::select(.,contains("x")),
@@ -274,8 +278,6 @@ grade_tutorial <- function(submissions, rubric_list,
                           points_possible*x1*(1- (deduction*(num_attempts-num_try))),
                           points_possible*x1) ) %>%
     dplyr::select(-x1, -x0)
-
-  print(grade_organized)
 
   grade_table <- grade_organized %>%
     gt::gt(rowname_col = "question") %>%
