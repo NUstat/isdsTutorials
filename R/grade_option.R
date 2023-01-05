@@ -180,7 +180,7 @@ grade_tutorial <- function(submissions, rubric_list,
     data.table::transpose() %>%
     tidyr::separate_rows(V1, sep = "//") %>%
     data.table::transpose() %>%
-    data.table::tstrsplit(split = ",", names = TRUE)
+    data.table::tstrsplit(split = "|", names = TRUE)
   print("table")
   print(table)
   # issue using dplyr with shiny object

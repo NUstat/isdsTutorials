@@ -20,11 +20,11 @@ isds_recorder <- function(tutorial_id, tutorial_version,
   if(event %in% c("question_submission", "exercise_result") &&
      data$label != "grade_recorder" ){
 
-    tmp <- paste0(tutorial_id,",", tutorial_version, ", ",
-                  user_id, ", ", Sys.time() ,", ",
-                  event, ", ", data$label, ", ",
+    tmp <- paste0(tutorial_id,"|", tutorial_version, "|",
+                  user_id, "|", Sys.time() ,"|",
+                  event, "|", data$label, "|",
                   #answer is for question and code is for exercise
-                  data$answer, data$code, ", ",
+                  data$answer, data$code, "|",
                   as.numeric(data$correct),
                   as.numeric(data$feedback$correct), sep = "")
 
