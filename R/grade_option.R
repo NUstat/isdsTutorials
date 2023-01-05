@@ -283,8 +283,9 @@ grade_tutorial <- function(submissions, rubric_list,
     dplyr::mutate(num_attempts = rowSums(dplyr::select(.,contains("x")),
                                   na.rm = TRUE)) %>%
     dplyr::mutate(score = ifelse(num_attempts>num_try,
-                          points_possible*x1*(1- (deduction*(num_attempts-num_try))),
-                          points_possible*x1) ) %>%
+                          points_possible*x1*(1 - (deduction*(num_attempts-num_try))),
+                          points_possible*x1),
+                  score = ifelse(score < 0, 0, score)) %>%
     dplyr::select(-x1, -x0)
 
   grade_table <- grade_organized %>%
