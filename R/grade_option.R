@@ -174,7 +174,8 @@ utils::globalVariables(c("V1", "x1", "x0", "n", "num_try", ".",
 #create a table of grades and calculate overall percent
 grade_tutorial <- function(submissions, rubric_list,
                            num_try = 3, deduction = 0.1){
-
+  print("raw")
+  print(submissions)
   table <- submissions %>%
     data.table::data.table() %>%
     data.table::transpose() %>%
