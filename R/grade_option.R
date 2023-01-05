@@ -190,11 +190,13 @@ grade_tutorial <- function(submissions, rubric_list,
                       question = table$V6,
                       answer = table$V7,
                       correct = table$V8) %>%
-    mutate(correct = as.numeric(correct),
+    mutate(correct = stringr::str_trim(correct),
+           correct = as.numeric(correct),
            correct = ifelse(is.na(correct), 0, correct),
            type = as.factor(stringr::str_trim(type) ),
            rc = stringr::str_remove(rc, "\n"))
-
+  print("formatted table")
+  print(tmpdf)
   #fix issue with exercise_result submitting multiple times if student get's kicked out
   #fix issue with exercise_result saving correct every time document is loaded
   split_1 <- tmpdf %>%
