@@ -189,13 +189,17 @@ grade_tutorial <- function(submissions, rubric_list,
                       type = table$V5,
                       question = table$V6,
                       answer = table$V7,
-                      correct = table$V8) %>%
+                      correct = table$V8)
+  print("data frame")
+  print(tmpdf)
+
+  tmpdf <- tmpdf %>%
     mutate(correct = stringr::str_trim(correct),
            correct = as.numeric(correct),
            correct = ifelse(is.na(correct), 0, correct),
            type = as.factor(stringr::str_trim(type) ),
            rc = stringr::str_remove(rc, "\n"))
-  print("formatted table")
+  print("mutated table")
   print(tmpdf)
   #fix issue with exercise_result submitting multiple times if student get's kicked out
   #fix issue with exercise_result saving correct every time document is loaded
