@@ -174,16 +174,14 @@ utils::globalVariables(c("V1", "x1", "x0", "n", "num_try", ".",
 #create a table of grades and calculate overall percent
 grade_tutorial <- function(submissions, rubric_list,
                            num_try = 3, deduction = 0.1){
-  print("raw")
-  print(submissions)
+
   table <- submissions %>%
     data.table::data.table() %>%
     data.table::transpose() %>%
     tidyr::separate_rows(V1, sep = "//") %>%
     data.table::transpose() %>%
     data.table::tstrsplit(split = "##", names = TRUE)
-  print("table")
-  print(table)
+
   # issue using dplyr with shiny object
   # so need to manually set as table
   tmpdf <- data.frame(rc = table$V1, id = table$V3, time = table$V4,
@@ -191,8 +189,6 @@ grade_tutorial <- function(submissions, rubric_list,
                       question = table$V6,
                       answer = table$V7,
                       correct = table$V8)
-  print("data frame")
-  print(tmpdf)
 
   tmpdf <- tmpdf %>%
     mutate(correct = stringr::str_trim(correct),
@@ -200,8 +196,7 @@ grade_tutorial <- function(submissions, rubric_list,
            correct = ifelse(is.na(correct), 0, correct),
            type = as.factor(stringr::str_trim(type) ),
            rc = stringr::str_remove(rc, "\n"))
-  print("mutated table")
-  print(tmpdf)
+
   #fix issue with exercise_result submitting multiple times if student get's kicked out
   #fix issue with exercise_result saving correct every time document is loaded
   split_1 <- tmpdf %>%
@@ -218,9 +213,6 @@ grade_tutorial <- function(submissions, rubric_list,
     filter(type == "exercise_result") %>%
     mutate(correct = as.numeric(correct)) %>%
     distinct(type, question, answer, correct, .keep_all = TRUE)
-
-  print("exercise")
-  print(split_2)
 
   newdf <- rbind(split_1, split_2)
 
@@ -274,9 +266,6 @@ grade_tutorial <- function(submissions, rubric_list,
   # replace na values with 0
   grade_summary[is.na(grade_summary$x1),"x1"] <- 0
   grade_summary[is.na(grade_summary$x0),"x0"] <- 0
-
-  print("Print summary")
-  print(grade_summary)
 
   # create summary columns for num_attempts and score
   grade_organized <- grade_summary %>%
