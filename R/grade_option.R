@@ -174,16 +174,17 @@ utils::globalVariables(c("V1", "x1", "x0", "n", "num_try", ".",
 #create a table of grades and calculate overall percent
 grade_tutorial <- function(submissions, rubric_list,
                            num_try = 3, deduction = 0.1){
-  print("raw")
-  print(submissions)
+  # print("raw")
+  # print(submissions)
   table <- submissions %>%
     data.table::data.table() %>%
     data.table::transpose() %>%
     tidyr::separate_rows(V1, sep = "//") %>%
     data.table::transpose() %>%
     data.table::tstrsplit(split = "##", names = TRUE)
-  print("table")
-  print(table)
+  # print("table")
+  # print(table)
+
   # issue using dplyr with shiny object
   # so need to manually set as table
   tmpdf <- data.frame(rc = table$V1, id = table$V3, time = table$V4,
@@ -192,8 +193,8 @@ grade_tutorial <- function(submissions, rubric_list,
                       answer = table$V7,
                       correct = table$V8,
                       checked = table$V9)
-  print("df")
-  print(tmpdf)
+  # print("df")
+  # print(tmpdf)
   tmpdf <- tmpdf %>%
     mutate(correct = stringr::str_trim(correct),
            correct = as.numeric(correct),
@@ -201,8 +202,9 @@ grade_tutorial <- function(submissions, rubric_list,
            checked = as.numeric(checked),
            type = as.factor(stringr::str_trim(type) ),
            rc = stringr::str_remove(rc, "\n"))
-  print("clean")
-  print(tmpdf)
+  # print("clean")
+  # print(tmpdf)
+
   #fix issue with exercise_result submitting multiple times if student get's kicked out
   #fix issue with exercise_result saving correct every time document is loaded
   split_1 <- tmpdf %>%
@@ -211,9 +213,9 @@ grade_tutorial <- function(submissions, rubric_list,
     mutate(correct = as.numeric(correct)) %>%
     distinct(time, type, question, answer, correct, .keep_all = TRUE)
 
-  #find questions with multiple answers and concatenate
-  split_1 <- aggregate(data=split_1, answer~.,
-                       FUN = paste, collapse=",")
+  # find questions with multiple answers and concatenate
+  split_1 <- aggregate(data = split_1, answer~.,
+                       FUN = paste, collapse = ",")
 
   split_2 <- tmpdf %>%
     filter(type == "exercise_result") %>%
