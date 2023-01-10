@@ -27,7 +27,7 @@ isds_recorder <- function(tutorial_id, tutorial_version,
                   data$answer, data$code, "##",
                   as.numeric(data$correct),
                   as.numeric(data$feedback$correct),  "##",
-                  "1",
+                  "0",
                   as.numeric(data$checked), #test this
                   sep = "")
 

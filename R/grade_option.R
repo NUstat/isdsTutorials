@@ -198,7 +198,7 @@ grade_tutorial <- function(submissions, rubric_list,
     mutate(correct = stringr::str_trim(correct),
            correct = as.numeric(correct),
            correct = ifelse(is.na(correct), 0, correct),
-           checked = ifelse(checked == 10, 0, 1),
+           checked = as.numeric(checked),
            type = as.factor(stringr::str_trim(type) ),
            rc = stringr::str_remove(rc, "\n"))
   print("clean")
@@ -217,13 +217,16 @@ grade_tutorial <- function(submissions, rubric_list,
 
   split_2 <- tmpdf %>%
     filter(type == "exercise_result") %>%
-    mutate(correct = as.numeric(correct)) %>%
+    mutate(correct = as.numeric(correct),
+           checked = as.numeric(checked)) %>%
+    filter(checked == 1) %>%
     distinct(type, question, answer, correct, .keep_all = TRUE)
 
-  newdf <- rbind(split_1, split_2)
+  newdf <- rbind(split_1, split_2) %>%
+    select(-checked)
 
   # format question names for merge
-  newdf <- newdf %>%
+  newdf <- newdf  %>%
     dplyr::filter(!is.na(question)) %>%
     # remove punctuation for merge
     dplyr::mutate(question = stringr::str_replace_all(question,
