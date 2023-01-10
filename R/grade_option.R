@@ -190,13 +190,15 @@ grade_tutorial <- function(submissions, rubric_list,
                       type = table$V5,
                       question = table$V6,
                       answer = table$V7,
-                      correct = table$V8)
+                      correct = table$V8,
+                      checked = table$V9)
   print("df")
   print(tmpdf)
   tmpdf <- tmpdf %>%
     mutate(correct = stringr::str_trim(correct),
            correct = as.numeric(correct),
            correct = ifelse(is.na(correct), 0, correct),
+           checked = ifelse(checked == 10, 0, 1),
            type = as.factor(stringr::str_trim(type) ),
            rc = stringr::str_remove(rc, "\n"))
   print("clean")
