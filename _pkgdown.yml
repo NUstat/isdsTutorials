@@ -6,7 +6,7 @@ template:
   bootstrap: 5
   bslib:
     primary: "#4E2A84"
-    navbar-background: "#E4E0EE"
+    navbar-background: "#4E2A84"
     pkgdown-nav-height: 90px
 
 navbar:
