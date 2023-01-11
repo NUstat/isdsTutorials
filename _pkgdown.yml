@@ -3,7 +3,6 @@ destination: reference
 url: https://nustat.github.io/ISDStutorials/
 
 template:
-  package: tidytemplate
   bootstrap: 5
   bslib:
     primary: "#4E2A84"
