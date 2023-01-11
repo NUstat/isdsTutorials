@@ -1,5 +1,13 @@
 url: https://nustat.github.io/ISDStutorials/
 
+template:
+  package: tidytemplate
+  bootstrap: 5
+  bslib:
+    primary: "#4E2A84"
+    navbar-background: "#E4E0EE"
+    pkgdown-nav-height: 90px
+
 navbar:
   logo: "images/logo_isds.png"
   left:
@@ -22,6 +30,7 @@ references:
     contents:
     - '`grade_button_ui`'
     - '`grade_output_ui`'
+    - '`grade_print_ui`'
     - '`grade_server`'
     - '`isds_recorder'
     - '`lock_exam_button`'
