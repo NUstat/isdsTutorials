@@ -33,9 +33,9 @@ reference:
     - '`grade_output_ui`'
     - '`grade_print_ui`'
     - '`grade_server`'
-    - '`isds_recorder'
+    - '`isds_recorder`'
     - '`lock_exam_button`'
-    - '`lock_server'
+    - '`lock_server`'
     - '`print_ui`'
   - subtitle: Misc
     contents:
@@ -43,7 +43,6 @@ reference:
     - '`inner_lock_server`'
     - '`inner_q_lock_server`'
     - '`knit_print`'
-    - '`isds_recorder'
     - '`lock_q_button`'
     - '`lock_q_server`'
 
