@@ -1,15 +1,15 @@
 url: https://nustat.github.io/ISDStutorials/
 
 navbar:
-   logo: "images/logo_isds.png"
+  logo: "images/logo_isds.png"
   left:
   - text: Reference
     href: reference/index.html
   - text: Tutorials
     href: tutorials/index.html
- right:
- - text: Introduction to Statistics and Data Science
-   href: https://nustat.github.io/intro-stat-ds/
+ # right:
+ # - text: Introduction to Statistics and Data Science
+ #   href: https://nustat.github.io/intro-stat-ds/
 
 references:
 - title: Functions
@@ -25,69 +25,79 @@ references:
     - '`grade_server`'
     - '`isds_recorder'
     - '`lock_exam_button`'
+    - '`lock_server'
     - '`print_ui`'
+  - subtitle: Misc
+    contents:
+    - '`exam`'
+    - '`inner_lock_server`'
+    - '`inner_q_lock_server`'
+    - '`knit_print`'
+    - '`isds_recorder'
+    - '`lock_q_button`'
+    - '`lock_q_server`'
 
 tutorials:
 - name: 01_intro
   title: Preface & Chapter 1
   url: https://amkuyper.shinyapps.io/01_intro/
 - name: 02_ggplot1
-  title: Sections 2.0 - 2.3
+  title: Chapter 2: Scatterplots
   url: https://amkuyper.shinyapps.io/02_ggplot1/
 - name: 03_ggplot2
-  title: Preface & Chapter 1
+  title: Chapter 2: Linegraphs and Histograms
   url: https://amkuyper.shinyapps.io/03_ggplot2/
 - name: 04_ggplot3
-  title: Sections 2.0 - 2.3
+  title: Chapter 2: Boxplots and Barplots
   url: https://amkuyper.shinyapps.io/04_ggplot3/
 - name: 05_wrangling1
-  title: Preface & Chapter 1
+  title: Chapter 3: Intro to wrangling
   url: https://amkuyper.shinyapps.io/05_wrangling1/
 - name: 06_wrangling2
-  title: Sections 2.0 - 2.3
+  title: Chapter 3: Advanced wrangling
   url: https://amkuyper.shinyapps.io/06_wrangling2/
 - name: 07_tidy
-  title: Sections 2.0 - 2.3
+  title: Chapter 4: tidy data
   url: https://amkuyper.shinyapps.io/07_tidy/
 - name: 08_regression1
-  title: Preface & Chapter 1
+  title: Chapter 5: simple linear regression - numeric x
   url: https://amkuyper.shinyapps.io/08_regression1/
 - name: 09_regression2
-  title: Sections 2.0 - 2.3
+  title: Chapter 5: simple linear regression - categorical x
   url: https://amkuyper.shinyapps.io/09_regression2/
 - name: 10_regression3
-  title: Sections 2.0 - 2.3
+  title: Chapter 6: linear regression - 2 numeric predictors
   url: https://amkuyper.shinyapps.io/10_regression3/
 - name: 11_regression4
-  title: Preface & Chapter 1
+  title: Chapter 6: linear regression - 1 numeric, 1 categorical predictor
   url: https://amkuyper.shinyapps.io/11_regression4/
 - name: 12_randomization
-  title: Sections 2.0 - 2.3
+  title: Chapter 7: randomization
   url: https://amkuyper.shinyapps.io/12_randomization/
 - name: 13_generalizability
-  title: Sections 2.0 - 2.3
+  title: Chapter 8: generalizability
   url: https://amkuyper.shinyapps.io/13_generalizability/
 - name: 14_sampling1
-  title: Preface & Chapter 1
+  title: Chapter 9: distributions
   url: https://amkuyper.shinyapps.io/14_sampling1/
 - name: 15_sampling2
-  title: Sections 2.0 - 2.3
+  title: Chapter 9: repeated sampling
   url: https://amkuyper.shinyapps.io/15_sampling2/
 - name: 16_sampling3
-  title: Sections 2.0 - 2.3
+  title: Chapter 9: central limit theorem
   url: https://amkuyper.shinyapps.io/16_sampling3/
 - name: 17_CI
-  title: Preface & Chapter 1
+  title: Chapter 10: confidence intervals
   url: https://amkuyper.shinyapps.io/17_CI/
 - name: 18_pvalues
-  title: Sections 2.0 - 2.3
+  title: Chapter 11: p-values
   url: https://amkuyper.shinyapps.io/18_pvalues/
 - name: 19_hypothesis
-  title: Sections 2.0 - 2.3
+  title: chapter 12: hypothesis testing
   url: https://amkuyper.shinyapps.io/19_hypothesis/
 - name: isds_functions
-  title: Preface & Chapter 1
-  url: https://amkuyper.shinyapps.io/01_intro/
+  title: Teaching: function resources
+  url: https://amkuyper.shinyapps.io/isds_functions/
 # - name: sample_exam1
 #   title: Sections 2.0 - 2.3
 #   url: https://amkuyper.shinyapps.io/sample_exam1/
