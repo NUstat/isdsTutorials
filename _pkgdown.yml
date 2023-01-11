@@ -14,3 +14,66 @@ tutorials:
 - name: 02_ggplot1
   title: Sections 2.0 - 2.3
   url: https://amkuyper.shinyapps.io/02_ggplot1/
+- name: 03_ggplot2
+  title: Preface & Chapter 1
+  url: https://amkuyper.shinyapps.io/01_intro/
+- name: 04_ggplot3
+  title: Sections 2.0 - 2.3
+  url: https://amkuyper.shinyapps.io/02_ggplot1/
+- name: 05_wrangling1
+  title: Preface & Chapter 1
+  url: https://amkuyper.shinyapps.io/01_intro/
+- name: 06_wrangling2
+  title: Sections 2.0 - 2.3
+  url: https://amkuyper.shinyapps.io/02_ggplot1/
+- name: 07_tidy
+  title: Sections 2.0 - 2.3
+  url: https://amkuyper.shinyapps.io/02_ggplot1/
+- name: 08_regression1
+  title: Preface & Chapter 1
+  url: https://amkuyper.shinyapps.io/01_intro/
+- name: 09_regression2
+  title: Sections 2.0 - 2.3
+  url: https://amkuyper.shinyapps.io/02_ggplot1/
+- name: 10_regression3
+  title: Sections 2.0 - 2.3
+  url: https://amkuyper.shinyapps.io/02_ggplot1/
+- name: 11_regression4
+  title: Preface & Chapter 1
+  url: https://amkuyper.shinyapps.io/01_intro/
+- name: 12_randomization
+  title: Sections 2.0 - 2.3
+  url: https://amkuyper.shinyapps.io/02_ggplot1/
+- name: 13_generalizability
+  title: Sections 2.0 - 2.3
+  url: https://amkuyper.shinyapps.io/02_ggplot1/
+- name: 14_sampling1
+  title: Preface & Chapter 1
+  url: https://amkuyper.shinyapps.io/01_intro/
+- name: 15_sampling2
+  title: Sections 2.0 - 2.3
+  url: https://amkuyper.shinyapps.io/02_ggplot1/
+- name: 16_sampling3
+  title: Sections 2.0 - 2.3
+  url: https://amkuyper.shinyapps.io/02_ggplot1/
+- name: 17_CI
+  title: Preface & Chapter 1
+  url: https://amkuyper.shinyapps.io/01_intro/
+- name: 18_pvalues
+  title: Sections 2.0 - 2.3
+  url: https://amkuyper.shinyapps.io/02_ggplot1/
+- name: 19_hypothesis
+  title: Sections 2.0 - 2.3
+  url: https://amkuyper.shinyapps.io/02_ggplot1/
+- name: isds_functions
+  title: Preface & Chapter 1
+  url: https://amkuyper.shinyapps.io/01_intro/
+- name: sample_exam1
+  title: Sections 2.0 - 2.3
+  url: https://amkuyper.shinyapps.io/02_ggplot1/
+- name: sample_exam2
+  title: Sections 2.0 - 2.3
+  url: https://amkuyper.shinyapps.io/02_ggplot1/
+- name: sample_exam3
+  title: Sections 2.0 - 2.3
+  url: https://amkuyper.shinyapps.io/02_ggplot1/
