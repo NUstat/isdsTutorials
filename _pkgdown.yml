@@ -11,8 +11,8 @@ template:
 navbar:
   logo: "images/logo_isds.png"
   left:
-  - text: Reference
-    href: reference/index.html
+  - text: References
+    href: references/index.html
   - text: Tutorials
     href: tutorials/index.html
  # right:
