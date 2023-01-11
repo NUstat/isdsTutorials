@@ -1,3 +1,5 @@
+destination: reference
+
 url: https://nustat.github.io/ISDStutorials/
 
 template:
@@ -11,16 +13,16 @@ template:
 navbar:
   logo: "images/logo_isds.png"
   left:
-  - text: References
-    href: references/index.html
+  - text: Reference
+    href: reference/index.html
   - text: Tutorials
     href: tutorials/index.html
  # right:
  # - text: Introduction to Statistics and Data Science
  #   href: https://nustat.github.io/intro-stat-ds/
 
-references:
-- title: Functions
+reference:
+  - title: Functions
   - subtitle: Questions
     contents:
     - '`question_blank`'
