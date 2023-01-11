@@ -1,13 +1,16 @@
 url: https://nustat.github.io/ISDStutorials/
 
- # navbar:
- #    logo: "images/logo_isds.png"
- #  right:
- #  - text: Introduction to Statistics and Data Science
- #    href: https://nustat.github.io/intro-stat-ds/
+navbar:
+   logo: "images/logo_isds.png"
+ right:
+ - text: Introduction to Statistics and Data Science
+   href: https://nustat.github.io/intro-stat-ds/
 
 
-# tutorials:
-# - name: 01_intro
-#   title: Tutorial Preface & Chapter1
-#   url: https://northwestern-university.shinyapps.io/01_intro/
+tutorials:
+- name: 01_intro
+  title: Preface & Chapter 1
+  url: https://amkuyper.shinyapps.io/01_intro/
+- name: 02_ggplot1
+  title: Sections 2.0 - 2.3
+  url: https://amkuyper.shinyapps.io/02_ggplot1/
