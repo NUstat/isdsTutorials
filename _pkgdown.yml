@@ -62,7 +62,7 @@ tutorials:
   title: Chapter 2 Boxplots and Barplots
   url: https://amkuyper.shinyapps.io/04_ggplot3/
 - name: 05_wrangling1
-  title: Chapter 3: Intro to wrangling
+  title: Chapter 3 Intro to wrangling
   url: https://amkuyper.shinyapps.io/05_wrangling1/
 - name: 06_wrangling2
   title: Chapter 3 Advanced wrangling
@@ -107,7 +107,7 @@ tutorials:
   title: Chapter 12 hypothesis testing
   url: https://amkuyper.shinyapps.io/19_hypothesis/
 - name: isds_functions
-  title: Teaching: function resources
+  title: Teaching function resources
   url: https://amkuyper.shinyapps.io/isds_functions/
 # - name: sample_exam1
 #   title: Sections 2.0 - 2.3
