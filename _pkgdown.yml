@@ -1,11 +1,31 @@
 url: https://nustat.github.io/ISDStutorials/
-#
-# navbar:
-#    logo: "images/logo_isds.png"
-#  right:
-#  - text: Introduction to Statistics and Data Science
-#    href: https://nustat.github.io/intro-stat-ds/
 
+navbar:
+   logo: "images/logo_isds.png"
+  left:
+  - text: Reference
+    href: reference/index.html
+  - text: Tutorials
+    href: tutorials/index.html
+ right:
+ - text: Introduction to Statistics and Data Science
+   href: https://nustat.github.io/intro-stat-ds/
+
+references:
+- title: Functions
+  - subtitle: Questions
+    contents:
+    - '`question_blank`'
+    - '`question_dropdown`'
+    - '`question_wordbank`'
+  - subtitle: Grading and Printing
+    contents:
+    - '`grade_button_ui`'
+    - '`grade_output_ui`'
+    - '`grade_server`'
+    - '`isds_recorder'
+    - '`lock_exam_button`'
+    - '`print_ui`'
 
 tutorials:
 - name: 01_intro
