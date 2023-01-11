@@ -1,10 +1,10 @@
 url: https://nustat.github.io/ISDStutorials/
-
-navbar:
-   logo: "images/logo_isds.png"
- right:
- - text: Introduction to Statistics and Data Science
-   href: https://nustat.github.io/intro-stat-ds/
+#
+# navbar:
+#    logo: "images/logo_isds.png"
+#  right:
+#  - text: Introduction to Statistics and Data Science
+#    href: https://nustat.github.io/intro-stat-ds/
 
 
 tutorials:
@@ -16,64 +16,64 @@ tutorials:
   url: https://amkuyper.shinyapps.io/02_ggplot1/
 - name: 03_ggplot2
   title: Preface & Chapter 1
-  url: https://amkuyper.shinyapps.io/01_intro/
+  url: https://amkuyper.shinyapps.io/03_ggplot2/
 - name: 04_ggplot3
   title: Sections 2.0 - 2.3
-  url: https://amkuyper.shinyapps.io/02_ggplot1/
+  url: https://amkuyper.shinyapps.io/04_ggplot3/
 - name: 05_wrangling1
   title: Preface & Chapter 1
-  url: https://amkuyper.shinyapps.io/01_intro/
+  url: https://amkuyper.shinyapps.io/05_wrangling1/
 - name: 06_wrangling2
   title: Sections 2.0 - 2.3
-  url: https://amkuyper.shinyapps.io/02_ggplot1/
+  url: https://amkuyper.shinyapps.io/06_wrangling2/
 - name: 07_tidy
   title: Sections 2.0 - 2.3
-  url: https://amkuyper.shinyapps.io/02_ggplot1/
+  url: https://amkuyper.shinyapps.io/07_tidy/
 - name: 08_regression1
   title: Preface & Chapter 1
-  url: https://amkuyper.shinyapps.io/01_intro/
+  url: https://amkuyper.shinyapps.io/08_regression1/
 - name: 09_regression2
   title: Sections 2.0 - 2.3
-  url: https://amkuyper.shinyapps.io/02_ggplot1/
+  url: https://amkuyper.shinyapps.io/09_regression2/
 - name: 10_regression3
   title: Sections 2.0 - 2.3
-  url: https://amkuyper.shinyapps.io/02_ggplot1/
+  url: https://amkuyper.shinyapps.io/10_regression3/
 - name: 11_regression4
   title: Preface & Chapter 1
-  url: https://amkuyper.shinyapps.io/01_intro/
+  url: https://amkuyper.shinyapps.io/11_regression4/
 - name: 12_randomization
   title: Sections 2.0 - 2.3
-  url: https://amkuyper.shinyapps.io/02_ggplot1/
+  url: https://amkuyper.shinyapps.io/12_randomization/
 - name: 13_generalizability
   title: Sections 2.0 - 2.3
-  url: https://amkuyper.shinyapps.io/02_ggplot1/
+  url: https://amkuyper.shinyapps.io/13_generalizability/
 - name: 14_sampling1
   title: Preface & Chapter 1
-  url: https://amkuyper.shinyapps.io/01_intro/
+  url: https://amkuyper.shinyapps.io/14_sampling1/
 - name: 15_sampling2
   title: Sections 2.0 - 2.3
-  url: https://amkuyper.shinyapps.io/02_ggplot1/
+  url: https://amkuyper.shinyapps.io/15_sampling2/
 - name: 16_sampling3
   title: Sections 2.0 - 2.3
-  url: https://amkuyper.shinyapps.io/02_ggplot1/
+  url: https://amkuyper.shinyapps.io/16_sampling3/
 - name: 17_CI
   title: Preface & Chapter 1
-  url: https://amkuyper.shinyapps.io/01_intro/
+  url: https://amkuyper.shinyapps.io/17_CI/
 - name: 18_pvalues
   title: Sections 2.0 - 2.3
-  url: https://amkuyper.shinyapps.io/02_ggplot1/
+  url: https://amkuyper.shinyapps.io/18_pvalues/
 - name: 19_hypothesis
   title: Sections 2.0 - 2.3
-  url: https://amkuyper.shinyapps.io/02_ggplot1/
+  url: https://amkuyper.shinyapps.io/19_hypothesis/
 - name: isds_functions
   title: Preface & Chapter 1
   url: https://amkuyper.shinyapps.io/01_intro/
-- name: sample_exam1
-  title: Sections 2.0 - 2.3
-  url: https://amkuyper.shinyapps.io/02_ggplot1/
-- name: sample_exam2
-  title: Sections 2.0 - 2.3
-  url: https://amkuyper.shinyapps.io/02_ggplot1/
-- name: sample_exam3
-  title: Sections 2.0 - 2.3
-  url: https://amkuyper.shinyapps.io/02_ggplot1/
+# - name: sample_exam1
+#   title: Sections 2.0 - 2.3
+#   url: https://amkuyper.shinyapps.io/sample_exam1/
+# - name: sample_exam2
+#   title: Sections 2.0 - 2.3
+#   url: https://amkuyper.shinyapps.io/sample_exam2/
+# - name: sample_exam3
+#   title: Sections 2.0 - 2.3
+#   url: https://amkuyper.shinyapps.io/sample_exam3/

@@ -163,70 +163,49 @@ quiz(caption = NULL,
 ```
 
 
-## question_matching
+<!-- ## question_multidrop -->
 
-To insert a question with rearrange matching into a `learnr` quiz, use `question_matching()`.
+<!-- To insert a question with multiple drop-downs into a `learnr` quiz, use `question_multidrop()`. -->
 
-`choices` should be a vector of statements that will remain stationary in the left column.
+<!-- `choices` should be a vector of statements that will remain stationary in the right column. -->
 
-`answer()` should contain a vector that corresponds to the answers for `choices`. The first answer should match the first `choices` argument, and so forth. Be sure to set `correct = TRUE`.
+<!-- `answer()` should contain a vector that corresponds to the answers for `choices`. The first answer should match the first `choices` argument, and so forth. Be sure to set `correct = TRUE`. -->
 
-`{r B}`
-```{r B, echo = TRUE}
-quiz(caption = NULL,
-    question_matching(
-      "Rearrange the numbers to match the corresponding letter's position in the alphabet.",
-      choices = c("A", "B", "C", "D"),
-      learnr::answer(c("1", "2", "3", "4"), correct = TRUE),
-      allow_retry = TRUE 
-    )
-)
-```
+<!-- Here we set `arrange = "ordered"` to have the drop-down appear in alphabetical order. Setting `box = 3` makes the drop-down box smaller and only take up 25% of the page width (can be any number between 1 and 11, inclusive). -->
 
 
-## question_multidrop
+<!-- ```{r} -->
+<!-- ggplot(mpg, aes(cty, hwy, color = drv))+ -->
+<!--   geom_point() -->
+<!-- ``` -->
 
-To insert a question with multiple drop-downs into a `learnr` quiz, use `question_multidrop()`.
-
-`choices` should be a vector of statements that will remain stationary in the right column.
-
-`answer()` should contain a vector that corresponds to the answers for `choices`. The first answer should match the first `choices` argument, and so forth. Be sure to set `correct = TRUE`.
-
-Here we set `arrange = "ordered"` to have the drop-down appear in alphabetical order. Setting `box = 3` makes the drop-down box smaller and only take up 25% of the page width (can be any number between 1 and 11, inclusive).
-
-
-```{r}
-ggplot(mpg, aes(cty, hwy, color = drv))+
-  geom_point()
-```
-
-`{r C}`
-```{r C, echo = TRUE}
-quiz(caption = NULL,
-    question_multidrop("The plot above uses the mpg dataset. Match each aesthetic with the variable that was mapped to it.",
-      choices = c("y", "x",  "color", "size"),
-           arrange = "ordered",
-           box = 3,
-           answer(c("hwy", "cty",  "drv", "not mapped"), correct = TRUE),
-           allow_retry = TRUE)
-)
-```
+<!-- `{r C}` -->
+<!-- ```{r C, echo = TRUE} -->
+<!-- quiz(caption = NULL, -->
+<!--     question_multidrop("The plot above uses the mpg dataset. Match each aesthetic with the variable that was mapped to it.", -->
+<!--       choices = c("y", "x",  "color", "size"), -->
+<!--            arrange = "ordered", -->
+<!--            box = 3, -->
+<!--            answer(c("hwy", "cty",  "drv", "not mapped"), correct = TRUE), -->
+<!--            allow_retry = TRUE) -->
+<!-- ) -->
+<!-- ``` -->
 
 
-`wordbank` is an optional parameter that allows you to add more drop-down options than actual answers.
+<!-- `wordbank` is an optional parameter that allows you to add more drop-down options than actual answers. -->
 
-`{r D}`
-```{r D, echo = TRUE}
-quiz(caption = NULL,
-    question_multidrop("The plot above uses the mpg dataset. Match each aesthetic with the variable that was mapped to it.",
-      choices = c("y", "x",  "color", "size"),
-      wordbank = c("mpg", "hwy", "cty", "drv", "cyl", "not mapped"),
-           arrange = "ordered",
-           box = 3,
-           answer(c("hwy", "cty",  "drv", "not mapped"), correct = TRUE),
-           allow_retry = TRUE)
-)
-```
+<!-- `{r D}` -->
+<!-- ```{r D, echo = TRUE} -->
+<!-- quiz(caption = NULL, -->
+<!--     question_multidrop("The plot above uses the mpg dataset. Match each aesthetic with the variable that was mapped to it.", -->
+<!--       choices = c("y", "x",  "color", "size"), -->
+<!--       wordbank = c("mpg", "hwy", "cty", "drv", "cyl", "not mapped"), -->
+<!--            arrange = "ordered", -->
+<!--            box = 3, -->
+<!--            answer(c("hwy", "cty",  "drv", "not mapped"), correct = TRUE), -->
+<!--            allow_retry = TRUE) -->
+<!-- ) -->
+<!-- ``` -->
 
 ## question_wordbank
 
