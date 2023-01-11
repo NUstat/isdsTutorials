@@ -42,7 +42,7 @@ reference:
     - '`exam`'
     - '`inner_lock_server`'
     - '`inner_q_lock_server`'
-    - '`knit_print`'
+    # - '`knit_print`'
     - '`lock_q_button`'
     - '`lock_q_server`'
 
