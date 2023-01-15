@@ -28,8 +28,8 @@ options(tutorial.event_recorder = ISDStutorials::isds_recorder)
 
 
 ```{r, context = "server"}
-rubric_list <- data.frame(question = c("Name", "Ex1", "Ex1Q1", "Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7"),
-                          points_possible = rep(1, 10))
+rubric_list <- data.frame(question = c("Name", "Ex1", "Ex1Q1", "Ex2", "Q1", "Q2", "Q3", "Q4", "Q5"),
+                          points_possible = rep(1, 9))
 
 grade_server("grade_out", 
             rubric_list = rubric_list)
@@ -162,7 +162,7 @@ quiz(
            answer("arrange()", correct = TRUE),
            allow_retry = TRUE),
   # Q5
-    question_wordbank("Q5) Match the general description to the appropriate piece of code in the following code chunk: \n
+    question_wordbank("Q4) Match the general description to the appropriate piece of code in the following code chunk: \n
       summary_temp <- weather %>% 
         summarize(mean = mean(temp), std_dev = sd(temp)) ",
         choices = c("name of the new summary data frame", 
@@ -176,7 +176,7 @@ quiz(
                  "std_dev", "weather"), correct = TRUE), 
         allow_retry = TRUE ),
   # Q6
-    question_wordbank("Q6) Match each dplyr verb with the task it accomplishes.",
+    question_wordbank("Q5) Match each dplyr verb with the task it accomplishes.",
             choices = c("only keep desired columns", 
                         "only keep rows that meet a criteria",
                         "create a new variable",
