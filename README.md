@@ -43,7 +43,7 @@ Alternatively, in Version 1.3 onwards after having executed `library(ISDStutoria
 
 # Submitting tutorials
 
-After completing each tutorial, students can obtain their grade and download the full tutorial to a pdf. Students can then upload these PDFs to a learning management system like Canvas or Gradescope.
+After completing each tutorial, students can obtain their grade in html format and download the full tutorial to a pdf. Students can then upload the html grade (or tutorial pdf) to a learning management system like Canvas or Gradescope.
 
 # Additional features of ISDStutorials
 
