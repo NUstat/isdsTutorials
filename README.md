@@ -50,9 +50,8 @@ After completing each tutorial, students can obtain their grade and download the
 - Print option: `print_ui`
 - Grade option: `grade_server`, `grade_button_ui`, `grade_output_ui`
 - Question fill in the blanks: `question_blank`
+- Question dropdowns: `question_dropdown`
 - Question wordbank: `question_wordbank`
-- Question reorder matching: `question_matching`
-- Question multiple drop downs: `question_multidrop`
 
 For detailed examples and explanations of the additional features run the "isds_functions" tutorial using the command `learnr::run_tutorial("isds_functions", package = "ISDStutorials")`
 
