@@ -148,13 +148,20 @@ question_ui_initialize.dropdown <- function(question, value, ...) {
   choice_names <- learnr:::answer_labels(question, exclude_answer_fn = TRUE)
   choice_values <- learnr:::answer_values(question, exclude_answer_fn = TRUE)
 
+  # set output to previous answers
+  if (!is.null(value)) {
+    ans <- unlist(value)
+  } else {
+    ans <- " "
+  }
+
   selectInput(
     question$ids$answer,
     label = question$question,
     choices = c(" ", choice_values),
     #choiceNames = choice_names,
     #choiceValues = choice_values,
-    selected = " ", # have blank selected
+    selected = ans, # have previous answer selected
     width = "100%"
   )
 }
@@ -165,12 +172,14 @@ question_ui_try_again.dropdown <- function(question, value, ...) {
 
   choice_values <- learnr:::answer_values(question, exclude_answer_fn = TRUE)
 
-  selectInput(
-    question$ids$answer,
-    label = question$question,
-    choices = choice_values,
-    selected = value, # have previous answer selected
-    width = "100%"
+  learnr::disable_all_tags(
+    selectInput(
+      question$ids$answer,
+      label = question$question,
+      choices = c(" ", choice_values),
+      selected = value, # have previous answer selected
+      width = "100%"
+    )
   )
 
 }
@@ -211,13 +220,15 @@ question_ui_completed.dropdown <- function(question, value, ...) {
     tags$span(ans$label, class = tagClass)
   })
 
-  learnr::finalize_question(
-    selectInput(
-      question$ids$answer,
-      label = question$question,
-      choices = choice_values,
-      selected = value,
-      width = "100%"
+  learnr::disable_all_tags(
+    learnr::finalize_question(
+      selectInput(
+        question$ids$answer,
+        label = question$question,
+        choices = choice_values,
+        selected = value,
+        width = "100%"
+      )
     )
   )
 }
