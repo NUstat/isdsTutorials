@@ -47,7 +47,7 @@ After completing each tutorial, students can obtain their grade in html format a
 
 # Additional features of ISDStutorials
 
-- Print option: `print_ui`
+- Print option: `grade_print_ui`, `print_ui`
 - Grade option: `grade_server`, `grade_button_ui`, `grade_output_ui`
 - Question fill in the blanks: `question_blank`
 - Question dropdowns: `question_dropdown`
