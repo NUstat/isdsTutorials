@@ -43,10 +43,9 @@ reference:
     - '`print_ui`'
   - subtitle: Misc
     contents:
-    - '`exam`'
     - '`inner_lock_server`'
     - '`inner_q_lock_server`'
-    - '`knit_print.exam_question`'
+    - '`knit_print.notes_question`'
     - '`lock_q_button`'
     - '`lock_q_server`'
 
