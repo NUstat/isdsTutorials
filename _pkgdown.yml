@@ -110,9 +110,9 @@ tutorials:
 - name: isds_functions
   title: Teaching function resources
   url: https://amkuyper.shinyapps.io/isds_functions/
-# - name: sample_exam1
-#   title: Sections 2.0 - 2.3
-#   url: https://amkuyper.shinyapps.io/sample_exam1/
+- name: sample_exam1
+  title: Sample Exam 1 (Ch 1 - 4)
+  url: https://amkuyper.shinyapps.io/sample_exam1/
 # - name: sample_exam2
 #   title: Sections 2.0 - 2.3
 #   url: https://amkuyper.shinyapps.io/sample_exam2/
