@@ -72,7 +72,7 @@ drop_question <- function(
 ) {
 
   # one time tutor initialization
-  #initialize_tutorial()
+  initialize_tutorial()
 
   # capture/validate answers
   ellipsis::check_dots_unnamed() # validate all answers are not named and not a misspelling
@@ -188,10 +188,13 @@ question_ui_try_again.dropdown <- function(question, value, ...) {
 #' @seealso question_dropdown
 question_is_correct.dropdown <- function(question, value, ...) {
 
+  # if(lock_exam == TRUE){
+  #    return(mark_as(TRUE, NULL))
+  # }
+
   if(question$style == "exam"){
     return(mark_as(FALSE, NULL))
   }
-
 
   for (ans in question$answers) {
     if (as.character(ans$option) == value) {

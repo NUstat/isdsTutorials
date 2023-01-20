@@ -1,0 +1,84 @@
+---
+title: "Test"
+tutorial:
+  id: "test"
+  version: 0.1
+  
+output:
+  learnr::tutorial:
+    progressive: false
+    allow_skip: true
+    css: ["css/nu-theme.css"]
+runtime: shiny_prerendered
+description: >
+  Learn the basics of Quarto.
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(tidyverse)
+library(ISDStutorials)
+library(gradethis)
+
+lock_exam <<- FALSE
+
+gradethis_setup()
+knitr::opts_chunk$set(echo = FALSE)
+
+options(tutorial.event_recorder = ISDStutorials::isds_recorder)
+```
+
+```{r, context = "server"}
+# rubric_list <- data.frame(question = c("Name", "Ex1", "Ex2", "Ex3", "Ex4Q1", "Ex4Q2", "Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7"),
+#                           points_possible = rep(1, 13))
+# 
+# grade_server("grade_out", 
+#             rubric_list = rubric_list)
+
+lock_server2("lock")
+```
+
+```{r Name}
+
+lock_exam_button2("lock")
+
+```
+
+## Exercises
+
+**Exercise 1:**
+
+A code chunk can be used as a calculator. Try typing 2+2 into the code chunk and running the code.
+
+```{r Ex1, exercise=TRUE}
+
+```
+
+```{r Ex1-solution, exercise.reveal_solution = FALSE}
+2 + 2
+```
+
+```{r Ex1-code-check}
+grade_this_code()
+```
+
+## Reading Quiz
+
+```{r Q}
+quiz(caption = NULL,
+  #Q1
+  question_dropdown("Q1) Pick C.",
+           answer("a"),
+           answer("b"),
+           answer("c", correct = TRUE),
+           answer("d"),
+           allow_retry = TRUE), 
+  # Q7
+    question_wordbank("Q7) Drag and drop the packages to match their primary purpose",
+        choices = c("accompanies this book","data wrangling",  "data visualization"),
+        wordbank = c("moderndive", "dplyr", "ggplot2"),
+        answer(c("moderndive", "dplyr", "ggplot2"), correct = TRUE), 
+        allow_retry = TRUE)
+)
+```
+
