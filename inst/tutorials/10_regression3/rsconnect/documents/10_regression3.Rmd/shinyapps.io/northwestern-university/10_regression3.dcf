@@ -5,9 +5,9 @@ account: northwestern-university
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 6890758
-bundleId: 6716016
+bundleId: 6774312
 url: https://amkuyper.shinyapps.io/10_regression3/
-when: 1673322299.91107
-lastSyncTime: 1673322299.91107
+when: 1674678142.35226
+lastSyncTime: 1674678142.35227
 asMultiple: FALSE
 asStatic: FALSE
