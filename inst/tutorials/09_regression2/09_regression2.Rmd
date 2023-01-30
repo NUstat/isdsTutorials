@@ -114,10 +114,14 @@ quiz(caption = NULL,
     # Question 8
     question("Q8) What is the potential confounding variable in the 'sleeping with shoes on' and 'waking up with a headache' example?", 
            type = "learnr_text",
-           answer("alcohol", correct = TRUE),
-           answer("drinking", correct = TRUE),
-           answer("intoxicated", correct = TRUE),
-           answer("intoxication", correct = TRUE),
+           answer_fn(function(value){
+                              if (tolower(value) %in% 
+                                  c("alcohol", "drinking", 
+                                    "intoxicated", "intoxication") ) {
+                                return(mark_as(TRUE))
+                                }
+                              return(mark_as(FALSE) )
+                              }),
            allow_retry = TRUE),  
      # Question 9
     question("Q9) If all the data points fall perfectly on the regression line, what would be the value of $\\sum_{i=1}^{n} (y_i - \\hat{y}_i)^2$?", 
