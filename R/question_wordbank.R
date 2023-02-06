@@ -114,11 +114,14 @@ wordbank_question <- function(
 ) {
 
   # one time tutor initialization
-  #initialize_tutorial()
+  initialize_tutorial()
 
   # capture/validate answers
   ellipsis::check_dots_unnamed() # validate all answers are not named and not a misspelling
   answers <- list(...)
+  lapply(answers, function(answer) {
+    checkmate::assert_class(answer, "tutorial_question_answer")
+  })
 
   #set wordbank equal to answers if NULL
   if(is.null(wordbank)){

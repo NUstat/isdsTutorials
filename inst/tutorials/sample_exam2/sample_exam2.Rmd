@@ -179,7 +179,7 @@ quiz(
   style = "exam",
   incorrect = "submitted"
   ),
-  question_radio(
+  question_dropdown(
   "Q10) A study found that older mothers are more likely to have autistic children than younger mothers. The study randomly selected 500,000 birth records in California and found that Mothers over 40 were 77% more likely to have given birth to an autistic child than mothers under 25. <br>
   What notation best describes the value 77% above?" ,
   answer("$\\mu$"),
@@ -188,7 +188,7 @@ quiz(
   answer("$\\pi$"),
   answer("$\\hat{\\pi}$", correct = TRUE),
   allow_retry = TRUE,
-  #style = "exam",
+  style = "exam",
   incorrect = "submitted"
   ),
   question_dropdown(

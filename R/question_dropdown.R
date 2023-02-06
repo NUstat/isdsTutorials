@@ -77,6 +77,9 @@ drop_question <- function(
   # capture/validate answers
   ellipsis::check_dots_unnamed() # validate all answers are not named and not a misspelling
   answers <- list(...)
+  lapply(answers, function(answer) {
+    checkmate::assert_class(answer, "tutorial_question_answer")
+  })
 
   # ensure style is correct
   if (! style %in% c("tutorial_question", "notes", "exam", "notes_question")) {
