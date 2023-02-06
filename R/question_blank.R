@@ -95,11 +95,14 @@ blank_question <- function(
 ) {
 
   # one time tutor initialization
-  #initialize_tutorial()
+  learnr::initialize_tutorial()
 
   # capture/validate answers
   ellipsis::check_dots_unnamed() # validate all answers are not named and not a misspelling
   answers <- list(...)
+  lapply(answers, function(answer) {
+    checkmate::assert_class(answer, "tutorial_question_answer")
+  })
 
   # ensure answer choices = num blank
   split <- unlist(stringr::str_split(text, pattern = "___") )

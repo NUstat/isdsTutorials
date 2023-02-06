@@ -18,6 +18,7 @@ description: >
 library(skimr)
 library(learnr)
 library(tidyverse)
+library(moderndive)
 library(ISDStutorials)
 library(gradethis)
 
@@ -178,7 +179,7 @@ quiz(
   style = "exam",
   incorrect = "submitted"
   ),
-  question_dropdown(
+  question_radio(
   "Q10) A study found that older mothers are more likely to have autistic children than younger mothers. The study randomly selected 500,000 birth records in California and found that Mothers over 40 were 77% more likely to have given birth to an autistic child than mothers under 25. <br>
   What notation best describes the value 77% above?" ,
   answer("$\\mu$"),
@@ -187,7 +188,7 @@ quiz(
   answer("$\\pi$"),
   answer("$\\hat{\\pi}$", correct = TRUE),
   allow_retry = TRUE,
-  style = "exam",
+  #style = "exam",
   incorrect = "submitted"
   ),
   question_dropdown(
@@ -301,12 +302,12 @@ question_text("", incorrect = "submitted",
 
 **Part 1**
 
-Build a multiple linear regression model with an **interaction** term that predicts `calories` based on `total_fat` and `category`. The variable `category` has 2 levels: {food, drink}.
+Build a **parallel slopes** multiple linear regression model that predicts `calories` based on `total_fat` and `category`. The variable `category` has 2 levels: {food, drink}.
 
 Store the model as `model_calories` and print the `summary()`. 
 
 ```{r App2}
-model_calories <- lm(calories ~ total_fat*category, data = mcdonalds)
+model_calories <- lm(calories ~ total_fat + category, data = mcdonalds)
 ```
 
 
@@ -333,13 +334,12 @@ question_text(
 
 **Part 3**
 
-Plot the relationship between `calories`, `total_fat`, and `category`. The code has been started for you. Then add the line of best fit for the interaction model. 
+Plot the relationship between `calories`, `total_fat`, and `category`. The code has been started for you. Recall the line of best fit for a parallel slopes model is created using the layer `geom_parallel_slopes()` 
 
 Note: The "drink" line may be hard to see and that is okay. If you want to be able to see it better you can add `fullrange = TRUE` as an argument in the layer that created the line (but not necessary).
 
 ```{r App2b, exercise = TRUE, exercise.setup = "App2"}
 ggplot(mcdonalds, aes(x = , y = , color = )) +
-  geom_point()
   
 ```
 
@@ -347,11 +347,19 @@ ggplot(mcdonalds, aes(x = , y = , color = )) +
 
 **Part 4**
 
-Use `model_calories` to add the `residuals()` to the `mcdonalds` dataset. Hint: remove NA values from the dataset and then add the residuals. 
+Use `model_calories` to add the `fitted()` values to the `mcdonalds` dataset. Hint: remove NA values from the dataset and then add the fitted values. 
 
 Print/output the results.
 
 ```{r App2c, exercise = TRUE, exercise.setup = "App2"}
+
+```
+
+### Application 3
+
+Suppose that the amount of calories in a fast-food item is normally distributed with mean 600 and sd 100. 25% of food items have less than how many calories?
+
+```{r App3, exercise = TRUE}
 
 ```
 

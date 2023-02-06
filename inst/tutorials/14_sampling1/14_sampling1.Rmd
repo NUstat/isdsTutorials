@@ -106,11 +106,19 @@ a) 68% of students spend between ___ and ___ hours studying.
 b) ___ % of students spend between 3 and 7 hours studying. 
 <br/>
 c) 99.7% of students spend between ___ and ___ hours studying"),
-           answer("4", correct = TRUE),
-           answer("6", correct = TRUE),
+           answer_fn(function(value){
+                    if(value %in% c(4, "four")){return(mark_as(TRUE))}
+                       return(mark_as(FALSE) )}),
+           answer_fn(function(value){
+                    if(value %in% c(6, "six")){return(mark_as(TRUE))}
+                       return(mark_as(FALSE) )}),
            answer("95", correct = TRUE),
-           answer("2", correct = TRUE),
-           answer("8", correct = TRUE),
+           answer_fn(function(value){
+                    if(value %in% c(2, "two")){return(mark_as(TRUE))}
+                       return(mark_as(FALSE) )}),
+           answer_fn(function(value){
+                    if(value %in% c(8, "eight")){return(mark_as(TRUE))}
+                       return(mark_as(FALSE) )}),
            allow_retry = TRUE),
 #Q4
   question_wordbank("Q4) True or False?: Determine if the following QQ plots indicate that the data is normally distributed.",
