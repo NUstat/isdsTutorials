@@ -397,3 +397,29 @@ glimpse(mcdonalds)
 skim(mcdonalds)
 ```
 
+
+## Submit
+
+Once you are finished:
+
+-   **No "check mark" next to your name = 0 grade**
+-   Click the 'full reading check' button below. This will download a pdf document of your exam.
+-   Make sure all your answers are visible!
+-   Submit the downloaded pdf to Canvas.
+
+- **Important**: If at any time you were kicked out of the exam you will need to click/scroll back through each section so that it appears in your printed document.
+
+
+```{r}
+bootstrapPage(
+     div(style="display:inline-block",
+         print_ui("Print", label = "full reading check") ),
+     div(style="display:inline-block", 
+         p("then upload to Canvas.") ) 
+     )
+```
+<br>
+<hr /> 
+<br>
+
+<hr /> 
