@@ -160,7 +160,7 @@ quiz(
   style = "exam",
   incorrect = "submitted"),
   question_dropdown(
-  "Q10) You are conducting a hypothesis test and change your significance level from $\\alpha = 0.10$ to $\\alpha = 0.5$. How does this impact your Type II error rate?",
+  "Q10) You are conducting a hypothesis test and change your significance level from $\\alpha = 0.10$ to $\\alpha = 0.05$. How does this impact your Type II error rate?",
   answer("increases by exactly 0.05"),
   answer("decreases by exactly 0.05"),
   answer("increases but the magnitude is unknown", correct = TRUE),
