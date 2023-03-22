@@ -19,6 +19,7 @@ Imports:
     gradethis (>= 0.1.0.9004),
     htmltools,
     htmlwidgets,
+    ISDSfunctions,
     janitor,
     knitr (>= 1.31),
     learnr (>= 0.10.1.9008),
