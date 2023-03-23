@@ -17,11 +17,10 @@ description: >
 ```{r setup, include=FALSE}
 library(learnr)
 library(tidyverse)
-library(ISDStutorials)
 library(ISDSfunctions)
 library(gradethis)
 
-conflicted::conflict_prefer_all("ISDSfunctions")
+#conflicted::conflict_prefer_all("ISDSfunctions")
 
 gradethis_setup()
 knitr::opts_chunk$set(echo = FALSE)
