@@ -17,46 +17,35 @@ description: >
 ```{r setup, include=FALSE}
 library(learnr)
 library(tidyverse)
-library(ISDStutorials)
+library(ISDSfunctions)
 library(gradethis)
 
-knitr::opts_chunk$set(echo = FALSE)
 gradethis_setup()
-options(tutorial.event_recorder = ISDStutorials::isds_recorder)
-
+knitr::opts_chunk$set(echo = FALSE)
 ```
 
 
 ```{r, context = "server"}
-rubric_list <- data.frame(question = c("Name","Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7", "Q8"),
-                          points_possible = rep(1, 9))
-
-grade_server("grade_out", 
-            rubric_list = rubric_list)
+grade_server("grade")
 ```
-
 
 ```{r Name}
 # student name
 question_blank("Name: ___",
-                            answer_fn(function(value){
-                              if (length(value) >= 1 ) {
+              answer_fn(function(value){
+                              if(length(value) >= 1 ) {
                                 return(mark_as(TRUE))
                                 }
                               return(mark_as(FALSE) )
                               }),
-               style = "notes",
-               correct = paste0(fontawesome::fa("check") ),
-               incorrect = paste0(fontawesome::fa("xmark") ),
-               allow_retry = FALSE )
-# have name, grade button, and print button on same line
-bootstrapPage(
-     div(style="display:inline-block",
-         grade_button_ui("grade_out") )
-)
+              correct = "Submitted",
+              allow_retry = FALSE )
+```
 
+```{r}
+grade_button_ui(id = "grade")
 # can have the grade output appear anywhere in your tutorial
-grade_output_ui("grade_out")
+grade_output_ui(id = "grade")
 ```
 
 ## Instructions
@@ -160,21 +149,21 @@ Once you are finished:
 -   Submit the downloaded html to Canvas.
 
 ```{r}
-grade_print_ui("grade_out")
+grade_print_ui("grade")
 ```
 
 <br>
 <hr /> 
 <br>
 
-```{r}
-bootstrapPage(
-     div(style="display:inline-block", 
-         strong("Optional:") ),
-     div(style="display:inline-block",
-         print_ui("Print", label = "full reading check") ),
-     div(style="display:inline-block", 
-         p("for your own review and records.") ) 
-     )
-```
-<hr /> 
+<!-- ```{r} -->
+<!-- bootstrapPage( -->
+<!--      div(style="display:inline-block",  -->
+<!--          strong("Optional:") ), -->
+<!--      div(style="display:inline-block", -->
+<!--          print_ui("Print", label = "full reading check") ), -->
+<!--      div(style="display:inline-block",  -->
+<!--          p("for your own review and records.") )  -->
+<!--      ) -->
+<!-- ``` -->
+<!-- <hr />  -->

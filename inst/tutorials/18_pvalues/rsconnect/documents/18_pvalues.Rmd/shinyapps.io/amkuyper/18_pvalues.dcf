@@ -5,9 +5,9 @@ account: amkuyper
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 6891529
-bundleId: 6850386
+bundleId: 7006899
 url: https://amkuyper.shinyapps.io/18_pvalues/
-when: 1676479571.43333
-lastSyncTime: 1676479571.43334
+when: 1679751361.9206
+lastSyncTime: 1679751361.92061
 asMultiple: FALSE
 asStatic: FALSE
