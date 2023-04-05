@@ -88,7 +88,7 @@ You can **store** output/results into a variable. Storing output allows you to a
 
 Fill in the blanks to store the result of `20*40` into the variable `x`. Note that * is the notation for multiply.
 
-```{r Ex2, exercise=TRUE}
+```{r Ex2, exercise = TRUE, exercise.blanks = TRUE}
 x ___ 20*___
 ```
 

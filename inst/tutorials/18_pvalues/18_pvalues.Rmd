@@ -85,7 +85,7 @@ quiz(
   allow_retry = TRUE
   ),
     # Q3
-    question("Q3) You conduct a randomized clinical trial where participants are randomly assigned to a diet and exercise regimen and you want to test whether they experience imprpoved sleep quality (measured on a continuous numeric scale) compared to the control group. What is the appropriate null hypothesis?
+    question("Q3) You conduct a randomized clinical trial where participants are randomly assigned to a diet and exercise regimen and you want to test whether they experience improved sleep quality (measured on a continuous numeric scale) compared to the control group. What is the appropriate null hypothesis?
              Note this requires determining what the population parameter of interest is (e.g. $\\pi,\\mu,\\pi_1 - \\pi_2,\\mu_T - \\mu_C,\\beta_0,\\beta_1$ )", 
            answer("$\\beta_0 = 0$"),
            answer("$\\pi_1 - \\pi_2 = 0$"),
