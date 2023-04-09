@@ -30,7 +30,9 @@ load("data/cdc.rda")
 ```
 
 ```{r, context = "server"}
-lock_server("lock")
+lock_server("lock", 
+            ex = c("App1", "App2", "App3"), ex_pts = c(3, 3, 3),
+            manual = c("App1-desc", "App3-desc"), manual_pts = c(1, 1))
 reset_server("reset")
 ```
 
@@ -272,7 +274,7 @@ grade_this_code(
 
 Explain what the barplot tells us about the relationship between `genhlth` and `gender` for our respondents.
 
-```{r App3-describe}
+```{r App3-desc}
 question_text("", incorrect = "Submitted",
               answer("ManuallyGradedEverythingWrong", 
                      correct = TRUE),
@@ -313,6 +315,7 @@ skim(cdc)
 Once you are finished:
 
 -   **No Name = 0 grade**
+-   Make sure all questions and exercises are **SUBMITTED**
 -   Click the 'lock' button below. Once you click this you will not be able to make any changes to your exam!
 -   Once the lock is pressed a `print` option will become available
 -   Click print and submit the downloaded html to Canvas.
