@@ -325,12 +325,12 @@ lock_button_ui(id = "lock")
 ```
 
 
-## Reset Exam
+<!-- ## Reset Exam -->
 
-This button will reset the entire exam. Do not click unless absolutely necessary.
-This is just here as an emergency option for frozen exams until I have ensured all the bugs are worked out.
+<!-- This button will reset the entire exam. Do not click unless absolutely necessary. -->
+<!-- This is just here as an emergency option for frozen exams until I have ensured all the bugs are worked out. -->
 
-```{r}
-reset_button_ui(id = "reset", label = "Reset Exam")
-```
+<!-- ```{r} -->
+<!-- reset_button_ui(id = "reset", label = "Reset Exam") -->
+<!-- ``` -->
 
