@@ -206,24 +206,24 @@ quiz(
   answer("none of these"),
   allow_retry = TRUE,
   incorrect = "submitted"
-  ),
-  question_blank(
-  "<strong> Q14) (2 pts) Math SAT scores are normally distributed with a mean of 500 and a standard deviation of 100. Based on the empirical rule, 95% of math SAT scores are between ___ and ___. </strong>" ,
-  answer(c("300"), correct = TRUE),
-  answer(c("700"), correct = TRUE),
-  allow_retry = TRUE,
-  incorrect = "submitted"
-  ),
-  question_dropdown(
-  "Q15) Math SAT scores are normally distributed with an average score of 500 and standard deviation of 100. What percent of people score higher than 600 on the Math SAT?",
-  answer("qnorm(p = 1, mean = 0, sd = 1, lower.tail = FALSE)"),
-  answer("pnorm(q = 400, mean = 500, sd = 100, lower.tail = FALSE)"),
-  answer("pnorm(q = 600, mean = 500, sd = 100)"),
-  answer("pnorm(q = 1, mean = 0, sd = 1, lower.tail = FALSE)", correct = TRUE),
-  answer("qnorm(p = 600, mean = 500, sd = 100)"),
-  allow_retry = TRUE,
-  incorrect = "submitted"
   )
+  # question_blank(
+  # "<strong> Q14) (2 pts) Math SAT scores are normally distributed with a mean of 500 and a standard deviation of 100. Based on the empirical rule, 95% of math SAT scores are between ___ and ___. </strong>" ,
+  # answer(c("300"), correct = TRUE),
+  # answer(c("700"), correct = TRUE),
+  # allow_retry = TRUE,
+  # incorrect = "submitted"
+  # ),
+  # question_dropdown(
+  # "Q15) Math SAT scores are normally distributed with an average score of 500 and standard deviation of 100. What percent of people score higher than 600 on the Math SAT?",
+  # answer("qnorm(p = 1, mean = 0, sd = 1, lower.tail = FALSE)"),
+  # answer("pnorm(q = 400, mean = 500, sd = 100, lower.tail = FALSE)"),
+  # answer("pnorm(q = 600, mean = 500, sd = 100)"),
+  # answer("pnorm(q = 1, mean = 0, sd = 1, lower.tail = FALSE)", correct = TRUE),
+  # answer("qnorm(p = 600, mean = 500, sd = 100)"),
+  # allow_retry = TRUE,
+  # incorrect = "submitted"
+  # )
   # question_dropdown(
   # paste("Q16) Which of the following will give you the area of the shaded region for a standard normal distribution? <br>", htmltools::img(src="images/normal_dist1.png", height = 300, width = 400)) ,
   # answer("pnorm(q = -1)"),
