@@ -181,6 +181,7 @@ question("Q7) Match the model with the appropriate mathematical representation:\
 What would the correlation between debt and income_5 in credit_ch6 be? Round to 3 decimal places.", 
            type = "learnr_text",
            answer("0.464", correct = TRUE),
+           answer(".464", correct = TRUE),
            allow_retry = TRUE)
 
 )

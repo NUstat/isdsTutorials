@@ -5,71 +5,67 @@ tutorial:
   version: 0.1
   
 output:
-  learnr::tutorial:
+  ISDSfunctions::tutorial:
     progressive: false
     allow_skip: true
-    css: ["css/nu-theme.css"]
 runtime: shiny_prerendered
 description: >
-  This proficiency exam covers Chapter 5 - Section 9.1.
+  This proficiency exam covers Chapter 5 - Chapter 8.
 ---
 
 ```{r setup, include=FALSE}
-library(skimr)
 library(learnr)
 library(tidyverse)
-library(moderndive)
-library(ISDStutorials)
+library(skimr)
+library(ISDSfunctions)
 library(gradethis)
 
-knitr::opts_chunk$set(echo = FALSE)
 gradethis_setup()
-options(tutorial.event_recorder = ISDStutorials::isds_recorder)
+
+isds_setup(isds_exam = TRUE)
+
+knitr::opts_chunk$set(echo = FALSE)
 
 mcdonalds <- read_csv("data/mcdonalds.csv")
 
 ```
 
 
+```{r, context = "server"}
+lock_server("lock", 
+            manual = c("App1-desc"), manual_pts = c(1))
+#reset_server("reset")
+```
 
-```{r isds-header}
+```{r Name}
 # student name
-question_blank("Name: ___",
-                            answer_fn(function(value){
-                              if (length(value) >= 1 ) {
+question_text("Name:",
+              answer_fn(function(value){
+                              if(length(value) >= 1 ) {
                                 return(mark_as(TRUE))
                                 }
                               return(mark_as(FALSE) )
                               }),
-          style = "notes",
-          correct = paste0(fontawesome::fa("check") ),
-          incorrect = paste0(fontawesome::fa("xmark") ),
-          allow_retry = FALSE )
+              incorrect = "Submitted",
+              allow_retry = FALSE )
 ```
 
 
 ## Instructions
 
-You have 50 minutes to complete this exam. The exam covers the material learned from Chapter 5 - Section 9.1. You are allowed one page of notes front and back.
+**Note: this is a sample exam to provide examples of types and styles of questions that may be asked. It does not necessarily represent the exact length of the exam.**
+
+You have 50 minutes to complete this exam. The exam covers the material learned from Chapter 5 - Chapter 8. You are allowed one page of notes front and back.
 
 Once you are finished:
 
--   Make sure every question/exercise has been submitted.
--   Click the 'pdf' button to save the document as a pdf, you must have the exam open in a browser window for this button to work.
--   Submit the completed pdf to Canvas.
+-   View Submissions to make sure every question/exercise has been submitted.
+-  Click the 'lock exam' button. You will not be able to make any changes once this is clicked. 
+-   Once the exam is locked you will be able to click on the 'download exam' button.
+-   Submit the completed html to Canvas.
 
 
 ## Concept
-
-If one of your Concept answers does not submit manually enter the number followed by the answer in this box.
-
-```{r Concept-help}
-question_text("", incorrect = "submitted",
-              answer("ManuallyGradedEverythingWrong", 
-                     correct = TRUE),
-              allow_retry = TRUE,
-              rows = 4)
-```
 
 ```{r Q}
 #reading check 2
@@ -86,7 +82,6 @@ quiz(
   answer("Exactly +1", correct = TRUE),
   answer("Not enough information"),
   allow_retry = TRUE,
-  style = "exam",
   incorrect = "submitted"),
   question_dropdown(
     paste("Q2) Examine the graph below and then select the best estimate of the correlation. <br>", htmltools::img(src="images/cor_-0.75.png", height = 300, width = 400)),
@@ -96,7 +91,6 @@ quiz(
     answer("-0.5"),
     answer("-0.2"),
     allow_retry = TRUE,
-    style = "exam",
     message = "Practice estimating correlation at http://guessthecorrelation.com/",
     incorrect = "submitted"
   ),
@@ -108,7 +102,6 @@ quiz(
   answer("Good"),
   answer("Fair"),
   allow_retry = TRUE,
-  style = "exam",
   incorrect = "submitted"
   ),
   question_dropdown(
@@ -119,7 +112,6 @@ quiz(
   answer("Good"),
   answer("Fair", correct = TRUE),
   allow_retry = TRUE,
-  style = "exam",
   incorrect = "submitted"
   ),
   question_dropdown(
@@ -133,7 +125,6 @@ quiz(
   answer("offset in slope of years for someone with no degree"),
   answer("offset in intercept for someone with a degree"),
   allow_retry = TRUE,
-  style = "exam",
   incorrect = "submitted"
   ),
   question_dropdown(
@@ -145,7 +136,6 @@ quiz(
   answer("45,000"),
   answer("47,000"),
   allow_retry = TRUE,
-  style = "exam",
   incorrect = "submitted"
   ),
   question_dropdown(
@@ -155,7 +145,6 @@ quiz(
   answer("estimated value of y and the actual value of y"),
   answer("estimated value of x and the actual value of y"),
   allow_retry = TRUE,
-  style = "exam",
   incorrect = "submitted"
   ),
   question_dropdown(
@@ -165,7 +154,6 @@ quiz(
   answer("no causal conclusions, correlation statement only applicable to our sample"),
   answer("causal conclusions only applicable to our sample"),
   allow_retry = TRUE,
-  style = "exam",
   incorrect = "submitted"
   ),
   question_dropdown(
@@ -176,7 +164,6 @@ quiz(
   answer("systematic sampling"),
   answer("none of these", correct = TRUE),
   allow_retry = TRUE,
-  style = "exam",
   incorrect = "submitted"
   ),
   question_radio(
@@ -189,7 +176,6 @@ quiz(
   answer("$\\hat{\\pi}$"),
   answer("", correct = TRUE),
   allow_retry = TRUE,
-  #style = "exam",
   incorrect = "submitted"
   ),
   question_dropdown(
@@ -200,7 +186,6 @@ quiz(
   answer("all mothers over 40 or under 25 in California", correct = TRUE),
   answer("all women in California expecting to be a mother"),
   allow_retry = TRUE,
-  style = "exam",
   incorrect = "submitted"
   ),
   question_dropdown(
@@ -210,7 +195,6 @@ quiz(
   answer("a variable that affects the outcome being measured as well as, or instead of, the independent variable", correct = TRUE),
   answer("a variable that is made up only of categories"),
   allow_retry = TRUE,
-  style = "exam",
   incorrect = "submitted"
   ),
   question_dropdown(
@@ -221,7 +205,6 @@ quiz(
   answer("systematic sampling"),
   answer("none of these"),
   allow_retry = TRUE,
-  style = "exam",
   incorrect = "submitted"
   ),
   question_blank(
@@ -229,7 +212,6 @@ quiz(
   answer(c("300"), correct = TRUE),
   answer(c("700"), correct = TRUE),
   allow_retry = TRUE,
-  style = "exam",
   incorrect = "submitted"
   ),
   question_dropdown(
@@ -240,20 +222,18 @@ quiz(
   answer("pnorm(q = 1, mean = 0, sd = 1, lower.tail = FALSE)", correct = TRUE),
   answer("qnorm(p = 600, mean = 500, sd = 100)"),
   allow_retry = TRUE,
-  style = "exam",
-  incorrect = "submitted"
-  ),
-  question_dropdown(
-  paste("Q16) Which of the following will give you the area of the shaded region for a standard normal distribution? <br>", htmltools::img(src="images/normal_dist1.png", height = 300, width = 400)) ,
-  answer("pnorm(q = -1)"),
-  answer("pnorm(q = -1, lower.tail = FALSE)", correct = TRUE),
-  answer("qnorm(p = -1, lower.tail = FALSE)"),
-  answer("qnorm(p = -1)"),
-  answer("1-pnorm(q = -1, lower.tail = FALSE"),
-  allow_retry = TRUE,
-  style = "exam",
   incorrect = "submitted"
   )
+  # question_dropdown(
+  # paste("Q16) Which of the following will give you the area of the shaded region for a standard normal distribution? <br>", htmltools::img(src="images/normal_dist1.png", height = 300, width = 400)) ,
+  # answer("pnorm(q = -1)"),
+  # answer("pnorm(q = -1, lower.tail = FALSE)", correct = TRUE),
+  # answer("qnorm(p = -1, lower.tail = FALSE)"),
+  # answer("qnorm(p = -1)"),
+  # answer("1-pnorm(q = -1, lower.tail = FALSE"),
+  # allow_retry = TRUE,
+  # incorrect = "submitted"
+  # )
   
 )
 
@@ -274,6 +254,19 @@ Calculate the correlation between `calories`, `total_fat` and `carbohydrates`.
 
 ```
 
+
+```{r App1a-solution, exercise.reveal_solution = FALSE}
+cdc %>% 
+  select(calories, total_fat, carbohydrates) %>% 
+  cor(use = "complete.obs")
+```
+
+```{r App1a-code-check}
+grade_this_code(
+  correct = "Submitted",
+  incorrect = "Submitted"
+)
+```
 <br>
 
 **Part 2**
@@ -284,13 +277,26 @@ Build a multiple linear regression model that predicts `calories` using `total_f
 
 ```
 
+
+```{r App1b-solution, exercise.reveal_solution = FALSE}
+model <- lm(calories ~ total_fat + carbohydrates, data = mcdonalds)
+
+summary(model)
+```
+
+```{r App1b-code-check}
+grade_this_code(
+  correct = "Submitted",
+  incorrect = "Submitted"
+)
+```
 <br>
 
 **Part 3**
 
 Interpret the **intercept** in the context of the problem.
 
-```{r App-describe1}
+```{r App1-desc}
 question_text("", incorrect = "submitted",
               answer("ManuallyGradedEverythingWrong", 
                      correct = TRUE),
@@ -316,16 +322,28 @@ model_calories <- lm(calories ~ total_fat + category, data = mcdonalds)
 
 ```
 
+
+```{r App2a-solution, exercise.reveal_solution = FALSE}
+model_calories <- lm(calories ~ total_fat + category, data = mcdonalds)
+
+summary(model_calories)
+```
+
+```{r App2a-code-check}
+grade_this_code(
+  correct = "Submitted",
+  incorrect = "Submitted"
+)
+```
 <br>
 
 **Part 2**
 
 ```{r app2Q1}
-question_text(
-  "App2 Q1) What is the baseline/reference level?<br> <br>
-  a) drink <br>
-  b) food",
-  answer(c("wrong"), correct = TRUE),
+question_dropdown(
+  "App2 Q1) What is the baseline/reference level?",
+  answer(c("drink"), correct = TRUE),
+  answer(c("food")),
   allow_retry = TRUE,
   incorrect = "submitted"
   )
@@ -344,6 +362,19 @@ ggplot(mcdonalds, aes(x = , y = , color = )) +
   
 ```
 
+
+```{r App2b-solution, exercise.reveal_solution = FALSE}
+ggplot(mcdonalds, aes(x = total_fat, y = calories, color = category)) +
+  geom_point() +
+  geom_parallel_slopes()
+```
+
+```{r App2b-code-check}
+grade_this_code(
+  correct = "Submitted",
+  incorrect = "Submitted"
+)
+```
 <br>
 
 **Part 4**
@@ -356,13 +387,26 @@ Print/output the results.
 
 ```
 
-### Application 3
 
-Suppose that the amount of calories in a fast-food item is normally distributed with mean 600 and sd 100. 25% of food items have less than how many calories?
-
-```{r App3, exercise = TRUE}
-
+```{r App2c-solution, exercise.reveal_solution = FALSE}
+mcdonalds <- mcdonalds %>% 
+  mutate(fitted = fitted(model_calories))
 ```
+
+```{r App2c-code-check}
+grade_this_code(
+  correct = "Submitted",
+  incorrect = "Submitted"
+)
+```
+
+<!-- ### Application 3 -->
+
+<!-- Suppose that the amount of calories in a fast-food item is normally distributed with mean 600 and sd 100. 25% of food items have less than how many calories? -->
+
+<!-- ```{r App3, exercise = TRUE} -->
+
+<!-- ``` -->
 
 
 ## mcdonalds Data
@@ -400,26 +444,19 @@ skim(mcdonalds)
 
 ## Submit
 
+
 Once you are finished:
 
--   **No "check mark" next to your name = 0 grade**
--   Click the 'full reading check' button below. This will download a pdf document of your exam.
--   Make sure all your answers are visible!
--   Submit the downloaded pdf to Canvas.
-
-- **Important**: If at any time you were kicked out of the exam you will need to click/scroll back through each section so that it appears in your printed document.
-
+-   Click "View submissions" to make sure all questions and exercises are submitted -- **Un-submitted questions will receive a 0.**
+-   Once all questions/exercises are submitted click the 'lock exam' button. Once you click this you will not be able to make any changes to your exam!
+-   Once the lock is pressed a `Download Exam` option will become available,
+-   Download and **Check your HTML!** - if any response is "NA" but you submitted it simply click the Download Exam button again.
+-   Upload the html to Canvas.
 
 ```{r}
-bootstrapPage(
-     div(style="display:inline-block",
-         print_ui("Print", label = "full reading check") ),
-     div(style="display:inline-block", 
-         p("then upload to Canvas.") ) 
-     )
+exam_output_ui(id = "lock")
 ```
 <br>
-<hr /> 
-<br>
-
-<hr /> 
+```{r}
+lock_button_ui(id = "lock")
+```
