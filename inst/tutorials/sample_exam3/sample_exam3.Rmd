@@ -20,11 +20,16 @@ library(tidyverse)
 library(ISDSfunctions)
 library(gradethis)
 
-gradethis_setup()
-
 isds_setup(isds_exam = TRUE)
 
 knitr::opts_chunk$set(echo = FALSE)
+
+gradethis_setup(pass = "Submitted",
+                fail = "Submitted",
+                error_checker.message = "Submitted",
+                fail.hint = FALSE
+                )
+
 
 nc_births <- read_csv("data/nc_births.csv")
 
@@ -299,11 +304,17 @@ nonsmoker <- nc_births %>%
 t.test(x = smoker$weight, y = nonsmoker$weight, conf.level = 0.9)
 ```
 
-```{r App2-check}
+```{r App2-check, exercise.diagnostics = FALSE}
 grade_this_code(
   correct = "Submitted",
   incorrect = "Submitted"
 )
+# grade_this(
+#   if (identical(.user_code, .solution_code_all)) {
+#     pass("Submitted")
+#   }
+#   fail("Submitted")
+# )
 ```
 <br>
 
