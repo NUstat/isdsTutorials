@@ -115,7 +115,7 @@ grade_this_code()
 quiz(caption = NULL,
   # Q1
     question_wordbank("Q1) Match each of the following terms with whether they refer to the variable y or x in a data model.",
-           choices = c("dependent variable", "outcomevariable", "predictor variable", "explanatory variable", "independent variable"),
+           choices = c("dependent variable", "outcome variable", "predictor variable", "explanatory variable", "independent variable"),
            wordbank = c("x","y"),
            answer(c("y", "y", "x","x","x"), correct = TRUE),
            allow_retry = TRUE), 

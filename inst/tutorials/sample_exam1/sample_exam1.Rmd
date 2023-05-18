@@ -207,7 +207,7 @@ ggplot(cdc, aes(x = gender, y = height)) +
   geom_boxplot()
 ```
 
-```{r App1-code-check}
+```{r App1-check}
 grade_this_code(
   correct = "Submitted",
   incorrect = "Submitted"
@@ -244,7 +244,7 @@ cdc %>%
   mutate(proportion = n/sum(n))
 ```
 
-```{r App2-code-check}
+```{r App2-check}
 grade_this_code(
   correct = "Submitted",
   incorrect = "Submitted"
@@ -265,7 +265,7 @@ ggplot(cdc, aes(x = genhlth, fill = gender)) +
   geom_barplot()
 ```
 
-```{r App3-code-check}
+```{r App3-check}
 grade_this_code(
   correct = "Submitted",
   incorrect = "Submitted"
@@ -319,6 +319,10 @@ Once you are finished:
 -   Click the 'lock' button below. Once you click this you will not be able to make any changes to your exam!
 -   Once the lock is pressed a `print` option will become available
 -   Click print and submit the downloaded html to Canvas.
+
+```{r}
+exam_output_ui(id = "lock")
+```
 
 ```{r}
 lock_button_ui(id = "lock")

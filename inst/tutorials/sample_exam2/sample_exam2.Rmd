@@ -34,6 +34,8 @@ mcdonalds <- read_csv("data/mcdonalds.csv")
 
 ```{r, context = "server"}
 lock_server("lock", 
+            ex = c("App1a", "App1b", "App2a", "App2b", "App2c"),
+            ex_pts = c(1,1,1,1,1),
             manual = c("App1-desc"), manual_pts = c(1))
 #reset_server("reset")
 ```
@@ -174,8 +176,7 @@ quiz(
   answer("$\\bar{x}$"),
   answer("$s$"),
   answer("$\\pi$"),
-  answer("$\\hat{\\pi}$"),
-  answer("", correct = TRUE),
+  answer("$\\hat{\\pi}$", correct = TRUE),
   allow_retry = TRUE,
   incorrect = "submitted"
   ),
@@ -262,7 +263,7 @@ cdc %>%
   cor(use = "complete.obs")
 ```
 
-```{r App1a-code-check}
+```{r App1a-check}
 grade_this_code(
   correct = "Submitted",
   incorrect = "Submitted"
@@ -285,7 +286,7 @@ model <- lm(calories ~ total_fat + carbohydrates, data = mcdonalds)
 summary(model)
 ```
 
-```{r App1b-code-check}
+```{r App1b-check}
 grade_this_code(
   correct = "Submitted",
   incorrect = "Submitted"
@@ -330,7 +331,7 @@ model_calories <- lm(calories ~ total_fat + category, data = mcdonalds)
 summary(model_calories)
 ```
 
-```{r App2a-code-check}
+```{r App2a-check}
 grade_this_code(
   correct = "Submitted",
   incorrect = "Submitted"
@@ -370,7 +371,7 @@ ggplot(mcdonalds, aes(x = total_fat, y = calories, color = category)) +
   geom_parallel_slopes()
 ```
 
-```{r App2b-code-check}
+```{r App2b-check}
 grade_this_code(
   correct = "Submitted",
   incorrect = "Submitted"
@@ -394,7 +395,7 @@ mcdonalds <- mcdonalds %>%
   mutate(fitted = fitted(model_calories))
 ```
 
-```{r App2c-code-check}
+```{r App2c-check}
 grade_this_code(
   correct = "Submitted",
   incorrect = "Submitted"
