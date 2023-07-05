@@ -5,9 +5,10 @@ tutorial:
   version: 0.1
   
 output:
-  ISDSfunctions::tutorial:
+  learnr::tutorial:
     progressive: false
     allow_skip: true
+    css: ["css/nu-theme.css"]
 runtime: shiny_prerendered
 description: >
   This proficiency exam covers Preface - Chapter 4.
@@ -57,7 +58,7 @@ question_blank("Name: ___",
 
 ## Instructions
 
-**This practice exam is meant to provide examples of styles of questions that may be asked on an exam. It is NOT necessarily representative of the length or difficulty of the exam.**
+**Note: this is a sample exam to provide examples of types and styles of questions that may be asked. It does not necessarily represent the exact length of the exam.**
 
 You have 50 minutes to complete this exam. The exam covers the material learned from Preface - Chapter 4. You are allowed one page of notes front and back.
 

@@ -1,0 +1,465 @@
+---
+title: "Sample Exam 2"
+tutorial:
+  id: "isds_sexam2_v2"
+  version: 0.1
+  
+output:
+  learnr::tutorial:
+    progressive: false
+    allow_skip: true
+    css: ["css/nu-theme.css"]
+runtime: shiny_prerendered
+description: >
+  This proficiency exam covers Chapter 5 - Chapter 9.1.
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(tidyverse)
+library(skimr)
+library(ISDSfunctions)
+library(gradethis)
+library(moderndive)
+
+gradethis_setup()
+
+isds_setup(isds_exam = TRUE)
+
+knitr::opts_chunk$set(echo = FALSE)
+
+mcdonalds <- read_csv("data/mcdonalds.csv")
+
+```
+
+
+```{r, context = "server"}
+lock_server("lock", 
+            ex = c("App1a", "App1b", "App2a", "App2b", "App2c"),
+            ex_pts = c(1,1,1,1,1),
+            manual = c("App1-desc"), manual_pts = c(1))
+#reset_server("reset")
+```
+
+```{r Name}
+# student name
+question_text("Name:",
+              answer_fn(function(value){
+                              if(length(value) >= 1 ) {
+                                return(mark_as(TRUE))
+                                }
+                              return(mark_as(FALSE) )
+                              }),
+              incorrect = "Submitted",
+              allow_retry = FALSE )
+```
+
+
+## Instructions
+
+**Note: this is a sample exam to provide examples of types and styles of questions that may be asked. It does not necessarily represent the exact length of the exam.**
+
+You have 50 minutes to complete this exam. The exam covers the material learned from Chapter 5 - Chapter 9.1.
+
+Once you are finished:
+
+-   View Submissions to make sure every question/exercise has been submitted.
+-  Click the 'lock exam' button. You will not be able to make any changes once this is clicked. 
+-   Once the exam is locked you will be able to click on the 'download exam' button.
+-   Submit the completed html to Canvas.
+
+
+## Concept
+
+```{r Q}
+#reading check 2
+quiz(
+  caption = NULL,
+  #Q1
+  question_dropdown(
+  "Q1) Which option best describes the correlation.
+  <br> Y is exactly twice the corresponding X.",
+  answer("Exactly -1"),
+  answer("Between -1 and 0"),
+  answer("About 0"),
+  answer("Between 0 and 1"),
+  answer("Exactly +1", correct = TRUE),
+  answer("Not enough information"),
+  allow_retry = TRUE,
+  incorrect = "submitted"),
+  question_dropdown(
+    paste("Q2) Examine the graph below and then select the best estimate of the correlation. <br>", htmltools::img(src="images/cor_-0.75.png", height = 300, width = 400)),
+    answer("0"),
+    answer("-1"),
+    answer("-0.75", correct = TRUE),
+    answer("-0.5"),
+    answer("-0.2"),
+    allow_retry = TRUE,
+    message = "Practice estimating correlation at http://guessthecorrelation.com/",
+    incorrect = "submitted"
+  ),
+  question_dropdown(
+  paste("Q3) A multiple linear regression model uses the weight (in carats) and cut (Fair, Good, Very Good, Premium, Ideal) of a diamond to predict its price ($). <br>", htmltools::img(src="images/lm_diamonds.png", height = 150, width = 500), "<br> What is the reference level/group for the model?"),
+  answer("Ideal"),
+  answer("Premium", correct = TRUE),
+  answer("Very Good"),
+  answer("Good"),
+  answer("Fair"),
+  allow_retry = TRUE,
+  incorrect = "submitted"
+  ),
+  question_dropdown(
+  "Q4) Using the multiple linear regression model output from Q3... <br> For diamonds that weigh the same (i.e., hold carat constant) which cut type is predicted to have the highest priced diamonds?",
+  answer("Ideal"),
+  answer("Premium"),
+  answer("Very Good"),
+  answer("Good"),
+  answer("Fair", correct = TRUE),
+  allow_retry = TRUE,
+  incorrect = "submitted"
+  ),
+  question_dropdown(
+  "Q5) Consider the following model that predicts a person's salary in thousands ($salary$) based on their year's of service ($years$) and whether or not they have a college degree ($grad$). The variable $grad$ is an indicator variable with two levels {$degree, no degree$}. The reference group for grad is $degree$ . The regression output equation is given below<br>
+  $\\hat{salary} = 45 + 2(years) - 5(grad) - 1(years*grad)$ <br><br>
+  What is the correct interpretation for the coefficient 2 (ie: $b_1$)",
+  answer("intercept for someone with a degree"),
+  answer("intercept for someone with no degree"),
+  answer("slope of years for someone with a degree", correct = TRUE),
+  answer("slope of years for someone with no degree"),
+  answer("offset in slope of years for someone with no degree"),
+  answer("offset in intercept for someone with a degree"),
+  allow_retry = TRUE,
+  incorrect = "submitted"
+  ),
+  question_dropdown(
+  "Q6) Consider the model above from Q5. <br>
+  What is the salary for a person with 0 years of service and no degree?",
+  answer("40,000", correct = TRUE),
+  answer("41,000"),
+  answer("42,000"),
+  answer("45,000"),
+  answer("47,000"),
+  allow_retry = TRUE,
+  incorrect = "submitted"
+  ),
+  question_dropdown(
+  paste("Q7) A residual is defined as the difference between the:" ),
+  answer("actual value of y and the estimated value of x"),
+  answer("actual value of y and the estimated value of y", correct = TRUE),
+  answer("estimated value of y and the actual value of y"),
+  answer("estimated value of x and the actual value of y"),
+  allow_retry = TRUE,
+  incorrect = "submitted"
+  ),
+  question_dropdown(
+  "Q8) You are a marketing manager for a chip company and want to evaluate if a new design will increase sales. You don't want to change production unless sales will increase. You compile a list of all stores that sell your product and randomly select 20 stores. You then randomly choose 10 of those stores to get the new design and the other 10 get the old design and compare average sales. What conclusions can we draw from this experiment?" ,
+  answer("causal conclusions generalized to all stores selling your chips", correct = TRUE),
+  answer("no causal conclusions, correlation statement generalized to all stores selling your chips"),
+  answer("no causal conclusions, correlation statement only applicable to our sample"),
+  answer("causal conclusions only applicable to our sample"),
+  allow_retry = TRUE,
+  incorrect = "submitted"
+  ),
+  question_dropdown(
+  "Q9) A manufactorer wants to check the rate of defective products that a machine produces. The quality control worker selects the first 100 items produced as their sample and determines the proportion of items that are defective. What type of sample is this?",
+  answer("simple random sample"),
+  answer("stratified sampling"),
+  answer("cluster sampling"),
+  answer("systematic sampling"),
+  answer("none of these", correct = TRUE),
+  allow_retry = TRUE,
+  incorrect = "submitted"
+  ),
+  question_radio(
+  "Q10) A study found that older mothers are more likely to have autistic children than younger mothers. The study randomly selected 500,000 birth records in California and found that Mothers over 40 were 77% more likely to have given birth to an autistic child than mothers under 25. <br>
+  What notation best describes the value 77% above?" ,
+  answer("$\\mu$"),
+  answer("$\\bar{x}$"),
+  answer("$s$"),
+  answer("$\\pi$"),
+  answer("$\\hat{\\pi}$", correct = TRUE),
+  allow_retry = TRUE,
+  incorrect = "submitted"
+  ),
+  question_dropdown(
+  "Q11) Based on Q10 above. <br>
+  The results can be generalized to..." ,
+  answer("only our sample"),
+  answer("all mothers over 40 or under 25"),
+  answer("all mothers over 40 or under 25 in California", correct = TRUE),
+  answer("all women in California expecting to be a mother"),
+  allow_retry = TRUE,
+  incorrect = "submitted"
+  ),
+  question_dropdown(
+  "Q12) Which of the following best describes a confounding variable?" ,
+  answer("a variable that is manipulated by the experimenter"),
+  answer("a variable that has been measured using an unreliable scale"),
+  answer("a variable that affects the outcome being measured as well as, or instead of, the independent variable", correct = TRUE),
+  answer("a variable that is made up only of categories"),
+  allow_retry = TRUE,
+  incorrect = "submitted"
+  ),
+  question_dropdown(
+  "Q13) Southwest airlines wants to evaluate customer satisfaction. They have a list of all upcoming flights and randomly select five flights to survey everyone on the flight. What type of sampling is this?",
+  answer("simple random sample"),
+  answer("stratified sampling"),
+  answer("cluster sampling", correct = TRUE),
+  answer("systematic sampling"),
+  answer("none of these"),
+  allow_retry = TRUE,
+  incorrect = "submitted"
+  ),
+  question_blank(
+  "<strong> Q14) (2 pts) Math SAT scores are normally distributed with a mean of 500 and a standard deviation of 50. Based on the empirical rule, 99.7% of math SAT scores are between ___ and ___. </strong>" ,
+  answer(c("350"), correct = TRUE),
+  answer(c("650"), correct = TRUE),
+  allow_retry = TRUE,
+  incorrect = "submitted"
+  ),
+  question_dropdown(
+  "Q15) Math SAT scores are normally distributed with an average score of 500 and standard deviation of 50. What percent of people score higher than 550 on the Math SAT?",
+  answer("qnorm(p = 1, mean = 0, sd = 1, lower.tail = FALSE)"),
+  answer("pnorm(q = 450, mean = 500, sd = 50, lower.tail = FALSE)"),
+  answer("pnorm(q = 550, mean = 500, sd = 50)"),
+  answer("pnorm(q = 1, mean = 0, sd = 1, lower.tail = FALSE)", correct = TRUE),
+  answer("qnorm(p = 550, mean = 500, sd = 50)"),
+  allow_retry = TRUE,
+  incorrect = "submitted"
+  ),
+  question_dropdown(
+  paste("Q16) Which of the following will give you the area of the shaded region for a standard normal distribution? <br>", htmltools::img(src="images/normal_dist1.png", height = 300, width = 400)) ,
+  answer("pnorm(q = -1)"),
+  answer("pnorm(q = -1, lower.tail = FALSE)", correct = TRUE),
+  answer("qnorm(p = -1, lower.tail = FALSE)"),
+  answer("qnorm(p = -1)"),
+  answer("1-pnorm(q = -1, lower.tail = FALSE"),
+  allow_retry = TRUE,
+  incorrect = "submitted"
+  )
+  
+)
+
+```
+
+
+## Application
+
+The following applications use the `mcdonalds` dataset which has been preloaded for you. This data has been pre-cleaned to remove any impossible observations. Missing values have not been removed and may need to be handled. See the "mcdonalds Data tab" for more information.
+
+### Application 1
+
+**Part 1**
+
+Calculate the correlation between `calories`, `total_fat` and `carbohydrates`.
+
+```{r App1a, exercise=TRUE}
+
+```
+
+
+```{r App1a-solution, exercise.reveal_solution = FALSE}
+cdc %>% 
+  select(calories, total_fat, carbohydrates) %>% 
+  cor(use = "complete.obs")
+```
+
+```{r App1a-check}
+grade_this_code(
+  correct = "Submitted",
+  incorrect = "Submitted"
+)
+```
+<br>
+
+**Part 2**
+
+Build a multiple linear regression model that predicts `calories` using `total_fat` and `carbohydrates`. Store the model and print the `summary()`.
+
+```{r App1b, exercise = TRUE, exercise.setup = "App1a"}
+
+```
+
+
+```{r App1b-solution, exercise.reveal_solution = FALSE}
+model <- lm(calories ~ total_fat + carbohydrates, data = mcdonalds)
+
+summary(model)
+```
+
+```{r App1b-check}
+grade_this_code(
+  correct = "Submitted",
+  incorrect = "Submitted"
+)
+```
+<br>
+
+**Part 3**
+
+Interpret the **intercept** in the context of the problem.
+
+```{r App1-desc}
+question_text("", incorrect = "submitted",
+              answer("ManuallyGradedEverythingWrong", 
+                     correct = TRUE),
+              allow_retry = TRUE,
+              rows = 5)
+```
+
+
+### Application 2
+
+**Part 1**
+
+Build a **parallel slopes** multiple linear regression model that predicts `calories` based on `total_fat` and `category`. The variable `category` has 2 levels: {food, drink}.
+
+Store the model as `model_calories` and print the `summary()`. 
+
+```{r App2}
+model_calories <- lm(calories ~ total_fat + category, data = mcdonalds)
+```
+
+
+```{r App2a, exercise=TRUE}
+
+```
+
+
+```{r App2a-solution, exercise.reveal_solution = FALSE}
+model_calories <- lm(calories ~ total_fat + category, data = mcdonalds)
+
+summary(model_calories)
+```
+
+```{r App2a-check}
+grade_this_code(
+  correct = "Submitted",
+  incorrect = "Submitted"
+)
+```
+<br>
+
+**Part 2**
+
+```{r app2Q1}
+question_dropdown(
+  "App2 Q1) What is the baseline/reference level?",
+  answer(c("drink"), correct = TRUE),
+  answer(c("food")),
+  allow_retry = TRUE,
+  incorrect = "submitted"
+  )
+```
+
+<br>
+
+**Part 3**
+
+Plot the relationship between `calories`, `total_fat`, and `category`. The code has been started for you. Recall the line of best fit for a parallel slopes model is created using the layer `geom_parallel_slopes()` 
+
+Note: The "drink" line may be hard to see and that is okay. If you want to be able to see it better you can add `fullrange = TRUE` as an argument in the layer that created the line (but not necessary).
+
+```{r App2b, exercise = TRUE, exercise.setup = "App2"}
+ggplot(mcdonalds, aes(x = , y = , color = )) +
+  
+```
+
+
+```{r App2b-solution, exercise.reveal_solution = FALSE}
+ggplot(mcdonalds, aes(x = total_fat, y = calories, color = category)) +
+  geom_point() +
+  geom_parallel_slopes()
+```
+
+```{r App2b-check}
+grade_this_code(
+  correct = "Submitted",
+  incorrect = "Submitted"
+)
+```
+<br>
+
+**Part 4**
+
+Use `model_calories` to add the `fitted()` values to the `mcdonalds` dataset. Hint: remove NA values from the dataset and then add the fitted values. 
+
+Print/output the results.
+
+```{r App2c, exercise = TRUE, exercise.setup = "App2"}
+
+```
+
+
+```{r App2c-solution, exercise.reveal_solution = FALSE}
+mcdonalds <- mcdonalds %>% 
+  mutate(fitted = fitted(model_calories))
+```
+
+```{r App2c-check}
+grade_this_code(
+  correct = "Submitted",
+  incorrect = "Submitted"
+)
+```
+
+### Application 3
+
+Suppose that the amount of calories in a fast-food item is normally distributed with mean 600 and sd 100. 25% of food items have less than how many calories?
+
+```{r App3, exercise = TRUE}
+
+```
+
+
+## mcdonalds Data
+
+You are welcome to open the dataset in RStudio Cloud as well if the information provided below is not sufficient for you.
+
+This dataset provides a nutrition analysis of every menu item on the US McDonald's menu, including breakfast, beef burgers, chicken and fish sandwiches, fries, salads, soda, coffee and tea, milkshakes, and desserts.
+
+Variables:
+
+- `category` -- Binary variable with two options (food, drink)
+- `item` -- Name of food or drink item
+- `serving_size` -- serving size
+- `calories` 
+- `calories_from_fat` 
+- `total_fat` -- in grams (g)
+- `saturated_fat`-- in grams (g)
+- `trans_fat` -- in grams (g)
+- `cholesterol` -- in milligrams (mg)
+- `sodium` -- in milligrams (mg)
+- `carbohydrates` -- in grams (g)
+- `dietary_fiber` -- in grams (g)
+- `sugars` -- in grams (g)
+- `protein` -- in grams (g)
+
+
+```{r}
+glimpse(mcdonalds)
+```
+
+```{r}
+skim(mcdonalds)
+```
+
+
+## Submit
+
+
+Once you are finished:
+
+-   Click "View submissions" to make sure all questions and exercises are submitted -- **Un-submitted questions will receive a 0.**
+-   Once all questions/exercises are submitted click the 'lock exam' button. Once you click this you will not be able to make any changes to your exam!
+-   Once the lock is pressed a `Download Exam` option will become available,
+-   Download and **Check your HTML!** - if any response is "NA" but you submitted it simply click the Download Exam button again.
+-   Upload the html to Canvas.
+
+```{r}
+exam_output_ui(id = "lock")
+```
+<br>
+```{r}
+lock_button_ui(id = "lock")
+```
