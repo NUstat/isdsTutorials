@@ -22,7 +22,11 @@ library(ISDSfunctions)
 library(gradethis)
 library(moderndive)
 
-gradethis_setup()
+gradethis_setup(pass = "Submitted",
+                fail = "Submitted",
+                error_checker.message = "Submitted",
+                fail.hint = FALSE
+                )
 
 isds_setup(isds_exam = TRUE)
 

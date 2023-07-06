@@ -1,0 +1,13 @@
+name: sample_exam3_v2
+title: sample_exam3_v2
+username:
+account: amkuyper
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 9416972
+bundleId: 7426732
+url: https://amkuyper.shinyapps.io/sample_exam3_v2/
+when: 1688649433.80552
+lastSyncTime: 1688649433.80554
+asMultiple: FALSE
+asStatic: FALSE
