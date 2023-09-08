@@ -140,7 +140,12 @@ Which of the following will calculate the probability that a person makes *less 
   # Q8
   question("Q8) What does the parameter 'df' stand for? ", 
            type = "learnr_text",
-           answer("degrees of freedom", correct = TRUE),
+           answer_fn(function(value){
+             if (tolower(value) %in% c("degrees of freedom") ) {
+               return(mark_as(TRUE))
+               }
+             return(mark_as(FALSE) )
+             }),
            allow_retry = TRUE),
   # Q9
   question("Q9) Which of the following are TRUE about the t-distribution? Select all that apply.  ",

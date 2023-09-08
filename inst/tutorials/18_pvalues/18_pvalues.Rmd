@@ -70,6 +70,7 @@ quiz(
     question("Q1) P-values rely on a mathematical technique known as a stochastic proof by _______ .", 
            type = "learnr_text",
            answer("contradiction", correct = TRUE),
+           answer("Contradiction", correct = TRUE),
            allow_retry = TRUE), 
     #question 2
   question_wordbank("Q2) Imagine that you wish to determine whether a new drug lowers cholesterol in at-risk patients, so you conduct a randomized experiment. You wish to compare the average cholesterol among those who took the drug vs. those who took a placebo. Match each step with the appropriate order for conducting a stochastic proof by contradiction. ",

@@ -143,7 +143,10 @@ quiz(
    b) What is the appropriate critical value for a 95% confidence interval in this scenario? Round to 2 decimal places. ___ <br/>
    c) What is the margin of error of your confidence interval? Round to 2 decimal places. ___ <br/>
    d) Compute and report your confidence interval (using your rounded values reported above): <br/> [ ___ , ___ ]",
-           answer("1", correct = TRUE),
+           answer_fn(function(value){
+                        if (value %in% c("1", "1.00")) {
+                            return(mark_as(TRUE))}
+                            return(mark_as(FALSE) ) }),
            answer("1.98", correct = TRUE),
            answer("1.98", correct = TRUE),
            answer("29.62", correct = TRUE),
