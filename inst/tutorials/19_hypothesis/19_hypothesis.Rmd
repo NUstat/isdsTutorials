@@ -17,7 +17,7 @@ description: >
 ```{r setup, include=FALSE}
 library(learnr)
 library(tidyverse)
-library(ISDSfunctions)
+library(tutorialExtras)
 library(gradethis)
 
 gradethis_setup()

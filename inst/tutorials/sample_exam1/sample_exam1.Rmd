@@ -18,7 +18,7 @@ description: >
 library(learnr)
 library(tidyverse)
 library(skimr)
-library(ISDSfunctions)
+library(tutorialExtras)
 library(gradethis)
 
 gradethis_setup(pass = "Submitted",
@@ -43,14 +43,13 @@ reset_server("reset")
 
 ```{r Name}
 # student name
-question_blank("Name: ___",
+question_text("Name:",
               answer_fn(function(value){
                               if(length(value) >= 1 ) {
                                 return(mark_as(TRUE))
                                 }
                               return(mark_as(FALSE) )
                               }),
-              correct = "Submitted",
               incorrect = "Submitted",
               allow_retry = FALSE )
 ```

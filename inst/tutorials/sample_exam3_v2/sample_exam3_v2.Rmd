@@ -18,7 +18,7 @@ description: >
 library(skimr)
 library(learnr)
 library(tidyverse)
-library(ISDSfunctions)
+library(tutorialExtras)
 library(gradethis)
 
 isds_setup(isds_exam = TRUE)

@@ -18,7 +18,7 @@ description: >
 library(learnr)
 library(tidyverse)
 library(skimr)
-library(ISDSfunctions)
+library(tutorialExtras)
 library(gradethis)
 library(moderndive)
 
