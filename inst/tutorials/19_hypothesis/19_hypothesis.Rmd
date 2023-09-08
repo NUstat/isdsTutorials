@@ -31,21 +31,19 @@ grade_server("grade")
 
 ```{r Name}
 # student name
-question_blank("Name: ___",
+question_text("Name:",
               answer_fn(function(value){
                               if(length(value) >= 1 ) {
                                 return(mark_as(TRUE))
                                 }
                               return(mark_as(FALSE) )
                               }),
-              correct = "Submitted",
+              correct = "submitted",
               allow_retry = FALSE )
 ```
 
 ```{r}
 grade_button_ui(id = "grade")
-# can have the grade output appear anywhere in your tutorial
-grade_output_ui(id = "grade")
 ```
 
 ## Instructions
@@ -132,18 +130,3 @@ Once you are finished:
 grade_print_ui("grade")
 ```
 
-<br>
-<hr /> 
-<br>
-
-<!-- ```{r} -->
-<!-- bootstrapPage( -->
-<!--      div(style="display:inline-block",  -->
-<!--          strong("Optional:") ), -->
-<!--      div(style="display:inline-block", -->
-<!--          print_ui("Print", label = "full reading check") ), -->
-<!--      div(style="display:inline-block",  -->
-<!--          p("for your own review and records.") )  -->
-<!--      ) -->
-<!-- ``` -->
-<!-- <hr />  -->

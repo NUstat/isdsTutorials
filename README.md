@@ -15,19 +15,19 @@ remotes::install_github("NUstat/isdsTutorials", dependencies = TRUE)
 
 The tutorials are named sequentially and correspond to the recommended material covered in a single class. The relevant sections of the Introduction to Statistics and Data Science [textbook](https://nustat.github.io/intro-stat-ds/) are listed alongside each tutorial.
 
-| name               | content             |     | name                    | content           |                    |                   |     |     |     |     |     |     |     |     |     |     |
-|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|--|--|
-| **01_intro**       | Preface & Chapter 1 |     | **11_regression4**      | Chapter 6.2 - 6.4 |                    |                   |     |     |     |     |     |     |     |     |     |     |
-| **02_ggplot1**     | Chapter 2.0 - 2.3   |     | **12_randomization**    | Chapter 7         |                    |                   |     |     |     |     |     |     |     |     |     |     |
-| **03_ggplot2**     | Chapter 2.4 - 2.6   |     | **13_generalizability** | Chapter 8         |                    |                   |     |     |     |     |     |     |     |     |     |     |
-| **04_ggplot3**     | Chapter 2.7 - 2.9   |     | **sample_exam2**        | Sample Exam 2     |                    |                   |     |     |     |     |     |     |     |     |     |     |
-| **05_wrangling1**  | Chapter 3.0 - 3.3   |     | **14_sampling1**        | Chapter 9.0 - 9.1 | **15_sampling2**   | Chapter 9.2 - 9.3 |     |     |     |     |     |     |     |     |     |     |
-| **06_wrangling2**  | Chapter 3.4 - 3.6   |     | **15_sampling2**        | Chapter 9.2 - 9.3 | **16_sampling3**   | Chapter 9.4 - 9.6 |     |     |     |     |     |     |     |     |     |     |
-| **07_tidy**        | Chapter 4           |     | **16_sampling3**        | Chapter 9.4 - 9.6 | **17_ci**          | Chapter 10        |     |     |     |     |     |     |     |     |     |     |
-| **sample_exam1**   | Sample Exam 1       |     | **17_ci**               | Chapter 10        |                    |                   |     |     |     |     |     |     |     |     |     |     |
-| **08_regression1** | Chapter 5.0 - 5.1   |     | **18_pvalues**          | Chapter 11        |                    |                   |     |     |     |     |     |     |     |     |     |     |
-| **09_regression2** | Chapter 5.2 - 5.4   |     | **19_hypothesis**       | Chapter 12        |                    |                   |     |     |     |     |     |     |     |     |     |     |
-| **10_regression3** | Chapter 6.2 - 6.4   |     | **sample_exam3**        | Sample Exam 3     | **isds_functions** | Educator Resource |     |     |     |     |     |     |     |     |     |     |
+| name               | content             |     | name                    | content           |
+|---------------|-----------------|-----|-----------------|---------------|
+| **01_intro**       | Preface & Chapter 1 |     | **11_regression4**      | Chapter 6.2 - 6.4 |
+| **02_ggplot1**     | Chapter 2.0 - 2.3   |     | **12_randomization**    | Chapter 7         |
+| **03_ggplot2**     | Chapter 2.4 - 2.6   |     | **13_generalizability** | Chapter 8         |
+| **04_ggplot3**     | Chapter 2.7 - 2.9   |     | **sample_exam2**        | Sample Exam 2     |
+| **05_wrangling1**  | Chapter 3.0 - 3.3   |     | **14_sampling1**        | Chapter 9.0 - 9.1 |
+| **06_wrangling2**  | Chapter 3.4 - 3.6   |     | **15_sampling2**        | Chapter 9.2 - 9.3 |
+| **07_tidy**        | Chapter 4           |     | **16_sampling3**        | Chapter 9.4 - 9.6 |
+| **sample_exam1**   | Sample Exam 1       |     | **17_ci**               | Chapter 10        |
+| **08_regression1** | Chapter 5.0 - 5.1   |     | **18_pvalues**          | Chapter 11        |
+| **09_regression2** | Chapter 5.2 - 5.4   |     | **19_hypothesis**       | Chapter 12        |
+| **10_regression3** | Chapter 6.2 - 6.4   |     | **sample_exam3**        | Sample Exam 3     |
 
 # Running tutorials
 
@@ -53,8 +53,8 @@ This work was made possible through funding from the Alumnae of Northwestern Uni
 
 Aden-Buie G, Chen D, Grolemund G, Rossell Hayes A, Schloerke B (2023). *gradethis: Automated Feedback for Student Exercises in 'learnr' Tutorials*. <https://pkgs.rstudio.com/gradethis/,> <https://rstudio.github.io/learnr/,> <https://github.com/rstudio/gradethis.>
 
-Aden-Buie G, Schloerke B, Allaire J, Rossell Hayes A (2023). *learnr: Interactive Tutorials for R*. https://rstudio.github.io/learnr/, https://github.com/rstudio/learnr.
+Aden-Buie G, Schloerke B, Allaire J, Rossell Hayes A (2023). *learnr: Interactive Tutorials for R*. <https://rstudio.github.io/learnr/>, <https://github.com/rstudio/learnr>.
 
 Sass D (2023). *tutorialExtras: Custom questions and exam functions for learnr tutorials*. R package version 0.0.0.9000, [https://NUstat.github.io/tutorialExtras/](https://nustat.github.io/tutorialExtras/).
 
-Tipton, E., Kuyper, A. M., Sass, D. K., Fitzgerald, K. G., Ismay, C., & Kim, A. (2020). \"Introduction to Statistics and Data Science\". Northwestern Libraries Digital Publishing, <https://nustat.github.io/intro-stat-data-sci>
+Tipton, E., Kuyper, A. M., Sass, D. K., Fitzgerald, K. G., Ismay, C., & Kim, A. (2020). "Introduction to Statistics and Data Science". Northwestern Libraries Digital Publishing, <https://nustat.github.io/intro-stat-data-sci>
