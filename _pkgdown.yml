@@ -24,30 +24,6 @@ navbar:
   - text: ISDS Textbook
     href: https://nustat.github.io/intro-stat-data-sci/
 
-# reference:
-#   - title: Functions
-#   - subtitle: Questions
-#     contents:
-#     - '`question_blank`'
-#     - '`question_dropdown`'
-#     - '`question_wordbank`'
-#   - subtitle: Grading and Printing
-#     contents:
-#     - '`grade_button_ui`'
-#     - '`grade_output_ui`'
-#     - '`grade_print_ui`'
-#     - '`grade_server`'
-#     - '`isds_recorder`'
-#     - '`lock_exam_button`'
-#     - '`lock_server`'
-#     - '`print_ui`'
-#   - subtitle: Misc
-#     contents:
-#     - '`inner_lock_server`'
-#     - '`inner_q_lock_server`'
-#     - '`knit_print.notes_question`'
-#     - '`lock_q_button`'
-#     - '`lock_q_server`'
 
 tutorials:
 - name: 01_intro
@@ -107,9 +83,6 @@ tutorials:
 - name: 19_hypothesis
   title: Chapter 12 hypothesis testing
   url: https://amkuyper.shinyapps.io/19_hypothesis/
-- name: isds_functions
-  title: Teaching function resources
-  url: https://amkuyper.shinyapps.io/isds_functions/
 - name: sample_exam1
   title: Sample Exam 1 (Ch 1 - 4)
   url: https://amkuyper.shinyapps.io/sample_exam1/
