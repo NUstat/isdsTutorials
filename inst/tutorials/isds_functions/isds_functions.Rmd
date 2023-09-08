@@ -23,14 +23,14 @@ To set up grade tracking we need to set the `isds_recorder` as the `tutorial.eve
 ```{r setup, message = FALSE, warning = FALSE, echo = TRUE}
 library(learnr)
 library(tidyverse)
-library(ISDStutorials)
+library(isdsTutorial)
 library(gradethis)
 
 gradethis_setup()
 knitr::opts_chunk$set(echo = FALSE)
 
 # need isds_recorder for grade output
-options(tutorial.event_recorder = ISDStutorials::isds_recorder)
+options(tutorial.event_recorder = isdsTutorial::isds_recorder)
 ```
 
 <br>

@@ -1,10 +1,10 @@
-^ISDStutorials\.Rproj$
+^isdsTutorial\.Rproj$
 ^\.Rproj\.user$
 ^\.github$
 ^_pkgdown\.yml$
 ^docs$
 ^pkgdown$
 ^LICENSE\.md$
-^ISDStutorials\.Rcheck$
-^ISDStutorials.*\.tar\.gz$
-^ISDStutorials.*\.tgz$
+^isdsTutorial\.Rcheck$
+^isdsTutorial.*\.tar\.gz$
+^isdsTutorial.*\.tgz$
