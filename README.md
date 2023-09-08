@@ -1,14 +1,14 @@
-# isdsTutorial
+# isdsTutorials
 
-The isdsTutorial package contains a series of interactive tutorials that teach alongside chapters of the free Introduction to Statistics and Data Science [textbook](https://nustat.github.io/intro-stat-ds/). The tutorials are written using a package called learnr. Once a tutorial is running it's a bit like reading a book but with places where you can practice the R code that you have just been taught along with multiple choice comprehension check questions. The isdsTutorial package is free and offered to support teachers and students using the textbook who want to learn R.
+The isdsTutorials package contains a series of interactive tutorials that teach alongside chapters of the free Introduction to Statistics and Data Science [textbook](https://nustat.github.io/intro-stat-ds/). The tutorials are written using a package called learnr. Once a tutorial is running it's a bit like reading a book but with places where you can practice the R code that you have just been taught along with multiple choice comprehension check questions. The isdsTutorials package is free and offered to support teachers and students using the textbook who want to learn R.
 
 # Installation
 
-Install the latest version of isdsTutorial from GitHub with the remotes package.
+Install the latest version of isdsTutorials from GitHub with the remotes package.
 
 ```{r}
 # install.packages("remotes")
-remotes::install_github("NUstat/isdsTutorial", dependencies = TRUE)
+remotes::install_github("NUstat/isdsTutorials", dependencies = TRUE)
 ```
 
 # List of tutorials
@@ -33,27 +33,18 @@ The tutorials are named sequentially and correspond to the recommended material 
 
 There are two ways to run the tutorials. The recommended way to run a tutorial is to type the following line in the R console:
 
-`learnr::run_tutorial("01_intro", package = "isdsTutorial")`
+`learnr::run_tutorial("01_intro", package = "isdsTutorials")`
 
 This should bring up a tutorial in your default web browser. You can see the full list of tutorials by running:
 
-`learnr::run_tutorial(package = "isdsTutorial")`
+`learnr::run_tutorial(package = "isdsTutorials")`
 
-Alternatively, in Version 1.3 onwards after having executed `library(isdsTutorial)`, a list of tutorials appears in a tutorial tab (by default it will be in the upper-right pane). However, the print option is not executable if the tutorial is run through the tutorial tab.
+Alternatively, in Version 1.3 onwards after having executed `library(isdsTutorials)`, a list of tutorials appears in a tutorial tab (by default it will be in the upper-right pane). However, the print option is not executable if the tutorial is run through the tutorial tab.
 
 # Submitting tutorials
 
 After completing each tutorial, students can obtain their grade in html format and download the full tutorial to a pdf. Students can then upload the html grade (or tutorial pdf) to a learning management system like Canvas or Gradescope.
 
-# Additional features of isdsTutorial
-
-- Print option: `grade_print_ui`, `print_ui`
-- Grade option: `grade_server`, `grade_button_ui`, `grade_output_ui`
-- Question fill in the blanks: `question_blank`
-- Question dropdowns: `question_dropdown`
-- Question wordbank: `question_wordbank`
-
-For detailed examples and explanations of the additional features run the "isds_functions" tutorial using the command `learnr::run_tutorial("isds_functions", package = "isdsTutorial")`
 
 # Acknowledgments
 
