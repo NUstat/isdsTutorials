@@ -19,7 +19,7 @@ Imports:
     gradethis (>= 0.1.0.9004),
     htmltools,
     htmlwidgets,
-    ISDSfunctions,
+    tutorialExtras,
     janitor,
     knitr (>= 1.31),
     learnr (>= 0.10.1.9008),
@@ -38,7 +38,7 @@ VignetteBuilder:
 Remotes: 
     rstudio/learnr,
     rstudio/gradethis,
-    NUstat/ISDSfunctions
+    NUstat/tutorialExtras
 Config/Needs/connect: rsconnect
 Config/Needs/coverage: covr
 Config/Needs/website: pkgdown
