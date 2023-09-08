@@ -8,7 +8,7 @@
 <meta name="description" content='A series of learnr tutorials based on "Introduction to Statistics 
     and Data Science" by Elizabeth Tipton, Arend M. Kuyper, Danielle Sass, and 
     Kaitlyn G. Fitzgerald - Adapted from ModernDive by Chester Ismay and Albert Y. Kim.'>
-<title>Tutorial Lessons for Introduction to Statistics and Data Science • isdsTutorial</title>
+<title>Tutorial Lessons for Introduction to Statistics and Data Science • isdsTutorials</title>
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.2.2/bootstrap.min.css" rel="stylesheet">
 <script src="deps/bootstrap-5.2.2/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
@@ -28,7 +28,7 @@
 
     <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light"><div class="container">
     
-    <a class="navbar-brand me-2" href="index.html">isdsTutorial</a>
+    <a class="navbar-brand me-2" href="index.html">isdsTutorials</a>
 
     <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9000</small>
 
@@ -59,16 +59,16 @@
 </nav><div class="container template-home">
 <div class="row">
   <main id="main" class="col-md-9"><div class="section level1">
-<div class="page-header"><h1 id="isdstutorial">isdsTutorial<a class="anchor" aria-label="anchor" href="#isdstutorial"></a>
+<div class="page-header"><h1 id="isdstutorials">isdsTutorials<a class="anchor" aria-label="anchor" href="#isdstutorials"></a>
 </h1></div>
-<p>The isdsTutorial package contains a series of interactive tutorials that teach alongside chapters of the free Introduction to Statistics and Data Science <a href="https://nustat.github.io/intro-stat-ds/" class="external-link">textbook</a>. The tutorials are written using a package called learnr. Once a tutorial is running it’s a bit like reading a book but with places where you can practice the R code that you have just been taught along with multiple choice comprehension check questions. The isdsTutorial package is free and offered to support teachers and students using the textbook who want to learn R.</p>
+<p>The isdsTutorials package contains a series of interactive tutorials that teach alongside chapters of the free Introduction to Statistics and Data Science <a href="https://nustat.github.io/intro-stat-ds/" class="external-link">textbook</a>. The tutorials are written using a package called learnr. Once a tutorial is running it’s a bit like reading a book but with places where you can practice the R code that you have just been taught along with multiple choice comprehension check questions. The isdsTutorials package is free and offered to support teachers and students using the textbook who want to learn R.</p>
 </div>
 <div class="section level1">
 <h1 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h1>
-<p>Install the latest version of isdsTutorial from GitHub with the remotes package.</p>
+<p>Install the latest version of isdsTutorials from GitHub with the remotes package.</p>
 <pre class="{r}"><code><span><span class="co"># install.packages("remotes")</span></span>
-<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"NUstat/isdsTutorial"</span>, dependencies <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"NUstat/isdsTutorials"</span>, dependencies <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="section level1">
 <h1 id="list-of-tutorials">List of tutorials<a class="anchor" aria-label="anchor" href="#list-of-tutorials"></a>
@@ -167,32 +167,15 @@
 <h1 id="running-tutorials">Running tutorials<a class="anchor" aria-label="anchor" href="#running-tutorials"></a>
 </h1>
 <p>There are two ways to run the tutorials. The recommended way to run a tutorial is to type the following line in the R console:</p>
-<p><code>learnr::run_tutorial("01_intro", package = "isdsTutorial")</code></p>
+<p><code>learnr::run_tutorial("01_intro", package = "isdsTutorials")</code></p>
 <p>This should bring up a tutorial in your default web browser. You can see the full list of tutorials by running:</p>
-<p><code>learnr::run_tutorial(package = "isdsTutorial")</code></p>
-<p>Alternatively, in Version 1.3 onwards after having executed <code><a href="https://nustat.github.io/isdsTutorial/">library(isdsTutorial)</a></code>, a list of tutorials appears in a tutorial tab (by default it will be in the upper-right pane). However, the print option is not executable if the tutorial is run through the tutorial tab.</p>
+<p><code>learnr::run_tutorial(package = "isdsTutorials")</code></p>
+<p>Alternatively, in Version 1.3 onwards after having executed <code><a href="https://nustat.github.io/isdsTutorials/">library(isdsTutorials)</a></code>, a list of tutorials appears in a tutorial tab (by default it will be in the upper-right pane). However, the print option is not executable if the tutorial is run through the tutorial tab.</p>
 </div>
 <div class="section level1">
 <h1 id="submitting-tutorials">Submitting tutorials<a class="anchor" aria-label="anchor" href="#submitting-tutorials"></a>
 </h1>
 <p>After completing each tutorial, students can obtain their grade in html format and download the full tutorial to a pdf. Students can then upload the html grade (or tutorial pdf) to a learning management system like Canvas or Gradescope.</p>
-</div>
-<div class="section level1">
-<h1 id="additional-features-of-isdstutorial">Additional features of isdsTutorial<a class="anchor" aria-label="anchor" href="#additional-features-of-isdstutorial"></a>
-</h1>
-<ul>
-<li>Print option: <code>grade_print_ui</code>, <code>print_ui</code>
-</li>
-<li>Grade option: <code>grade_server</code>, <code>grade_button_ui</code>, <code>grade_output_ui</code>
-</li>
-<li>Question fill in the blanks: <code>question_blank</code>
-</li>
-<li>Question dropdowns: <code>question_dropdown</code>
-</li>
-<li>Question wordbank: <code>question_wordbank</code>
-</li>
-</ul>
-<p>For detailed examples and explanations of the additional features run the “isds_functions” tutorial using the command <code>learnr::run_tutorial("isds_functions", package = "isdsTutorial")</code></p>
 </div>
 <div class="section level1">
 <h1 id="acknowledgments">Acknowledgments<a class="anchor" aria-label="anchor" href="#acknowledgments"></a>
@@ -212,7 +195,7 @@
 <div class="citation">
 <h2 data-toc-skip>Citation</h2>
 <ul class="list-unstyled">
-<li><a href="authors.html#citation">Citing isdsTutorial</a></li>
+<li><a href="authors.html#citation">Citing isdsTutorials</a></li>
 </ul>
 </div>
 
