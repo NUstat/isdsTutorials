@@ -20,6 +20,7 @@ jobs:
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
+      - name: Check out repository
       - uses: actions/checkout@v3
 
       - name: Install updates
@@ -27,15 +28,25 @@ jobs:
         
       - uses: r-lib/actions/setup-pandoc@v2
 
+      - name: Install R
       - uses: r-lib/actions/setup-r@v2
         with:
           use-public-rspm: true
 
-      - uses: r-lib/actions/setup-r-dependencies@v2
-        with:
-          extra-packages: any::pkgdown, any::rsconnect, local::.
-          needs: website
+      - name: Install curl
+        run: |-
+          Rscript -e "install.packages(c('curl'), repos = 'https://demo.rstudiopm.com/all/__linux__/bionic/latest')"
 
+      - name: Install Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install libcurl4-openssl-dev libssl-dev
+
+      - name: Install R Dependencies
+        uses: r-lib/actions/setup-renv@v2
+        with:
+          cache-version: 1
+          
       - name: Build site
         run: pkgdown::build_site_github_pages(new_process = FALSE, install = FALSE)
         shell: Rscript {0}
