@@ -551,6 +551,11 @@
       ],
       "Hash": "18e9c28c1d3ca1560ce30658b22ce104"
     },
+    "pak": {
+      "Package": "pak",
+      "Version": "0.6.0",
+      "Source": "Repository"
+    },
     "pillar": {
       "Package": "pillar",
       "Version": "1.9.0",
