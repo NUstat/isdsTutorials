@@ -14,8 +14,7 @@ Depends:
 Imports:
     gradethis (>= 0.1.0.9004),
     learnr (>= 0.10.1.9008),
-    tutorialExtras
-Suggests:
+    tutorialExtras,
     dplyr,
     janitor,
     nycflights13,
