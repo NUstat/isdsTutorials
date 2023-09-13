@@ -27,7 +27,7 @@ gradethis_setup(pass = "Submitted",
                 fail.hint = FALSE
                 )
 
-isds_setup(isds_exam = TRUE)
+tutorialExtras_setup(is_exam = TRUE)
 
 knitr::opts_chunk$set(echo = FALSE)
 
@@ -38,7 +38,6 @@ load("data/cdc.rda")
 lock_server("lock", 
             ex = c("App1", "App2", "App3"), ex_pts = c(3, 3, 3),
             manual = c("App1-desc", "App3-desc"), manual_pts = c(1, 1))
-reset_server("reset")
 ```
 
 ```{r Name}
@@ -64,8 +63,8 @@ You have 50 minutes to complete this exam. The exam covers the material learned 
 Once you are finished:
 
 -   Make sure every question/exercise has been submitted.
--   In the submit section click the 'lock exam' button. You will not be able to make any changes once this is clicked. 
--   Once the exam is locked you will be able to click on the 'download exam' button.
+-   In the submit section click the 'Lock Exam' button. You will not be able to make any changes once this is clicked. 
+-   Once the exam is locked you will be able to click on the 'Download Exam' button.
 -   Submit the completed html to Canvas.
 
 
@@ -335,26 +334,17 @@ skim(cdc)
 Once you are finished:
 
 -   **No Name = 0 grade**
--   Click `View submissions` to check that all questions and exercises are **SUBMITTED**
--   Click the 'lock' button below. Once you click this you will not be able to make any changes to your exam!
--   Once the lock is pressed a `print` option will become available
--   Click print and submit the downloaded html to Canvas.
+-   Click `Check Submissions` to check that all questions and exercises are **SUBMITTED**
+-   Click the 'Lock Exam' button below. Once you click this you will not be able to make any changes to your exam!
+-   Once the lock is pressed a `Download Exam` option will become available
+-   Click Download and submit the downloaded html to Canvas.
 
 ```{r}
-exam_output_ui(id = "lock")
+lock_check_ui(id = "lock")
 ```
 
 ```{r}
 lock_button_ui(id = "lock")
 ```
 
-
-## Reset Exam
-
-This button will reset the entire exam. This option will NOT be available for the actual exam. If your exam freezes and you need to use this please let me know so that I can fix any bugs prior to the exam. This is the first time this class is being held asynchronous so I anticipate bugs will occur during the exam.
-
-```{r}
-reset_button_ui(id = "reset", label = "Reset Exam")
-
-```
 

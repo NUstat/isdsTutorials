@@ -5,7 +5,7 @@ account: amkuyper
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 6890669
-bundleId: 7670596
+bundleId: 7676496
 url: https://amkuyper.shinyapps.io/07_tidy/
 asMultiple: FALSE
 asStatic: FALSE

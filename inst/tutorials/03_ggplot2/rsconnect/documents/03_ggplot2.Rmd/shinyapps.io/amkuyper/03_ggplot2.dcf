@@ -5,7 +5,7 @@ account: amkuyper
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 6890554
-bundleId: 7670458
+bundleId: 7676308
 url: https://amkuyper.shinyapps.io/03_ggplot2/
 asMultiple: FALSE
 asStatic: FALSE

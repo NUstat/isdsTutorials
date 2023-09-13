@@ -5,7 +5,7 @@ account: amkuyper
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 6890709
-bundleId: 7670621
+bundleId: 7676620
 url: https://amkuyper.shinyapps.io/08_regression1/
 asMultiple: FALSE
 asStatic: FALSE

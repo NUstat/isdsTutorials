@@ -5,7 +5,7 @@ account: amkuyper
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 6891247
-bundleId: 7670820
+bundleId: 7676797
 url: https://amkuyper.shinyapps.io/13_generalizability/
 asMultiple: FALSE
 asStatic: FALSE

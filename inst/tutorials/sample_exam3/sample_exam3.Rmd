@@ -1,13 +1,14 @@
 ---
-title: "Exam 3 Practice Exam"
+title: "Sample Exam 3"
 tutorial:
   id: "isds_sexam3"
   version: 0.1
   
 output:
-  ISDSfunctions::tutorial:
+  learnr::tutorial:
     progressive: false
     allow_skip: true
+    css: ["css/nu-theme.css"]
 runtime: shiny_prerendered
 description: >
   This proficiency exam covers Chapter 9 - Chapter 12.
@@ -20,9 +21,7 @@ library(tidyverse)
 library(tutorialExtras)
 library(gradethis)
 
-isds_setup(isds_exam = TRUE)
-
-knitr::opts_chunk$set(echo = FALSE)
+library(moderndive)
 
 gradethis_setup(pass = "Submitted",
                 fail = "Submitted",
@@ -30,6 +29,9 @@ gradethis_setup(pass = "Submitted",
                 fail.hint = FALSE
                 )
 
+tutorialExtras_setup(is_exam = TRUE)
+
+knitr::opts_chunk$set(echo = FALSE)
 
 nc_births <- read_csv("data/nc_births.csv")
 
@@ -42,7 +44,6 @@ lock_server("lock",
             ex_pts = c(1, 1, 1, 1),
             manual = c("App2-desc", "App3-desc"),
             manual_pts = c(1, 1))
-#reset_server("reset")
 ```
 
 ```{r Name}
@@ -61,6 +62,8 @@ question_text("Name:",
 
 
 ## Instructions
+
+**Note: this is a sample exam to provide examples of types and styles of questions that may be asked. It does not necessarily represent the exact length of the exam.**
 
 You have 50 minutes to complete this exam. The exam covers the material learned from Section 9 - Chapter 12. You are allowed one page of notes front and back.
 
@@ -427,14 +430,14 @@ skim(nc_births)
 
 Once you are finished:
 
--   Click "View submissions" to make sure all questions and exercises are submitted -- **Un-submitted questions will receive a 0.**
--   Once all questions/exercises are submitted click the 'lock exam' button. Once you click this you will not be able to make any changes to your exam!
--   Once the lock is pressed a `Download Exam` option will become available,
--   Download and **Check your HTML!** - if any response is "NA" but you submitted it simply click the Download Exam button again.
--   Upload the html to Canvas.
+-   **No Name = 0 grade**
+-   Click `Check Submissions` to check that all questions and exercises are **SUBMITTED**
+-   Click the 'Lock Exam' button below. Once you click this you will not be able to make any changes to your exam!
+-   Once the lock is pressed a `Download Exam` option will become available
+-   Click Download and submit the downloaded html to Canvas.
 
 ```{r}
-exam_output_ui(id = "lock")
+lock_check_ui(id = "lock")
 ```
 
 <br>

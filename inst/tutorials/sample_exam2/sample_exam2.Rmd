@@ -5,9 +5,10 @@ tutorial:
   version: 0.1
   
 output:
-  ISDSfunctions::tutorial:
+  learnr::tutorial:
     progressive: false
     allow_skip: true
+    css: ["css/nu-theme.css"]
 runtime: shiny_prerendered
 description: >
   This proficiency exam covers Chapter 5 - Chapter 8.
@@ -19,11 +20,16 @@ library(tidyverse)
 library(skimr)
 library(tutorialExtras)
 library(gradethis)
+
 library(moderndive)
 
-gradethis_setup()
+gradethis_setup(pass = "Submitted",
+                fail = "Submitted",
+                error_checker.message = "Submitted",
+                fail.hint = FALSE
+                )
 
-isds_setup(isds_exam = TRUE)
+tutorialExtras_setup(is_exam = TRUE)
 
 knitr::opts_chunk$set(echo = FALSE)
 
@@ -37,7 +43,6 @@ lock_server("lock",
             ex = c("App1a", "App1b", "App2a", "App2b", "App2c"),
             ex_pts = c(1,1,1,1,1),
             manual = c("App1-desc"), manual_pts = c(1))
-#reset_server("reset")
 ```
 
 ```{r Name}
@@ -446,17 +451,16 @@ skim(mcdonalds)
 
 ## Submit
 
-
 Once you are finished:
 
--   Click "View submissions" to make sure all questions and exercises are submitted -- **Un-submitted questions will receive a 0.**
--   Once all questions/exercises are submitted click the 'lock exam' button. Once you click this you will not be able to make any changes to your exam!
--   Once the lock is pressed a `Download Exam` option will become available,
--   Download and **Check your HTML!** - if any response is "NA" but you submitted it simply click the Download Exam button again.
--   Upload the html to Canvas.
+-   **No Name = 0 grade**
+-   Click `Check Submissions` to check that all questions and exercises are **SUBMITTED**
+-   Click the 'Lock Exam' button below. Once you click this you will not be able to make any changes to your exam!
+-   Once the lock is pressed a `Download Exam` option will become available
+-   Click Download and submit the downloaded html to Canvas.
 
 ```{r}
-exam_output_ui(id = "lock")
+lock_check_ui(id = "lock")
 ```
 <br>
 ```{r}
