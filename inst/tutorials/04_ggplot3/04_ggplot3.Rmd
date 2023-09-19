@@ -76,7 +76,7 @@ ggplot(data = iris, mapping = aes(x = Petal.Length, y = Species)) +
   geom_boxplot()
 ```
 
-```{r Ex1-code-check}
+```{r Ex1-check}
 grade_this_code()
 ```
 

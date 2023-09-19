@@ -77,7 +77,7 @@ mpg_subset <- mpg %>%
   filter(year == "1999" & hwy >= 30)
 ```
 
-```{r Ex1-code-check}
+```{r Ex1-check}
 grade_this_code()
 ```
 

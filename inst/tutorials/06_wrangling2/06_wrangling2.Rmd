@@ -85,7 +85,7 @@ summary_monthly_temp <- weather %>%
 summary_monthly_temp
 ```
 
-```{r Ex1-code-check}
+```{r Ex1-check}
 grade_this_code()
 ```
 
@@ -118,7 +118,7 @@ weather <- weather %>%
   mutate(temp_in_C = (temp-32)/1.8)
 ```
 
-```{r Ex2-code-check}
+```{r Ex2-check}
 grade_this_code()
 ```
 
@@ -192,18 +192,3 @@ Once you are finished:
 grade_print_ui("grade")
 ```
 
-<br>
-<hr /> 
-<br>
-
-<!-- ```{r} -->
-<!-- bootstrapPage( -->
-<!--      div(style="display:inline-block",  -->
-<!--          strong("Optional:") ), -->
-<!--      div(style="display:inline-block", -->
-<!--          print_ui("Print", label = "full reading check") ), -->
-<!--      div(style="display:inline-block",  -->
-<!--          p("for your own review and records.") )  -->
-<!--      ) -->
-<!-- ``` -->
-<!-- <hr />  -->

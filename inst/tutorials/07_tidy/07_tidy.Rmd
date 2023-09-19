@@ -95,7 +95,7 @@ mpg_tidy <- mpg_variation %>%
 mpg_tidy
 ```
 
-```{r Ex1-code-check}
+```{r Ex1-check}
 grade_this_code()
 ```
 
