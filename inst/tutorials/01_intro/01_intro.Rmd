@@ -74,7 +74,7 @@ A code chunk can be used as a calculator. Try typing 2+2 into the code chunk and
 2 + 2
 ```
 
-```{r Ex1-code-check}
+```{r Ex1-check}
 grade_this_code()
 ```
 
@@ -96,7 +96,7 @@ The assignment operator is `<-`
 x <- 20*40
 ```
 
-```{r Ex2-code-check}
+```{r Ex2-check}
 grade_this_code()
 ```
 

@@ -80,7 +80,7 @@ ggplot(data = faithful, mapping = aes(x = waiting, y = eruptions)) +
   geom_point()
 ```
 
-```{r Ex1-code-check}
+```{r Ex1-check}
 grade_this_code()
 ```
 
