@@ -93,7 +93,7 @@ ggplot(evals_ch6, aes(x = age, y = score, color = gender)) +
   geom_smooth(method = "lm", se = FALSE)
 ```
 
-```{r Ex1-code-check}
+```{r Ex1-check}
 grade_this_code()
 ```
 

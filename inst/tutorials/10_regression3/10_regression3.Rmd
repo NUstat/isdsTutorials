@@ -103,7 +103,7 @@ credit_ch6 <- Credit %>%
          age = Age)
 ```
 
-```{r Ex1-code-check}
+```{r Ex1-check}
 grade_this_code()
 ```
 
@@ -137,7 +137,7 @@ ggplot(credit_ch6, aes(x = income, y = debt)) +
   geom_smooth(method = "lm", se = FALSE)
 ```
 
-```{r Ex2-code-check}
+```{r Ex2-check}
 grade_this_code()
 ```
 
