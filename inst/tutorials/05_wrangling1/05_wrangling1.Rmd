@@ -121,17 +121,12 @@ quiz(
            allow_retry = TRUE,
            random_answer_order = TRUE),
   #Question 5
-  question("Q5) What is the standard deviation of the variable temp in the weather dataset?", 
-           type = "learnr_text",
-           answer_fn(function(value){
-                              if (round(as.numeric(value), 1) == 17.8 ) {
-                                return(mark_as(TRUE))
-                                }
-                              return(mark_as(FALSE) )
-                              }),
+  question_numeric("Q5) What is the standard deviation of the variable temp in the weather dataset?",
+           answer(17.8,correct=TRUE),
            #answer("17.8", correct = TRUE),
-           allow_retry = TRUE,
-           random_answer_order = TRUE),
+           step = 0.1,
+           tolerance = 0.05,
+           allow_retry = TRUE),
   #Question 6
   question("Q6) Which of the following arguments successfully removes missing values before computing a numerical summary (e.g. a mean, standard deviation, etc)?",
            answer("remove.missing = TRUE"),
@@ -162,19 +157,3 @@ Once you are finished:
 ```{r}
 grade_print_ui("grade")
 ```
-
-<br>
-<hr /> 
-<br>
-
-<!-- ```{r} -->
-<!-- bootstrapPage( -->
-<!--      div(style="display:inline-block",  -->
-<!--          strong("Optional:") ), -->
-<!--      div(style="display:inline-block", -->
-<!--          print_ui("Print", label = "full reading check") ), -->
-<!--      div(style="display:inline-block",  -->
-<!--          p("for your own review and records.") )  -->
-<!--      ) -->
-<!-- ``` -->
-<!-- <hr />  -->
