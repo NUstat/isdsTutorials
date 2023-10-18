@@ -5,7 +5,7 @@ account: amkuyper
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 6891176
-bundleId: 7676737
+bundleId: 7820004
 url: https://amkuyper.shinyapps.io/12_randomization/
 asMultiple: FALSE
 asStatic: FALSE
