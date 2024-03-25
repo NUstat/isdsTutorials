@@ -108,11 +108,11 @@ quiz(
   question("Q1) What is the term used to describe data that is in the format required for analysis with the ggplot2 and dplyr packages?", 
            type = "learnr_text",
            answer_fn(function(value){
-                    if (tolower(value) %in% c("tidy", '"tidy"') ) {
-                                return(mark_as(TRUE))
-                                }
-                              return(mark_as(FALSE) )
-                              }),
+                    if (str_remove_all(str_to_lower(value), " ") %in% c("tidy", '"tidy"') ) {
+                        return(mark_as(TRUE))
+                        }
+                        return(mark_as(FALSE) )
+                        }),
            allow_retry = TRUE),
   #Question 2
   question("Q2) Which function allows you to import a .csv file into R?",
@@ -130,9 +130,8 @@ quiz(
            answer(c("wide format","long format"),correct=TRUE),
            allow_retry = TRUE),
   #Question 4
-  question("Q4) In the drinks_smaller_tidy dataset, how many times is each country listed?", 
-           type = "learnr_text",
-           answer("3", correct = TRUE),
+  question_numeric("Q4) In the drinks_smaller_tidy dataset, how many times is each country listed?", 
+           answer(3, correct = TRUE),
            allow_retry = TRUE),
   question_wordbank("Q5) Tidy or Not?: Determine if the following tables are in tidy format.",
            choices = c(paste0(htmltools::img(src="images/Figure_04_1_tidy.png", height = 175, width = 350) ), paste0(htmltools::img(src="images/Figure_04_2_nontidy.png", height = 75, width = 350) ), paste0(htmltools::img(src="images/Figure_04_3_tidy.png", height = 75, width = 350) ) ),
@@ -156,10 +155,9 @@ quiz(
            answer(c("type", "drinks_smaller", "pivot_longer",  "country", "drinks_smaller_tidy"), correct = TRUE),
            allow_retry = TRUE),
   #Q8
-  question("Q8) In what year did Guatemala have the lowest democracy score?", 
-           type = "learnr_text",
-           answer("82", correct = TRUE),
-           answer("1982", correct = TRUE),
+  question_numeric("Q8) In what year did Guatemala have the lowest democracy score?", 
+           answer(82, correct = TRUE),
+           answer(1982, correct = TRUE),
            allow_retry = TRUE),
   #Q9
   question("Q9) What is the name of the 'umbrella' package that includes ggplot2, dplyr, readr, etc.?", 

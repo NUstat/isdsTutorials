@@ -68,11 +68,11 @@ quiz(caption = NULL,
     question("Q1) What is the gold standard method for understanding causality?", 
            type = "learnr_text",
            answer_fn(function(value){
-            if (tolower(value) %in% 
-                c("randomized experiment",
-                  "randomized trial",
-                  "randomized control trial",
-                  "random assignment")) {
+            if (str_remove_all(str_to_lower(value), " ") %in% 
+                c("randomizedexperiment",
+                  "randomizedtrial",
+                  "randomizedcontroltrial",
+                  "randomassignment")) {
                  return(mark_as(TRUE))}
                  return(mark_as(FALSE) ) }),
            allow_retry = TRUE), 
@@ -86,12 +86,8 @@ quiz(caption = NULL,
                   correct = TRUE),
            allow_retry = TRUE), 
       # Q3
-    question("Q3) In the simulated coin_flips data, what percentage of the coins 'landed on heads'?", 
-           type = "learnr_text",
-           answer("30", correct = TRUE),
-           answer("30%", correct = TRUE),
-           answer("30.0", correct = TRUE),
-           answer("30.0%", correct = TRUE),
+    question_numeric("Q3) In the simulated coin_flips data, what percentage of the coins 'landed on heads'?", 
+           answer(30, correct = TRUE),
            allow_retry = TRUE),  
     # Q4
   question_wordbank("Q4) The following simple linear regression model is used to estimate the 'average treatment effect.' In $\\hat{y} = b_0 + b_1T$ where $b_1 = \\bar{y}_T-\\bar{y}_C$, Match each term with its interpretation.",
@@ -121,15 +117,13 @@ quiz(caption = NULL,
            allow_retry = TRUE,
            random_answer_order = TRUE),    
           # Q8
-    question("Q8) In the ed_data randomized experiment example (i.e. in the scenario where treatment status was randomly assigned), what percentage of students in the control group were minority students? Round to 1 decimal place.", 
-           type = "learnr_text",
-           answer("32.7", correct = TRUE),
-           answer("32.7%", correct = TRUE),
+    question_numeric("Q8) In the ed_data randomized experiment example (i.e. in the scenario where treatment status was randomly assigned), what percentage of students in the control group were minority students? Round to 1 decimal place.", 
+           answer(32.7, correct = TRUE),
+           step = 0.1,
            allow_retry = TRUE), 
     # Q9
-    question("Q9) How many students did we randomly assign to the treatment group in the ed_data example?", 
-           type = "learnr_text",
-           answer("167", correct = TRUE),
+    question_numeric("Q9) How many students did we randomly assign to the treatment group in the ed_data example?", 
+           answer(167, correct = TRUE),
            allow_retry = TRUE)
   )
 ```

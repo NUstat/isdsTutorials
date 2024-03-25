@@ -116,12 +116,16 @@ quiz(caption = NULL,
   # Q1
   question("Q1) What operator allows you to keep adding layers to a ggplot() object?",
            type = "learnr_text",
-           answer("+", correct = TRUE),
-           answer("plus", correct = TRUE),
-           answer("plus sign", correct = TRUE),
-           answer("the plus sign", correct = TRUE),
-           allow_retry = TRUE,
-           random_answer_order = TRUE),
+           answer_fn(function(value){
+            if (str_remove_all(tolower(value), " ") %in% 
+                c("+", 
+                  "plus",
+                  "plussign", 
+                  "theplussign")) {
+                 return(mark_as(TRUE))}
+                 return(mark_as(FALSE) )
+                              }),
+           allow_retry = TRUE),
     question("Q2) Which of the following are typically used to visualize the relationship between two numeric variables? Select all that apply.",
            answer("histogram"),
            answer("boxplot"),
@@ -130,9 +134,8 @@ quiz(caption = NULL,
            allow_retry = TRUE,
            random_answer_order = TRUE), 
   # Q2
-  question("Q3) What is the default number of bins R uses to build a histogram?", 
-           type = "learnr_text",
-           answer("30", correct = TRUE),
+  question_numeric("Q3) What is the default number of bins R uses to build a histogram?",
+           answer(30, correct = TRUE),
            allow_retry = TRUE),
     # Q3
     question("Q4) Which of the following arguments in geom_histogram() will make the inside (as opposed to the outline) of the bars blue?",
@@ -158,18 +161,3 @@ Once you are finished:
 grade_print_ui("grade")
 ```
 
-<br>
-<hr /> 
-<br>
-
-<!-- ```{r} -->
-<!-- bootstrapPage( -->
-<!--      div(style="display:inline-block",  -->
-<!--          strong("Optional:") ), -->
-<!--      div(style="display:inline-block", -->
-<!--          print_ui("Print", label = "full reading check") ), -->
-<!--      div(style="display:inline-block",  -->
-<!--          p("for your own review and records.") )  -->
-<!--      ) -->
-<!-- ``` -->
-<!-- <hr />  -->

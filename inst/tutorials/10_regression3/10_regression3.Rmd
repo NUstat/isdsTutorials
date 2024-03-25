@@ -148,60 +148,55 @@ grade_this_code()
 quiz(
   caption = NULL,
   # Q1
-  question("Q1) What is the value for the largest amount of debt in the credit_ch6 data set?", 
-           type = "learnr_text",
-           answer("1999", correct = TRUE),
+  question_numeric("Q1) What is the value for the largest amount of debt in the credit_ch6 data set?", 
+           answer(1999, correct = TRUE),
            allow_retry = TRUE),
   # Q2
-  question("Q2) Consider the following model:\n
+  question_numeric("Q2) Consider the following model:\n
     debt_model <- lm(debt ~ credit_limit + income, data = credit_ch6)\n
   How many quantities does this model estimate? That is, how many values will there be in the Estimate column of the regression table for this model? ", 
-           type = "learnr_text",
-           answer("3", correct = TRUE),
+           answer(3, correct = TRUE),
            allow_retry = TRUE),
   # Q3
-  question("Q3) Consider the following model:\n
+  question_numeric("Q3) Consider the following model:\n
     debt_model <- lm(debt ~ credit_limit + income, data = credit_ch6)\n
   What is the estimated slope of credit_limit that results from this model? Round to 3 decimal places.", 
-           type = "learnr_text",
-           answer("0.264", correct = TRUE),
-           answer(".264", correct = TRUE),
+           answer(0.264, correct = TRUE),
+           step = 0.001,
            allow_retry = TRUE),
   # Q4
   question("Q4) What is the name of the phenomenon where relationships that exist in aggregate disappear or reverse when the data are broken into groups?", 
            type = "learnr_text",
            answer_fn(function(value){
-            if (tolower(value) %in% 
-                c("simpson's paradox", "simpson paradox", "simpsons paradox")) {
+            if (str_remove_all(str_to_lower(value), " ") %in% 
+                c("simpson'sparadox", "simpsonparadox", "simpsonsparadox")) {
                  return(mark_as(TRUE))}
                  return(mark_as(FALSE) ) }),
            allow_retry = TRUE),
   # Q5
   question("Q5) What is the name of the function that provides you with the fitted values for a model?", 
            type = "learnr_text",
-           answer("fitted", correct = TRUE),
-           answer("fitted()", correct = TRUE),
-           answer("fitted( )", correct = TRUE),
-           answer("fitted(model)", correct = TRUE),
-           answer("fitted(debt_model)", correct = TRUE),
+           answer_fn(function(value){
+            if (str_remove_all(str_to_lower(value), " ") %in% 
+                c("fitted", "fitted()", "fitted(model)", "fitted(debt_model")) {
+                 return(mark_as(TRUE))}
+                 return(mark_as(FALSE) ) }),
            allow_retry = TRUE),
   question("Q6) What is the name of the function that provides you with the residuals for a model?", 
            type = "learnr_text",
-           answer("residuals", correct = TRUE),
-           answer("residuals()", correct = TRUE),
-           answer("residuals( )", correct = TRUE),
-           answer("residuals(model)", correct = TRUE),
-           answer("residuals(debt_model)", correct = TRUE),
+           answer_fn(function(value){
+            if (str_remove_all(str_to_lower(value), " ") %in% 
+                c("residuals", "residuals()", "residuals(model)", "residuals(debt_model")) {
+                 return(mark_as(TRUE))}
+                 return(mark_as(FALSE) ) }),
            allow_retry = TRUE),
   # Q7
-  question("Q7) How many columns are in debt_model_data?", 
-           type = "learnr_text",
-           answer("6", correct = TRUE),
+  question_numeric("Q7) How many columns are in debt_model_data?", 
+           answer(6, correct = TRUE),
            allow_retry = TRUE),
   # Q8
-  question("Q8) How many rows are in debt_model_data?", 
-           type = "learnr_text",
-           answer("400", correct = TRUE),
+  question_numeric("Q8) How many rows are in debt_model_data?", 
+           answer(400, correct = TRUE),
            allow_retry = TRUE)
 )
 

@@ -83,7 +83,7 @@ quiz(
   caption = NULL,
   question_numeric(
   "Q1) Math SAT scores are normally distributed with a mean of 500 and a standard deviation of 100. Based on the empirical rule, what percent of students score between 200 and 800.</strong>" ,
-  answer(c("99.7"), correct = TRUE),
+  answer(c(99.7), correct = TRUE),
   min = 0,
   max = 100,
   step = 0.1,
@@ -292,19 +292,21 @@ grade_this_code(
 
 ### Application 2 (5 points)
 
-Suppose we are interested in examining if the average birth `weight` of babies born in North Carolina for `smoker` is less than the average birth `weight` of babies born in North Carolina for `nonsmoker`. Construct a 90% confidence interval for the difference in `weight` based on `habit` (`smoker` and `nonsmoker`).
+Suppose we are interested in examining if the proportion of `female` babies that are born over 9 pounds is less than the proportion of `male` babies born over 9 pounds. Construct a 90% confidence interval for the difference in proportion.
 
 ```{r App2, exercise=TRUE}
 
 ```
 
 ```{r App2-solution, exercise.reveal_solution = FALSE}
-smoker <- nc_births %>% 
-  filter(habit == "smoker")
-nonsmoker <- nc_births %>% 
-  filter(habit == "nonsmoker")
+nc_births |> 
+  filter(weight > 9) |> 
+  count(gender)
 
-t.test(x = smoker$weight, y = nonsmoker$weight, conf.level = 0.9)
+nc_births |> 
+  count(gender)
+
+prop.test(x = c(17, 44), n = c(503, 497))
 ```
 
 ```{r App2-check, exercise.diagnostics = FALSE}
@@ -312,16 +314,10 @@ grade_this_code(
   correct = "Submitted",
   incorrect = "Submitted"
 )
-# grade_this(
-#   if (identical(.user_code, .solution_code_all)) {
-#     pass("Submitted")
-#   }
-#   fail("Submitted")
-# )
 ```
 <br>
 
-Interpret the **confidence interval** in the context of the problem.
+Interpret the **confidence interval** in the context of the problem. Is there a difference proportions?
 
 ```{r App2-desc}
 question_text("", incorrect = "submitted",
@@ -333,12 +329,12 @@ question_text("", incorrect = "submitted",
 
 ### Application 3 (5 points)
 
-It is claimed that the proportion of babies that are premature at birth is less than 15%. Test to see if this claim is true: are LESS than 15% of babies born pre maturely?
+It is claimed that the national average weight of `female` babies is 7.5 pounds at birth. Test to see if the average `weight` of babies born in North Carolina with a `gender` of `female` is equal to the national average of 7.5.
 
-Conduct a hypothesis test for the proportion of `premie` babies at the $\alpha = 0.01$ significance level.
+Conduct a hypothesis test for the weight at the $\alpha = 0.01$ significance level.
 
-$$H_0: \pi_{premie} = 0.15$$
-$$H_A: \pi_{premie} \ne 0.15$$
+$$H_0: \mu_{female-weight} = 7.5$$
+$$H_A: \mu_{female-weight} \ne 7.5$$
 
 ```{r App3, exercise=TRUE}
 
@@ -346,10 +342,10 @@ $$H_A: \pi_{premie} \ne 0.15$$
 
 
 ```{r App3-solution, exercise.reveal_solution = FALSE}
-nc_births %>% 
-  count(premie)
+nc_female <- nc_births %>% 
+  filter(gender == "female")
 
-prop.test(x = 152, y = c(152+846), p = 0.15, conf.level = 0.85)
+t.test(nc_female$weight, mu = 7.5, conf.level = 0.99)
 ```
 
 ```{r App3-check}
@@ -371,7 +367,17 @@ question_text("", incorrect = "submitted",
 ```
 
 
+<!-- ### Application 2 (7 points) -->
+
+<!-- Suppose we are interested in examining if the average birth `weight` of babies born in North Carolina for `smoker` is less than the average birth `weight` of babies born in North Carolina for `nonsmoker`. Construct a 90% confidence interval for the difference in `weight` based on `habit` (`smoker` and `nonsmoker`). -->
 <!-- ### Application 3 (7 points) -->
+
+<!-- It is claimed that the proportion of babies that are premature at birth is less than 15%. Test to see if this claim is true: are LESS than 15% of babies born pre maturely? -->
+
+<!-- Conduct a hypothesis test for the proportion of `premie` babies at the $\alpha = 0.01$ significance level. -->
+
+<!-- $$H_0: \pi_{premie} = 0.15$$ -->
+<!-- $$H_A: \pi_{premie} \ne 0.15$$ -->
 
 <!-- It is claimed that the national average weight of babies is 7.5 pounds at birth. Test to see if the average weight of babies born in North Carolina is equal to the national average of 7.5. -->
 

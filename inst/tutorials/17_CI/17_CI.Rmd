@@ -150,9 +150,8 @@ quiz(
            answer("33.58", correct = TRUE),
            allow_retry = TRUE),   
           # Q9
-    question("Q9) If you simulate many, many repeated samples (e.g. 1,000,000) and construct a 99% confidence interval for the mean in each one, in approximately what percentage of samples do you expect the confidence interval to NOT capture the true population mean? ", 
-           type = "learnr_text",
-           answer("1", correct = TRUE),
+    question_numeric("Q9) If you simulate many, many repeated samples (e.g. 1,000,000) and construct a 99% confidence interval for the mean in each one, in approximately what percentage of samples do you expect the confidence interval to NOT capture the true population mean? ", 
+           answer(1, correct = TRUE),
            allow_retry = TRUE),   
           # Q10
     question("Q10) Suppose you want to estimate $\\pi$, the proportion of students at Northwestern who support legalizing marijuana, so you take a random sample of 100 students and find that 73 of them say they support legalization. You use this data to compute the following 95% confidence interval for $\\pi$: [0.643, 0.817]. Which of the following are TRUE/VALID conclusions given this scenario? Select all that apply.",

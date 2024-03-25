@@ -120,8 +120,8 @@ quiz(caption = NULL,
     question("Q2) What is the name of the commonly-used modeling technique that is the focus of Chapter 5? (Hint: it's two words)", 
            type = "learnr_text",
            answer_fn(function(value){
-            if (tolower(value) %in% 
-                c("linear regression")) {
+            if (str_remove_all(str_to_lower(value), " ") %in% 
+                c("linearregression")) {
                  return(mark_as(TRUE))}
                  return(mark_as(FALSE) ) }),
            allow_retry = TRUE),
@@ -134,9 +134,8 @@ quiz(caption = NULL,
            allow_retry = TRUE,
            random_answer_order = TRUE),  
     # Q4
-    question("Q4) How many variables are in the data frame evals_ch5?", 
-           type = "learnr_text",
-           answer("3", correct = TRUE),
+    question_numeric("Q4) How many variables are in the data frame evals_ch5?",
+           answer(3, correct = TRUE),
            allow_retry = TRUE),  
      # Q5
     question_wordbank("Q5) Match the following functions with their primary purpose.",
@@ -145,9 +144,9 @@ quiz(caption = NULL,
            answer(c("lm()", "select()", "filter()", "skim()", "View()"), correct = TRUE),
            allow_retry = TRUE),
     # Q6
-    question("Q6) What is the maximum value of bty_avg  in the data frame evals? Round to two decimal places.", 
-           type = "learnr_text",
-           answer("8.17", correct = TRUE),
+    question_numeric("Q6) What is the maximum value of bty_avg  in the data frame evals? Round to two decimal places.", 
+           answer(8.17, correct = TRUE),
+           step = 0.01,
            allow_retry = TRUE),    
       # Q7
     question_wordbank("Q7) What is the primary purpose of the gapminder package?",
@@ -164,15 +163,14 @@ quiz(caption = NULL,
            allow_retry = TRUE,
            random_answer_order = TRUE),   
     # Q9
-    question("Q9) Provide the slope of the regression line for score ~ bty_avg. Round to 3 decimal places.", 
-           type = "learnr_text",
-           answer("0.067", correct = TRUE),
-           answer(".067", correct = TRUE),
+    question_numeric("Q9) Provide the slope of the regression line for score ~ bty_avg. Round to 3 decimal places.", 
+           answer(0.067, correct = TRUE),
+           step = 0.001,
            allow_retry = TRUE), 
     # Q10
-    question("Q10) What is the fitted/predicted value for the 24th instructor in the evals_ch5 dataset when fitting the regression model score ~ bty_avg?", 
-           type = "learnr_text",
-           answer("4.25", correct = TRUE),
+    question_numeric("Q10) What is the fitted/predicted value for the 24th instructor in the evals_ch5 dataset when fitting the regression model score ~ bty_avg?", 
+           answer(4.25, correct = TRUE),
+           step = 0.01,
            allow_retry = TRUE)
 )
 

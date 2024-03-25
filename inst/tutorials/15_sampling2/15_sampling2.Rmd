@@ -72,9 +72,8 @@ quiz(
            allow_retry = TRUE,
            random_answer_order = TRUE),
   # Question 2
-  question("Q2) What is the maximum value of `replicate` in the `tactile_prop_red` dataset? ", 
-           type = "learnr_text",
-           answer("33", correct = TRUE),
+  question_numeric("Q2) What is the maximum value of `replicate` in the `tactile_prop_red` dataset? ", 
+           answer(33, correct = TRUE),
            allow_retry = TRUE),
   #Q3
   question_blank(paste0("<strong> Q3) </strong>  <br/>
@@ -96,7 +95,7 @@ a) What is the resulting value for `sum`? ___ <br/>
 b) What is the resulting value for `mean`? ___" ), 
            answer("3", correct = TRUE),
            answer_fn(function(value){
-                if (value %in% c("0.3", ".3")) {
+                if (value %in% c("0.3", ".3", "0.30")) {
                     return(mark_as(TRUE))}
                     return(mark_as(FALSE) ) }),
            allow_retry = TRUE),
@@ -139,7 +138,7 @@ c) How many red balls are in the bowl? ___ ",
   question("Q7) What phrase do we use to refer to the standard deviation of a sampling distribution? ", 
            type = "learnr_text",
            answer_fn(function(value){
-                if (tolower(value) == "standard error") {
+                if (str_remove_all(str_to_lower(value), " ") == "standarderror") {
                     return(mark_as(TRUE))}
                     return(mark_as(FALSE) ) }),
            allow_retry = TRUE),

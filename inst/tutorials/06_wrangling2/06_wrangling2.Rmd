@@ -128,28 +128,19 @@ grade_this_code()
 ```{r Q}
 quiz(
   caption = NULL,
-  #Question 1
-  question("Q1) How many flights departed from JFK in the flights dataset?", 
-           type = "learnr_text",
-           answer_fn(function(value){
-                    if (value %in% c("111279", "111,279") ) {
-                                return(mark_as(TRUE))
-                                }
-                              return(mark_as(FALSE) )
-                              }),
+  question_numeric("Q1) How many flights departed from JFK in the flights dataset?", 
+           answer(111279, correct=TRUE),
            allow_retry = TRUE),
-  #Question 2
-  question("Q2) In the weather dataset, what is the average temperature in celcius in December?", 
-           type = "learnr_text",
-           answer("3.58", correct = TRUE),
+  question_numeric("Q2) In the weather dataset, what is the average temperature in celcius in December?", 
+           answer(3.58, correct = TRUE),
            allow_retry = TRUE),
-  # Q4
   question("Q3) What is the name of the dplyr function that allows you to sort the rows of a data frame by the alphanumeric order of a variable/column?", 
            type = "learnr_text",
-           answer("arrange", correct = TRUE),
-           answer("arrange()", correct = TRUE),
+           answer_fn(function(value){
+             if(str_remove_all(value, " ") %in% c("arrange","arrange()") ) {
+               return(mark_as(TRUE))}
+             return(mark_as(FALSE) )}),
            allow_retry = TRUE),
-  # Q5
     question_wordbank("Q4) Match the general description to the appropriate piece of code in the following code chunk: \n
       summary_temp <- weather %>% 
         summarize(mean = mean(temp), std_dev = sd(temp)) ",

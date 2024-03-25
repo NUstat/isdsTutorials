@@ -114,15 +114,15 @@ quiz(
   question("Q1) What is the name of the theoretical framework for data visualization that is the foundation of the ggplot2 package?",
     type = "learnr_text",
     answer_fn(function(value){
-            if (tolower(value) %in% 
-                c("the grammar of graphics", "grammar of graphics",
-                  "layered grammar of graphics", 
-                  "the layered grammar of graphics")) {
+            if (str_remove_all(tolower(value), " ") %in% 
+                c("thegrammarofgraphics", 
+                  "grammarofgraphics",
+                  "layeredgrammarofgraphics", 
+                  "thelayeredgrammarofgraphics")) {
                  return(mark_as(TRUE))}
                  return(mark_as(FALSE) )
                               }),
-    allow_retry = TRUE,
-    random_answer_order = TRUE
+    allow_retry = TRUE
   ),
   #Q2
   question("Q2) Which of the following are examples of aesthetic
@@ -160,11 +160,10 @@ quiz(
            allow_retry = TRUE,
            random_answer_order = TRUE),
   # Q6
-  question("Q6) How many Alaska Airlines flights are in the flights data frame?", 
-           type = "learnr_text",
-           answer("714", correct = TRUE),
-           allow_retry = TRUE,
-           random_answer_order = TRUE),
+  question_numeric("Q6) How many Alaska Airlines flights are in the flights data frame?", 
+           answer(714, correct = TRUE),
+           step = 1,
+           allow_retry = TRUE),
   # Q7
   question("Q7) What type of relationship exists between
            departure delays and arrival delays for Alaska
@@ -211,18 +210,3 @@ Once you are finished:
 grade_print_ui("grade")
 ```
 
-<br>
-<hr /> 
-<br>
-
-<!-- ```{r} -->
-<!-- bootstrapPage( -->
-<!--      div(style="display:inline-block",  -->
-<!--          strong("Optional:") ), -->
-<!--      div(style="display:inline-block", -->
-<!--          print_ui("Print", label = "full reading check") ), -->
-<!--      div(style="display:inline-block",  -->
-<!--          p("for your own review and records.") )  -->
-<!--      ) -->
-<!-- ``` -->
-<!-- <hr />  -->

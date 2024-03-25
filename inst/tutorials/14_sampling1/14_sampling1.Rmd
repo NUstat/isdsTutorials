@@ -110,12 +110,10 @@ c) 99.7% of students spend between ___ and ___ hours studying"),
            answer(c("False", "True", "False"),correct=TRUE),
            allow_retry = TRUE),
   # Q5
-  question("Q5) The annual salaries of students after graduation follow a normal distribution with a mean of $50,000 and a standard deviation of $10,000.
+  question_numeric("Q5) The annual salaries of students after graduation follow a normal distribution with a mean of $50,000 and a standard deviation of $10,000.
 
 Compute the STAT of the value x = $35,000.", 
-           type = "learnr_text",
-           answer("-1.5", correct = TRUE),
-           answer("-1.50", correct = TRUE),
+           answer(-1.5, correct = TRUE),
            allow_retry = TRUE),
   # Q6
   question_wordbank("Q6) Consider a standardized statistic that follows a standard normal distribution. Match each of the following values with where you would expect them to fall on the standard N(0,1) distribution.",
@@ -138,7 +136,7 @@ Which of the following will calculate the probability that a person makes *less 
   question("Q8) What does the parameter 'df' stand for? ", 
            type = "learnr_text",
            answer_fn(function(value){
-             if (tolower(value) %in% c("degrees of freedom") ) {
+             if (str_remove_all(str_to_lower(value), " ") %in% c("degreesoffreedom") ) {
                return(mark_as(TRUE))
                }
              return(mark_as(FALSE) )

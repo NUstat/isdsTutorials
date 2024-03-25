@@ -122,8 +122,7 @@ quiz(
            random_answer_order = TRUE),
   #Question 5
   question_numeric("Q5) What is the standard deviation of the variable temp in the weather dataset?",
-           answer(17.8,correct=TRUE),
-           #answer("17.8", correct = TRUE),
+           answer(17.8, correct=TRUE),
            step = 0.1,
            tolerance = 0.05,
            allow_retry = TRUE),
@@ -131,7 +130,7 @@ quiz(
   question("Q6) Which of the following arguments successfully removes missing values before computing a numerical summary (e.g. a mean, standard deviation, etc)?",
            answer("remove.missing = TRUE"),
            answer("NA.rm = TRUE"),
-           answer("na.rm = TRUE",correct=TRUE),
+           answer("na.rm = TRUE", correct=TRUE),
            answer("remove.na = TRUE"),
            allow_retry = TRUE,
            random_answer_order = TRUE),

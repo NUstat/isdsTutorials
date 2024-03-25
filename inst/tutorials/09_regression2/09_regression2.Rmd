@@ -66,19 +66,17 @@ You can click the "View Grade" button as many times as you would like to see you
 ```{r Q}
 quiz(caption = NULL,
   # Question 1
-    question("Q1) How many European countries are included in the gapminder 2007 dataset?", 
-           type = "learnr_text",
-           answer("30", correct = TRUE),
+    question_numeric("Q1) How many European countries are included in the gapminder 2007 dataset?", 
+           answer(30, correct = TRUE),
            allow_retry = TRUE),
     # Question 2
-    question("Q2) What percent of countries in the gapminder2007 dataset have a life expectancy of less than 71.94?", 
-           type = "learnr_text",
-           answer("50", correct = TRUE),
+    question_numeric("Q2) What percent of countries in the gapminder2007 dataset have a life expectancy of less than 71.94?", 
+           answer(50, correct = TRUE),
            allow_retry = TRUE), 
       # Question 3
-    question("Q3) How many years higher is the average life expectancy in Europe as compared to Africa? Round to 1 decimal place.", 
-           type = "learnr_text",
-           answer("22.8", correct = TRUE),
+    question_numeric("Q3) How many years higher is the average life expectancy in Europe as compared to Africa? Round to 1 decimal place.", 
+           answer(22.8, correct = TRUE),
+           step = 0.1,
            allow_retry = TRUE),
        # Question 4
     question("Q4) What is the name of the explanatory variable in the lifeExp_model?", 
@@ -91,20 +89,20 @@ quiz(caption = NULL,
            answer("0", correct = TRUE),
            allow_retry = TRUE),
     # Question 6
-    question("Q6) After fitting lifeExp_model to the gapminder2007 dataset, what is the value of $y - \\hat{y}$ for the country Angola? Round to 3 decimal places.", 
-           type = "learnr_text",
-           answer("-12.075", correct = TRUE),
+    question_numeric("Q6) After fitting lifeExp_model to the gapminder2007 dataset, what is the value of $y - \\hat{y}$ for the country Angola? Round to 3 decimal places.",
+           answer(-12.075, correct = TRUE),
+           step = 0.001,
            allow_retry = TRUE),
      # Question 7
-    question("Q7) According to the lifeExp_model fit to the gapminder2007 dataset, what is the estimated life expectancy for the country Bangladesh? Round to 1 decimal place.", 
-           type = "learnr_text",
-           answer("70.7", correct = TRUE),
+    question_numeric("Q7) According to the lifeExp_model fit to the gapminder2007 dataset, what is the estimated life expectancy for the country Bangladesh? Round to 1 decimal place.", 
+           answer(70.7, correct = TRUE),
+           step = 0.1,
            allow_retry = TRUE),  
     # Question 8
     question("Q8) What is the potential confounding variable in the 'sleeping with shoes on' and 'waking up with a headache' example?", 
            type = "learnr_text",
            answer_fn(function(value){
-                              if (tolower(value) %in% 
+                              if (str_remove_all(str_to_lower(value), " ") %in% 
                                   c("alcohol", "drinking", 
                                     "intoxicated", "intoxication") ) {
                                 return(mark_as(TRUE))
