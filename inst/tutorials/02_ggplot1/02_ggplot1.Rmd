@@ -6,7 +6,7 @@ tutorial:
   
 output:
   learnr::tutorial:
-    progressive: false
+    progressive: true
     allow_skip: true
     css: ["css/nu-theme.css"]
 runtime: shiny_prerendered
@@ -17,16 +17,29 @@ description: >
 ```{r setup, include=FALSE}
 library(learnr)
 library(tidyverse)
+library(nycflights13)
 library(tutorialExtras)
 library(gradethis)
+library(tutorial.helpers)
+library(ggcheck)
 
 gradethis_setup()
 knitr::opts_chunk$set(echo = FALSE)
-```
+options(
+  tutorial.exercise.timelimit = 60
+  #tutorial.storage = "local"
+  ) 
 
+alaska_flights <- flights %>% 
+  filter(carrier == "AS")
+
+```
 
 ```{r, context = "server"}
 grade_server("grade")
+```
+
+```{r copy-code-chunk, child = system.file("child_documents/copy_button.Rmd", package = "tutorial.helpers")}
 ```
 
 ```{r Name}
@@ -41,15 +54,12 @@ question_text("Name:",
               allow_retry = FALSE )
 ```
 
-```{r}
-grade_button_ui(id = "grade")
-```
 
 ## Instructions
 
 Complete this tutorial while reading Sections 2.0 - 2.3 of the [textbook](https://nustat.github.io/intro-stat-data-sci/02-visualization.html). Each question allows 3 'free' attempts. After the third attempt a 10% deduction occurs per attempt.
 
-You can click the "View Grade" button as many times as you would like to see your current grade and the number of attempts you are on. Before submitting make sure your grade is as expected.
+You can check your current grade and the number of attempts you are on in the "View grade" section. You can click this button as often and as many times as you would like as you progress through the tutorial. Before submitting, make sure your grade is as expected.
 
 ### Goals
 
@@ -58,74 +68,27 @@ You can click the "View Grade" button as many times as you would like to see you
 -   Describe a scatterplot.
 -   Understand the different aesthetics.
 
-## Exercise
+## The Grammar of Graphics
 
-Construct a scatterplot of `eruptions` by `waiting` using the `faithful` dataset by filling in the blanks (the data is already preloaded in R).
+"The Grammar of Graphics" define a set of rules for constructing statistical graphics by combining different types of layers. 
 
-```{r Ex1, exercise=TRUE}
-ggplot(data = faithful, mapping = aes(x = ___, y = ___)) +
-  ____
-```
-
-```{r Ex1-hint-1}
-Common language: y by x
-```
-
-```{r Ex1-hint-2}
-Make sure you open and close parenthesis after geom_point
-```
-
-```{r Ex1-solution, exercise.reveal_solution = FALSE}
-ggplot(data = faithful, mapping = aes(x = waiting, y = eruptions)) +
-  geom_point()
-```
-
-```{r Ex1-check}
-grade_this_code()
-```
-
-```{r Ex1-Q}
-quiz(
-  caption = "",
-  question("Ex1Q1) Which of the following describes the relationship between eruptions and waiting? Check all that apply.",
-           answer("Positive association",
-                  correct = TRUE),
-           answer("Negative association",
-                  message = "Look at the trend going from left to right"),
-           answer("No association",
-                  message = "Are you sure?"),
-           answer("Linear",
-                  correct = TRUE),
-           answer("Non-linear",
-                  message = "Check the graph again."),
-           allow_retry = TRUE,
-           random_answer_order = TRUE)
-)
+```{r grammar-graphics-1}
+question("What are the 3 essential components of the grammar of graphics?",
+    answer("data", TRUE),
+    answer("geometric object", TRUE),
+    answer("aesthetic attributes", TRUE),
+    answer("scales"),
+    answer("coordinate systems"),
+    answer("faceting"),
+    answer("position adjustments"),
+    allow_retry = TRUE,
+    random_answer_order = TRUE
+  )
 ```
 
 
-## Reading Quiz
-
-```{r Q}
-#reading check 2
-quiz(
-  caption = NULL,
-  #Q1
-  question("Q1) What is the name of the theoretical framework for data visualization that is the foundation of the ggplot2 package?",
-    type = "learnr_text",
-    answer_fn(function(value){
-            if (str_remove_all(tolower(value), " ") %in% 
-                c("thegrammarofgraphics", 
-                  "grammarofgraphics",
-                  "layeredgrammarofgraphics", 
-                  "thelayeredgrammarofgraphics")) {
-                 return(mark_as(TRUE))}
-                 return(mark_as(FALSE) )
-                              }),
-    allow_retry = TRUE
-  ),
-  #Q2
-  question("Q2) Which of the following are examples of aesthetic
+```{r grammar-graphics-2}
+question("Which of the following are examples of aesthetic
            attributes of geometric objects?",
     answer("color", correct = TRUE),
     answer("point"),
@@ -136,45 +99,222 @@ quiz(
     answer("size", correct = TRUE),
     allow_retry = TRUE,
     random_answer_order = TRUE
-  ),
-  # Q3
-  question_wordbank(paste("Q3) Drag and drop the variables to match the aesthetics they are mapped onto in Figure 2.1", htmltools::img(src="images/Figure_02_1.png", height = 400, width = 700) ),
+  )
+  
+```
+
+
+```{r grammar-graphics-3}
+question_wordbank(paste("Drag and drop the variables to match the aesthetics they are mapped onto in Figure 2.1", htmltools::img(src="images/Figure_02_1.png", height = 400, width = 700) ),
           choices = c("x","size",  "color", "doesn't get mapped", "y"),
           wordbank = c("GDP per Capita", "Population", "Continent", "Country", "Life Expectancy"),
           answer(c("GDP per Capita", "Population", "Continent", "Country", "Life Expectancy"), correct = TRUE), 
         allow_retry = TRUE,
-        random_answer_order = TRUE ),
-  # Q4
-  question("Q4) In a dataframe: Rows corresponds to ____ and columns correspond to ___.",
-           answer("variables; observations"),
-           answer("observations; variables", correct = TRUE),
-           answer("values", "variables"),
-           answer("observations", "values"),
-           allow_retry = TRUE,
-           random_answer_order = TRUE),
-  # Q5
-  question("Q5) What does the term `argument` refer to in R?",
-           answer("output of a function"),
-           answer("input to a function", correct = TRUE),
-           answer("assigned name of an object"),
-           allow_retry = TRUE,
-           random_answer_order = TRUE),
-  # Q6
-  question_numeric("Q6) How many Alaska Airlines flights are in the flights data frame?", 
-           answer(714, correct = TRUE),
-           step = 1,
-           allow_retry = TRUE),
-  # Q7
-  question("Q7) What type of relationship exists between
-           departure delays and arrival delays for Alaska
-           Airlines flights from NYC in 2013?",
+        random_answer_order = TRUE )
+```
+
+### Exercise 4
+
+Load the package we will be using for data visualization, which is an implementation of the Grammar of Graphics for R.
+
+```{r grammar-graphics-4, exercise = TRUE}
+
+```
+
+```{r grammar-graphics-4-hint-1, eval = FALSE}
+library(...)
+```
+
+```{r grammar-graphics-4-solution, exercise.reveal_solution = FALSE}
+library(ggplot2)
+```
+
+```{r grammar-graphics-4-check}
+grade_this_code()
+```
+
+
+## 5NG#1: Scatterplots
+
+The simplest of the 5NG are scatterplots, also called bivariate plots. 
+
+```{r scatterplots-1}
+question("Scatterplots allow you to visualize...",
+    answer("the relationship between 2 numeric variables", correct = TRUE),
+    answer("the relationship between 2 categorical variables"),
+    answer("the distribution of 1 numeric variable"),
+    answer("the relationship between 1 numeric and 1 categorical variables"),
+    answer("the distribution of 1 categorical variable"),
+    allow_retry = TRUE,
+    random_answer_order = TRUE
+  )
+  
+```
+
+### Exercise 2
+
+Let's visualize the relationship between departure delay and arrival delay for Alaska Airlines flights leaving NYC in 2013.
+
+First load the `nycflights13` package using the `library()` function.
+
+```{r scatterplots-2, exercise = TRUE}
+
+```
+
+```{r scatterplots-2-hint-1, eval = FALSE}
+library(...)
+```
+
+```{r scatterplots-2-solution, exercise.reveal_solution = FALSE}
+library(nycflights13)
+```
+
+```{r scatterplots-2-check}
+grade_this_code()
+```
+
+###
+
+Recall this package contains a dataset called `flights`, which contains data on all 336,776 flights that left NYC in 2013.
+
+### Exercise 3
+
+We’ll take the `flights` data frame, extract only the 714 rows corresponding to Alaska Airlines flights, and save this in a new data frame called `alaska_flights`. Click "Submit Answer" below to create this new dataset.
+
+
+```{r scatterplots-3, exercise = TRUE}
+alaska_flights <- flights %>% 
+  filter(carrier == "AS")
+```
+
+```{r scatterplots-3-hint-1, eval = FALSE}
+alaska_flights <- flights %>% 
+  filter(carrier == "AS")
+```
+
+```{r scatterplots-3-solution, exercise.reveal_solution = FALSE}
+alaska_flights <- flights %>% 
+  filter(carrier == "AS")
+```
+
+```{r scatterplots-3-check}
+grade_this_code()
+```
+
+### Exercise 4
+
+`ggplot()` is the core function of the [**ggplot2**](https://ggplot2.tidyverse.org/index.html) package. It creates a *ggplot object* that serves as a canvas for visualizations. 
+
+Run `ggplot(data = alaska_flights)`.
+
+```{r scatterplots-4, exercise = TRUE}
+
+```
+
+```{r scatterplots-4-hint-1, eval = FALSE}
+ggplot(...)
+```
+
+```{r scatterplots-4-solution, exercise.reveal_solution = FALSE}
+ggplot(alaska_flights)
+```
+
+```{r scatterplots-4-check}
+grade_this_code()
+```
+
+### 
+
+You should see a blank, grey square. R has set up the area in which it can place a plot, but we have yet to tell it what to plot.
+
+
+### Exercise 5
+
+Recall another core component of the grammar of graphics is the *aesthetic mapping*. To use the `mapping` parameter, you have to give `ggplot()` an *aesthetic*, which you get by calling the `aes()` function. For example, if you wanted to set the variable for the x-axis to be `dep_delay`, you would add `mapping = aes(x = dep_delay)` in your call to `ggplot()`. 
+
+###
+
+Copy the previous code. Within the call to `ggplot()`, set `mapping = aes()`. Within `aes()` set the `x` parameter to be `dep_delay`, the `y` parameter to be `arr_delay`, and run your code. 
+
+```{r scatterplots-5, exercise = TRUE}
+
+```
+
+<button onclick="transfer_code(this)">Copy previous code</button>
+
+```{r scatterplots-5-hint-1, eval = FALSE}
+ggplot(data = alaska_flights, mapping = aes(x = ..., y = ...))
+```
+
+```{r scatterplots-5-solution, exercise.reveal_solution = FALSE}
+ggplot(data = alaska_flights, mapping = aes(x = dep_delay, y = arr_delay))
+```
+
+```{r scatterplots-5-check}
+grade_this_code()
+```
+
+###
+
+Common scatterplot language is `y` by `x`.
+We have now mapped `arr_delay` by `dep_delay`, however we do not see any data yet. 
+
+That is because we need to add in the third component of the grammar: the `geom`etric object. For a scatterplot the geometric object are points.
+
+### Exercise 6
+
+Copy the previous code and add `geom_point()` to the pipeline.
+
+To add a layer you use the `+` symbol.
+
+```{r scatterplots-6, exercise = TRUE}
+
+```
+
+<button onclick="transfer_code(this)">Copy previous code</button>
+
+```{r scatterplots-6-hint-1, eval = FALSE}
+ggplot(data = alaska_flights, 
+       mapping = aes(x = dep_delay, y = arr_delay)) + 
+  geom_...
+```
+
+```{r scatterplots-6-solution, exercise.reveal_solution = FALSE}
+ggplot(data = alaska_flights, mapping = aes(x = dep_delay, y = arr_delay)) +
+  geom_point()
+```
+
+```{r scatterplots-6-check}
+grade_this_code()
+```
+
+### Exercise 7
+
+When describing the relationship between 2 numeric variables there are a few key concepts we look for:
+
+- Classify association as positive, negative, or no association.
+- Classify strength of association: strong, moderate, weak.
+- Describe overall pattern: linear, nonlinear, etc.
+
+```{r scatterplots-7}
+question("What type of relationship exists between departure delays and arrival delays for Alaska Airlines flights from NYC in 2013?",
            answer("positive", correct = TRUE),
            answer("negative"),
            answer("no relationship"),
            allow_retry = TRUE,
-           random_answer_order = TRUE),
-  # Q8
-  question("Q8) Select the statements that are TRUE about 
+           random_answer_order = TRUE)
+```
+
+###
+
+As departure delays increase, arrival delays tend to also increase meaning we have a **positive** relationship. We could also say this is a fairly **strong linear** relationship with a large mass of points clustered near (0, 0).
+
+### Exercise 8
+
+Before we move on, let's make sure we understand the use of the `+` operator.
+
+```{r scatterplots-8}
+question("Select the statements that are TRUE about 
            the + sign when using ggplot()",
            answer("Not using the + sign to add a geometric 
                   object will result in an empty plot.", 
@@ -184,17 +324,144 @@ quiz(
            answer("The + sign should go at the beginning 
                   of a new line."),
            allow_retry = TRUE,
-           random_answer_order = TRUE),
-  #Q9
-  question("Q9) What is the name of the aesthetic argument that allows you to change the transparency of a geometric object in ggplot()?",
+           random_answer_order = TRUE)
+```
+
+
+### Exercise 9
+
+The large mass of points near (0, 0) can cause some confusion as it is hard to tell the true number of points that are plotted. This is the result of a phenomenon called **overplotting**. As one may guess, this corresponds to values being plotted on top of each other over and over again. It is often difficult to know just how many values are plotted in this way when looking at a basic scatterplot as we have here.
+
+###
+
+```{r scatterplots-9}
+question("What is the name of the aesthetic argument that allows you to change the transparency of a geometric object in ggplot()?",
            answer("alpha", correct = TRUE),
            answer("color"),
            answer("jitter"),
            answer("transparency"),
            allow_retry = TRUE,
            random_answer_order = TRUE)
-)
+```
 
+### Exercise 10
+
+The first way of addressing overplotting is by changing the transparency of the points by using the alpha argument in geom_point().
+
+###
+
+The code from Exercise 6 has been copied for you below. Adjust the transparency by setting `alpha = 0.2`.
+
+```{r scatterplots-10, exercise = TRUE}
+ggplot(data = alaska_flights, mapping = aes(x = dep_delay, y = arr_delay)) +
+  geom_point(alpha = 0.2)
+```
+
+```{r scatterplots-10-hint-1, eval = FALSE}
+ggplot(data = alaska_flights, 
+       mapping = aes(x = dep_delay, y = arr_delay)) + 
+  geom_point(...)
+```
+
+```{r scatterplots-10-solution, exercise.reveal_solution = FALSE}
+ggplot(data = alaska_flights, mapping = aes(x = dep_delay, y = arr_delay)) +
+  geom_point(alpha = 0.2)
+```
+
+```{r scatterplots-10-check}
+grade_this_code()
+```
+
+###
+
+The transparency of the points is cumulative: areas with a high-degree of overplotting are darker, whereas areas with a lower degree are less dark.
+
+### Exercise 11
+
+The second way of adjusting for overplotting is by "jittering" or randomly "nudging" the points.
+
+###
+
+Copy the previous code. And replace `geom_point()` with `geom_jitter()`. Do not include any additional arguments to `geom_jitter()`.
+
+```{r scatterplots-11, exercise = TRUE}
+
+```
+
+<button onclick="transfer_code(this)">Copy previous code</button>
+
+```{r scatterplots-11-hint-1, eval = FALSE}
+ggplot(data = alaska_flights, 
+       mapping = aes(x = dep_delay, y = arr_delay)) + 
+  geom_...()
+```
+
+```{r scatterplots-11-solution, exercise.reveal_solution = FALSE}
+ggplot(data = alaska_flights, mapping = aes(x = dep_delay, y = arr_delay)) +
+  geom_jitter()
+```
+
+```{r scatterplots-11-check}
+grade_this_code()
+```
+
+###
+
+It is possible to specify how much `jitter` to add, by adjust the `width` and `height` arguments.
+
+**Most of the time leaving these blank and letting R pick the default values is sufficient.**
+
+###
+
+If you do specify `width` and `height` check the x and y-axis. It is important to add just enough jitter to break any overlap in points, but not so much that we completely alter the overall pattern in points.
+
+### Exercise 12
+
+```{r scatterplots-12}
+question("Which adjustment appears to be most appropriate for visualizing the relationship between `arr_delay` and `dep_delay`?",
+           answer("setting alpha", correct = TRUE),
+           answer("using geom_jitter()"),
+           allow_retry = TRUE,
+           random_answer_order = TRUE)
+```
+
+###
+
+With the relatively large dataset and fact that the points were clustered (as opposed to directly overlapping), it can be argued that setting the transparency was more effective at handling overplotting in our `alaska_flights` example.
+
+###
+
+With medium to large datasets, you may need to play around with the different modifications one can make to a scatterplot. 
+
+It is also possible to adjust both the transparency and jitter, for example `geom_jitter(alpha = 0.2)`.
+
+<!-- ```{r Q} -->
+<!-- #reading check 2 -->
+<!-- quiz( -->
+<!--   caption = NULL, -->
+<!--   # Q4 -->
+<!--   question("Q4) In a dataframe: Rows corresponds to ____ and columns correspond to ___.", -->
+<!--            answer("variables; observations"), -->
+<!--            answer("observations; variables", correct = TRUE), -->
+<!--            answer("values", "variables"), -->
+<!--            answer("observations", "values"), -->
+<!--            allow_retry = TRUE, -->
+<!--            random_answer_order = TRUE), -->
+<!--   # Q5 -->
+<!--   question("Q5) What does the term `argument` refer to in R?", -->
+<!--            answer("output of a function"), -->
+<!--            answer("input to a function", correct = TRUE), -->
+<!--            answer("assigned name of an object"), -->
+<!--            allow_retry = TRUE, -->
+<!--            random_answer_order = TRUE) -->
+<!-- ) -->
+<!-- ``` -->
+
+
+## View grade
+
+```{r}
+grade_button_ui(id = "grade")
 ```
 
 

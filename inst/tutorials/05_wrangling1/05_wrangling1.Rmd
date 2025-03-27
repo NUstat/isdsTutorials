@@ -6,7 +6,7 @@ tutorial:
   
 output:
   learnr::tutorial:
-    progressive: false
+    progressive: true
     allow_skip: true
     css: ["css/nu-theme.css"]
 runtime: shiny_prerendered
@@ -18,16 +18,26 @@ description: >
 ```{r setup, include=FALSE}
 library(learnr)
 library(tidyverse)
+library(nycflights13)
 library(tutorialExtras)
 library(gradethis)
+library(tutorial.helpers)
+library(ggcheck)
 
 gradethis_setup()
 knitr::opts_chunk$set(echo = FALSE)
+options(
+  tutorial.exercise.timelimit = 60
+  #tutorial.storage = "local"
+  ) 
 ```
 
 
 ```{r, context = "server"}
 grade_server("grade")
+```
+
+```{r copy-code-chunk, child = system.file("child_documents/copy_button.Rmd", package = "tutorial.helpers")}
 ```
 
 ```{r Name}
@@ -42,15 +52,11 @@ question_text("Name:",
               allow_retry = FALSE )
 ```
 
-```{r}
-grade_button_ui(id = "grade")
-```
-
 ## Instructions
 
 Complete this tutorial while reading Sections 3.0 - 3.3 of the [textbook](https://nustat.github.io/intro-stat-data-sci/03-wrangling.html). Each question allows 3 'free' attempts. After the third attempt a 10% deduction occurs per attempt.
 
-You can click the "View Grade" button as many times as you would like to see your current grade and the number of attempts you are on. Before submitting make sure your grade is as expected.
+You can check your current grade and the number of attempts you are on in the "View grade" section. You can click this button as often and as many times as you would like as you progress through the tutorial. Before submitting, make sure your grade is as expected.
 
 ### Goals
 
@@ -59,90 +65,463 @@ You can click the "View Grade" button as many times as you would like to see you
 -   Use the `filter()` and `summarize()` functions.
 -   Understand how to handle missing values.
 
-## Exercise
 
-Create a new data frame using the dataset `mpg` that is subsetted to include only cars from the year 1999 that get more than 30 miles per gallon on the highway by filling in the blanks (the data is already pre-loaded in R).
+## The pipe operator: %>%
 
-```{r Ex1, exercise=TRUE}
-mpg_subset <- mpg ___
-  filter(___ == "1999" & ___ >= 30)
+The pipe operator %>% allows you to combine multiple data wrangling verb-named functions into a single sequential chain of actions.
+
+###
+
+Say you have a data frame `x` and would like to apply 3 functions `f()`, then `g()`, and finally `h()`.
+
+###
+
+One way to achieve this is
+
+```{r, eval = FALSE, echo = TRUE}
+h(g(f(x)))
 ```
 
-```{r Ex1-hint-1}
-Check out the data set `mpg` using ?mpg in the console (make sure you have the package ggplot2 loaded). 
+###
+
+However, this can get messy and difficult to read. Instead we can use the pipe operator to chain the sequence of events together.
+
+###
+
+```{r, eval = FALSE, , echo = TRUE}
+x %>% 
+  f() %>% 
+  g() %>% 
+  h()
 ```
 
-```{r Ex1-solution, exercise.reveal_solution = FALSE}
-mpg_subset <- mpg %>%
-  filter(year == "1999" & hwy >= 30)
+###
+You would read this above sequence as:
+
+- Take `x` then
+- Use this output as the input to the next function `f()` then
+- Use this output as the input to the next function `g()` then
+- Use this output as the input to the next function `h()`
+
+
+## `filter()` rows
+
+The `filter()` allows you to specify criteria about the values of a variable in your dataset and then filters out only those rows that match that criteria.
+
+###
+### Exercise 1
+
+We will begin by focusing only on flights from New York City to Portland, Oregon. But before we do that, we need to load the needed packages.
+
+###
+
+Load the **dplyr** package followed by the **nycflights13** package by using the `library()` command. 
+
+```{r filter-1, exercise = TRUE}
+
 ```
 
-```{r Ex1-check}
+```{r filter-1-hint-1, eval = FALSE}
+library(...)
+library(...)
+```
+
+```{r filter-1-solution, exercise.reveal_solution = FALSE}
+library(dplyr)
+library(nycflights13)
+```
+
+```{r filter-1-check}
 grade_this_code()
 ```
 
 
-## Reading Quiz
+### Exercise 2
 
-```{r Q}
-quiz(
-  caption = NULL,
-  # Q1
-  question("Q1) What is the name of the primary package we will use for data wrangling?", 
-           type = "learnr_text",
-           answer("dplyr", correct = TRUE),
-           allow_retry = TRUE,
-           random_answer_order = TRUE),
-  #Question 2
-  question("Q2) What is the correct syntax for the 'pipe' operator?",
-           answer("<-"),
-           answer("->"),
-           answer(" %>% ",correct=TRUE),
-           answer(" %<% "),
-           allow_retry = TRUE,
-           random_answer_order = TRUE),
-  #Question 3
-  question("Q3) Which line of code will successfully create a new data frame flights_500mi containing only flights that travel at least 500 miles?",
-           answer("flights_500mi <- flights %>% select(distance >= 500)"),
-           answer("flights_500mi <- flights %>% select(distance > 500)"),
-           answer("flights_500mi <- flight %>% mutate(distance > 500)"),
-           answer("flights_500mi <- flights %>% mutate(distance >= 500)"),
-           answer("flights_500mi <- flights %>% filter(distance >= 500)",correct=TRUE),
-           answer("flights_500mi <- flights %>% filter(distance > 500)"),
-           allow_retry = TRUE,
-           random_answer_order = TRUE),
-  #Question 4
-  question("Q4) Which of the following is the correct syntax for 'not equal to'?",
-           answer("NOT ="),
-           answer("!=",correct=TRUE),
-           answer("=!"),
-           answer("=/"),
-           answer("/="),
-           allow_retry = TRUE,
-           random_answer_order = TRUE),
-  #Question 5
-  question_numeric("Q5) What is the standard deviation of the variable temp in the weather dataset?",
-           answer(17.8, correct=TRUE),
-           step = 0.1,
-           tolerance = 0.05,
-           allow_retry = TRUE),
-  #Question 6
-  question("Q6) Which of the following arguments successfully removes missing values before computing a numerical summary (e.g. a mean, standard deviation, etc)?",
-           answer("remove.missing = TRUE"),
-           answer("NA.rm = TRUE"),
-           answer("na.rm = TRUE", correct=TRUE),
-           answer("remove.na = TRUE"),
-           allow_retry = TRUE,
-           random_answer_order = TRUE),
-  #Question 7
-  question("Q7) What is the default value for the na.rm argument in R?", 
-           type = "learnr_text",
-           answer("FALSE", correct = TRUE),
-           answer("F", correct = TRUE),
-           allow_retry = TRUE,
-           random_answer_order = TRUE)
-)
+Pipe `flights` to `filter(dest == "PDX")`.
 
+```{r filter-2, exercise = TRUE}
+
+```
+
+```{r filter-2-hint-1, eval = FALSE}
+flights %>% 
+  filter(...)
+```
+
+```{r filter-2-solution, exercise.reveal_solution = FALSE}
+flights %>%
+  filter(dest == "PDX")
+```
+
+```{r filter-2-check}
+grade_this_code()
+```
+
+###
+
+The easiest way to pronounce the pipe is “then”.
+
+###
+
+The pipe, takes the `flights` dataset and "then" `filters` it to only contain observations where the `dest`ination is equal to "PDX".
+
+###
+
+`filter()` changes which rows are present without changing their order. 
+
+Note that only `r scales::comma(nrow(nycflights13::flights %>% filter(dest == "PDX")))` rows remain after we filter for such a long departure delay. Why do we only see 1,000 rows here? Because Quarto, by default, only keeps 1,000 rows for display purposes.
+
+
+### Exercise 3
+
+In the last Exercise our filtered dataset was being **printed**. If we want to use the dataset in the future, it is useful to **store** the wrangled dataset as a new object.
+
+###
+
+Use the assignment arrow `<-` to assign this new dataset the name `portland_flights`. 
+
+In other words type `portland_flights <-` before `flights`.
+
+```{r filter-3, exercise = TRUE}
+
+```
+
+<button onclick="transfer_code(this)">Copy previous code</button>
+
+```{r filter-3-hint-1, eval = FALSE}
+... <- flights %>% 
+  filter(dest == "PDX")
+```
+
+```{r filter-3-solution, exercise.reveal_solution = FALSE}
+portland_flights <- flights %>%
+  filter(dest == "PDX")
+```
+
+```{r filter-3-check}
+grade_this_code()
+```
+
+###
+
+If you run this code in `RStudio` you will see `portland_flights` appear in the **Environment pane**.
+
+### Exercise 4
+
+We test for equality using the double equal sign `==` and not a single equal sign `=`.
+
+```{r filter-4}
+question_wordbank("Match the following definitions with their mathematical operators.",
+        choices = c("equal to",
+                    "greater than",
+                    "and",
+                    "less than or equal to",
+                    "not equal to",
+                    "or"),
+        wordbank = c(">", "&", "<=", "!=", ">=", "|", "<", "=", "=="),
+        answer(c("==",">", "&", "<=", "!=", "|"), 
+        correct = TRUE), 
+        allow_retry = TRUE )
+```
+
+
+## `summarize()` variables
+
+The next common task when working with data is to return summary statistics: a single numerical value that summarizes a large number of values, for example the mean/average or the median.
+
+###
+### Exercise 1
+
+Let’s calculate the mean and the standard deviation of the temperature variable `temp` in the `weather` data frame included in the `nycflights13` package.
+
+###
+
+Pipe `weather` to `summarize(mean(temp))`.
+
+```{r summarize-1, exercise = TRUE}
+
+```
+
+```{r summarize-1-hint-1, eval = FALSE}
+weather %>% 
+  summarize(mean(temp))
+```
+
+```{r summarize-1-solution, exercise.reveal_solution = FALSE}
+weather %>% 
+  summarize(mean(temp))
+```
+
+```{r summarize-1-check}
+grade_this_code()
+```
+
+###
+
+Notice two things.
+
+1) the name of the new variable was called \`mean(temp)\` 
+2) the result is `NA`
+
+### Exercise 2
+
+Let's start with fixing the variable name. You always want to name your new variable or the output get's very messy.
+
+###
+
+Let's assign the calculation to the name `mean_temp` by instead typing `summarize(mean_temp = mean(temp))`
+
+
+```{r summarize-2, exercise = TRUE}
+
+```
+
+<button onclick="transfer_code(this)">Copy previous code</button>
+
+```{r summarize-2-hint-1, eval = FALSE}
+weather %>% 
+  summarize(... = mean(temp))
+```
+
+```{r summarize-2-solution, exercise.reveal_solution = FALSE}
+weather %>% 
+  summarize(mean_temp = mean(temp))
+```
+
+```{r summarize-2-check}
+grade_this_code()
+```
+
+###
+
+Much better! Now let's fix our `NA` issue. 
+
+### Exercise 3
+
+`NA` is how R encodes missing values where `NA` indicates “not available” or “not applicable.”
+
+###
+
+We can work around this by "removing" the `NA` values by setting `na.rm = TRUE` within the `mean()` function as follows: `mean(temp, na.rm = TRUE)`.
+
+```{r summarize-3, exercise = TRUE}
+
+```
+
+<button onclick="transfer_code(this)">Copy previous code</button>
+
+```{r summarize-3-hint-1, eval = FALSE}
+weather %>% 
+  summarize(mean_temp = mean(temp, ...))
+```
+
+```{r summarize-3-solution, exercise.reveal_solution = FALSE}
+weather %>% 
+  summarize(mean_temp = mean(temp, na.rm = TRUE))
+```
+
+```{r summarize-3-check}
+grade_this_code()
+```
+
+###
+
+The average temperature is 55.3 degrees.
+
+### Exercise 4
+
+We also wanted to calculate the standard deviation.
+
+###
+
+Within the **same summarize** function, add a comma (,) after `mean(temp, na.rm = TRUE)` and then add `std_dev = sd(temp, na.rm = TRUE)`.
+
+```{r summarize-4, exercise = TRUE}
+
+```
+
+<button onclick="transfer_code(this)">Copy previous code</button>
+
+```{r summarize-4-hint-1, eval = FALSE}
+weather %>% 
+  summarize(mean_temp = mean(temp, na.rm = TRUE),
+            ... = ...)
+```
+
+```{r summarize-4-solution, exercise.reveal_solution = FALSE}
+weather %>% 
+  summarize(mean_temp = mean(temp, na.rm = TRUE),
+            std_dev = sd(temp, na.rm = TRUE))
+```
+
+```{r summarize-4-check}
+grade_this_code()
+```
+
+###
+
+The name of the new variable you calculated is `std_dev` and the function that calculated the standard deviation was `sd()`. 
+
+###
+
+It is good practice to always run your code after each step or function to ensure there are no errors and to check the output.
+
+### Exercise 5
+
+Notice in the previous exercise the summary statistics were being directly printed out.
+
+###
+
+This is because we did not **store** the results.
+Copy the previous code and type `summary_temp <-` before `weather`.
+
+```{r summarize-5, exercise = TRUE}
+
+```
+
+<button onclick="transfer_code(this)">Copy previous code</button>
+
+```{r summarize-5-hint-1, eval = FALSE}
+... <- weather %>% 
+  summarize(mean_temp = mean(temp, na.rm = TRUE),
+            std_dev = sd(temp, na.rm = TRUE))
+```
+
+```{r summarize-5-solution, exercise.reveal_solution = FALSE}
+summary_temp <- weather %>% 
+  summarize(mean_temp = mean(temp, na.rm = TRUE),
+            std_dev = sd(temp, na.rm = TRUE))
+```
+
+```{r summarize-5-check}
+grade_this_code()
+```
+
+###
+
+Now there is no output because the results have been stored in a new data frame called `summary_temp`. If you run this code in RStudio this new object would appear in the **Environment pane**.
+
+### Exercise 6
+
+Now we can print/use this new data frame by typing `summary_temp`.
+
+###
+
+Copy the previous code and on the next line type `summary_temp`.
+
+```{r summarize-6, exercise = TRUE}
+
+```
+
+<button onclick="transfer_code(this)">Copy previous code</button>
+
+```{r summarize-6-hint-1, eval = FALSE}
+summary_temp <- weather %>% 
+  summarize(mean_temp = mean(temp, na.rm = TRUE),
+            std_dev = sd(temp, na.rm = TRUE))
+...
+```
+
+```{r summarize-6-solution, exercise.reveal_solution = FALSE}
+summary_temp <- weather %>% 
+  summarize(mean_temp = mean(temp, na.rm = TRUE),
+            std_dev = sd(temp, na.rm = TRUE))
+summary_temp
+```
+
+```{r summarize-6-check}
+grade_this_code()
+```
+
+
+### Exercise 7
+
+There are a variety of different functions you could also use within `summarize()`.
+
+
+```{r summarize-7}
+question_wordbank("Match the following definitions with their functions.",
+        choices = c("interquartile range",
+                    "mean/average",
+                    "minimum",
+                    "number of observations"),
+        wordbank = c("max()", "IQR()", "mean()", "min()", "n()", "sd()", "iqr()", "avg()", "count()"),
+        answer(c("IQR()", "mean()", "min()", "n()"), 
+        correct = TRUE), 
+        allow_retry = TRUE )
+```
+
+
+
+
+<!-- ## Reading Quiz -->
+
+<!-- ```{r Q} -->
+<!-- quiz( -->
+<!--   caption = NULL, -->
+<!--   # Q1 -->
+<!--   question("Q1) What is the name of the primary package we will use for data wrangling?",  -->
+<!--            type = "learnr_text", -->
+<!--            answer("dplyr", correct = TRUE), -->
+<!--            allow_retry = TRUE, -->
+<!--            random_answer_order = TRUE), -->
+<!--   #Question 2 -->
+<!--   question("Q2) What is the correct syntax for the 'pipe' operator?", -->
+<!--            answer("<-"), -->
+<!--            answer("->"), -->
+<!--            answer(" %>% ",correct=TRUE), -->
+<!--            answer(" %<% "), -->
+<!--            allow_retry = TRUE, -->
+<!--            random_answer_order = TRUE), -->
+<!--   #Question 3 -->
+<!--   question("Q3) Which line of code will successfully create a new data frame flights_500mi containing only flights that travel at least 500 miles?", -->
+<!--            answer("flights_500mi <- flights %>% select(distance >= 500)"), -->
+<!--            answer("flights_500mi <- flights %>% select(distance > 500)"), -->
+<!--            answer("flights_500mi <- flight %>% mutate(distance > 500)"), -->
+<!--            answer("flights_500mi <- flights %>% mutate(distance >= 500)"), -->
+<!--            answer("flights_500mi <- flights %>% filter(distance >= 500)",correct=TRUE), -->
+<!--            answer("flights_500mi <- flights %>% filter(distance > 500)"), -->
+<!--            allow_retry = TRUE, -->
+<!--            random_answer_order = TRUE), -->
+<!--   #Question 4 -->
+<!--   question("Q4) Which of the following is the correct syntax for 'not equal to'?", -->
+<!--            answer("NOT ="), -->
+<!--            answer("!=",correct=TRUE), -->
+<!--            answer("=!"), -->
+<!--            answer("=/"), -->
+<!--            answer("/="), -->
+<!--            allow_retry = TRUE, -->
+<!--            random_answer_order = TRUE), -->
+<!--   #Question 5 -->
+<!--   question_numeric("Q5) What is the standard deviation of the variable temp in the weather dataset?", -->
+<!--            answer(17.8, correct=TRUE), -->
+<!--            step = 0.1, -->
+<!--            tolerance = 0.05, -->
+<!--            allow_retry = TRUE), -->
+<!--   #Question 6 -->
+<!--   question("Q6) Which of the following arguments successfully removes missing values before computing a numerical summary (e.g. a mean, standard deviation, etc)?", -->
+<!--            answer("remove.missing = TRUE"), -->
+<!--            answer("NA.rm = TRUE"), -->
+<!--            answer("na.rm = TRUE", correct=TRUE), -->
+<!--            answer("remove.na = TRUE"), -->
+<!--            allow_retry = TRUE, -->
+<!--            random_answer_order = TRUE), -->
+<!--   #Question 7 -->
+<!--   question("Q7) What is the default value for the na.rm argument in R?",  -->
+<!--            type = "learnr_text", -->
+<!--            answer("FALSE", correct = TRUE), -->
+<!--            answer("F", correct = TRUE), -->
+<!--            allow_retry = TRUE, -->
+<!--            random_answer_order = TRUE) -->
+<!-- ) -->
+
+<!-- ``` -->
+
+## View grade
+
+```{r}
+grade_button_ui(id = "grade")
 ```
 
 ## Submit

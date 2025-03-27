@@ -6,7 +6,7 @@ tutorial:
   
 output:
   learnr::tutorial:
-    progressive: false
+    progressive: true
     allow_skip: true
     css: ["css/nu-theme.css"]
 runtime: shiny_prerendered
@@ -18,15 +18,26 @@ description: >
 library(learnr)
 library(tidyverse)
 library(tutorialExtras)
+library(sortable)
 library(gradethis)
+library(tutorial.helpers)
+library(ggcheck)
 
 gradethis_setup()
 knitr::opts_chunk$set(echo = FALSE)
+options(
+  tutorial.exercise.timelimit = 60
+  #tutorial.storage = "local"
+  ) 
 
+x <- 44 - 20
 ```
 
 ```{r, context = "server"}
-grade_server("grade", exclude = c("Ex4"))
+grade_server("grade")
+```
+
+```{r copy-code-chunk, child = system.file("child_documents/copy_button.Rmd", package = "tutorial.helpers")}
 ```
 
 ```{r Name}
@@ -42,15 +53,11 @@ question_text("Name:",
               allow_retry = FALSE )
 ```
 
-```{r}
-grade_button_ui(id = "grade")
-```
-
 ## Instructions
 
-Complete this tutorial while reading the Preface and Chapter 1 of the [textbook](https://nustat.github.io/intro-stat-data-sci/). Each question allows 3 'free' attempts. After the third attempt a 10% deduction occurs per attempt.
+Complete this tutorial while reading the Preface and Chapter 1 of the [textbook](https://nustat.github.io/intro-stat-data-sci/). Each question or exercise allows 3 'free' attempts. After the third attempt a 10% deduction occurs per attempt.
 
-You can click the "View Grade" button as many times as you would like to see your current grade and the number of attempts you are on. Before submitting make sure your grade is as expected.
+You can check your current grade and the number of attempts you are on in the "View grade" section. You can click this button as often and as many times as you would like as you progress through the tutorial. Before submitting, make sure your grade is as expected.
 
 ### Goals
 
@@ -59,61 +66,177 @@ You can click the "View Grade" button as many times as you would like to see you
 -   Understand the functions of important packages.
 -   Understand how to find information from a dataframe.
 
+## Preface
 
-## Exercises
+As you progress through this tutorial you will encounter questions and exercises to be completed. Be sure to click Submit Answer after completing each one.
 
-**Exercise 1:**
+```{r preface-1}
+question_rank("Arrange the topics in order of what you'll cover in this book.",
+           answer(c("Data Exploration", "Data Modeling", "Statistical Theory", "Statistical Inference"), correct = TRUE),
+           allow_retry = TRUE,
+           random_answer_order = TRUE)
+```
 
-A code chunk can be used as a calculator. Try typing 2+2 into the code chunk and running the code.
+```{r preface-2}
+question("Which of the following helps ensure research is reproducible? Select all that apply.",
+           answer("Copying and pasting results into a word processor"),
+           answer("Using a workflow tool such as RMarkdown", correct = TRUE),
+           answer("Literate programming (i.e. code that is readable)", correct = TRUE),
+           answer("Well-documented data cleaning and analyses", correct = TRUE),
+           allow_retry = TRUE,
+           random_answer_order = TRUE)
+```
 
-```{r Ex1, exercise=TRUE}
+
+## What are R and RStudio?
+
+For much of this book, we will assume that you are using R via RStudio. First time users often confuse the two.
+
+```{r r-rstudio-1}
+question("___ is a programming language (like a car's engine); and ___ is an inintegrated development environment (like a car dashboard)",
+           answer("R; RStudio", correct = TRUE),
+           answer("RStudio; R"),
+           allow_retry = TRUE,
+           random_answer_order = TRUE)
+```
+
+```{r r-rstudio-2}
+question("Which of the following applications do you need to install on your computer for this course?",
+           answer("R only"),
+           answer("Both R and RStudio"),
+           answer("RStudio only"),
+           answer("None. Posit Cloud uses your web browser.", correct = TRUE),
+           allow_retry = TRUE,
+           random_answer_order = TRUE)
+```
+
+
+## How do I code in R?
+
+In a Quarto document (.qmd), You type code into a "code chunk" and run the code with the "green arrow". 
+###
+
+The best way to master these topics is, in our opinions, "learning by doing" and lots of repetition.
+
+### Exercise 1
+
+Type `x <- 44 - 20` in the code chunk below and click "Submit Answer".
+
+```{r how-to-code-1, exercise=TRUE}
 
 ```
 
-```{r Ex1-solution, exercise.reveal_solution = FALSE}
-2 + 2
+```{r how-to-code-1-solution, exercise.reveal_solution = FALSE}
+x <- 44 - 20
 ```
 
-```{r Ex1-check}
+```{r how-to-code-1-check}
 grade_this_code()
 ```
 
-**Exercise 2:**
+###
 
-You can **store** output/results into a variable. Storing output allows you to access the variable later on. When working in Posit, these variables will appear in your **Environment** tab.
+Clicking the "Submit Answer" button will run your code and count as an "attempt" at the exercise. If you want to run your code without using an attempt,  you can click "Run Code" to check the output. Just make sure you click "Submit Answer" before moving onto the next exercise.
 
-Fill in the blanks to store the result of `20*40` into the variable `x`. Note that * is the notation for multiply.
+###
 
-```{r Ex2, exercise = TRUE, exercise.blanks = TRUE}
-x ___ 20*___
+Notice that there was **no output** from the code chunk. That is because we assigned the value of `44 - 20` to an object named `x`. 
+
+###
+
+In RStudio, the object `x` will appear as a stored object in the Environment pane. Anything you store in the Environment pane can be referenced and used later. 
+
+###
+
+If you run `x <- 44 - 20` in your **Console** (outside of this tutorial) you can observe this. Note: objects created in this tutorial will not exist outside of this tutorial.
+
+### Exercise 2
+
+Copy the previous code and **on the next line** type `x`. Then click `Submit Answer`.
+
+```{r how-to-code-2, exercise=TRUE}
+
 ```
 
-```{r Ex2-hint-1}
-The assignment operator is `<-`
+<button onclick = "transfer_code(this)">Copy previous code</button>
+
+```{r how-to-code-2-hint-1, eval = FALSE}
+x <- 44 - 20
+...
 ```
 
-```{r Ex2-solution, exercise.reveal_solution = FALSE}
-x <- 20*40
+```{r how-to-code-2-solution, exercise.reveal_solution = FALSE}
+x <- 44 - 20
+x
 ```
 
-```{r Ex2-check}
+```{r how-to-code-2-check}
 grade_this_code()
 ```
 
+###
 
-**Exercise 3:**
+You have just printed the object `x` that you created.
+
+### Exercise 3
+
+Copy and paste the previous code, remove the printing of `x`. This time on the second line, assign the value of `3` to the object `three`. Finally, add the two objects by typing `x + three`.
+
+```{r how-to-code-3, exercise=TRUE}
+
+```
+
+<button onclick = "transfer_code(this)">Copy previous code</button>
+
+```{r how-to-code-3-hint-1, eval = FALSE}
+x <- 44 - 20
+three <- ...
+...
+```
+
+```{r how-to-code-3-solution, exercise.reveal_solution = FALSE}
+x <- 44 - 20
+three <- 3
+x + 3
+```
+
+```{r how-to-code-3-check}
+grade_this_code()
+```
+
+### Exercise 4
+
+R has a variety of different data structures (vector, matrix, list, data frame) and data types(numeric, logical/Boolean, character, and factor). This is not an exhaustive list and we will learn more as we go.
+
+###
+
+Drag and drop a word from the word bank into an empty spot. You can delete an option by dragging the answer into the trash can.
+
+```{r how-to-code-4}
+question_wordbank("Match the following definitions with the terminology.",
+        choices = c(
+          "TRUE/FALSE statements",
+          "a series of values for example: c(6, 11, 13, 31, 90, 92)",
+          "rectangular spreadsheet where rows correspond to observations and columns to variables"),
+        wordbank = c("vector", "Boolean algebra", "data frame", "factor", "logical operators", "functions"),
+        answer(c("Boolean algebra", "vector", "data frame"), 
+               correct = TRUE), 
+        allow_retry = TRUE )
+```
+
+### Exercise 5
 
 A **boolean** statement evaluates to TRUE or FALSE. Type any equation that evaluates to `TRUE`.
 
-```{r Ex3, exercise=TRUE}
+```{r how-to-code-5, exercise=TRUE}
 
 ```
 
-```{r Ex3-solution, exercise.reveal_solution = FALSE}
+```{r how-to-code-5-solution, exercise.reveal_solution = FALSE}
 3 != 2
 ```
 
-```{r Ex3-check}
+```{r how-to-code-5-check}
 grade_this({
   # custom checking code appears here
   if (identical(.result, .solution)) {
@@ -123,97 +246,205 @@ grade_this({
 })
 ```
 
+### Exercise 6
 
-**Exercise 4:**
+One thing that intimidates new R and RStudio users is how it reports errors, warnings, and messages.
 
-The `mpg` dataset is included in the `ggplot2` package. Print the dataset to answer the following questions. You can "print" output by typing the name of the dataset or variable in a code chunk. Try typing `mpg` in the code chunk and clicking `run`.
-
-```{r Ex4, exercise = TRUE}
-
+```{r how-to-code-6}
+question_wordbank("Seeing red text in your console is not always bad. Drag and drop the three different types of feedback R givew with how they should be interpreted.",
+        choices = c("something is wrong! (red traffic light)","everything is working fine, but watch out/pay attention (yellow traffic light)", "everything is working fine (green traffic light)"),
+        wordbank = c("Error", "Warning", "Message"),
+        answer(c("Error", "Warning", "Message"), 
+               correct = TRUE), 
+        allow_retry = TRUE )
 ```
 
+###
 
-```{r Ex4-Q}
-quiz(caption = NULL,
-    # Ex4Q1
-  question("Ex4Q1) Which of the following are names of variables in the mpg data frame?",
-           answer("audi"),
-           answer("manufacturer", correct = TRUE),
-           answer("dplyr"),
-           answer("year", correct = TRUE),
-           answer("drv", correct = TRUE),
-           answer("glimpse"),
-           answer("chr"),
-           allow_retry = TRUE,
-           random_answer_order = TRUE), 
-  # Ex4Q2
-  question("Ex4Q2) What's the city miles per gallon for the first observation in the mpg dataframe?",
-           answer("29"),
-           answer("18", correct = TRUE),
-           answer("21"),
-           answer("0"),
-           answer("NA"),
-           answer("4"), 
-           allow_retry = TRUE,
-           random_answer_order = TRUE) )
-```
+Here are a few useful tips to keep in mind as you learn to program:
 
+- Remember that computers are not actually that smart, rather you have to tell a computer everything it needs to do.
+- Take the "copy, paste, and tweak" approach
+- The best way to learn to code is by doing
+- Practice is key 
 
-## Reading Quiz
+## What are R packages?
 
-```{r Q}
-quiz(caption = NULL,
-     question("Q1) Which of the following help ensure research is reproducible? Select all that apply.",
-           answer("Copying and pasting results into a word processor"),
-           answer("Using a workflow tool such as RMarkdown", correct = TRUE),
-           answer("Literate programming (i.e. code that is readable)", correct = TRUE),
-           answer("Well-documented data cleaning and analyses", correct = TRUE),
-           allow_retry = TRUE,
-           random_answer_order = TRUE),
-  question("Q2) ___ is a programming language (like a car's engine); and ___ is an inintegrated development environment (like a car dashboard)",
-           answer("R; RStudio", correct = TRUE),
-           answer("RStudio; R"),
-           allow_retry = TRUE,
-           random_answer_order = TRUE),
-  question("Q3) Which of the following applications do you need to install on your computer for this course?",
-           answer("R only"),
-           answer("Both R and RStudio"),
-           answer("RStudio only"),
-           answer("None. Posit Cloud uses your web browser.", correct = TRUE),
-           allow_retry = TRUE,
-           random_answer_order = TRUE),
-  # Q4
-  question("Q4) Which of the following is a good analogy for R packages?",
+R packages extend the functionality of R by providing additional functions, data, and documentation.
+
+### Exercise 1
+
+```{r r-packages-1}
+question("Which of the following is a good analogy for R packages?",
            answer("iOS software"),
            answer("iPhone accessories"),
            answer("apps you can download", correct = TRUE),
            answer("a new iPhone"),
            allow_retry = TRUE,
-           random_answer_order = TRUE),
-  # Q5
-  question("Q5) Which of the following lines of code will store the value 30 in the object x? Select all that apply.",
-           answer("x <- 15 + 15", correct = TRUE),
-           answer("x = 30", correct = TRUE),
-           answer("x <- 6*5", correct = TRUE),
-           answer("x == 30"),
-           allow_retry = TRUE,
-           random_answer_order = TRUE), 
-    # Q6
-     question_wordbank("Q6) Seeing red text in your console is not always bad. Drag and drop the three different types of feedback R givew with how they should be interpreted.",
-        choices = c("something is wrong! (red traffic light)","everything is working fine, but watch out/pay attention (yellow traffic light)", "everything is working fine (green traffic light)"),
-        wordbank = c("Error", "Warning", "Message"),
-        answer(c("Error", "Warning", "Message"), 
-               correct = TRUE), 
-        allow_retry = TRUE ),
-  # Q7
-    question_wordbank("Q7) Drag and drop the packages to match their primary purpose",
+           random_answer_order = TRUE)
+```
+
+
+### Exercise 2
+
+```{r r-packages-2}
+question_wordbank("Drag and drop the packages to match their primary purpose",
         choices = c("accompanies this book","data wrangling",  "data visualization"),
         wordbank = c("moderndive", "dplyr", "ggplot2"),
         answer(c("moderndive", "dplyr", "ggplot2"), correct = TRUE), 
         allow_retry = TRUE)
-)
 ```
 
+
+### Exercise 3
+
+Load the **ggplot2** library using `library()`.
+
+```{r r-packages-3, exercise = TRUE}
+
+```
+
+```{r r-packages-3-hint-1, eval = FALSE}
+library(...)
+```
+
+```{r r-packages-3-solution, exercise.reveal_solution = FALSE}
+library(ggplot2)
+```
+
+```{r r-packages-3-check}
+grade_this_code()
+```
+
+
+### 
+
+We always begin our work by loading the packages at the top of our document. Note that the terms "package" and "library" are used interchangeably but that there is no `package()` function. To load a package, you need to use `library()`.
+
+## Explore your first dataset
+
+
+### Exercise 1
+
+Load the **nycflights13** package using `library()` function.
+
+```{r explore-dataset-1, exercise = TRUE}
+
+```
+
+```{r explore-dataset-1-hint-1, eval = FALSE}
+library(...)
+```
+
+```{r explore-dataset-1-solution, exercise.reveal_solution = FALSE}
+library(nycflights13)
+```
+
+```{r explore-dataset-1-check}
+grade_this_code()
+```
+###
+
+This package contains five data sets saved in five separate data frames with information about all domestic flights departing from New York City in 2013. These include Newark Liberty International (EWR), John F. Kennedy International (JFK), and LaGuardia (LGA) airports.
+
+### Exercise 2
+
+Type the name of the dataset that contains information on all 336,776 flights. Then click "Submit Answer".
+
+```{r explore-dataset-2, exercise = TRUE}
+
+```
+
+```{r explore-dataset-2-hint-1, eval = FALSE}
+
+```
+
+```{r explore-dataset-2-solution, exercise.reveal_solution = FALSE}
+flights
+```
+
+```{r explore-dataset-2-check}
+grade_this_code()
+```
+
+### Exercise 3
+
+```{r explore-dataset-3}
+question_numeric("How many variables are in the flights dataset?",
+           answer("19", correct = TRUE),
+           step = 1,
+           allow_retry = TRUE)
+```
+
+### Exercise 4
+
+There are several functions that can help you get a feel for the data contained in a data frame.
+
+###
+
+One of the most popular is `View(data)` where `data` is the name of your dataset.
+
+```{r explore-dataset-4}
+question("Where is an appropriate place to type `View(flights)?",
+            type = "learnr_text",
+           answer_fn(function(value){
+            if (str_remove_all(str_to_lower(value), " ") %in% 
+                c("console", "theconsole")) {
+                 return(mark_as(TRUE))}
+                 return(mark_as(FALSE) ) }),
+           allow_retry = TRUE)
+```
+
+###
+
+It is **VERY IMPORTANT** that you never type `View(data)` directly in a Quarto (.qmd) document. It will produce an **error** when rendering.
+
+
+### Exercise 5
+
+Explore the `flights` dataset by using the `glimpse()` function.
+
+```{r explore-dataset-5, exercise = TRUE}
+
+```
+
+```{r explore-dataset-5-hint-1, eval = FALSE}
+
+```
+
+```{r explore-dataset-5-solution, exercise.reveal_solution = FALSE}
+glimpse(flights)
+```
+
+```{r explore-dataset-5-check}
+grade_this_code()
+```
+
+###
+
+We see that `glimpse()` will give you the first few entries of each variable in a row after the variable. In addition, the data type of the variable is given immediately after each variable's name
+
+### Exercise 6
+
+In the **Console**, run `library(nycflights13)`. The Console and the Tutorial are separate environments. Loading a library in one does not load it in another.
+
+Run `?flights` in the **Console** after loading in the package. After doing so, copy and paste the description here.
+
+```{r explore-dataset-6}
+question_text(NULL,
+	answer("On-time data for all flights that departed NYC (i.e. JFK, LGA or EWR) in 2013.", correct = TRUE),
+	answer("On-time data for all flights that departed NYC (i.e. JFK, LGA or EWR) in 2013. ", correct = TRUE),
+	allow_retry = TRUE,
+	try_again_button = "Edit Answer",
+	incorrect = NULL,
+	rows = 3)
+```
+
+## View grade
+
+```{r}
+grade_button_ui(id = "grade")
+```
 
 ## Submit
 

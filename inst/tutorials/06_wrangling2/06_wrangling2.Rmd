@@ -6,7 +6,7 @@ tutorial:
   
 output:
   learnr::tutorial:
-    progressive: false
+    progressive: true
     allow_skip: true
     css: ["css/nu-theme.css"]
 runtime: shiny_prerendered
@@ -21,14 +21,27 @@ library(tidyverse)
 library(tutorialExtras)
 library(gradethis)
 library(nycflights13)
+library(tutorial.helpers)
+library(ggcheck)
 
 gradethis_setup()
 knitr::opts_chunk$set(echo = FALSE)
+options(
+  tutorial.exercise.timelimit = 60
+  #tutorial.storage = "local"
+  ) 
+
+freq_dest <- flights %>% 
+  group_by(dest) %>% 
+  summarize(num_flights = n())
 ```
 
 
 ```{r, context = "server"}
 grade_server("grade")
+```
+
+```{r copy-code-chunk, child = system.file("child_documents/copy_button.Rmd", package = "tutorial.helpers")}
 ```
 
 ```{r Name}
@@ -43,15 +56,11 @@ question_text("Name:",
               allow_retry = FALSE )
 ```
 
-```{r}
-grade_button_ui(id = "grade")
-```
-
 ## Instructions
 
 Complete this tutorial while reading Sections 3.4 - 3.9 of the [textbook](https://nustat.github.io/intro-stat-data-sci/03-wrangling.html). Each question allows 3 'free' attempts. After the third attempt a 10% deduction occurs per attempt.
 
-You can click the "View Grade" button as many times as you would like to see your current grade and the number of attempts you are on. Before submitting make sure your grade is as expected.
+You can check your current grade and the number of attempts you are on in the "View grade" section. You can click this button as often and as many times as you would like as you progress through the tutorial. Before submitting, make sure your grade is as expected.
 
 ### Goals
 
@@ -59,116 +68,682 @@ You can click the "View Grade" button as many times as you would like to see you
 -   Understand the functionality of `group_by`, `mutate`,`arrange`, and a few other functions.
 -   Use the pipe operator to link multiple operators at once.
 
+## `group_by()` rows
 
-## Exercises
+If you would like to compute summary statistics based on a categorical variable instead of for the entire data set you can use the `group_by()` function.
 
-**Exercise 1**
+###
 
-Fill in the blanks for the code to calculate the mean that standard deviation of the temperature **by** `month`. 
+### Exercise 1
 
-```{r Ex1, exercise=TRUE}
-summary_monthly_temp <- weather %>% 
-  ___(___) %>% 
-  summarize(mean = mean(temp, na.rm = TRUE), 
+In the previous tutorial we calculated the average and standard deviation of `temp`erature in the `weather` data frame with the following code:
+
+```{r, echo = TRUE}
+summary_temp <- weather %>% 
+  summarize(mean_temp = mean(temp, na.rm = TRUE),
             std_dev = sd(temp, na.rm = TRUE))
+summary_temp
+```
 
+###
+
+Let's say instead we wanted the average `temp`erature for each `month`.
+
+Copy the above code and **before** `summarize` add in `group_by(month) %>%`.
+
+Change the name of this dataset to be `summary_monthly_temp` instead of `summary_temp`.
+
+```{r group-by-1, exercise = TRUE}
+
+```
+
+```{r group-by-1-hint-1, eval = FALSE}
+summary_monthly_temp <- weather %>% 
+  ...(...) %>%
+  summarize(mean_temp = mean(temp, na.rm = TRUE),
+            std_dev = sd(temp, na.rm = TRUE))
 summary_monthly_temp
 ```
 
-
-```{r Ex1-solution, exercise.reveal_solution = FALSE}
+```{r group-by-1-solution, exercise.reveal_solution = FALSE}
 summary_monthly_temp <- weather %>% 
-  group_by(month) %>% 
-  summarize(mean = mean(temp, na.rm = TRUE), 
+  group_by(month) %>%
+  summarize(mean_temp = mean(temp, na.rm = TRUE),
             std_dev = sd(temp, na.rm = TRUE))
-
 summary_monthly_temp
 ```
 
-```{r Ex1-check}
+```{r group-by-1-check}
 grade_this_code()
 ```
 
-```{r Ex1-Q}
-quiz(
-  caption = "",
-  question("Ex1 Q1) How many rows does the resulting dataset `summary_monthly_temp` have?",
-           answer("1"),
-           answer("12",correct = TRUE),
-           answer("24"),
-           answer("26,115"),
-           allow_retry = TRUE,
-           random_answer_order = TRUE)
-)
+###
+
+Grouping the `weather` dataset by `month` and then applying the `summarize()` function yields a data frame that displays the mean and standard deviation temperature split by the 12 months of the year.
+
+### Exercise 2
+ 
+Let's consider another example using the `diamonds` data frame included in the `ggplot2` package.
+
+###
+
+Type `diamonds` in the code chunk and click "Submit Answer" to print the data frame.
+
+```{r group-by-2, exercise = TRUE}
+
+```
+
+```{r group-by-2-hint-1, eval = FALSE}
+...
+```
+
+```{r group-by-2-solution, exercise.reveal_solution = FALSE}
+diamonds
+```
+
+```{r group-by-2-check}
+grade_this_code()
+```
+
+###
+
+Observe that the first line of the output reads `# A tibble: 53,940 x 10`. This is an example of meta-data, in this case the number of observations/rows and variables/columns in diamonds. The actual data itself are the subsequent table of values.
+
+### Exercise 3
+
+Now let’s pipe the diamonds data frame into `group_by(cut)`.
+
+```{r group-by-3, exercise = TRUE}
+
+```
+
+<button onclick="transfer_code(this)">Copy previous code</button>
+
+```{r group-by-3-hint-1, eval = FALSE}
+diamonds %>%
+  group_by(...)
+```
+
+```{r group-by-3-solution, exercise.reveal_solution = FALSE}
+diamonds %>%
+  group_by(cut)
+```
+
+```{r group-by-3-check}
+grade_this_code()
+```
+
+###
+
+Observe that now there is additional meta-data: `# Groups: cut [5]` indicating that the grouping structure meta-data has been set based on the 5 possible values AKA levels of the categorical variable cut: `"Fair"`, `"Good"`, `"Very Good"`, `"Premium"`, `"Ideal"`.
+
+### Exercise 4
+
+Copy the previous code and pipe on `summarize(avg_price = mean(price))` at the end. Don't forget to use the pipe operator `%>%` to link functions together.
+
+```{r group-by-4, exercise = TRUE}
+
+```
+
+<button onclick="transfer_code(this)">Copy previous code</button>
+
+```{r group-by-4-hint-1, eval = FALSE}
+diamonds %>%
+  group_by(cut) %>%
+  summarize(...)
+```
+
+```{r group-by-4-solution, exercise.reveal_solution = FALSE}
+diamonds %>%
+  group_by(cut) %>%
+  summarize(avg_price = mean(price))
+```
+
+```{r group-by-4-check}
+grade_this_code()
+```
+
+###
+
+Only by combining a `group_by()` with another data wrangling operation, in this case `summarize()` will the actual data be transformed.
+
+###
+
+If we would like to remove this group structure meta-data, we can pipe the resulting data frame into the `ungroup()` function.
+
+###
+
+You are not limited to grouping by one variable! You can group by multiple variables within the **same** group_by function.
+
+For example:
+
+```{r, echo = TRUE, eval = FALSE}
+new_data <- data %>%
+  group_by(var1, var2) %>%
+  ...
 ```
 
 
-**Exercise 2**
+## `mutate` existing variables
 
-Fill in the blanks for the code to create a new variable that converts the temperature from Fahrenheit to Celsius in the `weather` dataset. This is calculated by using the existing variable `temp` subtracting 32 then dividing by 1.8. 
+Another common transformation of data is to create/compute new variables based on existing ones.
 
-```{r Ex2, exercise=TRUE}
-weather <- weather %>% 
-  ___(temp_in_C = (___-32)/1.8)
+###
+
+### Exercise 1
+
+Using the `weather` data frame from the `nycflights13` package, let's convert the `temp`erature variable from degrees Fahrenheit to degrees Celsius.
+
+###
+
+Start with the `weather` data frame and then pipe on `mutate(temp_in_C = (temp-32)/1.8)`
+
+
+```{r mutate-1, exercise = TRUE}
+
 ```
 
+<button onclick="transfer_code(this)">Copy previous code</button>
 
-```{r Ex2-solution, exercise.reveal_solution = FALSE}
-weather <- weather %>% 
+```{r mutate-1-hint-1, eval = FALSE}
+... %>%
+  mutate(...)
+```
+
+```{r mutate-1-solution, exercise.reveal_solution = FALSE}
+weather %>%
   mutate(temp_in_C = (temp-32)/1.8)
 ```
 
-```{r Ex2-check}
+```{r mutate-1-check}
 grade_this_code()
 ```
 
+###
 
-## Reading Quiz
+If you scroll across the output variables you will see the new variable called `temp_in_C` at the end.
 
-```{r Q}
-quiz(
-  caption = NULL,
-  question_numeric("Q1) How many flights departed from JFK in the flights dataset?", 
-           answer(111279, correct=TRUE),
-           allow_retry = TRUE),
-  question_numeric("Q2) In the weather dataset, what is the average temperature in celcius in December?", 
-           answer(3.58, correct = TRUE),
-           allow_retry = TRUE),
-  question("Q3) What is the name of the dplyr function that allows you to sort the rows of a data frame by the alphanumeric order of a variable/column?", 
-           type = "learnr_text",
-           answer_fn(function(value){
-             if(str_remove_all(value, " ") %in% c("arrange","arrange()") ) {
-               return(mark_as(TRUE))}
-             return(mark_as(FALSE) )}),
-           allow_retry = TRUE),
-    question_wordbank("Q4) Match the general description to the appropriate piece of code in the following code chunk: \n
-      summary_temp <- weather %>% 
-        summarize(mean = mean(temp), std_dev = sd(temp)) ",
-        choices = c("name of the new summary data frame", 
-                    "assignment operator",
-                    "pipe operator",
-                    "name of a new summary variable",
-                    "name of data frame to be summarized"),
-        wordbank = c("summary_temp", "<-", "%>%",
-                 "std_dev", "weather"),
-        answer(c("summary_temp", "<-", "%>%",
-                 "std_dev", "weather"), correct = TRUE), 
-        allow_retry = TRUE ),
-  # Q6
-    question_wordbank("Q5) Match each dplyr verb with the task it accomplishes.",
-            choices = c("only keep desired columns", 
-                        "only keep rows that meet a criteria",
-                        "create a new variable",
-                        "compute the mean of a variable",
-                        "sort by a variable"),
-            wordbank = c("select()", "filter()", "mutate()",
-                     "summarize()","arrange()"),
-            answer(c("select()", "filter()", "mutate()",
-                     "summarize()","arrange()"), 
-                   correct = TRUE), 
-            allow_retry = TRUE )
-)
+###
 
+Notice that the data is being directly printed because we did not **assign** it to an object.
+
+### Exercise 2
+
+Copy the previous code and type `weather <-` **before** `weather`.
+
+```{r mutate-2, exercise = TRUE}
+
+```
+
+<button onclick="transfer_code(this)">Copy previous code</button>
+
+```{r mutate-2-hint-1, eval = FALSE}
+... <- weather %>%
+  mutate(temp_in_C = (temp-32)/1.8)
+```
+
+```{r mutate-2-solution, exercise.reveal_solution = FALSE}
+weather <- weather %>%
+  mutate(temp_in_C = (temp-32)/1.8)
+```
+
+```{r mutate-2-check}
+grade_this_code()
+```
+
+###
+
+Note that we have **overwritten** the original weather data frame with a new version that now includes the additional variable `temp_in_C`.
+
+###
+
+It is **very important** that you ONLY overwrite existing data frames if you are **not losing original information** that you might need later.
+
+###
+
+If you are making modifications that lose original information then you should call this data frame something different, such as `weather_new` or `weather_celsius`.
+
+### Exercise 3
+
+Now print the modified data frame by copying the previous code and typing `weather` on the next line.
+
+```{r mutate-3, exercise = TRUE}
+
+```
+
+<button onclick="transfer_code(this)">Copy previous code</button>
+
+```{r mutate-3-hint-1, eval = FALSE}
+weather <- weather %>%
+  mutate(temp_in_C = (temp-32)/1.8)
+...
+```
+
+```{r mutate-3-solution, exercise.reveal_solution = FALSE}
+weather <- weather %>%
+  mutate(temp_in_C = (temp-32)/1.8)
+weather
+```
+
+```{r mutate-3-check}
+grade_this_code()
+```
+
+###
+
+Notice the `weather` data frame now has our new variable at the end.
+
+## `arrange()` and sort rows
+
+The `dplyr` package has a function called `arrange()` that we will use to sort/reorder a data frame’s rows according to the values of the specified variable.
+
+###
+
+Let’s suppose we were interested in determining the most frequent destination airports for all domestic flights departing from New York City in 2013.
+
+###
+
+We start with the `flights` data set and then `group_by()` `dest`ination. Then we count the number of flights in each group with the `n()` function within `summarize()`. We called this new variable `num_flights`. 
+
+Notice the `n()` function never has any arguments within it. It simply counts the number of observations/rows of the data.
+
+This dataset has been created for you and is called `freq_dest`.
+
+```{r, echo = TRUE}
+freq_dest <- flights %>% 
+  group_by(dest) %>% 
+  summarize(num_flights = n())
+
+freq_dest
+```
+
+
+### Exercise 1
+
+Instead of having `freq_dest` ordered based on the destination, let's say we want to arrange based on the number of flights.
+
+Start with `freq_dest` and then pipe on `arrange(num_flights)`.
+
+```{r arrange-1, exercise = TRUE}
+
+```
+
+```{r arrange-1-hint-1, eval = FALSE}
+... %>% 
+  arrange(...)
+```
+
+```{r arrange-1-solution, exercise.reveal_solution = FALSE}
+freq_dest %>% 
+  arrange(num_flights)
+```
+
+```{r arrange-1-check}
+grade_this_code()
+```
+
+###
+
+By default, the rows are sorted with the least frequent destination airports displayed first.
+
+### Exercise 2
+
+To switch the ordering to be descending instead of ascending we use the `desc()` function, which is short for “descending”.
+
+Copy the previous code and update the `arrange()` function to instead contain `desc(num_flights)`.
+
+
+```{r arrange-2, exercise = TRUE}
+
+```
+
+<button onclick="transfer_code(this)">Copy previous code</button>
+
+```{r arrange-2-hint-1, eval = FALSE}
+freq_dest %>% 
+  arrange(...(num_flights))
+```
+
+```{r arrange-2-solution, exercise.reveal_solution = FALSE}
+freq_dest %>% 
+  arrange(desc(num_flights))
+```
+
+```{r arrange-2-check}
+grade_this_code()
+```
+
+###
+
+`ORD` (O'hare) has the most number of flights from NYC in 2013.
+
+## `join` data frames
+
+Another common data transformation task is “joining” or “merging” two different datasets. 
+
+###
+
+Due to the limited time in this course we will not cover this section directly.
+
+However, I strongly encourage you to read through this section as it is a very important task in data science.
+
+
+## Other verbs
+
+### Exercise 1
+
+The `select()` function keeps only a subset of variables/columns. This is especially useful for organization/display.
+
+Say you only need the `carrier` and `flight` variables from the `flights` dataset. 
+
+###
+
+Start with the `flights` data and pipe on the `select()` function. Within `select()` include the variables `carrier` and `flight`.
+
+```{r other-verbs-1, exercise = TRUE}
+
+```
+
+
+```{r other-verbs-1-hint-1, eval = FALSE}
+flights %>%
+  select(..., ...)
+```
+
+```{r other-verbs-1-solution, exercise.reveal_solution = FALSE}
+flights %>%
+  select(carrier, flight)
+```
+
+```{r other-verbs-1-check}
+grade_this_code()
+```
+
+###
+
+This function makes exploring data frames with a very large number of variables easier for humans to process by restricting consideration to only those we care about.
+
+### Exercise 2
+
+If instead you want to remove a variable from the data frame; we can deselect is by using the `-` sign.
+
+###
+
+Remove the variable `year` from the `flights` data frame by piping on `select(-year)`.
+
+```{r other-verbs-2, exercise = TRUE}
+
+```
+
+<button onclick="transfer_code(this)">Copy previous code</button>
+
+```{r other-verbs-2-hint-1, eval = FALSE}
+flights %>%
+  select(-...)
+```
+
+```{r other-verbs-2-solution, exercise.reveal_solution = FALSE}
+flights %>%
+  select(-year)
+```
+
+```{r other-verbs-2-check}
+grade_this_code()
+```
+
+### Exercise 3
+
+Another way of selecting columns/variables is by specifying a range of columns.
+
+Start with the flights data frame and pipe on `select(month:day, arr_time:arr_delay)`.
+
+```{r other-verbs-3, exercise = TRUE}
+
+```
+
+<button onclick="transfer_code(this)">Copy previous code</button>
+
+```{r other-verbs-3-hint-1, eval = FALSE}
+flights %>%
+  select(...)
+```
+
+```{r other-verbs-3-solution, exercise.reveal_solution = FALSE}
+flights %>%
+  select(month:day, arr_time:arr_delay)
+```
+
+```{r other-verbs-3-check}
+grade_this_code()
+```
+
+###
+
+This new data frame kept all variables between `month` and `day` and all variables between `arr_time` and `arr_delay`, inclusive.
+
+### Exercise 4
+
+Recall that if you would like to use this data frame later we need to **store** it as a new object.
+
+Copy the previous code, and store the data frame as `flight_arr_times`. Then print the data frame by typing `flight_arr_times` on the next line.
+
+
+```{r other-verbs-4, exercise = TRUE}
+
+```
+
+<button onclick="transfer_code(this)">Copy previous code</button>
+
+```{r other-verbs-4-hint-1, eval = FALSE}
+... <- flights %>%
+  select(month:day, arr_time:arr_delay)
+...
+```
+
+```{r other-verbs-4-solution, exercise.reveal_solution = FALSE}
+flight_arr_times <- flights %>%
+  select(month:day, arr_time:arr_delay)
+flight_arr_times
+```
+
+```{r other-verbs-4-check}
+grade_this_code()
+```
+
+###
+
+The `select()` function can also be used to reorder columns in combination with the `everything()` helper function. 
+
+###
+
+Lastly, the helper functions `starts_with()`, `ends_with()`, and `contains()` can be used to select variables/column that match those conditions. 
+
+
+### Exercise 5
+
+Another useful function is `rename()`, which as you may have guessed renames one column to another name.
+
+###
+
+Start with the `flights` data frame and pipe on `select(contains("time"))`.
+
+```{r other-verbs-5, exercise = TRUE}
+
+```
+
+<button onclick="transfer_code(this)">Copy previous code</button>
+
+```{r other-verbs-5-hint-1, eval = FALSE}
+flights %>% 
+  ...(...)
+```
+
+```{r other-verbs-5-solution, exercise.reveal_solution = FALSE}
+flights %>% 
+  select(contains("time"))
+```
+
+```{r other-verbs-5-check}
+grade_this_code()
+```
+
+###
+
+This subsets the data frame to only include variables that contain the word "time".
+
+### Exercise 6
+
+Now rename `dep_time` to `departure_time` and `arr_time` to `arrival_time` by piping `rename(departure_time = dep_time, arrival_time = arr_time)` 
+onto the previous code.
+
+```{r other-verbs-6, exercise = TRUE}
+
+```
+
+<button onclick="transfer_code(this)">Copy previous code</button>
+
+```{r other-verbs-6-hint-1, eval = FALSE}
+flights %>% 
+  select(contains("time")) %>%
+  rename(..., 
+         ...)
+```
+
+```{r other-verbs-6-solution, exercise.reveal_solution = FALSE}
+flights %>% 
+  select(contains("time")) %>%
+  rename(departure_time = dep_time, 
+         arrival_time = arr_time)
+```
+
+```{r other-verbs-6-check}
+grade_this_code()
+```
+
+###
+
+Note that in this case we used a single `=` sign within `rename()`, because we are assigning a new variable name and not testing for equality.
+
+### Exercise 7
+
+It's a good habit to run your code before adding on additional functions as we have done because it helps you catch errors and see what your new data frame looks like. 
+
+###
+
+Copy your code and store this new data frame as `flights_time`. No need to print anything.
+
+```{r other-verbs-7, exercise = TRUE}
+
+```
+
+<button onclick="transfer_code(this)">Copy previous code</button>
+
+```{r other-verbs-7-hint-1, eval = FALSE}
+... <- flights %>% 
+  select(contains("time")) %>%
+  rename(departure_time = dep_time, 
+         arrival_time = arr_time)
+```
+
+```{r other-verbs-7-solution, exercise.reveal_solution = FALSE}
+flights_time <- flights %>% 
+  select(contains("time")) %>%
+  rename(departure_time = dep_time, 
+         arrival_time = arr_time)
+```
+
+```{r other-verbs-7-check}
+grade_this_code()
+```
+
+###
+
+There is no output because we did not print anything. In RStudio we could look at this new data frame in the **Environment pane**.
+
+### Exercise 8
+
+We can return observations with maximum or minimum values of a variable using the `slice_max()` or `slice_min()`.
+
+Consider this example:
+
+```{r}
+freq_dest %>% 
+  slice_max(n = 5, order_by =  num_flights)
+```
+
+###
+
+`slice_max` means that we are keeping the **largest** values of a specific variable, in this case `num_flights`. By specifying `n = 5` we are keeping the largest `5` flights.
+
+###
+
+In your **Console**, run `?slice`.
+
+```{r other-verbs-8}
+question("Which of the following are valid slice_*() functions? Select all that apply.", 
+           answer("slice_rand()"),
+           answer("slice_n()"),
+           answer("slice_tail()", correct=TRUE),
+           answer("slice_sample()", correct=TRUE),
+         answer("slice_head()", correct = TRUE),
+           allow_retry = TRUE,
+           random_answer_order = TRUE)
+
+```
+
+
+<!-- ## Reading Quiz -->
+
+<!-- ```{r Q} -->
+<!-- quiz( -->
+<!--   caption = NULL, -->
+<!--   question_numeric("Q1) How many flights departed from JFK in the flights dataset?",  -->
+<!--            answer(111279, correct=TRUE), -->
+<!--            allow_retry = TRUE), -->
+<!--   question_numeric("Q2) In the weather dataset, what is the average temperature in celcius in December?",  -->
+<!--            answer(3.58, correct = TRUE), -->
+<!--            allow_retry = TRUE), -->
+<!--   question("Q3) What is the name of the dplyr function that allows you to sort the rows of a data frame by the alphanumeric order of a variable/column?",  -->
+<!--            type = "learnr_text", -->
+<!--            answer_fn(function(value){ -->
+<!--              if(str_remove_all(value, " ") %in% c("arrange","arrange()") ) { -->
+<!--                return(mark_as(TRUE))} -->
+<!--              return(mark_as(FALSE) )}), -->
+<!--            allow_retry = TRUE), -->
+<!--     question_wordbank("Q4) Match the general description to the appropriate piece of code in the following code chunk: \n -->
+<!--       summary_temp <- weather %>%  -->
+<!--         summarize(mean = mean(temp), std_dev = sd(temp)) ", -->
+<!--         choices = c("name of the new summary data frame",  -->
+<!--                     "assignment operator", -->
+<!--                     "pipe operator", -->
+<!--                     "name of a new summary variable", -->
+<!--                     "name of data frame to be summarized"), -->
+<!--         wordbank = c("summary_temp", "<-", "%>%", -->
+<!--                  "std_dev", "weather"), -->
+<!--         answer(c("summary_temp", "<-", "%>%", -->
+<!--                  "std_dev", "weather"), correct = TRUE),  -->
+<!--         allow_retry = TRUE ), -->
+<!--   # Q6 -->
+<!--     question_wordbank("Q5) Match each dplyr verb with the task it accomplishes.", -->
+<!--             choices = c("only keep desired columns",  -->
+<!--                         "only keep rows that meet a criteria", -->
+<!--                         "create a new variable", -->
+<!--                         "compute the mean of a variable", -->
+<!--                         "sort by a variable"), -->
+<!--             wordbank = c("select()", "filter()", "mutate()", -->
+<!--                      "summarize()","arrange()"), -->
+<!--             answer(c("select()", "filter()", "mutate()", -->
+<!--                      "summarize()","arrange()"),  -->
+<!--                    correct = TRUE),  -->
+<!--             allow_retry = TRUE ) -->
+<!-- ) -->
+
+<!-- ``` -->
+
+## View grade
+
+```{r}
+grade_button_ui(id = "grade")
 ```
 
 ## Submit

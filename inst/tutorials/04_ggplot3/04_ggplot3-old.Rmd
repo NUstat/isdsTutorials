@@ -1,0 +1,188 @@
+---
+title: "RC 04: Chapter 2.7 - 2.9"
+tutorial:
+  id: "RC_04"
+  version: 0.1
+  
+output:
+  learnr::tutorial:
+    progressive: false
+    allow_skip: true
+    css: ["css/nu-theme.css"]
+runtime: shiny_prerendered
+description: >
+  Learn the final two of the 5NG: boxplots and barplots.
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(tidyverse)
+library(tutorialExtras)
+library(gradethis)
+
+gradethis_setup()
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+```{r, context = "server"}
+grade_server("grade")
+```
+
+```{r Name}
+question_text("Name:",
+              answer_fn(function(value){
+                              if(length(value) >= 1 ) {
+                                return(mark_as(TRUE))
+                                }
+                              return(mark_as(FALSE) )
+                              }),
+              correct = "submitted",
+              allow_retry = FALSE )
+```
+
+```{r}
+grade_button_ui(id = "grade")
+```
+
+## Instructions
+
+Complete this tutorial while reading Sections 2.7 - 2.9 of the [textbook](https://nustat.github.io/intro-stat-data-sci/02-visualization.html). Each question allows 3 'free' attempts. After the third attempt a 10% deduction occurs per attempt.
+
+You can click the "View Grade" button as many times as you would like to see your current grade and the number of attempts you are on. Before submitting make sure your grade is as expected.
+
+### Goals
+
+-   Learn to plot and interpret boxplots.
+-   Learn to plot a single categorical variable.
+-   Understand the different ways to visualize two categorical variables in a barplot.
+
+## Exercise
+
+Construct a boxplot of `Species` by `Petal.Length` using the `iris` dataset by filling in the blanks (the data is already preloaded in R).
+
+```{r Ex1, exercise=TRUE}
+ggplot(data = ___, mapping = aes(x = ___, y = ___)) +
+  ___()
+```
+
+```{r Ex1-hint-1}
+Common language: y by x
+```
+
+
+```{r Ex1-solution, exercise.reveal_solution = FALSE}
+ggplot(data = iris, mapping = aes(x = Petal.Length, y = Species)) +
+  geom_boxplot()
+```
+
+```{r Ex1-check}
+grade_this_code()
+```
+
+```{r Ex1-Q}
+quiz(
+  caption = "",
+  question("Ex1 Q1) Which species' boxplot has no outliers?",
+           answer("virginica",
+                  correct = TRUE),
+           answer("versicolor"),
+           answer("setosa"),
+           allow_retry = TRUE,
+           random_answer_order = TRUE)
+)
+```
+
+
+## Reading Quiz
+
+```{r Q}
+quiz(caption = NULL,
+  # Q1
+    question("Q1) Which of the following summary statistics are included in the five-number summary and are used to construct a boxplot when there are no “outliers” in the data?",
+           answer("minimum", correct = TRUE),
+           answer("maximum", correct = TRUE),
+           answer("mode"),
+           answer("first quantile (Q1, 25th percentile)", correct = TRUE),
+           answer("standard deviation"),
+           answer("third quantile (Q3, 75th percentile)", correct = TRUE),
+           answer("median", correct = TRUE),
+           answer("mean"),
+           allow_retry = TRUE,
+           random_answer_order = TRUE), 
+  # Q2
+    question_wordbank("Q2) Drag and drop the features of a boxplot with the information they display about the data.",
+        choices = c("lines extending from the box to points less than the 25th percentile or greater than the 75th percentile",
+                 "interquartile range (i.e. a measure of the spread of the data)",
+                 "outliers",
+                 "1st quartile, median, 3rd quartile (i.e. the middle 50% of the data)"),
+        wordbank = c("whiskers", "length", "dots", "box"),
+        answer(c("whiskers", "length", "dots", "box"), 
+        correct = TRUE), 
+        allow_retry = TRUE ),
+        # Q3
+  question("Q3) Which of the following are visualization techniques that allow comparison of distributions of a numerical variable split or grouped by another variable? Select all that apply.",
+           answer("side-by-side boxplots", correct = TRUE),
+           answer("faceted histogram", correct = TRUE),
+           answer("scatterplot"),
+           answer("barplot"),
+           answer("linegraph"),
+           allow_retry = TRUE,
+           random_answer_order = TRUE), 
+      # Q4
+  question("Q4) Which geometric layer do you use with categorical data that is NOT pre-counted?",
+           answer("geom_bar()", correct = TRUE),
+           answer("geom_col()"),
+           allow_retry = TRUE,
+           random_answer_order = TRUE), 
+        # Q5
+  question("Q5) Which geometric layer do you use with categorical data that is pre-counted?",
+           answer("geom_bar()"),
+           answer("geom_col()", correct = TRUE),
+           allow_retry = TRUE,
+           random_answer_order = TRUE), 
+        # Q6
+  question("Q6) What is the preferred plot for visualizing a categorical variable?",
+           answer("barplot", correct = TRUE),
+           answer("pie chart"),
+           allow_retry = TRUE,
+           random_answer_order = TRUE), 
+          # Q7
+  question("Q7) Which of the following graphs can be used to visualize a single variable? Select all that apply.",
+           answer("linegraph"),
+           answer("barplot", correct = TRUE),
+           answer("boxplot", correct = TRUE),
+           answer("histogram", correct = TRUE),
+           answer("scatterplot"),
+           allow_retry = TRUE,
+           random_answer_order = TRUE), 
+  question("Q8) Which type of plot would be best to visualize differences in the distribution of life expectancy by continent?",
+           answer("side-by-side boxplots", correct = TRUE),
+           answer("scatterplot"),
+           answer("barplot"),
+           answer("histogram"),
+           allow_retry = TRUE,
+           random_answer_order = TRUE),
+          # Q9
+  question("Q8) Which of the following does ggplot() expect to be listed as the second argument by default?",
+           answer("geom"),
+           answer("mapping", correct = TRUE),
+           answer("x"),
+           answer("data"),
+           allow_retry = TRUE,
+           random_answer_order = TRUE)
+)
+```
+
+## Submit
+
+Once you are finished:
+
+-   Click the 'Download Grade' button below. This will download an html document of your grade summary.
+-   Make sure your grade is correct and as expected!
+-   Submit the downloaded html to Canvas.
+
+```{r}
+grade_print_ui("grade")
+```
+
