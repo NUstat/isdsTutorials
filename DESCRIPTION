@@ -30,7 +30,7 @@ Remotes:
     PPBDS/tutorial.helpers,
     rstudio/learnr,
     rstudio/gradethis,
-    NUstat/tutorialExtras
+    NUstat/tutorialExtras,
     rstudio/ggcheck
 Config/testthat/edition: 3  
 Language: en-US
