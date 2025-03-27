@@ -16,7 +16,7 @@ Imports:
     tutorial.helpers,
     tutorialExtras,
     gradethis,
-    ggcheck (>= 0.0.5)
+    ggcheck (>= 0.0.5),
     learnr (>= 0.10.1.9008),
     tutorialExtras
 Suggests:
@@ -33,7 +33,6 @@ Remotes:
     NUstat/tutorialExtras
     rstudio/ggcheck
 Config/testthat/edition: 3  
-Encoding: UTF-8
 Language: en-US
 LazyData: true
 URL: https://nustat.github.io/isdsTutorials/
