@@ -9,12 +9,17 @@ Description: A series of 'learnr' tutorials based on "Introduction to Statistics
     and Data Science" by Elizabeth Tipton, Arend M. Kuyper, Danielle Sass, and 
     Kaitlyn G. Fitzgerald - Adapted from ModernDive by Chester Ismay and Albert Y. Kim.
 License: CC BY 4.0
-Depends:
-    R (>= 3.2.0)
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
 Imports:
-    gradethis (>= 0.1.0.9004),
-    learnr (>= 0.10.1.9008),
+    tutorial.helpers,
     tutorialExtras,
+    gradethis,
+    ggcheck (>= 0.0.5)
+    learnr (>= 0.10.1.9008),
+    tutorialExtras
+Suggests:
     dplyr,
     janitor,
     nycflights13,
@@ -31,6 +36,4 @@ Config/testthat/edition: 3
 Encoding: UTF-8
 Language: en-US
 LazyData: true
-Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
 URL: https://nustat.github.io/isdsTutorials/
