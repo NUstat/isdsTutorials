@@ -436,7 +436,7 @@ question("What is the name of the last color from the output?",
                  return(mark_as(TRUE))}
                  return(mark_as(FALSE) )
                               }),
-         try_again = TRUE
+         allow_retry = TRUE
 )
 ```
 
