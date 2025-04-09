@@ -272,7 +272,7 @@ question_wordbank("Complete the following three statements that define tidy data
 
 Determine if the following tables are in tidy format.
 
-```{r tidy-data-1}
+```{r tidy-data-Q1}
   question_wordbank("",
            choices = c(paste0(htmltools::img(src="images/Figure_04_1_tidy.png", height = 175, width = 350) ), paste0(htmltools::img(src="images/Figure_04_2_nontidy.png", height = 75, width = 350) ), paste0(htmltools::img(src="images/Figure_04_3_tidy.png", height = 75, width = 350) ) ),
            wordbank = c("Tidy", "Not tidy"),
