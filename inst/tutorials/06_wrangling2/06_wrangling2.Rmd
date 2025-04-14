@@ -677,7 +677,9 @@ freq_dest %>%
 
 ###
 
-In your **Console**, run `?slice`.
+In your **Console**, run `?slice`
+
+(If that produces an error try `?dplyr::slice`)
 
 ```{r other-verbs-8}
 question("Which of the following are valid slice_*() functions? Select all that apply.", 
