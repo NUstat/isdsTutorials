@@ -11,7 +11,7 @@ output:
     css: ["css/nu-theme.css"]
 runtime: shiny_prerendered
 description: >
-  Learn how to perform multiple regression.
+  Learn how to perform multiple regression for one numerical & one categorical explanatory variable.
 ---
 
 
@@ -21,16 +21,10 @@ library(tidyverse)
 library(tutorialExtras)
 library(gradethis)
 
-#for exercises
-library(ISLR)
-
-credit_ch6 <- Credit %>%
-  as_tibble() %>%
-  select(debt = Balance, 
-         credit_limit = Limit,
-         income = Income, 
-         credit_rating = Rating,
-         age = Age)
+#for exercise
+library(moderndive)
+evals_ch6 <- evals %>%
+  select(ID, score, age, gender)
 
 gradethis_setup()
 knitr::opts_chunk$set(echo = FALSE)
@@ -66,78 +60,39 @@ You can click the "View Grade" button as many times as you would like to see you
 
 ### Goals
 
--   Be able to perform multiple regression for two numerical explanatory variables.
--   Understand and interpret fitted values and residuals for multiple regression.
--   Understand the implications of grouping in data.
+
+-   Learn how to perform multiple regression for one numerical & one categorical explanatory variable.
+-   Understand the difference between interaction models and parallel slopes models, and know when to use each model.
 
 
 ## Exercises
 
-**Exercise 1:**
+Fill in the blank for the code that produces the following plot:
 
-When creating the data frame credit_ch6, we renamed several variables as we selected them. First, fill in the blanks of the code that accomplished this. 
-
+```{r}
+htmltools::img(src="images/Figure_06_3.png", height = 400, width = 700)
+```
 
 ```{r Ex1, exercise=TRUE}
-library(___)
+ggplot(evals_ch6, aes(x = ___, y = ___, color = ___)) +
+  ____ +
+  labs(x = ___, y = ___, color = ___) +
+  ___(method = "lm", se = FALSE)
+```
 
-credit_ch6 ___ Credit ___ 
-  as_tibble() %>%
-  select(debt = Balance, 
-         ___ = Limit,
-         ___ = Income, 
-         credit_rating = ___ ,
-         age = Age)
+```{r Ex1-hint-1}
+Remember to include the parentheses for filling in the blank on line 2.
 ```
 
 
 ```{r Ex1-solution, exercise.reveal_solution = FALSE}
-library(ISLR)
-
-credit_ch6 <- Credit %>%
-  as_tibble() %>%
-  select(debt = Balance, 
-         credit_limit = Limit,
-         income = Income, 
-         credit_rating = Rating,
-         age = Age)
-```
-
-```{r Ex1-check}
-grade_this_code()
-```
-
-
-**Exercise 2:**
-
-Fill in the blanks for the code that creates the following plot.
-
-```{r}
-htmltools::img(src="images/Figure_06_1.png", height = 470, width = 410)
-```
-
-
-```{r Ex2, exercise=TRUE}
-ggplot(credit_ch6, aes(x = ___, y = ___)) +
-  geom____() +
-  ___(x = ___, y = ___, ___ = "Debt and income") + 
-  ___(method = ___, se = FALSE)
-
-```
-
-```{r Ex2-hint-1}
-Part 2 Hint: Remember to include labels for the axes
-```
-
-```{r Ex2-solution, exercise.reveal_solution = FALSE}
-ggplot(credit_ch6, aes(x = income, y = debt)) +
+ggplot(evals_ch6, aes(x = age, y = score, color = gender)) +
   geom_point() +
-  labs(x = "Income (in $1000)", y = "Credit card debt (in $)",
-  title = "Debt and income") + 
+  labs(x = "Age", y = "Teaching Score", color = "Gender") +
   geom_smooth(method = "lm", se = FALSE)
 ```
 
-```{r Ex2-check}
+```{r Ex1-check}
 grade_this_code()
 ```
 
@@ -147,60 +102,83 @@ grade_this_code()
 ```{r Q}
 quiz(
   caption = NULL,
+  withMathJax(),
   # Q1
-  question_numeric("Q1) What is the value for the largest amount of debt in the credit_ch6 data set?", 
-           answer(1999, correct = TRUE),
+  question_numeric("Q1) What is the age of the youngest professor in the evals data set?",
+           answer(29, correct = TRUE),
            allow_retry = TRUE),
   # Q2
-  question_numeric("Q2) Consider the following model:\n
-    debt_model <- lm(debt ~ credit_limit + income, data = credit_ch6)\n
-  How many quantities does this model estimate? That is, how many values will there be in the Estimate column of the regression table for this model? ", 
-           answer(3, correct = TRUE),
-           allow_retry = TRUE),
-  # Q3
-  question_numeric("Q3) Consider the following model:\n
-    debt_model <- lm(debt ~ credit_limit + income, data = credit_ch6)\n
-  What is the estimated slope of credit_limit that results from this model? Round to 3 decimal places.", 
-           answer(0.264, correct = TRUE),
+  question_numeric("Q2) What is the value of $b_2$ for the regression model score_model_interaction?  Round to 3 decimal places.", 
+           answer(-0.446, correct = TRUE),
            step = 0.001,
            allow_retry = TRUE),
+  # Q3
+  question_wordbank("Q3) Consider the following model where age and gender are the explanatory/predictor variables, and female is the reference group for gender.\n
+$\\hat{y} = b_0 + b_1*age + b_2*gender + b_3*age*gender$",
+           choices = c("\\( b_{0} \\)", 
+                        "\\( b_{1} \\)", 
+                        "\\( b_{2} \\)", 
+                        "\\( b_{3} \\)", 
+                        "\\( b_{0}+b_{2} \\)", 
+                        "\\( b_{1}+b_{3} \\)"),
+           wordbank = c("intercept for females", "intercept for males", "offset in intercept for males", "offset in slope of age for males", "slope of age for females", "slope of age for males"),
+           answer(c("intercept for females", "slope of age for females", "offset in intercept for males", "offset in slope of age for males", "intercept for males", "slope of age for males"), correct = TRUE),
+           allow_retry = TRUE),
   # Q4
-  question("Q4) What is the name of the phenomenon where relationships that exist in aggregate disappear or reverse when the data are broken into groups?", 
+  question("Q4) What is the value of $1_{is male}(x)$ for the 109th instructor in the evals data set?", 
            type = "learnr_text",
-           answer_fn(function(value){
-            if (str_remove_all(str_to_lower(value), " ") %in% 
-                c("simpson'sparadox", "simpsonparadox", "simpsonsparadox")) {
-                 return(mark_as(TRUE))}
-                 return(mark_as(FALSE) ) }),
+           answer("0", correct = TRUE),
            allow_retry = TRUE),
-  # Q5
-  question("Q5) What is the name of the function that provides you with the fitted values for a model?", 
-           type = "learnr_text",
-           answer_fn(function(value){
-            if (str_remove_all(str_to_lower(value), " ") %in% 
-                c("fitted", "fitted()", "fitted(model)", "fitted(debt_model")) {
-                 return(mark_as(TRUE))}
-                 return(mark_as(FALSE) ) }),
+#Q5
+    question_wordbank("Q5) Match each model with the appropriate description.",
+          choices = c("lm(score ~ age + gender, data = evals_ch6)", "lm(credit_limit + income ~ debt, data = credit_ch6)", "lm(score ~ age + gender + age*gender, data = evals_ch6)", "lm(debt ~ credit_limit + income, data = credit_ch6)" ),
+          wordbank = c("linear regression model with two numeric explanatory variables", "linear regression interaction model", "linear regression parallel slopes model", "not an appropriate use of a linear regression model"),
+           answer(c("linear regression parallel slopes model",
+                    "not an appropriate use of a linear regression model", "linear regression interaction model", "linear regression model with two numeric explanatory variables"), correct = TRUE),
            allow_retry = TRUE),
-  question("Q6) What is the name of the function that provides you with the residuals for a model?", 
-           type = "learnr_text",
-           answer_fn(function(value){
-            if (str_remove_all(str_to_lower(value), " ") %in% 
-                c("residuals", "residuals()", "residuals(model)", "residuals(debt_model")) {
-                 return(mark_as(TRUE))}
-                 return(mark_as(FALSE) ) }),
+  # Q6
+   question_numeric("Q6) Consider a model of the form:\n
+    y ~ x1 + x2 + x1*x2
+    
+How many quantities does this model estimate? That is, how many values will there be in the Estimate column of a regression table for this model? ", 
+           answer(4, correct = TRUE),
            allow_retry = TRUE),
-  # Q7
-  question_numeric("Q7) How many columns are in debt_model_data?", 
-           answer(6, correct = TRUE),
+   # Q7
+question("Q7) Match the model with the appropriate mathematical representation:\n
+          lm(debt ~ credit_limit + income)",
+           answer("$\\hat{y} = b_1*x_1 + b_2*x_2$"),
+           answer("$\\hat{y} = b_1*x_1 + b_2*x_2 + b_3*x_1*x_2$"),
+           answer("$\\hat{y} = b_0 + b_1*x_1 + b_2*x_2 + b_3*x_1*x_2$"),
+           answer("$\\hat{y} = b_0 + b_1*x_1 + b_2*x_2$", correct = TRUE),
            allow_retry = TRUE),
-  # Q8
-  question_numeric("Q8) How many rows are in debt_model_data?", 
-           answer(400, correct = TRUE),
+   # Question 17
+   question("Q8) Match the model with the appropriate mathematical representation:\n
+          lm(score ~ age + gender + age*gender)",
+           answer("$\\hat{y} = b_1*x_1 + b_2*x_2$"),
+           answer("$\\hat{y} = b_1*x_1 + b_2*x_2 + b_3*x_1*x_2$"),
+           answer("$\\hat{y} = b_0 + b_1*x_1 + b_2*x_2 + b_3*x_1*x_2$", correct = TRUE),
+           answer("$\\hat{y} = b_0 + b_1*x_1 + b_2*x_2$"),
+           allow_retry = TRUE),
+  # Q9
+  question_numeric("Q9) After fitting score_model_interaction to the evals_ch6 dataset, what is the value of  $y - \\hat{y}$ for the 4th instructor? Round to 3 decimal places.", 
+           answer(0.548, correct = TRUE),
+           step = 0.001,
+           allow_retry = TRUE),
+  # Q10
+  question_numeric("Q10) Suppose you ran the following lines of code:\n
+
+    credit_ch6 <- credit_ch6 %>%
+      mutate(income_5 = income * 5)
+
+What would the correlation between debt and income_5 in credit_ch6 be? Round to 3 decimal places.", 
+           answer(0.464, correct = TRUE),
+           step = 0.001,
            allow_retry = TRUE)
+
 )
 
 ```
+
 
 ## Submit
 
@@ -213,4 +191,5 @@ Once you are finished:
 ```{r}
 grade_print_ui("grade")
 ```
+
 
