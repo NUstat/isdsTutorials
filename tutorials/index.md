@@ -38,9 +38,3 @@
   p-values](https://nustat.github.io/isdsTutorials/tutorials/18_pvalues.md)
 - [Chapter 12 hypothesis
   testing](https://nustat.github.io/isdsTutorials/tutorials/19_hypothesis.md)
-- [Sample Exam 1 (Ch 1 -
-  4)](https://nustat.github.io/isdsTutorials/tutorials/sample_exam1.md)
-- [Sample Exam 2 (Ch 5 -
-  8)](https://nustat.github.io/isdsTutorials/tutorials/sample_exam2.md)
-- [Sample Exam 3 (Ch 9 -
-  12)](https://nustat.github.io/isdsTutorials/tutorials/sample_exam3.md)

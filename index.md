@@ -30,14 +30,13 @@ each tutorial.
 | **01_intro**       | Preface & Chapter 1 |     | **11_regression4**      | Chapter 6.2 - 6.4 |
 | **02_ggplot1**     | Chapter 2.0 - 2.3   |     | **12_randomization**    | Chapter 7         |
 | **03_ggplot2**     | Chapter 2.4 - 2.6   |     | **13_generalizability** | Chapter 8         |
-| **04_ggplot3**     | Chapter 2.7 - 2.9   |     | **sample_exam2**        | Sample Exam 2     |
-| **05_wrangling1**  | Chapter 3.0 - 3.3   |     | **14_sampling1**        | Chapter 9.0 - 9.1 |
-| **06_wrangling2**  | Chapter 3.4 - 3.6   |     | **15_sampling2**        | Chapter 9.2 - 9.3 |
-| **07_tidy**        | Chapter 4           |     | **16_sampling3**        | Chapter 9.4 - 9.6 |
-| **sample_exam1**   | Sample Exam 1       |     | **17_ci**               | Chapter 10        |
+| **04_ggplot3**     | Chapter 2.7 - 2.9   |     | **14_sampling1**        | Chapter 9.0 - 9.1 |
+| **05_wrangling1**  | Chapter 3.0 - 3.3   |     | **15_sampling2**        | Chapter 9.2 - 9.3 |
+| **06_wrangling2**  | Chapter 3.4 - 3.6   |     | **16_sampling3**        | Chapter 9.4 - 9.6 |
+| **07_tidy**        | Chapter 4           |     | **17_ci**               | Chapter 10        |
 | **08_regression1** | Chapter 5.0 - 5.1   |     | **18_pvalues**          | Chapter 11        |
 | **09_regression2** | Chapter 5.2 - 5.4   |     | **19_hypothesis**       | Chapter 12        |
-| **10_regression3** | Chapter 6.2 - 6.4   |     | **sample_exam3**        | Sample Exam 3     |
+| **10_regression3** | Chapter 6.2 - 6.4   |     |                         |                   |
 
 # Running tutorials
 
