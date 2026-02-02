@@ -170,8 +170,9 @@ quiz(
   question("Q4) What is the name of the phenomenon where relationships that exist in aggregate disappear or reverse when the data are broken into groups?", 
            type = "learnr_text",
            answer_fn(function(value){
-            if (str_remove_all(str_to_lower(value), " ") %in% 
-                c("simpson'sparadox", "simpsonparadox", "simpsonsparadox")) {
+            if ( str_remove_all(str_to_lower(value),
+                                "[^a-z]") %in% 
+                c("simpsonparadox", "simpsonsparadox")) {
                  return(mark_as(TRUE))}
                  return(mark_as(FALSE) ) }),
            allow_retry = TRUE),
