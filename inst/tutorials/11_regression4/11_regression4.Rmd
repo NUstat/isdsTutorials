@@ -22,7 +22,7 @@ library(tutorialExtras)
 library(gradethis)
 
 #for exercises
-library(ISLR)
+library(ISLR2)
 
 credit_ch6 <- Credit %>%
   as_tibble() %>%
@@ -94,7 +94,7 @@ credit_ch6 ___ Credit ___
 
 
 ```{r Ex1-solution, exercise.reveal_solution = FALSE}
-library(ISLR)
+library(ISLR2)
 
 credit_ch6 <- Credit %>%
   as_tibble() %>%
