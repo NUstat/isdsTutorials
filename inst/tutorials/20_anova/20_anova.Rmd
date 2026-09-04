@@ -1,0 +1,253 @@
+---
+title: "RC 20: Chapter 13"
+tutorial:
+  id: "RC_20"
+  version: 0.1
+  
+output:
+  learnr::tutorial:
+    progressive: true
+    allow_skip: true
+    css: ["css/nu-theme.css"]
+runtime: shiny_prerendered
+description: >
+  Learn how to perform an ANOVA test.
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(tidyverse)
+library(tutorialExtras)
+library(gradethis)
+library(moderndive)
+
+gradethis_setup()
+knitr::opts_chunk$set(echo = FALSE)
+
+evals_for_anova <- evals |> 
+  select(ID, prof_ID, score, rank) 
+
+coffee_data <- coffee_quality |>
+  select(aroma, 
+         flavor, 
+         moisture_percentage,
+         total_cup_points)
+
+mod_mult_1 <- lm(total_cup_points ~ aroma + flavor + moisture_percentage, data = coffee_data)
+
+mod_mult_2 <- lm(total_cup_points ~ aroma + moisture_percentage, data = coffee_data)
+```
+
+
+```{r, context = "server"}
+grade_server("grade")
+```
+
+```{r copy-code-chunk, child = system.file("child_documents/copy_button.Rmd", package = "tutorial.helpers")}
+```
+
+```{r Name}
+# student name
+question_text("Name:",
+              answer_fn(function(value){
+                              if(length(value) >= 1 ) {
+                                return(mark_as(TRUE))
+                                }
+                              return(mark_as(FALSE) )
+                              }),
+              correct = "submitted",
+              allow_retry = FALSE )
+```
+
+```{r}
+grade_button_ui(id = "grade")
+```
+
+## Instructions
+
+Complete this tutorial while reading Chapter 13 of the [textbook](https://nustat.github.io/intro-stat-data-sci/13-anova.html). Each question allows 3 'free' attempts. After the third attempt a 10% deduction occurs per attempt.
+
+You can click the "View Grade" button as many times as you would like to see your current grade and the number of attempts you are on. Before submitting make sure your grade is as expected.
+
+
+
+### Goals
+
+-   use a one-way ANOVA test to compare the means of three or more groups
+-   use an ANOVA test for model comparison
+-   find the F-statistic and use the p-value to evaluate the test results
+
+## One way ANOVA
+
+ANOVA, or analysis of variance, is a statistical technique used to compare the means of three or more groups. Rather than comparing groups two at a time, ANOVA evaluates whether there is evidence that at least one group mean differs from the others.
+
+```{r one-way-anova-1}
+question("What is the alternative hypothesis for testing if the average evaluation score across professors of different rank are different.",
+           answer("at least one population mean differs", correct = TRUE),
+           answer("$\\mu_{teaching} \\ne \\mu_{tenure-track} \\ne \\mu_{tenured}$"),
+           answer("$\\mu_{teaching} = \\mu_{tenure-track} = \\mu_{tenured}$"),
+           answer("at most one population mean differs"),
+           allow_retry = TRUE,
+           random_answer_order = TRUE)
+
+```
+
+
+### Exercise 2
+
+Using the `evals_for_anova` dataset, fit a one-way ANOVA model with the formula `score ~ rank`. Assign this model to the object `evals_aov_model`
+
+```{r one-way-anova-2, exercise = TRUE}
+
+```
+
+```{r one-way-anova-2-hint-1, eval = FALSE}
+eval_aov_model <- aov(...)
+```
+
+```{r one-way-anova-2-solution, exercise.reveal_solution = FALSE}
+evals_aov_model <- aov(score ~ rank, data = evals_for_anova)
+```
+
+```{r one-way-anova-2-check}
+grade_this_code()
+```
+
+###
+
+```{r one-way-anova-3}
+question_numeric("What is the f-statistic, rounded to 2 digits?",
+           answer("2.71", correct = TRUE),
+           tolerance = 0.005,
+           allow_retry = TRUE)
+
+```
+
+###
+
+```{r one-way-anova-4}
+question_numeric("What is the p-value, rounded to 3 digits?",
+           answer("0.068", correct = TRUE),
+           tolerance = 0.0005,
+           allow_retry = TRUE)
+
+```
+
+###
+
+```{r one-way-anova-5}
+question("At which of the following p-values would you reject the null hypothesis?",
+           answer("0.05"),
+           answer("0.01"),
+           answer("0.10", correct = TRUE),
+           answer("0.07", correct = TRUE),
+           allow_retry = TRUE,
+           random_answer_order = TRUE)
+
+```
+
+
+## Hypothesis test for model comparison
+
+Another useful hypothesis test in multiple linear regression compares two models: one with a given set of explanatory variables called the full model and the other with only a subset of those explanatory variables called the reduced model.
+
+
+```{r model-comparison-1}
+question_numeric("What is the correlation between total_cup_points and aroma, rounded to 2 decimal places?",
+           answer("0.87", correct = TRUE),
+           tolerance = 0.005,
+           allow_retry = TRUE)
+
+```
+
+
+### Exercise 2
+
+Build a multiple linear regression model with `data = coffee_data` called `mod_mult_1` that predicts `total_cup_points` using `aroma`, `flavor`, and `moisture_percentage`.
+
+```{r model-comparison-2, exercise = TRUE}
+
+```
+
+```{r model-comparison-2-hint-1, eval = FALSE}
+mod_mult_1 <- lm(...)
+```
+
+```{r model-comparison-2-solution, exercise.reveal_solution = FALSE}
+mod_mult_1 <- lm(total_cup_points ~ aroma + flavor + moisture_percentage, data = coffee_data)
+```
+
+```{r model-comparison-2-check}
+grade_this_code()
+```
+
+
+### Exercise 3
+
+Now build a reduced model that does not contain the regressor `flavor` and call it `mod_mult_2`.
+
+```{r model-comparison-3, exercise = TRUE}
+
+```
+
+<button onclick="transfer_code(this)">Copy previous code</button>
+
+```{r model-comparison-3-hint-1, eval = FALSE}
+mod_mult_2 <- lm(...)
+```
+
+```{r model-comparison-3-solution, exercise.reveal_solution = FALSE}
+mod_mult_2 <- lm(total_cup_points ~ aroma + moisture_percentage, data = coffee_data)
+```
+
+```{r model-comparison-3-check}
+grade_this_code()
+```
+
+
+### Exercise 4
+
+Conduct and ANOVA test to determine if the reduced model is adequate or if the full model is needed to predict total cup points. Use the `anova()` function and enter the reduced model followed by the full model 
+
+```{r model-comparison-4, exercise = TRUE}
+
+```
+
+```{r model-comparison-4-hint-1, eval = FALSE}
+anova(reduced model, full model)
+```
+
+```{r model-comparison-4-solution, exercise.reveal_solution = FALSE}
+anova(mod_mult_2, mod_mult_1) 
+```
+
+```{r model-comparison-4-check}
+grade_this_code()
+```
+
+###
+
+```{r model-comparison-5}
+question("What is your decision regarding the hypothesis test at the 0.05 significance level?",
+           answer("Reject the null hypothesis, the reduced model is adequate."),
+           answer("Fail to reject the null hypothesis, the reduced model is adequate."),
+           answer("Reject the null hypothesis, the full model is needed.", correct = TRUE),
+           answer("Fail to reject the null hypothesis, the full model is needed."),
+           allow_retry = TRUE,
+           random_answer_order = TRUE)
+
+```
+
+
+## Submit
+
+Once you are finished:
+
+-   Click the 'Download Grade' button below. This will download an html document of your grade summary.
+-   Make sure your grade is correct and as expected!
+-   Submit the downloaded html to Canvas.
+
+```{r}
+grade_print_ui("grade")
+```
+

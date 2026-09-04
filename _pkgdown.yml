@@ -83,3 +83,5 @@ tutorials:
 - name: 19_hypothesis
   title: Chapter 12 hypothesis testing
   url: https://amkuyper.shinyapps.io/19_hypothesis/
+- name: 20_anova
+  title: Chapter 13 ANOVA
