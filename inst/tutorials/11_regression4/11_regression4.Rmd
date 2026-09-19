@@ -77,7 +77,7 @@ You can click the "View Grade" button as many times as you would like to see you
 
 **Exercise 1:**
 
-When creating the data frame credit_ch6, we renamed several variables as we selected them. First, fill in the blanks of the code that accomplished this. 
+When creating the data frame `credit_ch6`, we renamed several variables as we selected them. First, fill in the blanks of the code that accomplished this. 
 
 
 ```{r Ex1, exercise=TRUE}

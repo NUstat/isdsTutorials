@@ -54,10 +54,10 @@ tutorials:
   title: Chapter 5 simple linear regression - categorical x
   url: https://amkuyper.shinyapps.io/09_regression2/
 - name: 10_regression3
-  title: Chapter 6 linear regression - 2 numeric predictors
+  title: Chapter 6 linear regression - 1 numeric, 1 categorical predictor
   url: https://amkuyper.shinyapps.io/10_regression3/
 - name: 11_regression4
-  title: Chapter 6 linear regression - 1 numeric, 1 categorical predictor
+  title: Chapter 6 linear regression - 2 numeric predictors
   url: https://amkuyper.shinyapps.io/11_regression4/
 - name: 12_randomization
   title: Chapter 7 randomization
