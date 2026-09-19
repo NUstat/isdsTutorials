@@ -18,10 +18,10 @@
   x](https://nustat.github.io/isdsTutorials/tutorials/08_regression1.md)
 - [Chapter 5 simple linear regression - categorical
   x](https://nustat.github.io/isdsTutorials/tutorials/09_regression2.md)
-- [Chapter 6 linear regression - 2 numeric
-  predictors](https://nustat.github.io/isdsTutorials/tutorials/10_regression3.md)
 - [Chapter 6 linear regression - 1 numeric, 1 categorical
-  predictor](https://nustat.github.io/isdsTutorials/tutorials/11_regression4.md)
+  predictor](https://nustat.github.io/isdsTutorials/tutorials/10_regression3.md)
+- [Chapter 6 linear regression - 2 numeric
+  predictors](https://nustat.github.io/isdsTutorials/tutorials/11_regression4.md)
 - [Chapter 7
   randomization](https://nustat.github.io/isdsTutorials/tutorials/12_randomization.md)
 - [Chapter 8

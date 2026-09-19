@@ -1,1 +1,1 @@
-# Chapter 6 linear regression - 2 numeric predictors
+# Chapter 6 linear regression - 1 numeric, 1 categorical predictor
