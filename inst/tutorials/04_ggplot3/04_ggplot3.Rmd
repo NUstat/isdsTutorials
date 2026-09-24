@@ -360,11 +360,21 @@ Since this data frame is pre-counted we need to specify the counts of each fruit
 ###
 
 ```{r barplots-5Q}
-question_wordbank("Which geometric layer do you use with categorical data that is...",
-  choices = c("NOT pre-counted", "pre-counted"),
-  answer(c("geom_bar()", "geom_col()"), correct = TRUE),
-           allow_retry = TRUE,
-           random_answer_order = TRUE)
+question_text("Which function do you use for the geometric layer to plot categorical data that is NOT pre-counted?",
+  answer_fn(function(value){
+    if(value %in% c("geom_col()", "geom_col")) {
+      return(mark_as(TRUE))
+      }
+    return(mark_as(FALSE) )
+    }),
+  allow_retry = TRUE
+)
+
+# question_wordbank("Which geometric layer do you use with categorical data that is...",
+#   choices = c("NOT pre-counted", "pre-counted"),
+#   answer(c("geom_bar()", "geom_col()"), correct = TRUE),
+#            allow_retry = TRUE,
+#            random_answer_order = TRUE)
 ```
 
 ### Exercise 6

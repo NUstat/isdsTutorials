@@ -435,24 +435,29 @@ grade_this_code()
 ```
 
 
-### Exercise 7
+###
 
-There are a variety of different functions you could also use within `summarize()`.
+There are a variety of other useful functions you could also use within `summarize()`.
 
+A few common ones: 
 
-```{r summarize-7}
-question_wordbank("Match the following definitions with their functions.",
-        choices = c("interquartile range",
-                    "mean/average",
-                    "minimum",
-                    "number of observations"),
-        wordbank = c("max()", "IQR()", "mean()", "min()", "n()", "sd()", "iqr()", "avg()", "count()"),
-        answer(c("IQR()", "mean()", "min()", "n()"), 
-        correct = TRUE), 
-        allow_retry = TRUE )
-```
+- `IQR()` interquartile range
+- `median()` median
+- `min()` minimum
+- `max()` maximum
+- `n()` number of observations
 
-
+<!-- ```{r summarize-7} -->
+<!-- question_wordbank("Match the following definitions with their functions.", -->
+<!--         choices = c("interquartile range", -->
+<!--                     "mean/average", -->
+<!--                     "minimum", -->
+<!--                     "number of observations"), -->
+<!--         wordbank = c("max()", "IQR()", "mean()", "min()", "n()", "sd()", "iqr()", "avg()", "count()"), -->
+<!--         answer(c("IQR()", "mean()", "min()", "n()"),  -->
+<!--         correct = TRUE),  -->
+<!--         allow_retry = TRUE ) -->
+<!-- ``` -->
 
 
 <!-- ## Reading Quiz -->

@@ -114,6 +114,7 @@ question("Which of the following applications do you need to install on your com
 ## How do I code in R?
 
 In a Quarto document (.qmd), You type code into a "code chunk" and run the code with the "green arrow". 
+
 ###
 
 The best way to master these topics is, in our opinions, "learning by doing" and lots of repetition.
@@ -219,8 +220,9 @@ question_wordbank("Match the following definitions with the terminology.",
           "a series of values for example: c(6, 11, 13, 31, 90, 92)",
           "rectangular spreadsheet where rows correspond to observations and columns to variables"),
         wordbank = c("vector", "Boolean algebra", "data frame", "factor", "logical operators", "functions"),
-        answer(c("Boolean algebra", "vector", "data frame"), 
+        answer(c("Boolean algebra", "vector", "data frame"),
                correct = TRUE), 
+        arrange = "ordered",
         allow_retry = TRUE )
 ```
 
@@ -251,12 +253,26 @@ grade_this({
 One thing that intimidates new R and RStudio users is how it reports errors, warnings, and messages.
 
 ```{r how-to-code-6}
-question_wordbank("Seeing red text in your console is not always bad. Drag and drop the three different types of feedback R givew with how they should be interpreted.",
-        choices = c("something is wrong! (red traffic light)","everything is working fine, but watch out/pay attention (yellow traffic light)", "everything is working fine (green traffic light)"),
-        wordbank = c("Error", "Warning", "Message"),
-        answer(c("Error", "Warning", "Message"), 
-               correct = TRUE), 
+quiz(caption = "Seeing red text in your console is not always bad. Drag and drop the three different types of feedback R givew with how they should be interpreted.",
+     question_dropdown(
+        "everything is working fine, but watch out/pay attention (yellow traffic light)",
+        answer("Error"),
+        answer("Warning", correct = TRUE),
+        answer("Message"),
+        allow_retry = TRUE ),
+     question_dropdown(
+        "something is wrong! (red traffic light)",
+        answer("Error", correct = TRUE),
+        answer("Warning"),
+        answer("Message"),
+        allow_retry = TRUE ),
+     question_dropdown(
+        "everything is working fine (green traffic light)",
+        answer("Error"),
+        answer("Warning"),
+        answer("Message", correct = TRUE),
         allow_retry = TRUE )
+)
 ```
 
 ###

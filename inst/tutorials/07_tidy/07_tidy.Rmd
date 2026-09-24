@@ -247,11 +247,17 @@ drinks_smaller_tidy
 ###
 
 ```{r tidy-data-1}
-question_wordbank("Match the name of the data frame with the format it is in.",
-           choices = c("drinks_smaller", "drinks_smaller_tidy"),
-           wordbank = c("wide format", "long format"),
-           answer(c("wide format","long format"),correct=TRUE),
-           allow_retry = TRUE)
+question_radio(
+  "Which data set is in 'long format'?",
+  answer("drinks_smaller"),
+  answer("drinks_smaller_tidy", correct = TRUE),
+  allow_retry = TRUE
+)
+# question_wordbank(,
+#            choices = c("drinks_smaller", "drinks_smaller_tidy"),
+#            wordbank = c("wide format", "long format"),
+#            answer(c("wide format","long format"),correct=TRUE),
+#            allow_retry = TRUE)
 ```
 
 ### Exercise 2
@@ -259,13 +265,30 @@ question_wordbank("Match the name of the data frame with the format it is in.",
 A dataset is messy or tidy depending on how rows, columns and tables are matched up with observations, variables and types.
 
 ```{r tidy-data-2}
-question_wordbank("Complete the following three statements that define tidy data.",
-           choices = c("Each variable forms a _____.",
-                       "Each observation forms a _____.",
-                       "Each type of observational unit forms a _____."),
-           wordbank = c("column", "row", "table"),
-           answer(c("column", "row", "table"),correct=TRUE),
-           allow_retry = TRUE)
+quiz(caption = "Complete the following three statements that define tidy data.",
+  question_radio("Each variable forms a _____.",
+                 answer("column", correct = TRUE),
+                 answer("row"),
+                 answer("table"),
+                 answer("value"),
+                 allow_retry = TRUE,
+                 random_answer_order = TRUE),
+  question_radio("Each observation forms a _____.",
+                 answer("column", correct = TRUE),
+                 answer("row"),
+                 answer("table"),
+                 answer("value"),
+                 allow_retry = TRUE,
+                 random_answer_order = TRUE)
+)
+
+# question_wordbank("Complete the following three statements that define tidy data.",
+#            choices = c("Each variable forms a _____.",
+#                        "Each observation forms a _____.",
+#                        "Each type of observational unit forms a _____."),
+#            wordbank = c("column", "row", "table"),
+#            answer(c("column", "row", "table"),correct=TRUE),
+#            allow_retry = TRUE)
 ```
 
 ### Exercise 3
@@ -273,11 +296,12 @@ question_wordbank("Complete the following three statements that define tidy data
 Determine if the following tables are in tidy format.
 
 ```{r tidy-data-Q1}
-  question_wordbank("",
+question_wordbank("",
            choices = c(paste0(htmltools::img(src="images/Figure_04_1_tidy.png", height = 175, width = 350) ), paste0(htmltools::img(src="images/Figure_04_2_nontidy.png", height = 75, width = 350) ), paste0(htmltools::img(src="images/Figure_04_3_tidy.png", height = 75, width = 350) ) ),
            wordbank = c("Tidy", "Not tidy"),
            answer(c("Tidy", "Not tidy", "Tidy"), correct=TRUE),
            allow_retry = TRUE)
+  
 ```
 
 ## Case study: Democracy in Guatemala
