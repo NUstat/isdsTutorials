@@ -343,7 +343,7 @@ We always begin our work by loading the packages at the top of our document. Not
 
 ### Exercise 1
 
-Load the **lights13** package using `library()` function.
+Load the **nycflights13** package using `library()` function.
 
 ```{r explore-dataset-1, exercise = TRUE}
 
@@ -354,7 +354,7 @@ library(...)
 ```
 
 ```{r explore-dataset-1-solution, exercise.reveal_solution = FALSE}
-library(lights13)
+library(nycflights13)
 ```
 
 ```{r explore-dataset-1-check}
@@ -443,7 +443,7 @@ We see that `glimpse()` will give you the first few entries of each variable in 
 
 ### Exercise 6
 
-In the **Console**, run `library(lights13)`. The Console and the Tutorial are separate environments. Loading a library in one does not load it in another.
+In the **Console**, run `library(nycflights13)`. The Console and the Tutorial are separate environments. Loading a library in one does not load it in another.
 
 Run `?flights` in the **Console** after loading in the package. After doing so, copy and paste the description here.
 
