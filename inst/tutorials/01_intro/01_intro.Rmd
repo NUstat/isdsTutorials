@@ -199,7 +199,7 @@ three <- ...
 ```{r how-to-code-3-solution, exercise.reveal_solution = FALSE}
 x <- 44 - 20
 three <- 3
-x + 3
+x + three
 ```
 
 ```{r how-to-code-3-check}
@@ -452,7 +452,7 @@ question_text(NULL,
 	answer("On-time data for all flights that departed NYC (i.e. JFK, LGA or EWR) in 2013.", correct = TRUE),
 	answer("On-time data for all flights that departed NYC (i.e. JFK, LGA or EWR) in 2013. ", correct = TRUE),
 	allow_retry = TRUE,
-	try_again_button = "Edit Answer",
+	try_again_button = "Incorrect Try Again",
 	incorrect = NULL,
 	rows = 3)
 ```
