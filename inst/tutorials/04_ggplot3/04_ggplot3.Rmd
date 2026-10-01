@@ -340,12 +340,12 @@ Copy the previous code and make the following modifications:
 <button onclick="transfer_code(this)">Copy previous code</button>
 
 ```{r barplots-5-hint-1, eval = FALSE}
-ggplot(data = fruits, mapping = aes(x = fruit)) +
+ggplot(data = fruits_counted, mapping = aes(x = fruit)) +
   geom_...
 ```
 
 ```{r barplots-5-solution, exercise.reveal_solution = FALSE}
-ggplot(data = fruits, mapping = aes(x = fruit, y = count)) +
+ggplot(data = fruits_counted, mapping = aes(x = fruit, y = number)) +
   geom_col()
 ```
 
@@ -362,7 +362,7 @@ Since this data frame is pre-counted we need to specify the counts of each fruit
 ```{r barplots-5Q}
 question_text("Which function do you use for the geometric layer to plot categorical data that is NOT pre-counted?",
   answer_fn(function(value){
-    if(value %in% c("geom_col()", "geom_col")) {
+    if(value %in% c("geom_bar()", "geom_bar")) {
       return(mark_as(TRUE))
       }
     return(mark_as(FALSE) )
