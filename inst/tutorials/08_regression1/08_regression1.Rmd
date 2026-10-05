@@ -148,8 +148,8 @@ quiz(caption = NULL,
            answer(8.17, correct = TRUE),
            step = 0.01,
            allow_retry = TRUE),    
-      # Q7
-    question_wordbank("Q7) What is the primary purpose of the gapminder package?",
+    # Q7
+    question_wordbank("Q7) Match the following packages with their primary purpose.",
            choices = c("importing data files such as .csv", "data visualization", "includes datasets for analysis", "data wrangling", "computing summary statistics", "converting data to tidy format"),
            wordbank = c("readr", "ggplot2", "gapminder", "dplyr", "skimr", "tidyr"),
            answer(c("readr", "ggplot2", "gapminder", "dplyr", "skimr", "tidyr"), correct = TRUE),
