@@ -274,8 +274,8 @@ quiz(caption = "Complete the following three statements that define tidy data.",
                  allow_retry = TRUE,
                  random_answer_order = TRUE),
   question_radio("Each observation forms a _____.",
-                 answer("column", correct = TRUE),
-                 answer("row"),
+                 answer("column"),
+                 answer("row", correct = TRUE),
                  answer("table"),
                  answer("value"),
                  allow_retry = TRUE,
@@ -354,7 +354,7 @@ This tidies all variables that are **NOT** country because we used the minus (-)
 
 ###
 
-Notice the names of the new variables are `name` and `value. Those are not very informative or accurate variable names. 
+Notice the names of the new variables are `name` and `value`. Those are not very informative or accurate variable names. 
 
 ### Exercise 2
 
@@ -470,6 +470,8 @@ Copy the previous code and assign the new data frame to `guat_dem_tidy`. In othe
 ```{r case-study-5, exercise = TRUE}
 
 ```
+
+<button onclick="transfer_code(this)">Copy previous code</button>
 
 ```{r case-study-5-hint-1, eval = FALSE}
 ... <- guat_dem_tidy |> 
