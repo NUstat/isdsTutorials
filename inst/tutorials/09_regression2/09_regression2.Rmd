@@ -3,7 +3,6 @@ title: "RC 09: Chapter 5.2 - 5.4"
 tutorial:
   id: "RC_09"
   version: 0.1
-  
 output:
   learnr::tutorial:
     progressive: false
@@ -11,7 +10,8 @@ output:
     css: ["css/nu-theme.css"]
 runtime: shiny_prerendered
 description: >
-  Learn how to perform simple linear regression with a categorical x variable.
+  Learn how to perform linear regression with a categorical x variable,
+  and review correlation, causation, and the best-fitting line.
 ---
 
 
@@ -33,13 +33,13 @@ grade_server("grade")
 ```{r Name}
 question_text("Name:",
               answer_fn(function(value){
-                              if(length(value) >= 1 ) {
+                              if (nchar(str_trim(value)) >= 1) {
                                 return(mark_as(TRUE))
                                 }
-                              return(mark_as(FALSE) )
+                              return(mark_as(FALSE))
                               }),
               correct = "submitted",
-              allow_retry = FALSE )
+              allow_retry = FALSE)
 ```
 
 ```{r}
@@ -65,58 +65,57 @@ You can click the "View Grade" button as many times as you would like to see you
 
 ```{r Q}
 quiz(caption = NULL,
-  # Question 1
-    question_numeric("Q1) How many European countries are included in the gapminder 2007 dataset?", 
+    # Question 1
+    question_numeric("Q1) How many European countries are included in the `gapminder2007` dataset?",
            answer(30, correct = TRUE),
            allow_retry = TRUE),
     # Question 2
-    question_numeric("Q2) What percent of countries in the gapminder2007 dataset have a life expectancy of less than 71.94?", 
+    question_numeric("Q2) What percent of countries in the `gapminder2007` dataset have a life expectancy of less than 71.94?",
            answer(50, correct = TRUE),
-           allow_retry = TRUE), 
-      # Question 3
-    question_numeric("Q3) How many years higher is the average life expectancy in Europe as compared to Africa? Round to 1 decimal place.", 
+           allow_retry = TRUE),
+    # Question 3
+    question_numeric("Q3) How many years higher is the average life expectancy in Europe as compared to Africa? Round to 1 decimal place.",
            answer(22.8, correct = TRUE),
            step = 0.1,
            allow_retry = TRUE),
-       # Question 4
-    question("Q4) What is the name of the explanatory variable in the lifeExp_model?", 
-           type = "learnr_text",
-           answer("continent", correct = TRUE),
+    # Question 4
+    question_text("Q4) What is the name of the explanatory variable in `lifeExp_model`?",
+           answer_fn(function(value){
+                              if (str_remove_all(str_to_lower(value), "[\\s`'\"]") == "continent") {
+                                return(mark_as(TRUE))
+                                }
+                              return(mark_as(FALSE))
+                              }),
            allow_retry = TRUE),
-         # Question 5
-    question("Q5) When x refers to the country Germany, what is the value of the indicator function $1_{Amer}(x)$?", 
-           type = "learnr_text",
-           answer("0", correct = TRUE),
+    # Question 5
+    question_numeric("Q5) When $x$ refers to the country Germany, what is the value of the indicator function $\\mathbb{1}_{\\text{Amer}}(x)$?",
+           answer(0, correct = TRUE),
            allow_retry = TRUE),
     # Question 6
-    question_numeric("Q6) After fitting lifeExp_model to the gapminder2007 dataset, what is the value of $y - \\hat{y}$ for the country Angola? Round to 3 decimal places.",
+    question_numeric("Q6) After fitting `lifeExp_model` to the `gapminder2007` dataset, what is the value of $y - \\widehat{y}$ for the country Angola? Round to 3 decimal places.",
            answer(-12.075, correct = TRUE),
            step = 0.001,
            allow_retry = TRUE),
-     # Question 7
-    question_numeric("Q7) According to the lifeExp_model fit to the gapminder2007 dataset, what is the estimated life expectancy for the country Bangladesh? Round to 1 decimal place.", 
+    # Question 7
+    question_numeric("Q7) According to `lifeExp_model` fit to the `gapminder2007` dataset, what is the fitted (estimated) life expectancy for the country Bangladesh? Round to 1 decimal place.",
            answer(70.7, correct = TRUE),
            step = 0.1,
-           allow_retry = TRUE),  
+           allow_retry = TRUE),
     # Question 8
-    question("Q8) What is the potential confounding variable in the 'sleeping with shoes on' and 'waking up with a headache' example?", 
-           type = "learnr_text",
+    question_text("Q8) What is the confounding variable in the 'sleeping with shoes on' and 'waking up with a headache' example?",
            answer_fn(function(value){
-                              if (str_remove_all(str_to_lower(value), " ") %in% 
-                                  c("alcohol", "drinking", 
-                                    "intoxicated", "intoxication") ) {
+                              if (str_detect(str_to_lower(value),
+                                             "alcohol|drink|drunk|intoxic")) {
                                 return(mark_as(TRUE))
                                 }
-                              return(mark_as(FALSE) )
+                              return(mark_as(FALSE))
                               }),
-           allow_retry = TRUE),  
-     # Question 9
-    question("Q9) If all the data points fall perfectly on the regression line, what would be the value of $\\sum_{i=1}^{n} (y_i - \\hat{y}_i)^2$?", 
-           type = "learnr_text",
-           answer("0", correct = TRUE),
-           allow_retry = TRUE))
-
-
+           allow_retry = TRUE),
+    # Question 9
+    question_numeric("Q9) If all the data points fall perfectly on the regression line, what would be the value of $\\sum_{i=1}^{n} (y_i - \\widehat{y}_i)^2$?",
+           answer(0, correct = TRUE),
+           allow_retry = TRUE)
+)
 ```
 
 ## Submit
@@ -130,4 +129,3 @@ Once you are finished:
 ```{r}
 grade_print_ui("grade")
 ```
-
