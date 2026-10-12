@@ -78,31 +78,83 @@ quiz(caption = NULL,
            answer(22.8, correct = TRUE),
            step = 0.1,
            allow_retry = TRUE),
-    # Question 4
-    question_text("Q4) What is the name of the explanatory variable in `lifeExp_model`?",
+    # Question 4 (exact match required; hint if only capitalization is wrong)
+    question_text("Q4) What is the name of the explanatory variable in `lifeExp_model`? Type the variable name exactly as it appears in the dataset.",
            answer_fn(function(value){
-                              if (str_remove_all(str_to_lower(value), "[\\s`'\"]") == "continent") {
+                              if (identical(value, "continent")) {
                                 return(mark_as(TRUE))
+                                }
+                              if (str_to_lower(value) == "continent") {
+                                return(mark_as(FALSE,
+                                  messages = "Check your capitalization: variable names in R are case-sensitive."))
                                 }
                               return(mark_as(FALSE))
                               }),
+           trim = TRUE,
            allow_retry = TRUE),
-    # Question 5
-    question_numeric("Q5) When $x$ refers to the country Germany, what is the value of the indicator function $\\mathbb{1}_{\\text{Amer}}(x)$?",
+    # Question 5 (NEW: baseline group)
+    question("Q5) In `lifeExp_model`, which continent is the baseline for comparison?",
+           answer("Africa", correct = TRUE),
+           answer("Americas"),
+           answer("Asia"),
+           answer("Europe"),
+           answer("Oceania"),
+           allow_retry = TRUE),
+    # Question 6 (NEW: why that baseline)
+    question("Q6) According to the reading, why did R choose this continent as the baseline?",
+           answer("It comes first alphabetically.", correct = TRUE),
+           answer("It has the lowest mean life expectancy."),
+           answer("It has the most countries in the dataset."),
+           answer("It has the largest variation in life expectancy."),
+           random_answer_order = TRUE,
+           allow_retry = TRUE),
+    # Question 7 (NEW: k - 1 offsets)
+    question("Q7) If a categorical explanatory variable $x$ has $k$ levels, a regression model returns an intercept and how many additional \"slope\" (offset) coefficients?",
+           answer("$k - 1$", correct = TRUE),
+           answer("$k$"),
+           answer("$k + 1$"),
+           answer("$1$"),
+           random_answer_order = TRUE,
+           allow_retry = TRUE),
+    # Question 8 (NEW: interpreting an offset)
+    question("Q8) In the regression table for `lifeExp_model`, the estimate for `continentAsia` is 15.9. Which is the correct interpretation?",
+           answer("On average, countries in Asia had a life expectancy 15.9 years greater than countries in Africa.", correct = TRUE),
+           answer("The mean life expectancy of countries in Asia is 15.9 years."),
+           answer("On average, countries in Asia had a life expectancy 15.9 years greater than the world average."),
+           answer("For every additional country in Asia, life expectancy increases by 15.9 years."),
+           random_answer_order = TRUE,
+           allow_retry = TRUE),
+    # Question 9
+    question_numeric("Q9) When $x$ refers to the country Germany, what is the value of the indicator function $\\mathbb{1}_{\\text{Amer}}(x)$?",
            answer(0, correct = TRUE),
            allow_retry = TRUE),
-    # Question 6
-    question_numeric("Q6) After fitting `lifeExp_model` to the `gapminder2007` dataset, what is the value of $y - \\widehat{y}$ for the country Angola? Round to 3 decimal places.",
+    # Question 10
+    question_numeric("Q10) After fitting `lifeExp_model` to the `gapminder2007` dataset, what is the value of $y - \\widehat{y}$ for the country Angola? Round to 3 decimal places.",
            answer(-12.075, correct = TRUE),
            step = 0.001,
            allow_retry = TRUE),
-    # Question 7
-    question_numeric("Q7) According to `lifeExp_model` fit to the `gapminder2007` dataset, what is the fitted (estimated) life expectancy for the country Bangladesh? Round to 1 decimal place.",
+    # Question 11
+    question_numeric("Q11) According to `lifeExp_model` fit to the `gapminder2007` dataset, what is the fitted (estimated) life expectancy for the country Bangladesh? Round to 1 decimal place.",
            answer(70.7, correct = TRUE),
            step = 0.1,
            allow_retry = TRUE),
-    # Question 8
-    question_text("Q8) What is the confounding variable in the 'sleeping with shoes on' and 'waking up with a headache' example?",
+    # Question 12 (NEW: correlation strength)
+    question("Q12) Which of the following correlation coefficients indicates the strongest linear relationship?",
+           answer("-0.9", correct = TRUE),
+           answer("0.75"),
+           answer("0.187"),
+           answer("0"),
+           allow_retry = TRUE),
+    # Question 13 (NEW: correlation of 0)
+    question("Q13) A correlation coefficient of 0 indicates:",
+           answer("No relationship: the values of both variables go up/down independently of each other.", correct = TRUE),
+           answer("A perfect negative relationship."),
+           answer("A weak positive relationship."),
+           answer("That one variable causes the other."),
+           random_answer_order = TRUE,
+           allow_retry = TRUE),
+    # Question 14
+    question_text("Q14) What is the confounding variable in the 'sleeping with shoes on' and 'waking up with a headache' example?",
            answer_fn(function(value){
                               if (str_detect(str_to_lower(value),
                                              "alcohol|drink|drunk|intoxic")) {
@@ -111,9 +163,25 @@ quiz(caption = NULL,
                               return(mark_as(FALSE))
                               }),
            allow_retry = TRUE),
-    # Question 9
-    question_numeric("Q9) If all the data points fall perfectly on the regression line, what would be the value of $\\sum_{i=1}^{n} (y_i - \\widehat{y}_i)^2$?",
+    # Question 15 (NEW: confounding in a causal graph)
+    question("Q15) In the causal graph, what makes Z a confounding variable?",
+           answer("It affects both the treatment variable X and the outcome variable Y.", correct = TRUE),
+           answer("It is caused by the treatment variable X."),
+           answer("It affects only the outcome variable Y."),
+           answer("It is the outcome variable of interest."),
+           random_answer_order = TRUE,
+           allow_retry = TRUE),
+    # Question 16
+    question_numeric("Q16) If all the data points fall perfectly on the regression line, what would be the value of $\\sum_{i=1}^{n} (y_i - \\widehat{y}_i)^2$?",
            answer(0, correct = TRUE),
+           allow_retry = TRUE),
+    # Question 17 (NEW: least squares)
+    question("Q17) Of all possible lines that could be drawn through the points, the regression line is the one that minimizes:",
+           answer("The sum of squared residuals", correct = TRUE),
+           answer("The sum of the residuals"),
+           answer("The number of points that do not fall on the line"),
+           answer("The correlation coefficient"),
+           random_answer_order = TRUE,
            allow_retry = TRUE)
 )
 ```
