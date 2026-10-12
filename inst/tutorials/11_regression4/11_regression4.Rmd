@@ -117,7 +117,7 @@ grade_this_code()
 Fill in the blanks for the code that creates the following plot.
 
 ```{r}
-htmltools::img(src="images/fig_6_9.png", height = 470, width = 410)
+htmltools::img(src="images/fig_6_9.png", height = 384, width = 627)
 ```
 
 
