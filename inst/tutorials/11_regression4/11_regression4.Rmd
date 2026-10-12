@@ -3,7 +3,6 @@ title: "RC 11: Chapter 6.2 - 6.4"
 tutorial:
   id: "RC_11"
   version: 0.1
-  
 output:
   learnr::tutorial:
     progressive: false
@@ -11,7 +10,8 @@ output:
     css: ["css/nu-theme.css"]
 runtime: shiny_prerendered
 description: >
-  Learn how to perform multiple regression for two numeric variables.
+  Learn how to perform multiple regression for two numerical explanatory variables,
+  and explore model selection, correlation, and Simpson's Paradox.
 ---
 
 
@@ -26,9 +26,9 @@ library(ISLR2)
 
 credit_ch6 <- Credit %>%
   as_tibble() %>%
-  select(debt = Balance, 
+  select(debt = Balance,
          credit_limit = Limit,
-         income = Income, 
+         income = Income,
          credit_rating = Rating,
          age = Age)
 
@@ -44,13 +44,13 @@ grade_server("grade")
 ```{r Name}
 question_text("Name:",
               answer_fn(function(value){
-                              if(length(value) >= 1 ) {
+                              if (nchar(str_trim(value)) >= 1) {
                                 return(mark_as(TRUE))
                                 }
-                              return(mark_as(FALSE) )
+                              return(mark_as(FALSE))
                               }),
               correct = "submitted",
-              allow_retry = FALSE )
+              allow_retry = FALSE)
 ```
 
 ```{r}
@@ -69,6 +69,8 @@ You can click the "View Grade" button as many times as you would like to see you
 
 -   Be able to perform multiple regression for two numerical explanatory variables.
 -   Understand and interpret fitted values and residuals for multiple regression.
+-   Know when to use an interaction model versus a parallel slopes model (model selection).
+-   Understand how the correlation coefficient behaves under linear transformations.
 -   Understand the implications of grouping in data.
 -   Understand Simpson's Paradox.
 
@@ -77,18 +79,18 @@ You can click the "View Grade" button as many times as you would like to see you
 
 **Exercise 1:**
 
-When creating the data frame `credit_ch6`, we renamed several variables as we selected them. First, fill in the blanks of the code that accomplished this. 
+When creating the data frame `credit_ch6`, we renamed several variables as we selected them. First, fill in the blanks of the code that accomplished this.
 
 
 ```{r Ex1, exercise=TRUE}
 library(___)
 
-credit_ch6 ___ Credit ___ 
+credit_ch6 ___ Credit ___
   as_tibble() %>%
-  select(debt = Balance, 
+  select(debt = Balance,
          ___ = Limit,
-         ___ = Income, 
-         credit_rating = ___ ,
+         ___ = Income,
+         credit_rating = ___,
          age = Age)
 ```
 
@@ -98,9 +100,9 @@ library(ISLR2)
 
 credit_ch6 <- Credit %>%
   as_tibble() %>%
-  select(debt = Balance, 
+  select(debt = Balance,
          credit_limit = Limit,
-         income = Income, 
+         income = Income,
          credit_rating = Rating,
          age = Age)
 ```
@@ -122,20 +124,19 @@ htmltools::img(src="images/Figure_06_1.png", height = 470, width = 410)
 ```{r Ex2, exercise=TRUE}
 ggplot(credit_ch6, aes(x = ___, y = ___)) +
   geom____() +
-  ___(x = ___, y = ___, ___ = "Debt and income") + 
+  ___(x = ___, y = ___, ___ = "Debt and income") +
   ___(method = ___, se = FALSE)
-
 ```
 
-```{r Ex2-hint-1}
-Part 2 Hint: Remember to include labels for the axes
-```
+<div id="Ex2-hint">
+**Hint:** Remember to include labels for the axes. Copy them exactly as they appear in the plot.
+</div>
 
 ```{r Ex2-solution, exercise.reveal_solution = FALSE}
 ggplot(credit_ch6, aes(x = income, y = debt)) +
   geom_point() +
   labs(x = "Income (in $1000)", y = "Credit card debt (in $)",
-  title = "Debt and income") + 
+       title = "Debt and income") +
   geom_smooth(method = "lm", se = FALSE)
 ```
 
@@ -149,60 +150,141 @@ grade_this_code()
 ```{r Q}
 quiz(
   caption = NULL,
-  # Q1
-  question_numeric("Q1) What is the value for the largest amount of debt in the credit_ch6 data set?", 
+  # Q1 (6.2.1)
+  question_numeric("Q1) What is the value for the largest amount of debt in the `credit_ch6` dataset?",
            answer(1999, correct = TRUE),
            allow_retry = TRUE),
-  # Q2
-  question_numeric("Q2) Consider the following model:\n
-    debt_model <- lm(debt ~ credit_limit + income, data = credit_ch6)\n
-  How many quantities does this model estimate? That is, how many values will there be in the Estimate column of the regression table for this model? ", 
+  # Q2 (NEW, 6.2.1)
+  question("Q2) The phenomenon where one explanatory variable in a multiple regression model is highly correlated with another explanatory variable is called:",
+           answer("Collinearity", correct = TRUE),
+           answer("An interaction effect"),
+           answer("Simpson's Paradox"),
+           answer("A confounding variable"),
+           random_answer_order = TRUE,
+           allow_retry = TRUE),
+  # Q3 (NEW, 6.2.1)
+  question("Q3) With two numerical explanatory variables, the regression model is no longer a best-fitting line. Instead, it is a best-fitting:",
+           answer("Plane", correct = TRUE),
+           answer("Curve"),
+           answer("Set of parallel lines"),
+           answer("Set of lines with different slopes"),
+           random_answer_order = TRUE,
+           allow_retry = TRUE),
+  # Q4 (6.2.2)
+  question_numeric("Q4) Consider the following model:\n
+
+    debt_model <- lm(debt ~ credit_limit + income, data = credit_ch6)
+
+How many quantities does this model estimate? That is, how many values will there be in the Estimate column of the regression table for this model?",
            answer(3, correct = TRUE),
            allow_retry = TRUE),
-  # Q3
-  question_numeric("Q3) Consider the following model:\n
-    debt_model <- lm(debt ~ credit_limit + income, data = credit_ch6)\n
-  What is the estimated slope of credit_limit that results from this model? Round to 3 decimal places.", 
+  # Q5 (6.2.2)
+  question("Q5) Match the model with the appropriate mathematical representation:\n
+
+    lm(debt ~ credit_limit + income, data = credit_ch6)",
+           answer("$\\widehat{y} = b_1 \\cdot x_1 + b_2 \\cdot x_2$"),
+           answer("$\\widehat{y} = b_1 \\cdot x_1 + b_2 \\cdot x_2 + b_{1,2} \\cdot x_1 \\cdot x_2$"),
+           answer("$\\widehat{y} = b_0 + b_1 \\cdot x_1 + b_2 \\cdot x_2 + b_{1,2} \\cdot x_1 \\cdot x_2$"),
+           answer("$\\widehat{y} = b_0 + b_1 \\cdot x_1 + b_2 \\cdot x_2$", correct = TRUE),
+           allow_retry = TRUE),
+  # Q6 (6.2.2)
+  question_numeric("Q6) What is the estimated slope of `credit_limit` in `debt_model`? Round to 3 decimal places.",
            answer(0.264, correct = TRUE),
            step = 0.001,
            allow_retry = TRUE),
-  # Q4
-  question("Q4) What is the name of the phenomenon where relationships that exist in aggregate disappear or reverse when the data are broken into groups?", 
-           type = "learnr_text",
-           answer_fn(function(value){
-            if ( str_remove_all(str_to_lower(value),
-                                "[^a-z]") %in% 
-                c("simpsonparadox", "simpsonsparadox")) {
-                 return(mark_as(TRUE))}
-                 return(mark_as(FALSE) ) }),
+  # Q7 (NEW, 6.2.2)
+  question("Q7) In `debt_model`, the estimate for `income` is -7.663. Which is the correct interpretation?",
+           answer("Taking into account credit limit, for every increase of $1,000 in income, there is an associated decrease of on average $7.663 in credit card debt.", correct = TRUE),
+           answer("Taking into account credit limit, for every increase of $1 in income, there is an associated decrease of on average $7.663 in credit card debt."),
+           answer("Increasing a person's income by $1,000 causes their credit card debt to decrease by $7.663."),
+           answer("A person with no income and no credit limit has a credit card debt of -$7.663."),
+           random_answer_order = TRUE,
            allow_retry = TRUE),
-  # Q5
-  question("Q5) What is the name of the function that provides you with the fitted values for a model?", 
-           type = "learnr_text",
+  # Q8 (6.2.3)
+  question_text("Q8) What is the name of the function that provides you with the fitted values for a model?",
            answer_fn(function(value){
-            if (str_remove_all(str_to_lower(value), " ") %in% 
-                c("fitted", "fitted()", "fitted(model)", "fitted(debt_model")) {
-                 return(mark_as(TRUE))}
-                 return(mark_as(FALSE) ) }),
+                              v <- str_remove_all(value, "\\s")
+                              if (str_detect(v, "^fitted(\\(.*\\))?$")) {
+                                return(mark_as(TRUE))
+                                }
+                              if (str_detect(str_to_lower(v), "^fitted(\\(.*\\))?$")) {
+                                return(mark_as(FALSE,
+                                  messages = "Check your capitalization: function names in R are case-sensitive."))
+                                }
+                              return(mark_as(FALSE))
+                              }),
            allow_retry = TRUE),
-  question("Q6) What is the name of the function that provides you with the residuals for a model?", 
-           type = "learnr_text",
+  # Q9 (6.2.3)
+  question_text("Q9) What is the name of the function that provides you with the residuals for a model?",
            answer_fn(function(value){
-            if (str_remove_all(str_to_lower(value), " ") %in% 
-                c("residuals", "residuals()", "residuals(model)", "residuals(debt_model")) {
-                 return(mark_as(TRUE))}
-                 return(mark_as(FALSE) ) }),
+                              v <- str_remove_all(value, "\\s")
+                              if (str_detect(v, "^resid(uals)?(\\(.*\\))?$")) {
+                                return(mark_as(TRUE))
+                                }
+                              if (str_detect(str_to_lower(v), "^resid(uals)?(\\(.*\\))?$")) {
+                                return(mark_as(FALSE,
+                                  messages = "Check your capitalization: function names in R are case-sensitive."))
+                                }
+                              return(mark_as(FALSE))
+                              }),
            allow_retry = TRUE),
-  # Q7
-  question_numeric("Q7) How many columns are in debt_model_data?", 
+  # Q10 (6.2.3)
+  question_numeric("Q10) How many columns are in `debt_model_data`?",
            answer(6, correct = TRUE),
            allow_retry = TRUE),
-  # Q8
-  question_numeric("Q8) How many rows are in debt_model_data?", 
+  # Q11 (6.2.3)
+  question_numeric("Q11) How many rows are in `debt_model_data`?",
            answer(400, correct = TRUE),
+           allow_retry = TRUE),
+  # Q12 (NEW, 6.3.1)
+  question("Q12) According to Occam's Razor, when should we prefer a parallel slopes model over an interaction model?",
+           answer("When the slopes in the interaction model are nearly identical, so the additional complexity is not warranted.", correct = TRUE),
+           answer("When the regression lines in the interaction model clearly cross in an x-shaped pattern."),
+           answer("Never; the more complex model should always be preferred."),
+           answer("Whenever the categorical explanatory variable has more than two levels."),
+           random_answer_order = TRUE,
+           allow_retry = TRUE),
+  # Q13 (6.3.1)
+  question_wordbank("Q13) Match each model with the appropriate description.",
+          choices = c("lm(score ~ age + gender, data = evals_ch6)",
+                      "lm(credit_limit + income ~ debt, data = credit_ch6)",
+                      "lm(score ~ age + gender + age * gender, data = evals_ch6)",
+                      "lm(debt ~ credit_limit + income, data = credit_ch6)"),
+          wordbank = c("linear regression model with two numeric explanatory variables", "linear regression interaction model", "linear regression parallel slopes model", "not an appropriate use of a linear regression model"),
+           answer(c("linear regression parallel slopes model",
+                    "not an appropriate use of a linear regression model",
+                    "linear regression interaction model",
+                    "linear regression model with two numeric explanatory variables"), correct = TRUE),
+           allow_retry = TRUE),
+  # Q14 (6.3.2)
+  question_numeric("Q14) Suppose you ran the following lines of code:\n
+
+    credit_ch6 <- credit_ch6 %>%
+      mutate(income_5 = income * 5)
+
+What would the correlation between `debt` and `income_5` in `credit_ch6` be? Round to 3 decimal places.",
+           answer(0.464, correct = TRUE),
+           step = 0.001,
+           allow_retry = TRUE),
+  # Q15 (6.3.3)
+  question_text("Q15) What is the name of the phenomenon where relationships that exist in aggregate disappear or reverse when the data are broken into groups?",
+           answer_fn(function(value){
+                              if (str_remove_all(str_to_lower(value), "[^a-z]") %in%
+                                  c("simpsonparadox", "simpsonsparadox")) {
+                                return(mark_as(TRUE))
+                                }
+                              return(mark_as(FALSE))
+                              }),
+           allow_retry = TRUE),
+  # Q16 (NEW, 6.3.3)
+  question("Q16) In the `credit_ch6` example of Simpson's Paradox, which variable is the confounding variable of the relationship between credit card debt and income?",
+           answer("Credit limit", correct = TRUE),
+           answer("Credit rating"),
+           answer("Age"),
+           answer("Income bracket"),
+           random_answer_order = TRUE,
            allow_retry = TRUE)
 )
-
 ```
 
 ## Submit
@@ -216,4 +298,3 @@ Once you are finished:
 ```{r}
 grade_print_ui("grade")
 ```
-
