@@ -3,7 +3,6 @@ title: "RC 15: Chapter 9.2 - 9.4"
 tutorial:
   id: "RC_15"
   version: 0.1
-  
 output:
   learnr::tutorial:
     progressive: false
@@ -11,7 +10,7 @@ output:
     css: ["css/nu-theme.css"]
 runtime: shiny_prerendered
 description: >
- Learn about sampling distributions.
+  Learn about sampling distributions.
 ---
 
 ```{r setup, include=FALSE}
@@ -32,13 +31,13 @@ grade_server("grade")
 ```{r Name}
 question_text("Name:",
               answer_fn(function(value){
-                              if(length(value) >= 1 ) {
+                              if (nchar(str_trim(value)) >= 1) {
                                 return(mark_as(TRUE))
                                 }
-                              return(mark_as(FALSE) )
+                              return(mark_as(FALSE))
                               }),
               correct = "submitted",
-              allow_retry = FALSE )
+              allow_retry = FALSE)
 ```
 
 ```{r}
@@ -63,93 +62,145 @@ You can click the "View Grade" button as many times as you would like to see you
 ```{r Q}
 quiz(
   caption = NULL,
-  #Question 1
-  question("Q1) Which of the following are TRUE about the theory of repeated samples? Select all that apply.  ",
-           answer("It is a purely theoretical construct - you will not observe repeated samples in real life", correct = TRUE),
-           answer("It allows us to calculate the true value of a population parameter exactly"),
-           answer("It provides the theory for how we can use a sample to infer to a population", correct = TRUE),
-           answer("It relies on the process of randomization (e.g. random sampling)", correct = TRUE),
-           allow_retry = TRUE,
-           random_answer_order = TRUE),
-  # Question 2
-  question_numeric("Q2) What is the maximum value of `replicate` in the `tactile_prop_red` dataset? ", 
+  # Q1 (9.2.1)
+  question("Q1) Which of the following are TRUE about the theory of repeated samples? Select all that apply.",
+           answer("It is a purely theoretical construct - you will not observe repeated samples in real life.", correct = TRUE),
+           answer("It allows us to calculate the true value of a population parameter exactly."),
+           answer("It provides the theory for how we can use a sample to infer to a population.", correct = TRUE),
+           answer("It relies on the process of randomization (e.g. random sampling).", correct = TRUE),
+           random_answer_order = TRUE,
+           allow_retry = TRUE),
+  # Q2 (9.2.2)
+  question_numeric("Q2) What is the maximum value of `replicate` in the `tactile_prop_red` dataset?",
            answer(33, correct = TRUE),
            allow_retry = TRUE),
-  #Q3
-  question_blank(paste0("<strong> Q3) </strong>  <br/>
+  # Q3 (NEW, 9.2.2)
+  question("Q3) In the sampling activity, the 33 students' estimates of the proportion of red balls differed from one another and from the true proportion. What is this variation called?",
+           answer("Sampling variability", correct = TRUE),
+           answer("Bias"),
+           answer("Undercoverage"),
+           answer("Confounding"),
+           random_answer_order = TRUE,
+           allow_retry = TRUE),
+  # Q4 (9.2.3)
+  question_blank("<strong> Q4) Consider the bowl of red and white balls in Figure 9.10 and its virtual analog in the data frame `bowl`. </strong>  <br/>
+a) How many balls total are in the bowl? ___ <br/>
+b) What is the true proportion of red balls in the bowl? (Give as a decimal) ___ <br/>
+c) How many red balls are in the bowl? ___ ",
+           answer_fn(function(value){
+                if (str_remove_all(value, "[\\s,]") == "2400") {
+                    return(mark_as(TRUE))}
+                    return(mark_as(FALSE)) }),
+           answer_fn(function(value){
+                if (str_remove_all(value, "\\s") %in% c("0.375", ".375")) {
+                    return(mark_as(TRUE))}
+                    return(mark_as(FALSE)) }),
+           answer_fn(function(value){
+                if (str_remove_all(value, "[\\s,]") == "900") {
+                    return(mark_as(TRUE))}
+                    return(mark_as(FALSE)) }),
+           allow_retry = TRUE),
+  # Q5 (9.2.3)
+  question_blank("<strong> Q5) </strong>  <br/>
   a) What does the value `TRUE` evaluate to in R? ___  <br/>
-  b) What does the value `FALSE` evaluate to in R? ___"),
+  b) What does the value `FALSE` evaluate to in R? ___",
            answer("1", correct = TRUE),
            answer("0", correct = TRUE),
            allow_retry = TRUE),
-  # Q4
-  question_blank(paste0("<strong> Q4) Consider the tibble `coin_flips_RQ` shown below and the lines of code that follow. </strong>  <br/>",
-  htmltools::img(src="images/coin_flips_RQ.png", height = 400, width = 200)," <br/>
-`coin_flips_RQ %>%  
-                summarize(
-                  sum = sum(result),
-                  mean = mean(result)
-                  )`
-                  <br/>
+  # Q6 (9.2.3)
+  question_blank(paste0("<strong> Q6) Consider the tibble `coin_flips_RQ` shown below and the lines of code that follow. </strong>  <br/>",
+  htmltools::img(src = "images/coin_flips_RQ.png", height = 400, width = 200), " <br/>
+<pre><code>coin_flips_RQ %>%
+  summarize(
+    sum = sum(result),
+    mean = mean(result)
+    )</code></pre>
 a) What is the resulting value for `sum`? ___ <br/>
-b) What is the resulting value for `mean`? ___" ), 
+b) What is the resulting value for `mean`? ___"),
            answer("3", correct = TRUE),
            answer_fn(function(value){
-                if (value %in% c("0.3", ".3", "0.30")) {
+                if (str_remove_all(value, "\\s") %in% c("0.3", ".3", "0.30")) {
                     return(mark_as(TRUE))}
-                    return(mark_as(FALSE) ) }),
+                    return(mark_as(FALSE)) }),
            allow_retry = TRUE),
-  # Q5
-  question_blank(paste0("<strong> Q5) Consider the data frame `virtual_samples_RQ` that results from the following lines of code: </strong>  <br/>
-           `virtual_samples_RQ <- bowl %>%  
-                rep_sample_n(size = 50, reps = 5000)` <br/>
-
+  # Q7 (9.2.3)
+  question_blank("<strong> Q7) Consider the data frame `virtual_samples_RQ` that results from the following lines of code: </strong>  <br/>
+<pre><code>virtual_samples_RQ <- bowl %>%
+  rep_sample_n(size = 50, reps = 5000)</code></pre>
 a) How many rows will `virtual_samples_RQ` have? ___ <br/>
 b) What will be the maximum value of the `replicate` column? ___ <br/>
 c) What will the value of `replicate` be for the 73rd row? ___ <br/>
-d) How many rows will have `replicate == 437`? ___"),
+d) How many rows will have `replicate == 437`? ___",
            answer_fn(function(value){
-                if (value %in% c("250000", "250,000")) {
+                if (str_remove_all(value, "[\\s,]") == "250000") {
                     return(mark_as(TRUE))}
-                    return(mark_as(FALSE) ) }),
+                    return(mark_as(FALSE)) }),
            answer_fn(function(value){
-                if (value %in% c("5000", "5,000")) {
+                if (str_remove_all(value, "[\\s,]") == "5000") {
                     return(mark_as(TRUE))}
-                    return(mark_as(FALSE) ) }),
+                    return(mark_as(FALSE)) }),
            answer("2", correct = TRUE),
            answer("50", correct = TRUE),
            allow_retry = TRUE),
-  # Q6
-  question_blank("<strong> Q6) Consider the bowl of red and white balls in Figure 9.10 and its virtual analog in the data frame bowls. </strong>  <br/>
-a) How many balls total are in the bowl? ___ <br/>
-b) What is the true proportion of red balls in the bowl? ___ <br/>
-c) How many red balls are in the bowl? ___ ",
-           answer_fn(function(value){
-                if (value %in% c("2400", "2,400")) {
-                    return(mark_as(TRUE))}
-                    return(mark_as(FALSE) ) }),
-           answer_fn(function(value){
-                if (value %in% c("0.375", ".375")) {
-                    return(mark_as(TRUE))}
-                    return(mark_as(FALSE) ) }),
-           answer("900", correct = TRUE),
+  # Q8 (NEW, 9.3.1)
+  question("Q8) Why do we divide by $n - 1$ instead of $n$ when calculating the sample variance $s^2$?",
+           answer("Dividing by $n - 1$ makes $s^2$ an unbiased estimator of the population variance $\\sigma^2$.", correct = TRUE),
+           answer("Dividing by $n - 1$ makes the sample variance smaller."),
+           answer("Dividing by $n - 1$ makes the sampling distribution of $s^2$ Normal."),
+           answer("Dividing by $n$ is not possible in R."),
+           random_answer_order = TRUE,
            allow_retry = TRUE),
-  # Q7
-  question("Q7) What phrase do we use to refer to the standard deviation of a sampling distribution? ", 
-           type = "learnr_text",
-           answer_fn(function(value){
-                if (str_remove_all(str_to_lower(value), " ") == "standarderror") {
-                    return(mark_as(TRUE))}
-                    return(mark_as(FALSE) ) }),
+  # Q9 (NEW, 9.3.1)
+  question("Q9) What is the shape of the sampling distribution of the sample variance $s^2$?",
+           answer("Skewed right; it follows a chi-squared distribution with $n - 1$ degrees of freedom.", correct = TRUE),
+           answer("Symmetric; it follows a Normal distribution."),
+           answer("Symmetric; it follows a t-distribution with $n - 1$ degrees of freedom."),
+           answer("Skewed left; it follows a chi-squared distribution with $n$ degrees of freedom."),
+           random_answer_order = TRUE,
            allow_retry = TRUE),
-  # Q8
-  question_wordbank("Q8) Match the following descriptions with the appropriate term:",
-           choices = c("Standard deviation squared; a measure of spread in the data", "The difference between the average value of a sampling distribution and the true population parameter", "The distribution of possible values of estimates across repeated samples","A measure of spread of an estimator across repeated samples", "A parameter of the t-distribution that depends on sample size"),
-           wordbank = c("Variance","Bias", "Sampling distribution", "Standard error", "Degrees of freedom"),
-           answer(c("Variance","Bias", "Sampling distribution", "Standard error", "Degrees of freedom"), correct = TRUE),
+  # Q10 (9.3.2)
+  question_text("Q10) What phrase do we use to refer to the standard deviation of a sampling distribution?",
+           answer_fn(function(value){
+                if (str_detect(str_remove_all(str_to_lower(value), "[^a-z]"), "^(the)?standarderror$")) {
+                    return(mark_as(TRUE))}
+                    return(mark_as(FALSE)) }),
+           allow_retry = TRUE),
+  # Q11 (NEW, 9.3.2)
+  question("Q11) Which of the following are TRUE about bias and precision? Select all that apply.",
+           answer("An estimator with a small standard error is precise.", correct = TRUE),
+           answer("An estimator can be precise but biased.", correct = TRUE),
+           answer("An estimator can be unbiased but imprecise.", correct = TRUE),
+           answer("An unbiased estimator always equals the population parameter in the sample you have."),
+           random_answer_order = TRUE,
+           allow_retry = TRUE),
+  # Q12 (9.3)
+  question_wordbank("Q12) Match the following descriptions with the appropriate term:",
+           choices = c("Standard deviation squared; a measure of spread in the data", "The difference between the average value of a sampling distribution and the true population parameter", "The distribution of possible values of estimates across repeated samples", "A measure of spread of an estimator across repeated samples", "A parameter of the t-distribution that depends on sample size"),
+           wordbank = c("Variance", "Bias", "Sampling distribution", "Standard error", "Degrees of freedom"),
+           answer(c("Variance", "Bias", "Sampling distribution", "Standard error", "Degrees of freedom"), correct = TRUE),
+           allow_retry = TRUE),
+  # Q13 (NEW, 9.3.3)
+  question("Q13) Which of the following statements are TRUE? Select all that apply.",
+           answer("The distribution of a variable is something you can directly examine in your data.", correct = TRUE),
+           answer("The sampling distribution is a property of an estimator across repeated samples.", correct = TRUE),
+           answer("The standard deviation is a property of an estimator across repeated samples."),
+           answer("You can directly observe the sampling distribution in the single sample you have."),
+           random_answer_order = TRUE,
+           allow_retry = TRUE),
+  # Q14 (NEW, 9.4.1)
+  question_numeric("Q14) You take a random sample of $n = 10$ observations and find $\\bar{x} = 5.2$ and $s = 2.1$. What is the standard error of $\\bar{x}$? Round to 3 decimal places.",
+           answer(0.664, correct = TRUE),
+           step = 0.001,
+           allow_retry = TRUE),
+  # Q15 (NEW, 9.4.1)
+  question("Q15) If the population standard deviation is unknown, what is the sampling distribution of the sample mean $\\bar{x}$?",
+           answer("A t-distribution", correct = TRUE),
+           answer("A Normal distribution"),
+           answer("A chi-squared distribution"),
+           answer("A uniform distribution"),
+           random_answer_order = TRUE,
            allow_retry = TRUE)
 )
-
 ```
 
 ## Submit
@@ -163,5 +214,3 @@ Once you are finished:
 ```{r}
 grade_print_ui("grade")
 ```
-
-
