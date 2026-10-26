@@ -3,7 +3,6 @@ title: "RC 18: Chapter 11"
 tutorial:
   id: "RC_18"
   version: 0.1
-  
 output:
   learnr::tutorial:
     progressive: false
@@ -32,13 +31,13 @@ grade_server("grade")
 ```{r Name}
 question_text("Name:",
               answer_fn(function(value){
-                              if(length(value) >= 1 ) {
+                              if (nchar(str_trim(value)) >= 1) {
                                 return(mark_as(TRUE))
                                 }
-                              return(mark_as(FALSE) )
+                              return(mark_as(FALSE))
                               }),
               correct = "submitted",
-              allow_retry = FALSE )
+              allow_retry = FALSE)
 ```
 
 ```{r}
@@ -63,98 +62,101 @@ You can click the "View Grade" button as many times as you would like to see you
 ```{r Q}
 quiz(
   caption = NULL,
-  # Question 1
-    question("Q1) P-values rely on a mathematical technique known as a stochastic proof by _______ .", 
-           type = "learnr_text",
+  # Q1 (11.1)
+  question_text("Q1) P-values rely on a mathematical technique known as a stochastic proof by _______ .",
            answer_fn(function(value){
-             if(str_remove_all(str_to_lower(value), " ") %in% 
-                c("contradiction","Contradiction") ) {
+             if (str_remove_all(str_to_lower(value), "[^a-z]") == "contradiction") {
                return(mark_as(TRUE))
                }
-             return(mark_as(FALSE) )
+             return(mark_as(FALSE))
              }),
-           allow_retry = TRUE), 
-    #question 2
-  question_wordbank("Q2) Imagine that you wish to determine whether a new drug lowers cholesterol in at-risk patients, so you conduct a randomized experiment. You wish to compare the average cholesterol among those who took the drug vs. those who took a placebo. Match each step with the appropriate order for conducting a stochastic proof by contradiction. ",
-  choices = c("Determine the sampling distribution of \\( \\frac{\\bar{x}_T - \\bar{x}_C - 0}{SE(\\bar{x}_T - \\bar{x}_C)} \\) and compute its value in your sample",
-              "Use your p-value to determine the probability that the null hypothesis is true",
-              "Compute a p-value from the t-distribution",
-              "Use your p-value to determine how likely your observed value is under the null hypothesis",
-              "Assume \\(\\mu_T = \\mu_C \\) (i.e. assume \\(\\mu_T - \\mu_C = 0 \\) )",
-              "Assume \\(\\mu_T < \\mu_C \\) (i.e. that those in the treatment group have lower cholesterol on average)"),
-  box = 9,
-  arrange = "ordered",
-  answer(c("Step 2", "This is not a valid step in a stochastic proof by contradiction", "Step 3", "Step 4",  "Step 1","This is not a valid step in a stochastic proof by contradiction"), correct = TRUE),
-  allow_retry = TRUE
-  ),
-    # Q3
-    question("Q3) You conduct a randomized clinical trial where participants are randomly assigned to a diet and exercise regimen and you want to test whether they experience improved sleep quality (measured on a continuous numeric scale) compared to the control group. What is the appropriate null hypothesis?
-             Note this requires determining what the population parameter of interest is (e.g. $\\pi,\\mu,\\pi_1 - \\pi_2,\\mu_T - \\mu_C,\\beta_0,\\beta_1$ )", 
-           answer("$\\beta_0 = 0$"),
-           answer("$\\pi_1 - \\pi_2 = 0$"),
-           answer("$\\pi = \\pi_{national}$"),
-           answer("$\\mu_1 - \\mu_2 = 0$",correct=TRUE),
-           answer("$\\mu = \\mu_{national}$"),
-           answer("$\\beta_1 = 0$"),
-           allow_retry = TRUE,
-           random_answer_order = TRUE), 
-  # Q4
-    question("Q4) You use a survey of a random sample of NU students to test whether the percentage of students experiencing depression at Northwestern differs by minority status (coded as a binary categorical variable). What is the appropriate null hypothesis?
-             Note this requires determining what the population parameter of interest is (e.g. $\\pi,\\mu,\\pi_1 - \\pi_2,\\mu_T - \\mu_C,\\beta_0,\\beta_1$ )", 
-           answer("$\\beta_0 = 0$"),
-           answer("$\\pi_1 - \\pi_2 = 0$",correct=TRUE),
-           answer("$\\pi = \\pi_{national}$"),
-           answer("$\\mu_1 - \\mu_2 = 0$"),
-           answer("$\\mu = \\mu_{national}$"),
-           answer("$\\beta_1 = 0$"),
-           allow_retry = TRUE,
-           random_answer_order = TRUE), 
-  # Q5
-    question("Q5) You use a survey of a random sample of NU students to test whether the percentage of students experiencing depression at Northwestern differs from the national norm. What is the appropriate null hypothesis?
-             Note this requires determining what the population parameter of interest is (e.g. $\\pi,\\mu,\\pi_1 - \\pi_2,\\mu_T - \\mu_C,\\beta_0,\\beta_1$ )", 
-           answer("$\\beta_0 = 0$"),
-           answer("$\\pi_1 - \\pi_2 = 0$"),
-           answer("$\\pi = \\pi_{national}$",correct=TRUE),
-           answer("$\\mu_1 - \\mu_2 = 0$"),
-           answer("$\\mu = \\mu_{national}$"),
-           answer("$\\beta_1 = 0$"),
-           allow_retry = TRUE,
-           random_answer_order = TRUE), 
-  # Q6
-    question("Q6) You fit a regression model to determine if there is a relationship between housing prices (X) and a measure of school quality (Y) across zipcodes. What is the appropriate null hypothesis?
-             Note this requires determining what the population parameter of interest is (e.g. $\\pi,\\mu,\\pi_1 - \\pi_2,\\mu_T - \\mu_C,\\beta_0,\\beta_1$ )", 
-           answer("$\\beta_0 = 0$"),
-           answer("$\\pi_1 - \\pi_2 = 0$"),
-           answer("$\\pi = \\pi_{national}$"),
-           answer("$\\mu_1 - \\mu_2 = 0$"),
-           answer("$\\mu = \\mu_{national}$"),
-           answer("$\\beta_1 = 0$",correct=TRUE),
-           allow_retry = TRUE,
-           random_answer_order = TRUE),
-    # Q7
-    question("Q7) Which of the following are valid examples of a null hypotheses? Select all that apply.", 
-           answer("$\\mu = 19.5$",correct=TRUE),
-           answer("$\\beta_1 = 0$",correct=TRUE),
-           answer("$\\mu_1 - \\mu_2 = 0$",correct=TRUE),
+           allow_retry = TRUE),
+  # Q2 (11.1)
+  question_wordbank("Q2) Imagine that you wish to determine whether a new drug lowers cholesterol in at-risk patients, so you conduct a randomized experiment. You wish to compare the average cholesterol among those who took the drug vs. those who took a placebo. Match each step with the appropriate order for conducting a stochastic proof by contradiction.",
+           choices = c("Determine the sampling distribution of \\( \\frac{\\bar{x}_T - \\bar{x}_C - 0}{SE(\\bar{x}_T - \\bar{x}_C)} \\) and compute its value in your sample",
+                       "Use your p-value to determine the probability that the null hypothesis is true",
+                       "Compute a p-value from the t-distribution",
+                       "Use your p-value to determine how likely your observed value is under the null hypothesis",
+                       "Assume \\( \\mu_T = \\mu_C \\) (i.e. assume \\( \\mu_T - \\mu_C = 0 \\))",
+                       "Assume \\( \\mu_T < \\mu_C \\) (i.e. that those in the treatment group have lower cholesterol on average)"),
+           box = 9,
+           arrange = "ordered",
+           answer(c("Step 2", "This is not a valid step in a stochastic proof by contradiction", "Step 3", "Step 4", "Step 1", "This is not a valid step in a stochastic proof by contradiction"), correct = TRUE),
+           allow_retry = TRUE),
+  # Q3 (11.2.1)
+  question("Q3) Which of the following are valid examples of a null hypothesis? Select all that apply.",
+           answer("$\\mu = 19.5$", correct = TRUE),
+           answer("$\\beta_1 = 0$", correct = TRUE),
+           answer("$\\mu_1 - \\mu_2 = 0$", correct = TRUE),
            answer("$\\bar{x} = 19.5$"),
-           answer("$\\hat{\\pi}_1 - \\hat{\\pi}_2 = 0$"),
+           answer("$\\widehat{\\pi}_1 - \\widehat{\\pi}_2 = 0$"),
            answer("$b_0 = 0$"),
-           answer("$\\pi = 0.5$",correct=TRUE),
-           answer("$\\pi_1 - \\pi_2 = 0$",correct=TRUE),
-           allow_retry = TRUE,
-           random_answer_order = TRUE),
-    # Q8
-    question("Q8) Which of the following are TRUE statements about p-values? Select all that apply.", 
-           answer("A small p-value indicates data as extreme as what you observed is unlikely to occur if the null hypothesis is true", correct = TRUE),
-           answer("A p-value is the probability that the observed statistic was produced by chance alone"),
-           answer("A p-value is the probability of observing a t-statistic as extreme as the one you did assuming the null hypothesis is true", correct = TRUE),
-           answer("A large p-value indicates you observed a large effect"),
-           answer("A p-value is the probability that the null hypothesis is true"),
-           answer("A p-value is the probability that the alternative hypothesis is true"),
-           allow_retry = TRUE,
-           random_answer_order = TRUE), 
-      # Q9
-    question("Q9) Assume for the context of your research question, you decide that a p-value < 0.1 is considered 'small.' Which of the following t-statistic values, if observed and calculated from your data, would result in 'small' p-values (i.e. p-value < 0.1)? Assume you have a sample of n = 1,000 people. Hint: You can use properties you know about the N(0,1) distribution since it is virtually equivalent to the t-distribution when the sample size is this large. Or you can use the function pt() to actually compute the p-values in R.", 
+           answer("$\\pi = 0.5$", correct = TRUE),
+           answer("$\\pi_1 - \\pi_2 = 0$", correct = TRUE),
+           random_answer_order = TRUE,
+           allow_retry = TRUE),
+  # Q4 (11.2.1)
+  question("Q4) You conduct a randomized clinical trial where participants are randomly assigned to a diet and exercise regimen and you want to test whether they experience improved sleep quality (measured on a continuous numeric scale) compared to the control group. What is the appropriate null hypothesis? Note this requires determining what the population parameter of interest is (e.g. $\\pi, \\mu, \\pi_1 - \\pi_2, \\mu_1 - \\mu_2, \\beta_0, \\beta_1$).",
+           answer("$\\beta_0 = 0$"),
+           answer("$\\pi_1 - \\pi_2 = 0$"),
+           answer("$\\pi = \\pi_{national}$"),
+           answer("$\\mu_1 - \\mu_2 = 0$", correct = TRUE),
+           answer("$\\mu = \\mu_{national}$"),
+           answer("$\\beta_1 = 0$"),
+           random_answer_order = TRUE,
+           allow_retry = TRUE),
+  # Q5 (11.2.1)
+  question("Q5) You use a survey of a random sample of NU students to test whether the percentage of students experiencing depression at Northwestern differs by minority status (coded as a binary categorical variable). What is the appropriate null hypothesis? Note this requires determining what the population parameter of interest is (e.g. $\\pi, \\mu, \\pi_1 - \\pi_2, \\mu_1 - \\mu_2, \\beta_0, \\beta_1$).",
+           answer("$\\beta_0 = 0$"),
+           answer("$\\pi_1 - \\pi_2 = 0$", correct = TRUE),
+           answer("$\\pi = \\pi_{national}$"),
+           answer("$\\mu_1 - \\mu_2 = 0$"),
+           answer("$\\mu = \\mu_{national}$"),
+           answer("$\\beta_1 = 0$"),
+           random_answer_order = TRUE,
+           allow_retry = TRUE),
+  # Q6 (11.2.1)
+  question("Q6) You use a survey of a random sample of NU students to test whether the percentage of students experiencing depression at Northwestern differs from the national norm. What is the appropriate null hypothesis? Note this requires determining what the population parameter of interest is (e.g. $\\pi, \\mu, \\pi_1 - \\pi_2, \\mu_1 - \\mu_2, \\beta_0, \\beta_1$).",
+           answer("$\\beta_0 = 0$"),
+           answer("$\\pi_1 - \\pi_2 = 0$"),
+           answer("$\\pi = \\pi_{national}$", correct = TRUE),
+           answer("$\\mu_1 - \\mu_2 = 0$"),
+           answer("$\\mu = \\mu_{national}$"),
+           answer("$\\beta_1 = 0$"),
+           random_answer_order = TRUE,
+           allow_retry = TRUE),
+  # Q7 (11.2.1)
+  question("Q7) You fit a regression model to determine if there is a relationship between housing prices (X) and a measure of school quality (Y) across zipcodes. What is the appropriate null hypothesis? Note this requires determining what the population parameter of interest is (e.g. $\\pi, \\mu, \\pi_1 - \\pi_2, \\mu_1 - \\mu_2, \\beta_0, \\beta_1$).",
+           answer("$\\beta_0 = 0$"),
+           answer("$\\pi_1 - \\pi_2 = 0$"),
+           answer("$\\pi = \\pi_{national}$"),
+           answer("$\\mu_1 - \\mu_2 = 0$"),
+           answer("$\\mu = \\mu_{national}$"),
+           answer("$\\beta_1 = 0$", correct = TRUE),
+           random_answer_order = TRUE,
+           allow_retry = TRUE),
+  # Q8 (NEW, 11.2.2)
+  question("Q8) How is the standardized statistic `t_stat` computed when calculating a p-value?",
+           answer("$\\frac{Estimate - Null \\ value}{SE(Estimate)}$", correct = TRUE),
+           answer("$\\frac{Estimate}{SE(Estimate)}$, always"),
+           answer("$\\frac{Null \\ value - SE(Estimate)}{Estimate}$"),
+           answer("$Estimate - Null \\ value$"),
+           random_answer_order = TRUE,
+           allow_retry = TRUE),
+  # Q9 (NEW, 11.3.2)
+  question_numeric("Q9) In the IMDB movies example, there are 36 romance movies and 32 action movies. Using the conservative approximation from the reading, what are the degrees of freedom for the t-distribution of the difference in means?",
+           answer(31, correct = TRUE),
+           allow_retry = TRUE),
+  # Q10 (NEW, 11.3.2)
+  question("Q10) In the IMDB movies example, `t_stat = 2.91` with $df = 31$. Which lines of code compute the two-sided p-value? Select all that apply.",
+           answer("`2*pt(-2.91, df = 31)`", correct = TRUE),
+           answer("`2*pt(2.91, df = 31, lower.tail = FALSE)`", correct = TRUE),
+           answer("`pt(2.91, df = 31)`"),
+           answer("`2*pt(2.91, df = 31)`"),
+           random_answer_order = TRUE,
+           allow_retry = TRUE),
+  # Q11 (11.3.2)
+  question("Q11) Assume for the context of your research question, you decide that a two-sided p-value < 0.1 is considered 'small.' Which of the following t-statistic values, if observed and calculated from your data, would result in 'small' p-values (i.e. p-value < 0.1)? Assume you have a sample of n = 1,000 people. Hint: You can use properties you know about the N(0,1) distribution since it is virtually equivalent to the t-distribution when the sample size is this large. Or you can use the function `pt()` to actually compute the p-values in R.",
            answer("t-stat = -2.575", correct = TRUE),
            answer("t-stat = -1.7", correct = TRUE),
            answer("t-stat = -1"),
@@ -162,10 +164,43 @@ quiz(
            answer("t-stat = 0.5"),
            answer("t-stat = 1.96", correct = TRUE),
            answer("t-stat = 3.2", correct = TRUE),
-           allow_retry = TRUE,
-           random_answer_order = TRUE)
+           random_answer_order = TRUE,
+           allow_retry = TRUE),
+  # Q12 (NEW, 11.3.4)
+  question("Q12) When a regression model is used to estimate a difference in means, what additional assumption does it make about the data?",
+           answer("The variances are equal in both groups.", correct = TRUE),
+           answer("The sample sizes are equal in both groups."),
+           answer("The means are equal in both groups."),
+           answer("The data in each group are skewed right."),
+           random_answer_order = TRUE,
+           allow_retry = TRUE),
+  # Q13 (NEW, 11.4.2)
+  question("Q13) In the ride-share example, we test the null hypothesis $\\mu_B = 19.50$ using `t.test()`. Which argument must be changed from its default?",
+           answer("`mu = 19.5`, because the default null value is `mu = 0`", correct = TRUE),
+           answer("`y = 19.5`, because a second group is always required"),
+           answer("`df = 99`, because the default degrees of freedom are 0"),
+           answer("No arguments need to be changed."),
+           random_answer_order = TRUE,
+           allow_retry = TRUE),
+  # Q14 (NEW, 11.4.3)
+  question("Q14) In the ride-share example, the intercept-only model `lm(price ~ 1, data = rides_B)` reports a very large t-value of 39.1. Why?",
+           answer("The regression model always assumes the null value is zero, so it computes $\\frac{Estimate - 0}{SE(Estimate)}$.", correct = TRUE),
+           answer("The regression model uses the wrong standard error."),
+           answer("Company B's prices are much higher than Company A's."),
+           answer("The intercept-only model uses the N(0,1) distribution instead of the t-distribution."),
+           random_answer_order = TRUE,
+           allow_retry = TRUE),
+  # Q15 (11.5)
+  question("Q15) Which of the following are TRUE statements about p-values? Select all that apply.",
+           answer("A small p-value indicates data as extreme as what you observed is unlikely to occur if the null hypothesis is true.", correct = TRUE),
+           answer("A p-value is the probability that the observed statistic was produced by chance alone."),
+           answer("A p-value is the probability of observing a t-statistic as extreme as the one you did assuming the null hypothesis is true.", correct = TRUE),
+           answer("A large p-value indicates you observed a large effect."),
+           answer("A p-value is the probability that the null hypothesis is true."),
+           answer("A p-value is the probability that the alternative hypothesis is true."),
+           random_answer_order = TRUE,
+           allow_retry = TRUE)
 )
-
 ```
 
 ## Submit
@@ -179,5 +214,3 @@ Once you are finished:
 ```{r}
 grade_print_ui("grade")
 ```
-
-
