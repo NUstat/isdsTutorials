@@ -3,7 +3,6 @@ title: "RC 19: Chapter 12"
 tutorial:
   id: "RC_19"
   version: 0.1
-  
 output:
   learnr::tutorial:
     progressive: false
@@ -33,13 +32,13 @@ grade_server("grade")
 # student name
 question_text("Name:",
               answer_fn(function(value){
-                              if(length(value) >= 1 ) {
+                              if (nchar(str_trim(value)) >= 1) {
                                 return(mark_as(TRUE))
                                 }
-                              return(mark_as(FALSE) )
+                              return(mark_as(FALSE))
                               }),
               correct = "submitted",
-              allow_retry = FALSE )
+              allow_retry = FALSE)
 ```
 
 ```{r}
@@ -51,7 +50,6 @@ grade_button_ui(id = "grade")
 Complete this tutorial while reading Chapter 12 of the [textbook](https://nustat.github.io/intro-stat-data-sci/12-hypothesis-tests.html). Each question allows 3 'free' attempts. After the third attempt a 10% deduction occurs per attempt.
 
 You can click the "View Grade" button as many times as you would like to see your current grade and the number of attempts you are on. Before submitting make sure your grade is as expected.
-
 
 
 ### Goals
@@ -66,56 +64,119 @@ You can click the "View Grade" button as many times as you would like to see you
 ```{r Q}
 quiz(
  caption = NULL,
-  # Question 1
- question_wordbank("Q1) Match each scenario and decision with whether it corresponds to a Type I or II error.",
+  # Q1 (12.2)
+  question_wordbank("Q1) Match each scenario and decision with whether it corresponds to a Type I or II error.",
        choices = c("The null hypothesis is true but you reject it", "The defendant is guilty but not convicted", "You decide to go to the party but it is not fun", "You decide to stay home but you miss out on a fun party", "The pregnancy test comes back positive but you are not pregnant", "The defendant is innocent but convicted", "The null hypothesis is false but you do not reject it", "The pregnancy test comes back negative but you are pregnant"),
        arrange = "ordered",
        box = 8,
        answer(c("Type I error (false positive)", "Type II error (false negative)", "Type I error (false positive)", "Type II error (false negative)", "Type I error (false positive)", "Type I error (false positive)", "Type II error (false negative)", "Type II error (false negative)"), correct = TRUE),
        allow_retry = TRUE),
-  # Q2
-  question_wordbank("Q2) Match each statistical concept with how it is represented in mathematical symbols.",
-      choices = c("\\(1 - \\beta\\)", "\\(p-value > \\alpha\\)", "\\(p-value < \\alpha\\)", "\\(\\alpha\\)", "\\(\\beta\\)"),
+  # Q2 (NEW, 12.2 - 12.3)
+  question("Q2) Which of the following are TRUE about Type I and Type II errors? Select all that apply.",
+           answer("You cannot minimize both Type I and Type II errors at the same time.", correct = TRUE),
+           answer("In science, the conventional values are $\\alpha = 0.05$ and $\\beta = 0.20$.", correct = TRUE),
+           answer("Setting the p-value threshold to 0 minimizes the Type II error."),
+           answer("A test that always rejects the null hypothesis minimizes the Type I error."),
+           random_answer_order = TRUE,
+           allow_retry = TRUE),
+  # Q3 (12.3)
+  question_wordbank("Q3) Match each statistical concept with how it is represented in mathematical symbols.",
+      choices = c("\\(1 - \\beta\\)", "\\(\\text{p-value} > \\alpha\\)", "\\(\\text{p-value} < \\alpha\\)", "\\(\\alpha\\)", "\\(\\beta\\)"),
       wordbank = c("Power", "Do not reject the null hypothesis", "Reject the null hypothesis", "Type I error", "Type II error"),
       answer(c("Power", "Do not reject the null hypothesis", "Reject the null hypothesis", "Type I error", "Type II error"), correct = TRUE),
-           allow_retry = TRUE),
-  # Question 12
-  question_wordbank("Q3) Match each statistical concept with its appropriate definition.",
+      allow_retry = TRUE),
+  # Q4 (12.3)
+  question_wordbank("Q4) Match each statistical concept with its appropriate definition.",
       choices = c("The probability of NOT rejecting the null hypothesis when it is FALSE", "The probability of rejecting the null hypothesis when it is FALSE", "The probability of rejecting the null hypothesis when it is TRUE"),
       wordbank = c("Type I error", "Type II error", "Power"),
       answer(c("Type II error", "Power", "Type I error"), correct = TRUE),
+      allow_retry = TRUE),
+  # Q5 (NEW, 12.3)
+  question("Q5) According to the reading, the power of a hypothesis test depends on which of the following? Select all that apply.",
+           answer("The magnitude of the effect (e.g. how big the true parameter value is in the population)", correct = TRUE),
+           answer("The sample size $n$", correct = TRUE),
+           answer("The Type I error rate $\\alpha$", correct = TRUE),
+           answer("Whether you use `t.test()` or `lm()` to compute the p-value"),
+           random_answer_order = TRUE,
            allow_retry = TRUE),
-  # Q4
-  question("Q4) Which of the following are TRUE about hypothesis tests? Select all that apply.",
-           answer("The hypotheses must be in terms of sample statistics"),
-           answer("When $p < \\alpha$ you reject the null hypothesis", correct = TRUE),
-           answer("The hypotheses must be in terms of population parameters", correct = TRUE),
-           answer("When $p > \\alpha$ you accept the null hypothesis"),
-           answer("You must pre-specify your $\\alpha$ threshold", correct = TRUE),
-           allow_retry = TRUE,
-           random_answer_order = TRUE),
-  # Q5
-  question("Q5) Assume for the context of your research question, you decide you are comfortable with a 10% Type I error rate. Which of the following test-statistic values, if observed and calculated from your data, would lead you to reject the null hypothesis? Assume you are conducting a two-sided hypothesis test for a proportion, so you can compare your test statistic to the N(0,1) distribution.
-
-Hint: You can use properties you know about the N(0,1) distribution or you can use the function pnorm() to actually compute the two-sided p-values in R. ",
-           answer("t-stat = -2.575", correct = TRUE),
-           answer("t-stat = -1.7", correct = TRUE),
-           answer("t-stat = -1"),
-           answer("t-stat = 0.002"),
-           answer("t-stat = 0.5"),
-           answer("t-stat = 1.96", correct = TRUE),
-           answer("t-stat = 3.2", correct = TRUE),
-           allow_retry = TRUE,
-           random_answer_order = TRUE),
-    question_wordbank("Q6) Imagine that you wish to compare the proportion of NU students ( $\\pi_s$ ) vs. faculty ( $\\pi_f$ ) that support universal healthcare.  Reorder each step in the right column to be in the appropriate order for conducting a hypothesis test to test whether there is a difference in support rates.",
-           choices = c("Determine the Type I error rate you are comfortable with", "Conclude that there is a difference among students vs. faculty in support of universal healthcare if \\(p<\\alpha\\)", "Determine the sampling distribution of \\( \\frac{ (\\hat{\\pi_s}- \\hat{\\pi_f}) - (\\pi_s - \\pi_f) }{ \\sqrt{ \\frac{\\hat{\\pi_0}(1-\\hat{\\pi_0})}{n_s} +\\frac{\\hat{\\pi_0}(1-\\hat{\\pi_0})}{n_f} } } \\)",  "Specify \\(H_0:\\pi_s = \\pi_f\\) vs \\(H_A: \\pi_s \\ne`1 \\pi_f \\)", "Compute your p-value", "Compute the value of \\( \\frac{ \\hat{\\pi_s}- \\hat{\\pi_f}}{ \\sqrt{ \\frac{\\hat{\\pi_0}(1-\\hat{\\pi_0})}{n_s} +\\frac{\\hat{\\pi_0}(1-\\hat{\\pi_0})}{n_f} } } \\) observed in your data"),
+  # Q6 (12.4)
+  question_wordbank("Q6) Imagine that you wish to compare the proportion of NU students ($\\pi_s$) vs. faculty ($\\pi_f$) that support universal healthcare. Match each step with the order in which it should be conducted when testing whether there is a difference in support rates.",
+           choices = c("Determine the Type I error rate you are comfortable with",
+                       "Conclude that there is a difference among students vs. faculty in support of universal healthcare if \\(\\text{p-value} < \\alpha\\)",
+                       "Determine the sampling distribution of \\( \\frac{ (\\widehat{\\pi}_s - \\widehat{\\pi}_f) - (\\pi_s - \\pi_f) }{ \\sqrt{ \\frac{\\widehat{\\pi}_0(1-\\widehat{\\pi}_0)}{n_s} + \\frac{\\widehat{\\pi}_0(1-\\widehat{\\pi}_0)}{n_f} } } \\)",
+                       "Specify \\(H_0: \\pi_s = \\pi_f\\) vs \\(H_A: \\pi_s \\ne \\pi_f\\)",
+                       "Compute your p-value",
+                       "Compute the value of \\( \\frac{ \\widehat{\\pi}_s - \\widehat{\\pi}_f }{ \\sqrt{ \\frac{\\widehat{\\pi}_0(1-\\widehat{\\pi}_0)}{n_s} + \\frac{\\widehat{\\pi}_0(1-\\widehat{\\pi}_0)}{n_f} } } \\) observed in your data"),
            arrange = "ordered",
            box = 8,
            answer(c("Step 2", "Step 6", "Step 3", "Step 1", "Step 5", "Step 4"), correct = TRUE),
+           allow_retry = TRUE),
+  # Q7 (12.4)
+  question("Q7) Which of the following are TRUE about hypothesis tests? Select all that apply.",
+           answer("The hypotheses must be in terms of sample statistics."),
+           answer("When $p < \\alpha$ you reject the null hypothesis.", correct = TRUE),
+           answer("The hypotheses must be in terms of population parameters.", correct = TRUE),
+           answer("When $p > \\alpha$ you accept the null hypothesis."),
+           answer("You must pre-specify your $\\alpha$ threshold.", correct = TRUE),
+           random_answer_order = TRUE,
+           allow_retry = TRUE),
+  # Q8 (NEW, 12.4.1)
+  question_numeric("Q8) In the promotions example, 21 of 24 male files and 14 of 24 female files were selected for promotion. What is the pooled proportion $\\widehat{\\pi}_0$ used in the standard error of the test statistic? Round to 3 decimal places.",
+           answer(0.729, correct = TRUE),
+           step = 0.001,
+           allow_retry = TRUE),
+  # Q9 (NEW, 12.4.1)
+  question("Q9) In the promotions example, the test was specified in advance with $\\alpha = 0.05$, and the resulting p-value was about 0.02. What is the correct conclusion?",
+           answer("Reject the null hypothesis; there is sufficient evidence of gender discrimination in this context.", correct = TRUE),
+           answer("Do not reject the null hypothesis; there is not sufficient evidence of gender discrimination in this context."),
+           answer("Accept the null hypothesis; males and females are promoted at identical rates."),
+           answer("There is a 2% chance that the null hypothesis is true."),
+           random_answer_order = TRUE,
+           allow_retry = TRUE),
+  # Q10 (12.4)
+  question("Q10) Assume for the context of your research question, you decide you are comfortable with a 10% Type I error rate. Which of the following test statistic values, if observed and calculated from your data, would lead you to reject the null hypothesis? Assume you are conducting a two-sided hypothesis test for a proportion, so you can compare your test statistic to the N(0,1) distribution. Hint: You can use properties you know about the N(0,1) distribution or you can use the function `pnorm()` to actually compute the two-sided p-values in R.",
+           answer("test statistic = -2.575", correct = TRUE),
+           answer("test statistic = -1.7", correct = TRUE),
+           answer("test statistic = -1"),
+           answer("test statistic = 0.002"),
+           answer("test statistic = 0.5"),
+           answer("test statistic = 1.96", correct = TRUE),
+           answer("test statistic = 3.2", correct = TRUE),
+           random_answer_order = TRUE,
+           allow_retry = TRUE),
+  # Q11 (NEW, 12.5)
+  question("Q11) You want to test the claim that the average price of rides at company B is **greater than** \\$19.50. How should the hypotheses be written?",
+           answer("$H_0: \\mu_B \\leq 19.50$ vs. $H_A: \\mu_B > 19.50$", correct = TRUE),
+           answer("$H_0: \\mu_B > 19.50$ vs. $H_A: \\mu_B \\leq 19.50$"),
+           answer("$H_0: \\mu_B = 19.50$ vs. $H_A: \\mu_B \\neq 19.50$"),
+           answer("$H_0: \\mu_B \\geq 19.50$ vs. $H_A: \\mu_B < 19.50$"),
+           random_answer_order = TRUE,
+           allow_retry = TRUE),
+  # Q12 (NEW, 12.5)
+  question("Q12) Which of the following are TRUE about one-tailed hypothesis tests compared to two-tailed tests? Select all that apply.",
+           answer("The test statistic is the same.", correct = TRUE),
+           answer("The p-value is half the p-value of the two-tailed test.", correct = TRUE),
+           answer("The null hypothesis always contains equality.", correct = TRUE),
+           answer("If a two-tailed test gives p = 0.051, it is appropriate to switch to a one-tailed test to obtain significance."),
+           random_answer_order = TRUE,
+           allow_retry = TRUE),
+  # Q13 (NEW, 12.7)
+  question_wordbank("Q13) Match each term with its description.",
+           choices = c("Only statistically significant results are published, biasing findings toward non-null effects",
+                       "Conducting many different tests or models in search of something with p < .05",
+                       "Presenting an exploratory finding as if it had been hypothesized in advance"),
+           wordbank = c("Publication bias", "P-hacking", "HARK-ing"),
+           answer(c("Publication bias", "P-hacking", "HARK-ing"), correct = TRUE),
+           allow_retry = TRUE),
+  # Q14 (NEW, 12.7)
+  question("Q14) The American Statistical Association's ATOM guideline for practice stands for:",
+           answer("Accept uncertainty. Be thoughtful, open, and modest.", correct = TRUE),
+           answer("Always test one model."),
+           answer("Assume the null; test often; minimize error."),
+           answer("Accept the null hypothesis when the p-value is over the threshold."),
+           random_answer_order = TRUE,
            allow_retry = TRUE)
-
 )
-
 ```
 
 ## Submit
@@ -129,4 +190,3 @@ Once you are finished:
 ```{r}
 grade_print_ui("grade")
 ```
-
