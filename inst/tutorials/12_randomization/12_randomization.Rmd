@@ -98,7 +98,7 @@ quiz(caption = NULL,
            random_answer_order = TRUE,
            allow_retry = TRUE),
     # Q5 (7.2)
-    question_wordbank("Q5) The following simple linear regression model is used to estimate the treatment effect: \\(\\widehat{y} = b_0 + b_1 T\\), where \\(b_1 = \\bar{y}_T - \\bar{y}_C\\). Match each term with its interpretation.",
+    question_wordbank("Q5) The following simple linear regression model is used to estimate the treatment effect: $\\widehat{y} = b_0 + b_1 T$, where $b_1 = \\bar{y}_T - \\bar{y}_C$. Match each term with its interpretation.",
            choices = c("\\(b_1\\)", "\\(\\bar{y}_T\\)", "\\(\\bar{y}_C\\)", "\\(T\\)", "\\(\\widehat{y}\\)"),
            answer(c("estimated treatment effect", "average outcome in the treatment group", "average outcome in the control group", "indicator variable for whether an individual is in the treatment group", "estimated outcome for an individual"), correct = TRUE),
            allow_retry = TRUE),
