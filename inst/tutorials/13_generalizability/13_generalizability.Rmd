@@ -3,7 +3,6 @@ title: "RC 13: Chapter 8"
 tutorial:
   id: "RC_13"
   version: 0.1
-  
 output:
   learnr::tutorial:
     progressive: false
@@ -32,13 +31,13 @@ grade_server("grade")
 ```{r Name}
 question_text("Name:",
               answer_fn(function(value){
-                              if(length(value) >= 1 ) {
+                              if (nchar(str_trim(value)) >= 1) {
                                 return(mark_as(TRUE))
                                 }
-                              return(mark_as(FALSE) )
+                              return(mark_as(FALSE))
                               }),
               correct = "submitted",
-              allow_retry = FALSE )
+              allow_retry = FALSE)
 ```
 
 ```{r}
@@ -63,78 +62,133 @@ You can click the "View Grade" button as many times as you would like to see you
 
 ```{r Q}
 quiz(caption = NULL,
-  # Q1
-    question_wordbank("Q1) Match each statistic with its corresponding population parameter.", 
+    # Q1 (NEW, 8.1)
+    question("Q1) In the book's notation, what do $N$ and $n$ represent?",
+           answer("$N$ is the population size and $n$ is the sample size.", correct = TRUE),
+           answer("$N$ is the sample size and $n$ is the population size."),
+           answer("$N$ is the number of variables and $n$ is the number of observations."),
+           answer("$N$ and $n$ both represent the sample size."),
+           random_answer_order = TRUE,
+           allow_retry = TRUE),
+    # Q2 (8.1)
+    question_wordbank("Q2) Match each statistic with its corresponding population parameter.",
            choices = c("\\(\\pi\\)", "\\(\\sigma\\)",
-                       "\\(\\beta_1\\)", "\\(\\mu\\)", 
-                        "\\(\\rho\\)", "\\(\\beta_0\\)"),
+                       "\\(\\beta_1\\)", "\\(\\mu\\)",
+                       "\\(\\rho\\)", "\\(\\beta_0\\)"),
            wordbank = c("proportion", "standard deviation",
                         "regression slope", "mean",
                         "correlation", "regression intercept"),
            answer(c("proportion", "standard deviation",
-                    "regression slope", "mean", 
+                    "regression slope", "mean",
                     "correlation", "regression intercept"), correct = TRUE),
-           allow_retry = TRUE), 
-    # Q2
-  question_wordbank("Q2) Match each statistic with its corresponding sample estimator.", 
+           allow_retry = TRUE),
+    # Q3 (8.1)
+    question_wordbank("Q3) Match each statistic with its corresponding sample estimator.",
            choices = c("\\(r\\)", "\\(b_0\\)",
-           "\\(\\hat{\\pi}\\)", "\\(\\bar{x}\\)",
-           "\\(b_1\\)", "\\(s\\)"),
+                       "\\(\\widehat{\\pi}\\)", "\\(\\overline{x}\\)",
+                       "\\(b_1\\)", "\\(s\\)"),
            wordbank = c("proportion", "standard deviation", "regression slope", "mean", "correlation", "regression intercept"),
            answer(c("correlation", "regression intercept",
                     "proportion", "mean", "regression slope",
                     "standard deviation"), correct = TRUE),
-           allow_retry = TRUE), 
-     # Q3
-  question_wordbank("Q3) Match each of the following terms with whether they correspond to a sample or a population.", 
+           allow_retry = TRUE),
+    # Q4 (8.1)
+    question_wordbank("Q4) Match each of the following terms with whether it corresponds to a sample or a population.",
            choices = c("point estimate", "Roman letters", "census", "parameter", "hat notation", "Greek letters"),
            wordbank = c("sample", "population"),
            answer(c("sample", "sample", "population", "population", "sample", "population"), correct = TRUE),
-           allow_retry = TRUE), 
-          # Q4
-  question_wordbank("Q4) Match each of the following steps in the sampling process with the appropriate order they should be conducted.", 
+           allow_retry = TRUE),
+    # Q5 (8.1)
+    question("Q5) Which of the following are TRUE about $\\overline{x}$? Select all that apply.",
+           answer("It is an estimator for $\\sigma$."),
+           answer("It is a measure of 'spread'."),
+           answer("It is a point estimate.", correct = TRUE),
+           answer("It is a measure of 'center'.", correct = TRUE),
+           answer("It is a population parameter."),
+           random_answer_order = TRUE,
+           allow_retry = TRUE),
+    # Q6 (NEW, 8.2)
+    question("Q6) What is **undercoverage**?",
+           answer("When the population frame differs from the population, so that parts of the population cannot be studied.", correct = TRUE),
+           answer("When the sample size is too small to estimate the population parameter."),
+           answer("When some people selected for the sample do not respond."),
+           answer("When a census is used instead of a sample."),
+           random_answer_order = TRUE,
+           allow_retry = TRUE),
+    # Q7 (8.2)
+    question_wordbank("Q7) Imagine you are conducting a survey among the Northwestern student body. You decide to sample 200 students. Match each of the following scenarios with the corresponding sampling procedure.",
+           choices = c("50 students are randomly selected from each of the four classes (i.e. freshmen, sophomores, juniors, seniors)",
+                       "200 students are randomly selected from a list of all NetIDs",
+                       "20 courses are randomly selected, and then 10 students are randomly selected from each course",
+                       "After a random starting point, every 10th student entering the student center is selected",
+                       "The first 200 students who walk past the library are selected"),
+           wordbank = c("stratified sampling",
+                        "simple random sampling",
+                        "cluster sampling",
+                        "systematic sampling",
+                        "convenience sampling"),
+           answer(c("stratified sampling",
+                    "simple random sampling",
+                    "cluster sampling",
+                    "systematic sampling",
+                    "convenience sampling"), correct = TRUE),
+           allow_retry = TRUE),
+    # Q8 (8.1 - 8.2)
+    question("Q8) Which of the following statements are TRUE about random sampling? Select all that apply.",
+           answer("Every unit in the population must have an equal probability of being selected."),
+           answer("Every unit in the population must have a non-zero probability of being selected.", correct = TRUE),
+           answer("Individuals or units must be selected via a random process.", correct = TRUE),
+           answer("It enables us to generalize to the population we sampled from.", correct = TRUE),
+           answer("It requires a population frame to be developed or obtained in advance.", correct = TRUE),
+           random_answer_order = TRUE,
+           allow_retry = TRUE),
+    # Q9 (8.3)
+    question_wordbank("Q9) Match each of the following steps in the sampling process with the order in which they should be conducted.",
            choices = c("1st step", "2nd step", "3rd step", "4th step", "5th step"),
            wordbank = c("Define your population of interest", "Develop a population frame", "Develop a sampling plan", "Obtain your sample", "Collect data on your sample"),
            answer(c("Define your population of interest", "Develop a population frame", "Develop a sampling plan", "Obtain your sample", "Collect data on your sample"), correct = TRUE),
-           allow_retry = TRUE), 
-  #Q5
-    question("Q5) Which of the following are TRUE about $\\bar{x}$? Select all that apply.",
-           answer("It is an estimator for 
-$\\sigma$"),
-           answer("It is a measure of 'spread'"),
-           answer("It is a point estimate", correct = TRUE),
-           answer("It is a measure of 'center'", correct = TRUE),
-           answer("It is a population parameter"),
-           allow_retry = TRUE,
-           random_answer_order = TRUE),  
-    # Q6
- question_wordbank("Q6) Imagine you are conducting a survey among the Northwestern student body. You decide to sample 200 students. Match each of the following scenarios with the corresponding sampling procedures. ", 
-           choices = c("50 students are randomly selected from each of the four classes (i.e. freshman, sophomores, juniors, seniors)", "200 students are randomly selected from a list of all NetIDs", "20 courses are randomly selected, and then 10 students are randomly selected from each course"),
-           wordbank = c("stratified sampling", 
-                        "simple random sampling", 
-                        "cluster sampling"),
-           answer(c("stratified sampling", 
-                        "simple random sampling", 
-                        "cluster sampling"), correct = TRUE),
-           allow_retry = TRUE), 
-    # Q7
-    question("Q7) Which of the following statements are TRUE about random sampling? Select all that apply.",
-           answer("Every unit in the population must have an equal probability of being selected"),
-           answer("Every unit in the population must have a non-zero probability of being selected", correct = TRUE),
-           answer("Individuals or units must be selected via a random process", correct = TRUE),
-           answer("It enables us to generalize to the population we sampled from", correct = TRUE),
-           answer("It requires a population frame to be developed or obtained in advance", correct = TRUE),
-           allow_retry = TRUE,
-           random_answer_order = TRUE),   
-    question_wordbank("Q8) Match each of the following study types with the appropriate conclusions that can be drawn from them.", 
+           allow_retry = TRUE),
+    # Q10 (NEW, 8.3.2)
+    question("Q10) In the movies example, why were movies released before 1930 excluded from the population of interest?",
+           answer("The earliest movies were silent films, and dialogue did not become the norm until the 1930s.", correct = TRUE),
+           answer("The IMDb database does not include movies released before 1930."),
+           answer("Movies before 1930 were too short to be considered standard movies."),
+           answer("Movies before 1930 had no IMDb user ratings."),
+           random_answer_order = TRUE,
+           allow_retry = TRUE),
+    # Q11 (NEW, 8.3.3)
+    question_numeric("Q11) After applying all of the inclusion criteria in the movies example, what is the population size $N$?",
+           answer(39123, correct = TRUE),
+           allow_retry = TRUE),
+    # Q12 (NEW, 8.3.4)
+    question("Q12) In the movies example, sampling 71 movies from each decade is an example of stratified sampling with:",
+           answer("Unequal probabilities, because the decades contain different numbers of movies.", correct = TRUE),
+           answer("Equal probabilities, because the same number of movies is sampled from each decade."),
+           answer("Equal probabilities, because every decade is included."),
+           answer("No probabilities, because stratified sampling is not random."),
+           random_answer_order = TRUE,
+           allow_retry = TRUE),
+    # Q13 (NEW, 8.4)
+    question("Q13) According to the reading, what should you do when you have a sample from an unclear population? Select all that apply.",
+           answer("Assume the sample is a random sample from some population.", correct = TRUE),
+           answer("Define as clearly as you can what population the sample is from, using clear inclusion / exclusion criteria.", correct = TRUE),
+           answer("Conclude that the results generalize to everyone."),
+           answer("Discard the data, since no inferences can be made."),
+           random_answer_order = TRUE,
+           allow_retry = TRUE),
+    # Q14 (8.5)
+    question_wordbank("Q14) Match each of the following study types with the appropriate conclusions that can be drawn from them.",
            choices = c("Random assignment", "Neither random sampling nor random assignment", "Random sampling", "Random sampling + random assignment"),
-           wordbank = c("Causal claim within your sample only", 
-                        "Associational claim within your sample only", "Associational claim, generalized to the whole population", "Causal claim, generalized to the whole population"),
-           answer(c("Causal claim within your sample only", 
-                        "Associational claim within your sample only", "Associational claim, generalized to the whole population", "Causal claim, generalized to the whole population"), correct = TRUE),
+           wordbank = c("Causal claim within your sample only",
+                        "Associational claim within your sample only",
+                        "Associational claim, generalized to the whole population",
+                        "Causal claim, generalized to the whole population"),
+           answer(c("Causal claim within your sample only",
+                    "Associational claim within your sample only",
+                    "Associational claim, generalized to the whole population",
+                    "Causal claim, generalized to the whole population"), correct = TRUE),
            allow_retry = TRUE)
 )
-
 ```
 
 ## Submit
