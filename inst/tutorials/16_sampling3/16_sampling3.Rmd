@@ -3,7 +3,6 @@ title: "RC 16: Chapter 9.5 - 9.7"
 tutorial:
   id: "RC_16"
   version: 0.1
-  
 output:
   learnr::tutorial:
     progressive: false
@@ -32,13 +31,13 @@ grade_server("grade")
 ```{r Name}
 question_text("Name:",
               answer_fn(function(value){
-                              if(length(value) >= 1 ) {
+                              if (nchar(str_trim(value)) >= 1) {
                                 return(mark_as(TRUE))
                                 }
-                              return(mark_as(FALSE) )
+                              return(mark_as(FALSE))
                               }),
               correct = "submitted",
-              allow_retry = FALSE )
+              allow_retry = FALSE)
 ```
 
 ```{r}
@@ -53,81 +52,120 @@ You can click the "View Grade" button as many times as you would like to see you
 
 ### Goals
 
--   Understand standard errors for different estimators.
 -   Describe how differing sample sizes affect the sampling distribution.
--   Understand the Central Limit Theorem and how to use this theorem.
+-   Understand the Central Limit Theorem, its conditions, and how to use this theorem.
 
 ## Reading Quiz
 
 ```{r Q}
 quiz(
   caption = NULL,
-  # Question 1
-   question("Q1) Which of the following are appropriate standardized statistics? Select all that apply. Hint: use the info in Table 9.6.",
-            answer("$( \\frac{\\bar{x}_1 - \\bar{x}_2}{\\sqrt{ \\frac{s^2_1}{n_1} +\\frac{s^2_2}{n_2} } })$", correct = TRUE),
-            answer("$( \\frac{\\hat{\\pi}_1 - \\hat{\\pi}_2}{\\sqrt{ \\frac{s^2_1}{n_1} +\\frac{s^2_2}{n_2} } } )$"),
-            answer("$( \\frac{\\hat{\\pi}}{\\sqrt{ \\frac{\\hat{\\pi}(1-\\hat{\\pi})}{n} } } )$", correct = TRUE),
-            answer("$( \\frac{\\sqrt{n}\\bar{x}}{s} )$", correct = TRUE),
-            allow_retry = TRUE,
-           random_answer_order = TRUE),
-  #Q2
-  question_blank("<strong> Q2) Consider the data frame `virtual_prop_red_100` that results from the following lines of code: </strong> <br/>
-    `virtual_samples_100 <- bowl %>%
-        rep_sample_n(size = 100, reps = 10000)` <br/>
-    `virtual_prop_red_100 <- virtual_samples_100 %>%
-        group_by(replicate) %>%
-        summarize(red = sum(color == 'red')) %>%
-        mutate(prop_red = red / 100)` <br/>
-
-a) How many rows will `virtual_prop_red_100` have? ___ <br/>
-b) What is the maximum possible value of the `red` column (even if it is highly unlikely)? ___ <br/>
-c) What is the maximum possible value of the `prop_red` column (even if it is highly unlikely)? ___ <br/>
-d) How many rows will have `replicate == 437`? ___",
+  # Q1 (9.5.1)
+  question_blank("<strong> Q1) Consider the data frame `virtual_prop_red_100` that results from the following lines of code: </strong> <br/>
+<pre><code>virtual_samples_100 &lt;- bowl %&gt;%
+  rep_sample_n(size = 100, reps = 10000)
+&nbsp;
+virtual_prop_red_100 &lt;- virtual_samples_100 %&gt;%
+  group_by(replicate) %&gt;%
+  summarize(red = sum(color == 'red')) %&gt;%
+  mutate(prop_red = red / 100)</code></pre><br/>a) How many rows will <code>virtual_prop_red_100</code> have? ___ <br/>b) What is the maximum possible value of the <code>red</code> column (even if it is highly unlikely)? ___ <br/>c) What is the maximum possible value of the <code>prop_red</code> column (even if it is highly unlikely)? ___ <br/>d) How many rows will have <code>replicate == 437</code>? ___",
            answer_fn(function(value){
-                if (value %in% c("10000", "10,000")) {
+                if (str_remove_all(value, "[\\s,]") == "10000") {
                     return(mark_as(TRUE))}
-                    return(mark_as(FALSE) ) }),
+                    return(mark_as(FALSE)) }),
            answer("100", correct = TRUE),
            answer("1", correct = TRUE),
            answer("1", correct = TRUE),
-           allow_retry = TRUE), 
-  # Q3
-  question("Q3) Consider using shovels of size 200 and 75 to sample from the bowl of red and white balls. Which of the following are TRUE statements? Select all that apply.",
-           answer("Using a shovel of size 200 would result in a larger standard error for proportions red, compared to using a shovel of size 75"),
-           answer("Using a shovel of size 200 would result in there being more variation in estimates of proportion red, compared to using a shovel of size 75"),
-           answer("Using a shovel of size 200 would give an estimate $\\hat{\\pi}$ that is likely to be closer to the true population parameter $\\pi$, compared to using a shovel of size 75", correct = TRUE),
-           answer("Using a shovel of size 200 would result in the sampling distribution of $\\hat{\\pi}$ having a smaller standard deviation, compared to using a shovel of size 75", correct = TRUE),
-           allow_retry = TRUE,
-           random_answer_order = TRUE), 
-  # Q4
-  question("Q4) Which of the following are TRUE about the theory of repeated samples? Select all that apply.",
-           answer("It is a purely theoretical construct - you will not observe repeated samples in real life", correct = TRUE),
-           answer("It provides the theory for how we can connect a sample estimate to the population parameter we care about", correct = TRUE),
-           answer("It relies on the process of randomization (e.g. random sampling)", correct = TRUE),
-           answer("It ensures that we will get a precise estimate of the population parameter"),
-           answer("It helps us to determine if an estimator (e.g. $\\bar{x}$ or $s^2$) is unbiased", correct = TRUE),
-           allow_retry = TRUE,
-           random_answer_order = TRUE), 
-  # Q5
-  question_blank(paste0("<strong> Q5) Imagine that you have a random sample of students who took the SAT in Illinois, and you find the average SAT Math score in your sample to be $\\bar{x}$ = 527 and the standard deviation of SAT Math scores to be 100. </strong> <br/>
-  
-What is the standard error of your estimate $\\bar{x}$ if your sample has 100 students? ___ <br/>
-What is the standard error of your estimate $\\bar{x}$ if your sample has 400 students? ___ <br/>
-Which sample size (100 or 400) gives a more precise estimate? ___"), 
-           answer("10", correct = TRUE),
-           answer("5", correct = TRUE),
-           answer("400", correct = TRUE),
            allow_retry = TRUE),
-  # Question 10
-  question("Q6) Which of the following are TRUE statements about $\\bar{x}$? Select all that apply. ",
-           answer("In large enough samples, it will be normally distributed, even if the underlying data is skewed", correct = TRUE),
-           answer("Its sampling distribution will become wider as sample size increases"),
-           answer("Its standard error depends on the sample size", correct = TRUE),
-           answer("Its sampling distribution will be centered around the true population mean ($\\mu$)",correct=TRUE),
-           allow_retry = TRUE,
-           random_answer_order = TRUE)
+  # Q2 (NEW, 9.5.1)
+  question_numeric("Q2) According to Table 9.7, what is the standard error of the proportion red when using the shovel with 25 slots? Round to 3 decimal places.",
+           answer(0.098, correct = TRUE),
+           step = 0.001,
+           allow_retry = TRUE),
+  # Q3 (9.5.1)
+  question("Q3) Consider using shovels of size 200 and 75 to sample from the bowl of red and white balls. Which of the following are TRUE statements? Select all that apply.",
+           answer("Using a shovel of size 200 would result in a larger standard error for proportions red, compared to using a shovel of size 75."),
+           answer("Using a shovel of size 200 would result in there being more variation in estimates of proportion red, compared to using a shovel of size 75."),
+           answer("Using a shovel of size 200 would give an estimate $\\widehat{\\pi}$ that is likely to be closer to the true population parameter $\\pi$, compared to using a shovel of size 75.", correct = TRUE),
+           answer("Using a shovel of size 200 would result in the sampling distribution of $\\widehat{\\pi}$ having a smaller standard deviation, compared to using a shovel of size 75.", correct = TRUE),
+           random_answer_order = TRUE,
+           allow_retry = TRUE),
+  # Q4 (NEW, 9.5.1)
+  question("Q4) According to the reading, why is it a general mathematical property that increasing the sample size decreases the standard error?",
+           answer("The sample size $n$ appears in some form in the denominator of each standard error formula.", correct = TRUE),
+           answer("Larger samples always contain more extreme values."),
+           answer("Larger samples make the estimator biased."),
+           answer("The population parameter changes as the sample size increases."),
+           random_answer_order = TRUE,
+           allow_retry = TRUE),
+  # Q5 (9.5)
+  question_blank("<strong> Q5) Imagine that you have a random sample of students who took the SAT in Illinois, and you find the average SAT Math score in your sample to be $\\overline{x}$ = 527 and the standard deviation of SAT Math scores to be 100. </strong> <br/>
+a) What is the standard error of your estimate $\\overline{x}$ if your sample has 100 students? ___ <br/>
+b) What is the standard error of your estimate $\\overline{x}$ if your sample has 400 students? ___ <br/>
+c) Which sample size (100 or 400) gives a more precise estimate? ___",
+           answer_fn(function(value){
+                if (str_trim(value) %in% c("10", "10.0")) {
+                    return(mark_as(TRUE))}
+                    return(mark_as(FALSE)) }),
+           answer_fn(function(value){
+                if (str_trim(value) %in% c("5", "5.0")) {
+                    return(mark_as(TRUE))}
+                    return(mark_as(FALSE)) }),
+           answer_fn(function(value){
+                if (str_trim(value) == "400") {
+                    return(mark_as(TRUE))}
+                    return(mark_as(FALSE)) }),
+           allow_retry = TRUE),
+  # Q6 (NEW, 9.6)
+  question("Q6) According to the Central Limit Theorem, the sampling distribution of the sample mean $\\overline{x}$ is well approximated by:",
+           answer("A Normal distribution with mean $\\mu$ and standard error $\\frac{\\sigma}{\\sqrt{n}}$", correct = TRUE),
+           answer("A Normal distribution with mean $\\mu$ and standard error $\\sigma$"),
+           answer("A chi-squared distribution with $n - 1$ degrees of freedom"),
+           answer("The same distribution as the population, whatever its shape"),
+           random_answer_order = TRUE,
+           allow_retry = TRUE),
+  # Q7 (NEW, 9.6.1)
+  question("Q7) Which of the following are conditions for the Central Limit Theorem to apply? Select all that apply.",
+           answer("Sampled observations must be independent, which is more likely with random sampling / assignment and a sample size less than 10% of the population.", correct = TRUE),
+           answer("Either the population distribution is Normal, or, if it is skewed, the sample size is large.", correct = TRUE),
+           answer("The population distribution must be Normal."),
+           answer("The sample size must be greater than 1,000."),
+           random_answer_order = TRUE,
+           allow_retry = TRUE),
+  # Q8 (NEW, 9.6.2)
+  question("Q8) In the infant mortality example, the underlying data was skewed right. What happened to the sampling distribution of the mean as the sample size increased from $n = 5$ to $n = 30$?",
+           answer("At $n = 5$ it was still slightly skewed right, but at $n = 30$ it was approximately Normal.", correct = TRUE),
+           answer("It was approximately Normal at both $n = 5$ and $n = 30$."),
+           answer("It stayed skewed right at both sample sizes, because the data was skewed right."),
+           answer("It became wider as the sample size increased."),
+           random_answer_order = TRUE,
+           allow_retry = TRUE),
+  # Q9 (9.6)
+  question("Q9) Which of the following are TRUE statements about $\\overline{x}$? Select all that apply.",
+           answer("In large enough samples, it will be Normally distributed, even if the underlying data is skewed.", correct = TRUE),
+           answer("Its sampling distribution will become wider as sample size increases."),
+           answer("Its standard error depends on the sample size.", correct = TRUE),
+           answer("Its sampling distribution will be centered around the true population mean ($\\mu$).", correct = TRUE),
+           random_answer_order = TRUE,
+           allow_retry = TRUE),
+  # Q10 (NEW, 9.7)
+  question("Q10) Statisticians summarize a sampling distribution in three ways. Which of the following are among them? Select all that apply.",
+           answer("Its shape / distribution (e.g. Normal)", correct = TRUE),
+           answer("Its average value compared to the population parameter (bias)", correct = TRUE),
+           answer("Its standard deviation (standard error)", correct = TRUE),
+           answer("Its sample size"),
+           random_answer_order = TRUE,
+           allow_retry = TRUE),
+  # Q11 (9.7)
+  question("Q11) Which of the following are TRUE about the theory of repeated samples? Select all that apply.",
+           answer("It is a purely theoretical construct - you will not observe repeated samples in real life.", correct = TRUE),
+           answer("It provides the theory for how we can connect a sample estimate to the population parameter we care about.", correct = TRUE),
+           answer("It relies on the process of randomization (e.g. random sampling).", correct = TRUE),
+           answer("It ensures that we will get a precise estimate of the population parameter."),
+           answer("It helps us to determine if an estimator (e.g. $\\overline{x}$ or $s^2$) is unbiased.", correct = TRUE),
+           random_answer_order = TRUE,
+           allow_retry = TRUE)
 )
-
 ```
 
 ## Submit
@@ -141,4 +179,3 @@ Once you are finished:
 ```{r}
 grade_print_ui("grade")
 ```
-
