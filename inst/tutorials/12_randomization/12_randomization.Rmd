@@ -3,7 +3,6 @@ title: "RC 12: Chapter 7"
 tutorial:
   id: "RC_12"
   version: 0.1
-  
 output:
   learnr::tutorial:
     progressive: false
@@ -32,13 +31,13 @@ grade_server("grade")
 ```{r Name}
 question_text("Name:",
               answer_fn(function(value){
-                              if(length(value) >= 1 ) {
+                              if (nchar(str_trim(value)) >= 1) {
                                 return(mark_as(TRUE))
                                 }
-                              return(mark_as(FALSE) )
+                              return(mark_as(FALSE))
                               }),
               correct = "submitted",
-              allow_retry = FALSE )
+              allow_retry = FALSE)
 ```
 
 ```{r}
@@ -56,7 +55,7 @@ You can click the "View Grade" button as many times as you would like to see you
 
 -   Understand when a question is causal.
 -   Understand how randomized experiments are formulated.
--   Be able to distinguish the extent to which we are able to make inferences in a given situation with or without randomization.  
+-   Be able to distinguish the extent to which we are able to make inferences in a given situation with or without randomization.
 -   Understand what confounding variables are.
 
 
@@ -64,66 +63,117 @@ You can click the "View Grade" button as many times as you would like to see you
 
 ```{r Q}
 quiz(caption = NULL,
-  # Question 1
-    question("Q1) What is the gold standard method for understanding causality?", 
-           type = "learnr_text",
+    # Q1 (NEW, 7.1)
+    question("Q1) Which of the following is a causal question?",
+           answer("Do after school programs improve student test scores?", correct = TRUE),
+           answer("What is the average test score of students in after school programs?"),
+           answer("How many students attend after school programs?"),
+           answer("Is there an association between attending an after school program and test scores?"),
+           random_answer_order = TRUE,
+           allow_retry = TRUE),
+    # Q2 (NEW, 7.1)
+    question("Q2) According to the reading, what is the tell-tale sign that a question is causal?",
+           answer("The analysis is used to make an argument for changing a procedure, policy, or practice.", correct = TRUE),
+           answer("The question uses the word \"cause\"."),
+           answer("The data come from a randomized experiment."),
+           answer("The question involves two numerical variables."),
+           random_answer_order = TRUE,
+           allow_retry = TRUE),
+    # Q3 (7.2)
+    question_text("Q3) What is the gold standard method for understanding causality?",
            answer_fn(function(value){
-            if (str_remove_all(str_to_lower(value), " ") %in% 
-                c("randomizedexperiment",
-                  "randomizedtrial",
-                  "randomizedcontroltrial",
-                  "randomassignment")) {
-                 return(mark_as(TRUE))}
-                 return(mark_as(FALSE) ) }),
-           allow_retry = TRUE), 
-    # Question 2
-    question_wordbank("Q2) What is the purpose of the rbernoulli() function?",
+                              v <- str_remove_all(str_to_lower(value), "[^a-z]")
+                              if (str_detect(v, "randomi[sz]ed(control(led)?)?(experiment|trial)|randomassignment")) {
+                                return(mark_as(TRUE))
+                                }
+                              return(mark_as(FALSE))
+                              }),
+           allow_retry = TRUE),
+    # Q4 (NEW, 7.2)
+    question("Q4) When we say people are assigned to treatment or control at **random**, what do we mean? Select all that apply.",
+           answer("Every person has some (non-zero) chance of being selected into the treatment or control group.", correct = TRUE),
+           answer("The selection is based on a random process, such as a random number generator.", correct = TRUE),
+           answer("People are assigned in whatever way is most convenient for the researcher."),
+           answer("Each person chooses whether to be in the treatment or control group."),
+           random_answer_order = TRUE,
+           allow_retry = TRUE),
+    # Q5 (7.2)
+    question_wordbank("Q5) The following simple linear regression model is used to estimate the treatment effect: $\\hat{y} = b_0 + b_1T$, where $b_1 = \\bar{y}_T-\\bar{y}_C$. Match each term with its interpretation.",
+           choices = c("\\(b_1\\)", "\\(\\bar{y}_T\\)", "\\(\\bar{y}_C\\)", "\\(T\\)", "\\(\\hat{y}\\)"),
+           answer(c("estimated treatment effect", "average outcome in the treatment group", "average outcome in the control group", "indicator variable for whether an individual is in the treatment group", "estimated outcome for an individual"), correct = TRUE),
+           allow_retry = TRUE),
+    # Q6 (7.2.1)
+    question_wordbank("Q6) Match each function with its purpose.",
            choices = c("fits a linear regression model", "selects columns of a data frame", "randomly selects rows from a data set", "generates results of random coin flips", "selects rows of a data frame"),
            wordbank = c("rbernoulli()", "sample_n()", "lm()",
                         "select()", "filter()"),
-           answer(c("lm()", "select()","sample_n()",
-                    "rbernoulli()", "filter()"), 
+           answer(c("lm()", "select()", "sample_n()",
+                    "rbernoulli()", "filter()"),
                   correct = TRUE),
-           allow_retry = TRUE), 
-      # Q3
-    question_numeric("Q3) In the simulated coin_flips data, what percentage of the coins 'landed on heads'?", 
+           allow_retry = TRUE),
+    # Q7 (7.2.1)
+    question_numeric("Q7) In the simulated `coin_flips` data, what percentage of the coins 'landed on heads'?",
            answer(30, correct = TRUE),
-           allow_retry = TRUE),  
-    # Q4
-  question_wordbank("Q4) The following simple linear regression model is used to estimate the 'average treatment effect.' In $\\hat{y} = b_0 + b_1T$ where $b_1 = \\bar{y}_T-\\bar{y}_C$, Match each term with its interpretation.",
-           choices = c("\\(b_1\\)", "\\(\\bar{y}_T\\)", "\\(\\bar{y}_C\\)", "T", "\\(\\hat{y}\\)"),
-           answer(c("estimated treatment effect", "average outcome in the treatment group", "average outcome in the control group", "indicator variable for whether an individual is in the treatment group", "estimated outcome for an individual"), correct = TRUE),
-           allow_retry = TRUE), 
-           # Q5
-    question("Q5) Which of the following statements are TRUE about the following line of code? rbernouilli(n = 50, p = 0.4)",
-           answer("It will result in 30 TRUE values and 20 FALSE values"),
-           answer("I cannot determine in advance how many TRUE values will result", correct = TRUE),
-           answer("It mimics 50 random 'coin flips', with each coin flip having a 0.4% chance of resulting in 'heads'"),
-           answer("It will result in 20 TRUE values and 30 FALSE values"),
-           allow_retry = TRUE,
-           random_answer_order = TRUE),    
-    # Q6
-    question_wordbank("Q6) Match each phrase with the variable name (letter) it is typically associated with in a model.",
+           allow_retry = TRUE),
+    # Q8 (7.2.1)
+    question("Q8) Which of the following statements is TRUE about the following line of code?\n\n    rbernoulli(n = 50, p = 0.4)",
+           answer("It will result in 30 TRUE values and 20 FALSE values."),
+           answer("I cannot determine in advance how many TRUE values will result.", correct = TRUE),
+           answer("It mimics 50 random 'coin flips', with each coin flip having a 0.4% chance of resulting in 'heads'."),
+           answer("It will result in 20 TRUE values and 30 FALSE values."),
+           random_answer_order = TRUE,
+           allow_retry = TRUE),
+    # Q9 (NEW, 7.2.1)
+    question("Q9) When running a randomized experiment, why might you randomly shuffle participant ID numbers and assign the first half to treatment, instead of flipping a coin for each participant?",
+           answer("To ensure that exactly half of the participants end up in the treatment group.", correct = TRUE),
+           answer("Because coin flips are not truly random."),
+           answer("Because shuffling removes the need for a control group."),
+           answer("Because R cannot simulate coin flips."),
+           random_answer_order = TRUE,
+           allow_retry = TRUE),
+    # Q10 (NEW, 7.3)
+    question("Q10) There is a positive relationship between ice cream sales from street vendors (X) and crime (Y). According to the reading, what is the omitted variable (Z)?",
+           answer("The season and weather", correct = TRUE),
+           answer("The price of ice cream"),
+           answer("The number of police officers"),
+           answer("The number of street vendors"),
+           random_answer_order = TRUE,
+           allow_retry = TRUE),
+    # Q11 (7.3)
+    question_wordbank("Q11) Match each phrase with the variable name (letter) it is typically associated with in a model.",
            choices = c("explanatory variable", "outcome variable", "dependent variable", "omitted variable", "predictor variable", "confounding variable"),
-           wordbank = c("X", "Y", "Z"), 
+           wordbank = c("X", "Y", "Z"),
            answer(c("X", "Y", "Y", "Z", "X", "Z"), correct = TRUE),
-           allow_retry = TRUE),    
-          # Q7
-    question("Q7) Which of the following statements are TRUE? Select all that apply.",
-           answer("In observational data, the relationship between T and Y, adjusting for Z, will be similar to the relationship between T and Y alone"),
-           answer("Randomization ensures that on average, treatment and control groups are equivalent on all observed AND unobserved pre-treatment characteristics", correct = TRUE),
-           answer("Adding omitted variables to a model substantially changes the estimated treatment effect in a randomized experiment"),
-           answer("You do not have to worry about confounding in a randomized experiment", correct = TRUE),
-           allow_retry = TRUE,
-           random_answer_order = TRUE),    
-          # Q8
-    question_numeric("Q8) In the ed_data randomized experiment example (i.e. in the scenario where treatment status was randomly assigned), what percentage of students in the control group were minority students? Round to 1 decimal place.", 
+           allow_retry = TRUE),
+    # Q12 (7.4.1)
+    question_numeric("Q12) How many students were randomly assigned to the treatment group in the `ed_data` example?",
+           answer(167, correct = TRUE),
+           allow_retry = TRUE),
+    # Q13 (7.4.1)
+    question_numeric("Q13) In the `ed_data` randomized experiment example (i.e. the scenario where treatment status was randomly assigned), what percentage of students in the control group were minority students? Round to 1 decimal place.",
            answer(32.7, correct = TRUE),
            step = 0.1,
-           allow_retry = TRUE), 
-    # Q9
-    question_numeric("Q9) How many students did we randomly assign to the treatment group in the ed_data example?", 
-           answer(167, correct = TRUE),
+           allow_retry = TRUE),
+    # Q14 (NEW, 7.4.2)
+    question_numeric("Q14) In the randomized experiment scenario, what is the estimated treatment effect $b_1$ from the model `lm(MATH_post_trt_rand ~ Trt_rand, data = ed_data)`? Round to 1 decimal place.",
+           answer(10, correct = TRUE),
+           step = 0.1,
+           allow_retry = TRUE),
+    # Q15 (NEW, 7.4.2)
+    question("Q15) In the non-random assignment scenario, the estimated treatment effect was much smaller than the true effect of 10 points. Why?",
+           answer("Treatment was confounded with SES and other pre-treatment variables.", correct = TRUE),
+           answer("The sample size was too small."),
+           answer("The new curriculum does not work for students with low SES."),
+           answer("The rnorm() function generated incorrect post-test scores."),
+           random_answer_order = TRUE,
+           allow_retry = TRUE),
+    # Q16 (7.4 - 7.5)
+    question("Q16) Which of the following statements are TRUE? Select all that apply.",
+           answer("In observational data, the relationship between T and Y, adjusting for Z, will be similar to the relationship between T and Y alone."),
+           answer("Randomization ensures that on average, treatment and control groups are equivalent on all observed AND unobserved pre-treatment characteristics.", correct = TRUE),
+           answer("Adding omitted variables to a model substantially changes the estimated treatment effect in a randomized experiment."),
+           answer("You do not have to worry about confounding in a randomized experiment.", correct = TRUE),
+           random_answer_order = TRUE,
            allow_retry = TRUE)
   )
 ```
@@ -139,4 +189,3 @@ Once you are finished:
 ```{r}
 grade_print_ui("grade")
 ```
-
