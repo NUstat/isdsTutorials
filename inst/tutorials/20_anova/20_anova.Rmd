@@ -3,7 +3,6 @@ title: "RC 20: Chapter 13"
 tutorial:
   id: "RC_20"
   version: 0.1
-  
 output:
   learnr::tutorial:
     progressive: true
@@ -24,12 +23,12 @@ library(moderndive)
 gradethis_setup()
 knitr::opts_chunk$set(echo = FALSE)
 
-evals_for_anova <- evals |> 
-  select(ID, prof_ID, score, rank) 
+evals_for_anova <- evals |>
+  select(ID, prof_ID, score, rank)
 
 coffee_data <- coffee_quality |>
-  select(aroma, 
-         flavor, 
+  select(aroma,
+         flavor,
          moisture_percentage,
          total_cup_points)
 
@@ -50,13 +49,13 @@ grade_server("grade")
 # student name
 question_text("Name:",
               answer_fn(function(value){
-                              if(length(value) >= 1 ) {
+                              if (nchar(str_trim(value)) >= 1) {
                                 return(mark_as(TRUE))
                                 }
-                              return(mark_as(FALSE) )
+                              return(mark_as(FALSE))
                               }),
               correct = "submitted",
-              allow_retry = FALSE )
+              allow_retry = FALSE)
 ```
 
 ```{r}
@@ -70,39 +69,63 @@ Complete this tutorial while reading Chapter 13 of the [textbook](https://nustat
 You can click the "View Grade" button as many times as you would like to see your current grade and the number of attempts you are on. Before submitting make sure your grade is as expected.
 
 
-
 ### Goals
 
--   use a one-way ANOVA test to compare the means of three or more groups
--   use an ANOVA test for model comparison
--   find the F-statistic and use the p-value to evaluate the test results
+-   Use a one-way ANOVA test to compare the means of three or more groups.
+-   Use an ANOVA test for model comparison.
+-   Find the F-statistic and use the p-value to evaluate the test results.
 
 ## One way ANOVA
 
 ANOVA, or analysis of variance, is a statistical technique used to compare the means of three or more groups. Rather than comparing groups two at a time, ANOVA evaluates whether there is evidence that at least one group mean differs from the others.
 
-```{r one-way-anova-1}
-question("What is the alternative hypothesis for testing if the average evaluation score across professors of different rank are different.",
-           answer("at least one population mean differs", correct = TRUE),
-           answer("$\\mu_{teaching} \\ne \\mu_{tenure-track} \\ne \\mu_{tenured}$"),
-           answer("$\\mu_{teaching} = \\mu_{tenure-track} = \\mu_{tenured}$"),
-           answer("at most one population mean differs"),
+```{r one-way-anova-0}
+# NEW (13 intro)
+question("Why do we use ANOVA instead of conducting multiple two-sample t-tests when comparing three or more groups?",
+           answer("Using multiple two-sample t-tests would be inefficient and could increase the chance of making incorrect conclusions.", correct = TRUE),
+           answer("Two-sample t-tests cannot be computed in R when there are more than two groups in the data."),
+           answer("ANOVA does not require a categorical explanatory variable."),
+           answer("ANOVA always produces smaller p-values than t-tests."),
            allow_retry = TRUE,
            random_answer_order = TRUE)
+```
 
+###
+
+```{r one-way-anova-1a}
+# NEW (13.1)
+question("What is the null hypothesis for testing whether the average evaluation score differs across professors of different rank?",
+           answer("$\\mu_{teaching} = \\mu_{tenure-track} = \\mu_{tenured}$ (all population group means are equal)", correct = TRUE),
+           answer("$\\bar{x}_{teaching} = \\bar{x}_{tenure-track} = \\bar{x}_{tenured}$ (all sample group means are equal)"),
+           answer("At least one population mean differs"),
+           answer("All observations in the dataset are equal"),
+           allow_retry = TRUE,
+           random_answer_order = TRUE)
+```
+
+###
+
+```{r one-way-anova-1}
+question("What is the alternative hypothesis for testing whether the average evaluation score differs across professors of different rank?",
+           answer("At least one population mean differs", correct = TRUE),
+           answer("$\\mu_{teaching} \\ne \\mu_{tenure-track} \\ne \\mu_{tenured}$"),
+           answer("$\\mu_{teaching} = \\mu_{tenure-track} = \\mu_{tenured}$"),
+           answer("At most one population mean differs"),
+           allow_retry = TRUE,
+           random_answer_order = TRUE)
 ```
 
 
 ### Exercise 2
 
-Using the `evals_for_anova` dataset, fit a one-way ANOVA model with the formula `score ~ rank`. Assign this model to the object `evals_aov_model`
+Using the `evals_for_anova` dataset, fit a one-way ANOVA model with the formula `score ~ rank`. Assign this model to the object `evals_aov_model`.
 
 ```{r one-way-anova-2, exercise = TRUE}
 
 ```
 
 ```{r one-way-anova-2-hint-1, eval = FALSE}
-eval_aov_model <- aov(...)
+evals_aov_model <- aov(...)
 ```
 
 ```{r one-way-anova-2-solution, exercise.reveal_solution = FALSE}
@@ -115,35 +138,81 @@ grade_this_code()
 
 ###
 
+```{r one-way-anova-2a}
+# NEW (13.1)
+question("The F-statistic compares which two quantities?",
+           answer("The variability between group means and the variability within groups", correct = TRUE),
+           answer("The mean of the largest group and the mean of the smallest group"),
+           answer("The sample size and the number of groups"),
+           answer("The p-value and the significance level"),
+           allow_retry = TRUE,
+           random_answer_order = TRUE)
+```
+
+###
+
+```{r one-way-anova-2b}
+# NEW (13.1)
+question("A large F-statistic suggests that:",
+           answer("The variability between groups is large relative to the variability within groups, providing stronger evidence against the null hypothesis.", correct = TRUE),
+           answer("The variability within groups is large relative to the variability between groups."),
+           answer("All of the group means are equal."),
+           answer("The response variable is categorical."),
+           allow_retry = TRUE,
+           random_answer_order = TRUE)
+```
+
+###
+
 ```{r one-way-anova-3}
-question_numeric("What is the f-statistic, rounded to 2 digits?",
-           answer("2.71", correct = TRUE),
+question_numeric("What is the F-statistic for `evals_aov_model`? Round to 2 decimal places.",
+           answer(2.71, correct = TRUE),
            tolerance = 0.005,
            allow_retry = TRUE)
+```
 
+###
+
+```{r one-way-anova-3a}
+# NEW (13.1)
+question_blank("<strong> There are $k = 3$ professor ranks and $n = 463$ observations. </strong> <br/>a) What are the numerator degrees of freedom $df_1$? ___ <br/>b) What are the denominator degrees of freedom $df_2$? ___",
+           answer("2", correct = TRUE),
+           answer("460", correct = TRUE),
+           allow_retry = TRUE)
 ```
 
 ###
 
 ```{r one-way-anova-4}
-question_numeric("What is the p-value, rounded to 3 digits?",
-           answer("0.068", correct = TRUE),
+question_numeric("What is the p-value for `evals_aov_model`? Round to 3 decimal places.",
+           answer(0.068, correct = TRUE),
            tolerance = 0.0005,
            allow_retry = TRUE)
-
 ```
 
 ###
 
 ```{r one-way-anova-5}
-question("At which of the following p-values would you reject the null hypothesis?",
-           answer("0.05"),
-           answer("0.01"),
-           answer("0.10", correct = TRUE),
-           answer("0.07", correct = TRUE),
+question("At which of the following significance levels ($\\alpha$) would you reject the null hypothesis? Select all that apply.",
+           answer("$\\alpha = 0.05$"),
+           answer("$\\alpha = 0.01$"),
+           answer("$\\alpha = 0.10$", correct = TRUE),
+           answer("$\\alpha = 0.07$", correct = TRUE),
            allow_retry = TRUE,
            random_answer_order = TRUE)
+```
 
+###
+
+```{r one-way-anova-6}
+# NEW (13.1)
+question("The book conducts this test at $\\alpha = 0.05$. What is the correct conclusion?",
+           answer("Fail to reject the null hypothesis; the data do not provide sufficient evidence that mean evaluation scores differ across professor ranks.", correct = TRUE),
+           answer("Reject the null hypothesis; mean evaluation scores differ across professor ranks."),
+           answer("Accept the null hypothesis; mean evaluation scores are equal across professor ranks."),
+           answer("Reject the null hypothesis; all three mean evaluation scores are different from one another."),
+           allow_retry = TRUE,
+           random_answer_order = TRUE)
 ```
 
 
@@ -151,13 +220,24 @@ question("At which of the following p-values would you reject the null hypothesi
 
 Another useful hypothesis test in multiple linear regression compares two models: one with a given set of explanatory variables called the full model and the other with only a subset of those explanatory variables called the reduced model.
 
+```{r model-comparison-0}
+# NEW (13.2)
+question("In the ANOVA test for comparing a full and reduced regression model, what does the reduced model represent?",
+           answer("A model that contains only a subset of the explanatory variables from the full model", correct = TRUE),
+           answer("A model that contains all explanatory variables from the full model"),
+           answer("A model fit using fewer observations"),
+           answer("A model with transformed explanatory variables"),
+           allow_retry = TRUE,
+           random_answer_order = TRUE)
+```
+
+###
 
 ```{r model-comparison-1}
-question_numeric("What is the correlation between total_cup_points and aroma, rounded to 2 decimal places?",
-           answer("0.87", correct = TRUE),
+question_numeric("What is the correlation between `total_cup_points` and `aroma`? Round to 2 decimal places.",
+           answer(0.87, correct = TRUE),
            tolerance = 0.005,
            allow_retry = TRUE)
-
 ```
 
 
@@ -204,10 +284,23 @@ mod_mult_2 <- lm(total_cup_points ~ aroma + moisture_percentage, data = coffee_d
 grade_this_code()
 ```
 
+###
+
+```{r model-comparison-3a}
+# NEW (13.2)
+question("What is the null hypothesis for the ANOVA test comparing `mod_mult_2` (reduced) and `mod_mult_1` (full)?",
+           answer("$H_0$: the reduced model is adequate", correct = TRUE),
+           answer("$H_0$: the full model is needed"),
+           answer("$H_0$: all of the regression coefficients are different"),
+           answer("$H_0$: the residuals of the two models follow a Normal distribution"),
+           allow_retry = TRUE,
+           random_answer_order = TRUE)
+```
+
 
 ### Exercise 4
 
-Conduct and ANOVA test to determine if the reduced model is adequate or if the full model is needed to predict total cup points. Use the `anova()` function and enter the reduced model followed by the full model 
+Conduct an ANOVA test to determine if the reduced model is adequate or if the full model is needed to predict total cup points. Use the `anova()` function and enter the reduced model followed by the full model.
 
 ```{r model-comparison-4, exercise = TRUE}
 
@@ -218,7 +311,7 @@ anova(reduced model, full model)
 ```
 
 ```{r model-comparison-4-solution, exercise.reveal_solution = FALSE}
-anova(mod_mult_2, mod_mult_1) 
+anova(mod_mult_2, mod_mult_1)
 ```
 
 ```{r model-comparison-4-check}
@@ -235,7 +328,6 @@ question("What is your decision regarding the hypothesis test at the 0.05 signif
            answer("Fail to reject the null hypothesis, the full model is needed."),
            allow_retry = TRUE,
            random_answer_order = TRUE)
-
 ```
 
 
@@ -250,4 +342,3 @@ Once you are finished:
 ```{r}
 grade_print_ui("grade")
 ```
-
